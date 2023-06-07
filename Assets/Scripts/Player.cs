@@ -9,7 +9,7 @@ public class Player : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer) return;
+        if (!isOwned) return;
         Vector3 moveDirection = Vector3.zero;
 
         if(Input.GetKey(KeyCode.W)) moveDirection.y = 1f;
