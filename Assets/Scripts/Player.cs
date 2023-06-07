@@ -17,6 +17,6 @@ public class Player : NetworkBehaviour
         if(Input.GetKey(KeyCode.D)) moveDirection.x = 1f;
         if(Input.GetKey(KeyCode.A)) moveDirection.x = -1f;
 
-        transform.position += moveDirection.normalized * speed * Time.deltaTime;
+        transform.position += moveDirection.normalized * speed * Time.fixedDeltaTime;
     }
 }
