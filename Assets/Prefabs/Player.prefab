@@ -120,7 +120,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _speed: 3
+  _speed: 1
 --- !u!114 &-2400162555924161077
 MonoBehaviour:
   m_ObjectHideFlags: 0
