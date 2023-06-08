@@ -19,6 +19,11 @@ public class MovementComponent : NetworkBehaviour
         {
             _movementVector = value;
         }
+
+        get
+        {
+            return _movementVector;
+        }
     }
     
     [SerializeField] private float _speed = 3;
