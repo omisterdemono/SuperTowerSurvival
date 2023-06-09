@@ -7,33 +7,33 @@ using UnityEngine.UIElements.Experimental;
 
 public abstract class ActiveSkill : NetworkBehaviour, ISkill
 {
-    [SerializeField] public string SkillName;
-    [SerializeField] public string SkillDescription;
+    [SerializeField] private string SkillName;
+    [SerializeField] private string SkillDescription;
     [SerializeField] private float _skillCooldown;
+    [SerializeField] private float _castTime;
 
-    public bool IsStarted;
-    public float CastTime;
-    public float PassedTime;
+    private bool IsStarted;
+    private float _passedTime;
     private float _casting;
 
     //[SerializeField] public Sprite icon;
     //[SerializeField] public Image castFill;
     //[SerializeField] public Text timeText;
     //[SerializeField] public CanvasGroup CastBar;
-    public bool IsReady;
+    private bool _isReady;
 
     private GameObject _player;
 
     public void Start()
     {
-        PassedTime = _skillCooldown;
+        _passedTime = _skillCooldown;
     }
 
     public void Update()
     {
-        if (PassedTime < _skillCooldown)
+        if (_passedTime < _skillCooldown)
         {
-            PassedTime += Time.deltaTime;
+            _passedTime += Time.deltaTime;
         }
     }
 
@@ -44,32 +44,32 @@ public abstract class ActiveSkill : NetworkBehaviour, ISkill
     {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
-            IsReady = false;
+            _isReady = false;
         }
-        if (PassedTime >= _skillCooldown || IsStarted)
+        if (_passedTime >= _skillCooldown || IsStarted)
         {
-            if (IsReady)
+            if (_isReady)
             {
                 if (Input.GetMouseButtonDown(0) && !IsStarted)
                 {
-                    if (CastTime != 0)
+                    if (_castTime != 0)
                     {
                         StartCast();
                     }
                     else
                     {
                         IsStarted = true;
-                        PassedTime = 0;
+                        _passedTime = 0;
                     }
                 }
-                if (_casting == CastTime || _player.GetComponent<MovementComponent>().MovementVector != Vector3.zero && IsStarted)
+                if (_casting == _castTime || _player.GetComponent<MovementComponent>().MovementVector != Vector3.zero && IsStarted)
                 {
                     FinishCast();
                 }
             }
         }
         else
-            IsReady = false;
+            _isReady = false;
     }
 
     public void Casting()
@@ -79,9 +79,9 @@ public abstract class ActiveSkill : NetworkBehaviour, ISkill
         //castFill.fillAmount = Mathf.Lerp(0, 1, _casting * rate);
         //timeText.text = _casting.ToString("0.0");
         _casting += 0.1f;
-        if (_casting >= CastTime)
+        if (_casting >= _castTime)
         {
-            _casting = CastTime;
+            _casting = _castTime;
             //CastBar.alpha = 0;
         }
     }
@@ -90,14 +90,14 @@ public abstract class ActiveSkill : NetworkBehaviour, ISkill
     {
         InvokeRepeating("Casting", 0, 0.1f);
         IsStarted = true;
-        PassedTime = 0;
+        _passedTime = 0;
     }
 
     public virtual void FinishCast()
     {
         CancelInvoke("Casting");
         _casting = 0;
-        IsReady = false;
+        _isReady = false;
         //CastBar.alpha = 0;
         IsStarted = false;
     }

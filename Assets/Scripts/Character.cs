@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class Character : NetworkBehaviour
 {
     private MovementComponent _movement;
+    private HealthComponent _health;
 
-    [SerializeField] float _repairSpeedModifier = 1;
-    [SerializeField] float _buildSpeedModifier = 1;
-    [SerializeField] float _weaponDamageModifier = 1;
+    [SerializeField] private float _repairSpeedModifier = 1;
+    [SerializeField] private float _buildSpeedModifier = 1;
+    [SerializeField] private float _weaponDamageModifier = 1;
 
-    [SerializeField] List<ISkill> _activeSkills;
-    [SerializeField] List<ISkill> _passiveSkills;
+    [SerializeField] private List<ActiveSkill> _activeSkills;
+    [SerializeField] private List<PassiveSkill> _passiveSkills;
 
     void Awake()
     {
@@ -38,6 +40,14 @@ public class Character : NetworkBehaviour
         foreach (var skill in _passiveSkills)
         {
             skill.UseSkill();
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _activeSkills.First().UseSkill();
         }
     }
 

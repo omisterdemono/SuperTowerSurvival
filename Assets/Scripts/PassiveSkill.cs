@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PassiveSkill : ISkill
+public abstract class PassiveSkill : NetworkBehaviour, ISkill
 {
     GameObject player;
 
