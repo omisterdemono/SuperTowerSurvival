@@ -4,6 +4,9 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(HealthComponent))]
+[RequireComponent(typeof(MovementComponent))]
+[RequireComponent(typeof(NetworkTransform))]
 public class Character : NetworkBehaviour
 {
     private MovementComponent _movement;

@@ -1,8 +1,12 @@
 using FSM;
 using Mirror;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(HealthComponent))]
+[RequireComponent(typeof(MovementComponent))]
+[RequireComponent(typeof(NetworkTransform))]
+public class Enemy : NetworkBehaviour
 {
     [SerializeField] private float _searchRadius;
     [SerializeField] private float _attackRadius;
@@ -12,23 +16,12 @@ public class Enemy : MonoBehaviour
 
     private StateMachine _stateMachine = new StateMachine();
 
-    public void Awake() //override
+    private void Awake() //override
     {
         _movementComponent = GetComponent<MovementComponent>();
 
         //states
-        _stateMachine.AddState("Idle", new State(
-            onEnter: (state) =>
-            {
-                Debug.Log("entered idle");
-            },
-            onLogic: (state) =>
-        {
-            if (FindObjectOfType<Player>() != null)
-            {
-                _playerTransform = FindObjectOfType<Player>().transform;
-            }
-        }));
+        _stateMachine.AddState("Idle", new State());
 
         _stateMachine.AddState("FollowPlayer", new State(
         onLogic: (state) =>
@@ -49,16 +42,16 @@ public class Enemy : MonoBehaviour
 
         //transitions
         //idle - follow 
+        _stateMachine.AddTransition(new Transition(
+            "Idle",
+            "FollowPlayer",
+            (transition) => _playerTransform != null && DistanceToPlayer() < _searchRadius
+        ));
+
         _stateMachine.AddTransitionFromAny(new Transition(
             "",
             "Idle",
             (transition) => DistanceToPlayer() > _searchRadius
-        ));
-
-        _stateMachine.AddTransition(new Transition(
-            "Idle",
-            "FollowPlayer",
-            (transition) => DistanceToPlayer() < _searchRadius
         ));
 
         //follow - attack
@@ -101,8 +94,23 @@ public class Enemy : MonoBehaviour
         return distance;
     }
 
-    private Vector2 MoveTowardsPlayer(float speed)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        return Vector2.MoveTowards(transform.position, _playerTransform.position, speed * Time.deltaTime);
+        var character = collision.GetComponent<Character>();
+
+        if (character)
+        {
+            _playerTransform = character.transform;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        var character = collision.GetComponent<Character>();
+
+        if (character.transform == _playerTransform)
+        {
+            _playerTransform = null;
+        }
     }
 }
