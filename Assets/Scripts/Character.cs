@@ -7,9 +7,14 @@ using UnityEngine.EventSystems;
 public class Character : NetworkBehaviour
 {
     private MovementComponent _movement;
+    private Animator _animator;
+    
+    [SerializeField] private Animation _obtainAnimation;
+
     void Awake()
     {
         _movement = GetComponent<MovementComponent>();
+        _animator = GetComponent<Animator>();
     }
     void FixedUpdate()
     {
@@ -23,5 +28,22 @@ public class Character : NetworkBehaviour
 
         _movement.MovementVector = moveVector;
         _movement.Move();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _obtainAnimation.Play("Collect");
+            //_animator.SetTrigger("Obtain");
+        }
+    }
+
+    public void TryObtain()
+    {
+        var instrument = GetComponentInChildren<Pickaxe>();
+        if (!instrument)
+        {
+            return;
+        }
+
+        instrument.Obtain();
     }
 }
