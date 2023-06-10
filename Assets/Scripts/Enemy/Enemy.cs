@@ -1,5 +1,6 @@
 using FSM;
 using Mirror;
+using System;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -8,6 +9,9 @@ using UnityEngine.TextCore.Text;
 [RequireComponent(typeof(NetworkTransform))]
 public class Enemy : NetworkBehaviour
 {
+    private GameObject _mainHall;
+    private GameObject _target;
+
     [SerializeField] private float _searchRadius;
     [SerializeField] private float _attackRadius;
 
@@ -18,16 +22,31 @@ public class Enemy : NetworkBehaviour
 
     private void Awake() //override
     {
+        _mainHall = GameObject.FindGameObjectWithTag("MainHall");
+
         _movementComponent = GetComponent<MovementComponent>();
 
         //states
-        _stateMachine.AddState("Idle", new State());
+        _stateMachine.AddState("Move2Hall", new State(
+        onLogic: (state) =>
+        {
+            _movementComponent.MovementVector = (_mainHall.transform.position - transform.position).normalized;
+            _movementComponent.Move();
+        },
+        onEnter: (state) =>
+        {
+            Debug.Log("Moving to Hall");
+        }));
 
-        _stateMachine.AddState("FollowPlayer", new State(
+        _stateMachine.AddState("Move2Target", new State(
         onLogic: (state) =>
         {
             _movementComponent.MovementVector = (_playerTransform.position - transform.position).normalized;
             _movementComponent.Move();
+        },
+        onEnter: (state) => 
+        { 
+            Debug.Log("Moving to target");
         },
         onExit: (state) =>
         {
@@ -35,41 +54,60 @@ public class Enemy : NetworkBehaviour
         }));
 
         _stateMachine.AddState("Attack", new State(
-        onLogic: (state) =>
+        onEnter: (state) =>
         {
-            Debug.Log("Attacking!!!");
+            Debug.Log("Attacking target!");
         }));
 
         //transitions
-        //idle - follow 
+        //Move2Hall - Move2Target 
         _stateMachine.AddTransition(new Transition(
-            "Idle",
-            "FollowPlayer",
-            (transition) => _playerTransform != null && DistanceToPlayer() < _searchRadius
+            "Move2Hall",
+            "Move2Target",
+            targetInSightRange
         ));
 
         _stateMachine.AddTransitionFromAny(new Transition(
             "",
-            "Idle",
-            (transition) => DistanceToPlayer() > _searchRadius
+            "Move2Hall",
+            targetOutSightRange
         ));
 
-        //follow - attack
+        //Move2Target - attack
         _stateMachine.AddTransition(new Transition(
-            "FollowPlayer",
+            "Move2Target",
             "Attack",
-            (transition) => DistanceToPlayer() < _attackRadius
+            targetInAtackRange
         ));
 
         _stateMachine.AddTransition(new Transition(
             "Attack",
-            "FollowPlayer",
-            (transition) => DistanceToPlayer() > _attackRadius
+            "Move2Target",
+            targetOutAtackRange
         ));
 
         //init
-        _stateMachine.SetStartState("Idle");
+        _stateMachine.SetStartState("Move2Hall");
         _stateMachine.Init();
+    }
+
+    private bool targetInSightRange(Transition<string> transition)
+    {
+        return _playerTransform != null && DistanceToPlayer() < _searchRadius;
+    }
+    private bool targetOutSightRange(Transition<string> transition)
+    {
+        return DistanceToPlayer() > _searchRadius;
+    }
+    
+    private bool targetInAtackRange(Transition<string> transition)
+    {
+        return DistanceToPlayer() < _attackRadius;
+    }
+
+    private bool targetOutAtackRange(Transition<string> transition)
+    {
+        return DistanceToPlayer() > _attackRadius && DistanceToPlayer() < _searchRadius;
     }
 
     private void Update()
