@@ -14,8 +14,9 @@ public class Character : NetworkBehaviour
     [SerializeField] private float _buildSpeedModifier = 1;
     [SerializeField] private float _weaponDamageModifier = 1;
 
-    [SerializeField] private List<ActiveSkill> _activeSkills;
-    [SerializeField] private List<PassiveSkill> _passiveSkills;
+    [SerializeField] private List<ActiveSkill> _activeSkill;
+
+    [SerializeField] private GameObject _minePrefab;
 
     void Awake()
     {
@@ -37,18 +38,19 @@ public class Character : NetworkBehaviour
         _movement.MovementVector = moveVector;
         _movement.Move();
 
-        foreach (var skill in _passiveSkills)
-        {
-            skill.UseSkill();
-        }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _activeSkills.First().UseSkill();
+            _activeSkill[0].IsReady = true;
+            
         }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    _activeSkill[0].GetComponent<ISkill>().UseSkill();
+        //}
     }
 
     public void PowerUpHealth()
@@ -58,14 +60,7 @@ public class Character : NetworkBehaviour
 
     public void PowerUpSkill()
     {
-        foreach (var skill in _activeSkills)
-        {
-            skill.PowerUpSkillPoint();
-        }
-        foreach (var skill in _passiveSkills)
-        {
-            skill.PowerUpSkillPoint();
-        }
+        
     }
 
     public void PowerUpWeapon()

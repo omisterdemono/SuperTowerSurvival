@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1127090800803803951}
   - component: {fileID: 5933435638300399278}
   - component: {fileID: -2400162555924161077}
+  - component: {fileID: 27742149250520096}
+  - component: {fileID: 1387008168866226149}
   - component: {fileID: 5008485775042280951}
   - component: {fileID: -1300800794969773045}
   m_Layer: 0
@@ -139,9 +141,45 @@ MonoBehaviour:
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _activeSkills:
-  - {fileID: 1599679531154562285, guid: 3df806f329162e148b4c1b6476964b4f, type: 3}
-  _passiveSkills: []
+  _activeSkill:
+  - {fileID: 27742149250520096}
+  _minePrefab: {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
+--- !u!114 &27742149250520096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1fa23d8fe66b342a96228e2fb2eda3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _skillName: Place Mine
+  _skillDescription: 
+  _skillCooldown: 15
+  _castTime: 2
+  _movementComponent: {fileID: 5933435638300399278}
+--- !u!114 &1387008168866226149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228e2c35f5afa614c94a605a8a11eff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _minePrefab: {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
 --- !u!114 &5008485775042280951
 MonoBehaviour:
   m_ObjectHideFlags: 0

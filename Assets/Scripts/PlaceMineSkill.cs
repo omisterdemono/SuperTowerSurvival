@@ -2,43 +2,30 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PlaceMineSkill : ActiveSkill
+public class PlaceMineSkill : NetworkBehaviour, ISkill
 {
     [SerializeField] private GameObject _minePrefab;
 
-    public override void UseSkill()
-    {
-        base.UseSkill();
+    private ActiveSkill _activeSkill;
 
-        Cmd_PlaceMine(Vector3.zero);
+    public void Start()
+    {
+        _activeSkill = GetComponents<ActiveSkill>().Where(x=>x.SkillName=="Place Mine").First();
+        _activeSkill.Skill = this;
     }
 
-    [Command]
-    public void Cmd_PlaceMine(Vector3 position)
+    [Command(requiresAuthority = false)]
+    public void UseSkill()
     {
-        Rpc_PlaceMine(position);
-    }
-
-    [ClientRpc]
-    public void Rpc_PlaceMine(Vector3 position)
-    {
-        GameObject mine = Instantiate(_minePrefab, position, Quaternion.identity);
+        if (!isOwned) return;
+        GameObject mine = Instantiate(_minePrefab, Vector3.zero, Quaternion.identity);
         NetworkServer.Spawn(mine);
     }
 
-    public override void StartCast()
-    {
-        base.StartCast();
-    }
-
-    public override void FinishCast()
-    {
-        base.FinishCast();
-    }
-
-    public override void PowerUpSkillPoint()
+    public void PowerUpSkillPoint()
     {
         throw new System.NotImplementedException();
     }
