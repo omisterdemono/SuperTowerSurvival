@@ -51,6 +51,23 @@ public class Character : NetworkBehaviour
 
         _movement.MovementVector = moveVector;
         _movement.Move();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _obtainAnimation.Play("Collect");
+            //_animator.SetTrigger("Obtain");
+        }
+    }
+
+    public void TryObtain()
+    {
+        var instrument = GetComponentInChildren<Pickaxe>();
+        if (!instrument)
+        {
+            return;
+        }
+
+        instrument.Obtain();
     }
 
     private void Update()

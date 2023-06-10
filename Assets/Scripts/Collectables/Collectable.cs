@@ -12,7 +12,7 @@ public class Collectable : MonoBehaviour
         _healthComponent= GetComponent<HealthComponent>();
     }
 
-    public void GetCollected(IInstrument collectingInstrument)
+    public void GetObtained(IInstrument collectingInstrument)
     {
         if (collectingInstrument.InstrumentType != _instrument)
         {
