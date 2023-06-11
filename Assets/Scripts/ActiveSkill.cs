@@ -8,37 +8,40 @@ using UnityEngine.UIElements.Experimental;
 
 public class ActiveSkill : NetworkBehaviour
 {
-    [SerializeField] private string _skillName;
-    [SerializeField] private string _skillDescription;
-    [SerializeField] private float _skillCooldown;
-    [SerializeField] private float _castTime;
+    [SerializeField] private SkillAttributes _skillAttributes;
+    [SerializeField] private MovementComponent _movementComponent;
+
+    public string SkillName { get => _name; set => _name = value; }
+    public bool IsReady { get => _isReady; set => _isReady = value; }
+    public ISkill Skill { get; set; }
+    
+    private string _name;
+    private float _cooldown;
+    private float _castTime;
 
     private bool _isStarted;
     private float _passedTime;
-    private float _casting;
+    private float _castProgress;
 
+    private bool _isReady;
     //[SerializeField] public Sprite icon;
     //[SerializeField] public Image castFill;
     //[SerializeField] public Text timeText;
     //[SerializeField] public CanvasGroup CastBar;
-    private bool _isReady;
-
-    [SerializeField] private MovementComponent _movementComponent;
-    private ISkill _skill;
-
-    public string SkillName { get => _skillName; set => _skillName = value; }
-    public bool IsReady { get => _isReady; set => _isReady = value; }
-    public ISkill Skill { get => _skill; set => _skill = value; }
 
     public void Start()
     {
+        _name = _skillAttributes.Name;
+        _cooldown = _skillAttributes.Cooldown;
+        _castTime = _skillAttributes.CastTime;
+
         _movementComponent = GetComponent<MovementComponent>();
-        _passedTime = _skillCooldown;
+        _passedTime = _cooldown;
     }
 
     public void Update()
     {
-        if (_passedTime < _skillCooldown)
+        if (_passedTime < _cooldown)
         {
             _passedTime += Time.deltaTime;
         }
@@ -51,7 +54,7 @@ public class ActiveSkill : NetworkBehaviour
         {
             _isReady = false;
         }
-        if (_passedTime >= _skillCooldown || _isStarted)
+        if (_passedTime >= _cooldown || _isStarted)
         {
             if (_isReady)
             {
@@ -67,7 +70,7 @@ public class ActiveSkill : NetworkBehaviour
                         _passedTime = 0;
                     }
                 }
-                if (_casting == _castTime || _movementComponent.MovementVector != Vector3.zero && _isStarted)
+                if (_castProgress == _castTime || _movementComponent.MovementVector != Vector3.zero && _isStarted)
                 {
                     FinishCast();
                 }
@@ -83,10 +86,10 @@ public class ActiveSkill : NetworkBehaviour
         //float rate = 1.0f / CastTime;
         //castFill.fillAmount = Mathf.Lerp(0, 1, _casting * rate);
         //timeText.text = _casting.ToString("0.0");
-        _casting += 0.1f;
-        if (_casting >= _castTime)
+        _castProgress += 0.1f;
+        if (_castProgress >= _castTime)
         {
-            _casting = _castTime;
+            _castProgress = _castTime;
             //CastBar.alpha = 0;
         }
     }
@@ -101,10 +104,10 @@ public class ActiveSkill : NetworkBehaviour
     public virtual void FinishCast()
     {
         CancelInvoke("Casting");
-        _casting = 0;
+        _castProgress = 0;
         _isReady = false;
         //CastBar.alpha = 0;
         _isStarted = false;
-        _skill.UseSkill();
+        Skill.UseSkill();
     }
 }

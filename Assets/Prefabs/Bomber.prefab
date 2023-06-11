@@ -159,11 +159,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _skillName: Place Mine
-  _skillDescription: 
-  _skillCooldown: 15
-  _castTime: 2
   _movementComponent: {fileID: 5933435638300399278}
+  _skillAttributes: {fileID: 11400000, guid: 988d12e7366e8994695d4ca9426b74db, type: 2}
 --- !u!114 &1387008168866226149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +176,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _skillAttributes: {fileID: 11400000, guid: 988d12e7366e8994695d4ca9426b74db, type: 2}
   _minePrefab: {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
 --- !u!114 &5008485775042280951
 MonoBehaviour:

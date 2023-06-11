@@ -7,13 +7,14 @@ using UnityEngine;
 
 public class PlaceMineSkill : NetworkBehaviour, ISkill
 {
+    [SerializeField] private SkillAttributes _skillAttributes;
     [SerializeField] private GameObject _minePrefab;
 
     private ActiveSkill _activeSkill;
 
     public void Start()
     {
-        _activeSkill = GetComponents<ActiveSkill>().Where(x=>x.SkillName=="Place Mine").First();
+        _activeSkill = GetComponents<ActiveSkill>().Where(x => x.SkillName == _skillAttributes.Name).First();
         _activeSkill.Skill = this;
     }
 
