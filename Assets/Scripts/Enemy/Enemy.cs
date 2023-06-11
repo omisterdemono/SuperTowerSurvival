@@ -56,6 +56,13 @@ public class Enemy : NetworkBehaviour
             _movementComponent.MovementVector = Vector3.zero;
         }));
 
+        _stateMachine.AddState("UpdateTarget", new State(
+        onEnter: (state) =>
+        {
+            //FindTarget();
+            Debug.Log("Update the target");
+        }));
+
         _stateMachine.AddState("Attack", new State(
         onEnter: (state) =>
         {
@@ -76,6 +83,20 @@ public class Enemy : NetworkBehaviour
             targetOutSightRange
         ));
 
+        //Move2Target - UpdateTarget
+        _stateMachine.AddTransitionFromAny(new Transition(
+            "",
+            "UpdateTarget",
+            targetRefresh
+        ));
+
+        //UpdateTarget - Move2Target
+        _stateMachine.AddTransition(new Transition(
+            "UpdateTarget",
+            "Move2Target",
+            (transition) => _target != null
+        ));
+
         //Move2Target - attack
         _stateMachine.AddTransition(new Transition(
             "Move2Target",
@@ -93,6 +114,13 @@ public class Enemy : NetworkBehaviour
         _stateMachine.SetStartState("Move2Hall");
         _stateMachine.Init();
     }
+    private bool targetRefresh(Transition<string> transition)
+    {
+        var currentTarget = _target;
+        var newTarget = FindTarget();
+        return newTarget != currentTarget;
+    }
+
 
     private bool targetInSightRange(Transition<string> transition)
     {
@@ -120,7 +148,7 @@ public class Enemy : NetworkBehaviour
         return DistanceToTarget(_target) > _attackRadius && DistanceToTarget(_target) < _searchRadius;
     }
 
-    private void FindTarget()
+    private Transform FindTarget()
     {
         foreach(TargetPriorities target in _favouriteTargets)
         {
@@ -130,9 +158,11 @@ public class Enemy : NetworkBehaviour
             if (targetTransform!=null && DistanceToTarget(targetTransform) < _searchRadius)
             {
                 _target = targetTransform;
-                return;
+                return targetTransform;
             }
+            //_target = null;
         }
+        return null;
     }
 
     private void Update()
