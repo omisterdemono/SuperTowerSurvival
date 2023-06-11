@@ -1,6 +1,8 @@
 using FSM;
 using Mirror;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -10,8 +12,9 @@ using UnityEngine.TextCore.Text;
 public class Enemy : NetworkBehaviour
 {
     private GameObject _mainHall;
-    private GameObject _target;
+    private Transform _target;
 
+    [SerializeField] private List<TargetPriorities> _favouriteTargets;
     [SerializeField] private float _searchRadius;
     [SerializeField] private float _attackRadius;
 
@@ -41,7 +44,7 @@ public class Enemy : NetworkBehaviour
         _stateMachine.AddState("Move2Target", new State(
         onLogic: (state) =>
         {
-            _movementComponent.MovementVector = (_playerTransform.position - transform.position).normalized;
+            _movementComponent.MovementVector = (_target.position - transform.position).normalized;
             _movementComponent.Move();
         },
         onEnter: (state) => 
@@ -93,21 +96,43 @@ public class Enemy : NetworkBehaviour
 
     private bool targetInSightRange(Transition<string> transition)
     {
-        return _playerTransform != null && DistanceToPlayer() < _searchRadius;
+        FindTarget();
+        return _target != null;
     }
     private bool targetOutSightRange(Transition<string> transition)
     {
-        return DistanceToPlayer() > _searchRadius;
+        bool distance = DistanceToTarget(_target) > _searchRadius;
+        if (distance)
+        {
+            _target = null;
+            return true;
+        }
+        return false;
     }
     
     private bool targetInAtackRange(Transition<string> transition)
     {
-        return DistanceToPlayer() < _attackRadius;
+        return DistanceToTarget(_target) < _attackRadius;
     }
 
     private bool targetOutAtackRange(Transition<string> transition)
     {
-        return DistanceToPlayer() > _attackRadius && DistanceToPlayer() < _searchRadius;
+        return DistanceToTarget(_target) > _attackRadius && DistanceToTarget(_target) < _searchRadius;
+    }
+
+    private void FindTarget()
+    {
+        foreach(TargetPriorities target in _favouriteTargets)
+        {
+            var targetTransformList = GameObject.FindGameObjectsWithTag(target.ToString())?
+                .OrderBy(obj => DistanceToTarget(obj.transform)); ;
+            Transform targetTransform = targetTransformList.FirstOrDefault()?.transform;
+            if (targetTransform!=null && DistanceToTarget(targetTransform) < _searchRadius)
+            {
+                _target = targetTransform;
+                return;
+            }
+        }
     }
 
     private void Update()
@@ -126,9 +151,9 @@ public class Enemy : NetworkBehaviour
         Gizmos.DrawWireSphere(transform.position, _attackRadius);
     }
 
-    private float DistanceToPlayer()
+    private float DistanceToTarget(Transform target)
     {
-        var distance = Vector3.Distance(transform.position, _playerTransform.position);
+        var distance = Vector3.Distance(transform.position, target.position);
         return distance;
     }
 
