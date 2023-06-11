@@ -9,6 +9,7 @@ public class Character : NetworkBehaviour
 {
     private MovementComponent _movement;
     private HealthComponent _health;
+    private Animator _animator;
 
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
@@ -16,11 +17,10 @@ public class Character : NetworkBehaviour
 
     [SerializeField] private List<ActiveSkill> _activeSkill;
 
-    [SerializeField] private GameObject _minePrefab;
-
     void Awake()
     {
         _movement = GetComponent<MovementComponent>();
+        _animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -31,6 +31,9 @@ public class Character : NetworkBehaviour
 
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
+
+        _animator.SetInteger("x", (int)inputX);
+        _animator.SetInteger("y", (int)inputY);
 
         moveVector.x = inputX;
         moveVector.y = inputY;
@@ -45,12 +48,7 @@ public class Character : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _activeSkill[0].IsReady = true;
-            
         }
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    _activeSkill[0].GetComponent<ISkill>().UseSkill();
-        //}
     }
 
     public void PowerUpHealth()

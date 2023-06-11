@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5008485775042280948}
   - component: {fileID: 5008485775042280949}
+  - component: {fileID: 4902449733336735580}
+  - component: {fileID: 8130924213033494866}
   - component: {fileID: 5008485775042280951}
   - component: {fileID: -1300800794969773045}
   - component: {fileID: 3825274362865788585}
@@ -78,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 610fce31fb1f2344ea3e760ed412bc8a, type: 3}
+  m_Sprite: {fileID: 925654111, guid: 929a2d104591e594d95a53b7440fd4ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,6 +91,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4902449733336735580
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e32d9ec4810abf54791544af9852f569, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8130924213033494866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 1
+  animator: {fileID: 4902449733336735580}
 --- !u!114 &5008485775042280951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +193,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _repairSpeedModifier: 1
+  _buildSpeedModifier: 1
+  _weaponDamageModifier: 1
+  _activeSkill: []
+  _minePrefab: {fileID: 0}
 --- !u!114 &2286087765912236488
 MonoBehaviour:
   m_ObjectHideFlags: 0

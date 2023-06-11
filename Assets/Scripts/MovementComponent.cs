@@ -29,12 +29,13 @@ public class MovementComponent : NetworkBehaviour
     [SerializeField] private float _speed = 3;
     private Vector3 _movementVector;
 
-    public void Move()
-    {
-        transform.position += _movementVector.normalized * _speed * Time.fixedDeltaTime;
-    }
     void Start()
     {
         
+    }
+
+    public void Move()
+    {
+        transform.position += _movementVector.normalized * _speed * Time.fixedDeltaTime;
     }
 }
