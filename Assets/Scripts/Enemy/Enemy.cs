@@ -201,7 +201,7 @@ public class Enemy : NetworkBehaviour
     {
         var character = collision.GetComponent<Character>();
 
-        if (character.transform == _playerTransform)
+        if (character && character.transform == _playerTransform)
         {
             _playerTransform = null;
         }
