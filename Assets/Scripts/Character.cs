@@ -8,8 +8,6 @@ public class Character : NetworkBehaviour
 {
     private MovementComponent _movement;
     private Animator _animator;
-    
-    [SerializeField] private Animation _obtainAnimation;
 
     void Awake()
     {
@@ -28,11 +26,21 @@ public class Character : NetworkBehaviour
 
         _movement.MovementVector = moveVector;
         _movement.Move();
+    }
 
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            _obtainAnimation.Play("Collect");
+            Debug.Log("obtain");
+            _animator.SetBool("IsObtaining", true);
         }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            _animator.SetBool("IsObtaining", false);
+        }
+
+
     }
 
     public void TryObtain()
@@ -44,5 +52,6 @@ public class Character : NetworkBehaviour
         }
 
         instrument.Obtain();
+
     }
 }
