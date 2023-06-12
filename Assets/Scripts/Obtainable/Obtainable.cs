@@ -2,7 +2,7 @@ using Mirror;
 using System;
 using UnityEngine;
 
-public class Collectable : NetworkBehaviour
+public class Obtainable : NetworkBehaviour
 {
     [SerializeField] private GameObject[] _loot;
     [SerializeField] private HealthComponent _healthComponent;
