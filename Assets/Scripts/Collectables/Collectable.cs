@@ -1,7 +1,8 @@
+using Mirror;
 using System;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Collectable : NetworkBehaviour
 {
     [SerializeField] private GameObject[] _loot;
     [SerializeField] private HealthComponent _healthComponent;
@@ -10,6 +11,8 @@ public class Collectable : MonoBehaviour
     private void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();
+
+        _healthComponent.OnDeath += GetDestroyed;
     }
 
     public void GetObtained(IInstrument collectingInstrument)
@@ -22,13 +25,21 @@ public class Collectable : MonoBehaviour
         _healthComponent.Damage(collectingInstrument.Strength);
     }
 
-    private void DropLoot()
+    private void OnDestroy()
     {
-        throw new NotImplementedException();
+        _healthComponent.OnDeath -= GetDestroyed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    [Command(requiresAuthority = false)]
+    private void GetDestroyed()
     {
+        //dropping items
+        foreach (var drop in _loot)
+        {
+            NetworkServer.Spawn(Instantiate(drop, transform));
+        }
 
+        //deleting on server side
+        NetworkServer.Destroy(this.gameObject);
     }
 }

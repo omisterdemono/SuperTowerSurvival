@@ -688,7 +688,7 @@ RectTransform:
   - {fileID: 504229388}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -75.714}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1407,6 +1407,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6860194334041426106, guid: 3070604ba89dc8042be3b4ab7df15e64, type: 3}
+      propertyPath: _loot.Array.data[0]
+      value: 
+      objectReference: {fileID: 899452739533948393, guid: 7dcf0eb33b67c504a9941759a9b114a0, type: 3}
     - target: {fileID: 6889792636589908369, guid: 3070604ba89dc8042be3b4ab7df15e64, type: 3}
       propertyPath: sceneId
       value: 250845595
