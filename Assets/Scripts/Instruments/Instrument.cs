@@ -1,15 +1,21 @@
 using UnityEngine;
 
-public class Pickaxe : MonoBehaviour, IInstrument
+public class Instrument : MonoBehaviour, IInstrument
 {
-    [SerializeField] private float _strength;
-    [SerializeField] private float _durability;
-    [SerializeField] private InstrumentType _instrumentType;
-    public float Strength { get => _strength; set => _strength = value; }
-    public float Durability { get => _durability; set => _durability = value; }
-    public InstrumentType InstrumentType { get => _instrumentType; set => _instrumentType = value; }
+    [SerializeField] private InstrumentAttributes _instrumentAttributes;
 
+    public float Strength { get; set; }
+    public float Durability { get; set; }
+    public InstrumentType InstrumentType { get; set; }
+    
     private Collectable _lastCollectable;
+
+    private void Awake()
+    {
+        Strength = _instrumentAttributes.Strength;
+        Durability = _instrumentAttributes.Durability;
+        InstrumentType = _instrumentAttributes.InstrumentType;
+    }
 
     public void Obtain()
     {
@@ -19,7 +25,7 @@ public class Pickaxe : MonoBehaviour, IInstrument
         }
 
         _lastCollectable.GetObtained(this);
-        _durability -= 1.0f;
+        Durability -= 1.0f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,7 +33,7 @@ public class Pickaxe : MonoBehaviour, IInstrument
         var collectable = collision.GetComponent<Collectable>();
         if (collectable)
         {
-            _lastCollectable= collectable;
+            _lastCollectable = collectable;
         }
     }
 

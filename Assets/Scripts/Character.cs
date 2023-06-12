@@ -32,13 +32,12 @@ public class Character : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             _obtainAnimation.Play("Collect");
-            //_animator.SetTrigger("Obtain");
         }
     }
 
     public void TryObtain()
     {
-        var instrument = GetComponentInChildren<Pickaxe>();
+        var instrument = GetComponentInChildren<Instrument>();
         if (!instrument)
         {
             return;

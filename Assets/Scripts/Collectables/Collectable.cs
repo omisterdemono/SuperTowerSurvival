@@ -9,7 +9,7 @@ public class Collectable : MonoBehaviour
 
     private void Awake()
     {
-        _healthComponent= GetComponent<HealthComponent>();
+        _healthComponent = GetComponent<HealthComponent>();
     }
 
     public void GetObtained(IInstrument collectingInstrument)
@@ -24,11 +24,11 @@ public class Collectable : MonoBehaviour
 
     private void DropLoot()
     {
-        throw new NotImplementedException();        
+        throw new NotImplementedException();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
     }
 }

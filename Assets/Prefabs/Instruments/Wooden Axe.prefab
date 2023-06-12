@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8534466879669848232}
   - component: {fileID: 9092040309963879726}
   m_Layer: 0
-  m_Name: Pickaxe
+  m_Name: Wooden Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5666207364228382042
 MonoBehaviour:
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5ed47adbf57cb46a43bcd7e18b3a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instrumentAttributes: {fileID: 11400000, guid: 073a53729ae00d747aea31df0cf3fab7, type: 2}
+  _instrumentAttributes: {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
 --- !u!212 &3216435141590812145
 SpriteRenderer:
   m_ObjectHideFlags: 0
