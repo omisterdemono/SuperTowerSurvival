@@ -9,7 +9,7 @@ using UnityEngine.UIElements.Experimental;
 public class ActiveSkill : NetworkBehaviour
 {
     [SerializeField] private SkillAttributes _skillAttributes;
-    [SerializeField] private MovementComponent _movementComponent;
+    private MovementComponent _movementComponent;
 
     public string SkillName { get => _name; set => _name = value; }
     public bool IsReady { get => _isReady; set => _isReady = value; }
@@ -24,10 +24,11 @@ public class ActiveSkill : NetworkBehaviour
     private float _castProgress;
 
     private bool _isReady;
-    //[SerializeField] public Sprite icon;
-    //[SerializeField] public Image castFill;
-    //[SerializeField] public Text timeText;
-    //[SerializeField] public CanvasGroup CastBar;
+    
+    private GameObject _castBar;
+    private GameObject _skillHolder;
+
+    [SerializeField] private GameObject _skillButton;
 
     public void Start()
     {
@@ -37,6 +38,17 @@ public class ActiveSkill : NetworkBehaviour
 
         _movementComponent = GetComponent<MovementComponent>();
         _passedTime = _cooldown;
+
+        _castBar = GameObject.FindGameObjectWithTag("CastFill");
+        _skillHolder = GameObject.FindGameObjectWithTag("SkillHolder");
+
+        _skillButton.GetComponent<Image>().sprite = _skillAttributes.SkillIcon;
+
+        if (isOwned)
+        {
+            _skillButton = Instantiate(_skillButton);
+            _skillButton.gameObject.transform.parent = _skillHolder.transform;
+        }
     }
 
     public void Update()
@@ -44,8 +56,13 @@ public class ActiveSkill : NetworkBehaviour
         if (_passedTime < _cooldown)
         {
             _passedTime += Time.deltaTime;
+            _skillButton.transform.GetChild(0).GetComponent<Image>().fillAmount = 1 - 1/_cooldown * _passedTime;
         }
-        UseSkill();
+        if (IsReady)
+        {
+            _skillButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.6f);
+            UseSkill();
+        }
     }
 
     public void UseSkill()
@@ -53,6 +70,7 @@ public class ActiveSkill : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             _isReady = false;
+            _skillButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
         if (_passedTime >= _cooldown || _isStarted)
         {
@@ -70,27 +88,35 @@ public class ActiveSkill : NetworkBehaviour
                         _passedTime = 0;
                     }
                 }
-                if (_castProgress == _castTime || _movementComponent.MovementVector != Vector3.zero && _isStarted)
+                if (_movementComponent.MovementVector != Vector3.zero && _isStarted)
                 {
                     FinishCast();
+                }
+                else if (_castProgress == _castTime)
+                {
+                    FinishCast();
+                    Skill.UseSkill();
                 }
             }
         }
         else
+        {
             _isReady = false;
+            _skillButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
     }
 
     public void Casting()
     {
-        //CastBar.alpha = 1;
-        //float rate = 1.0f / CastTime;
-        //castFill.fillAmount = Mathf.Lerp(0, 1, _casting * rate);
-        //timeText.text = _casting.ToString("0.0");
+        _castBar.GetComponent<CanvasGroup>().alpha = 1;
+        float rate = 1.0f / _skillAttributes.CastTime;
+        _castBar.transform.GetChild(0).GetComponent<Image>().fillAmount = Mathf.Lerp(0, 1, _castProgress * rate);
+        _castBar.GetComponentInChildren<Text>().text = _castProgress.ToString("0.0");
         _castProgress += 0.1f;
         if (_castProgress >= _castTime)
         {
             _castProgress = _castTime;
-            //CastBar.alpha = 0;
+            _castBar.GetComponent<CanvasGroup>().alpha = 0;
         }
     }
 
@@ -106,8 +132,8 @@ public class ActiveSkill : NetworkBehaviour
         CancelInvoke("Casting");
         _castProgress = 0;
         _isReady = false;
-        //CastBar.alpha = 0;
+        _castBar.GetComponent<CanvasGroup>().alpha = 0;
         _isStarted = false;
-        Skill.UseSkill();
+        _skillButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
     }
 }
