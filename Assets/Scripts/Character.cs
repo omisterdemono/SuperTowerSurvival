@@ -55,6 +55,8 @@ public class Character : NetworkBehaviour
 
     private void Update()
     {
+        if (!isOwned) return;
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("obtain");

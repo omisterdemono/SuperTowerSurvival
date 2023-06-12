@@ -8,7 +8,7 @@ public class Instrument : MonoBehaviour, IInstrument
     public float Durability { get; set; }
     public InstrumentType InstrumentType { get; set; }
     
-    private Collectable _lastCollectable;
+    private Obtainable _lastCollectable;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class Instrument : MonoBehaviour, IInstrument
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var collectable = collision.GetComponent<Collectable>();
+        var collectable = collision.GetComponent<Obtainable>();
         if (collectable)
         {
             _lastCollectable = collectable;
@@ -39,7 +39,7 @@ public class Instrument : MonoBehaviour, IInstrument
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        var collectable = collision.GetComponent<Collectable>();
+        var collectable = collision.GetComponent<Obtainable>();
         if (collectable)
         {
             _lastCollectable = null;
