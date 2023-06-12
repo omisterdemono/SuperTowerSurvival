@@ -36,7 +36,7 @@ public class Collectable : NetworkBehaviour
         //dropping items
         foreach (var drop in _loot)
         {
-            NetworkServer.Spawn(Instantiate(drop, transform));
+            NetworkServer.Spawn(Instantiate(drop, transform.position, Quaternion.identity));
         }
 
         //deleting on server side
