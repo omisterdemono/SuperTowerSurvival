@@ -51,10 +51,26 @@ public class Character : NetworkBehaviour
 
         _movement.MovementVector = moveVector;
         _movement.Move();
+    }
 
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            _obtainAnimation.Play("Collect");
+            Debug.Log("obtain");
+            _animator.SetBool("IsObtaining", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            _animator.SetBool("IsObtaining", false);
+        }
+
+        foreach (var code in _keyCodes)
+        {
+            if (Input.GetKeyDown(code.Value))
+            {
+                _activeSkills[code.Key].IsReady = true;
+            }
         }
     }
 
@@ -67,18 +83,10 @@ public class Character : NetworkBehaviour
         }
 
         instrument.Obtain();
+
     }
 
-    private void Update()
-    {
-        foreach (var code in _keyCodes)
-        {
-            if (Input.GetKeyDown(code.Value))
-            {
-                _activeSkills[code.Key].IsReady = true;
-            }
-        }
-    }
+
 
     public void PowerUpHealth()
     {
