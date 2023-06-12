@@ -170,16 +170,16 @@ public class Enemy : NetworkBehaviour
         _stateMachine.OnLogic();
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        //Search
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, _searchRadius);
+    //private void OnDrawGizmosSelected()
+    //{
+    //    //Search
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.DrawWireSphere(transform.position, _searchRadius);
 
-        //Attack
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _attackRadius);
-    }
+    //    //Attack
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, _attackRadius);
+    //}
 
     private float DistanceToTarget(Transform target)
     {

@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8947551846979501882}
   - component: {fileID: -3175124998291636346}
   - component: {fileID: -6688574551587390526}
+  - component: {fileID: 4567869683579324833}
   - component: {fileID: 2152136694743258923}
   m_Layer: 0
   m_Name: Enemy Vova
@@ -363,6 +364,19 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!114 &4567869683579324833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6228090426627399798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e782868d1075f43ad5063795d35dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aIPath: {fileID: 0}
 --- !u!114 &2152136694743258923
 MonoBehaviour:
   m_ObjectHideFlags: 0
