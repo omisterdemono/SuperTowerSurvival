@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.EventSystems;
-using System.Linq;
+using System;
 
 public class Character : NetworkBehaviour
 {
@@ -41,6 +39,31 @@ public class Character : NetworkBehaviour
         _movement.MovementVector = moveVector;
         _movement.Move();
 
+        //weapon handle and rotation
+        HandleWeapon();
+    }
+
+    private void HandleWeapon()
+    {
+        var attacker = GetComponentInChildren<IAttacker>();
+        HandleWeaponRotation(attacker);
+
+        //rework, because some weapons have to be recharged
+        if (Input.GetKeyDown(KeyCode.Mouse0)){
+            attacker.Attack();
+        }
+
+    }
+
+    private void HandleWeaponRotation(IAttacker attacker)
+    {
+        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector2 targetDirection = worldPosition - (Vector2)transform.position;
+
+        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+
+        attacker.Rotate(angle);
     }
 
     private void Update()
@@ -58,7 +81,7 @@ public class Character : NetworkBehaviour
 
     public void PowerUpSkill()
     {
-        
+
     }
 
     public void PowerUpWeapon()
