@@ -15,12 +15,23 @@ public class Character : NetworkBehaviour
     [SerializeField] private float _buildSpeedModifier = 1;
     [SerializeField] private float _weaponDamageModifier = 1;
 
-    [SerializeField] private List<ActiveSkill> _activeSkill;
+    [SerializeField] private List<ActiveSkill> _activeSkills;
+
+    private Dictionary<int, KeyCode> _keyCodes;
 
     void Awake()
     {
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        _keyCodes = new Dictionary<int, KeyCode>();
+        for (int i = 0; i < _activeSkills.Count; i++)
+        {
+            _keyCodes.Add(i, (KeyCode)System.Enum.Parse(typeof(KeyCode), $"Alpha{i + 1}"));
+        }
     }
 
     void FixedUpdate()
@@ -40,14 +51,16 @@ public class Character : NetworkBehaviour
 
         _movement.MovementVector = moveVector;
         _movement.Move();
-
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        foreach (var code in _keyCodes)
         {
-            _activeSkill[0].IsReady = true;
+            if (Input.GetKeyDown(code.Value))
+            {
+                _activeSkills[code.Key].IsReady = true;
+            }
         }
     }
 
