@@ -47,17 +47,20 @@ public class ActiveSkill : NetworkBehaviour
         if (isOwned)
         {
             _skillButton = Instantiate(_skillButton);
-            _skillButton.gameObject.transform.parent = _skillHolder.transform;
+            _skillButton.gameObject.transform.SetParent(_skillHolder.transform);
         }
     }
 
     public void Update()
     {
+        if (!isLocalPlayer) return;
+
         if (_passedTime < _cooldown)
         {
             _passedTime += Time.deltaTime;
             _skillButton.transform.GetChild(0).GetComponent<Image>().fillAmount = 1 - 1/_cooldown * _passedTime;
         }
+
         if (IsReady)
         {
             _skillButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.6f);
