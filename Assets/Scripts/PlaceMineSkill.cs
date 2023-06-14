@@ -21,9 +21,14 @@ public class PlaceMineSkill : NetworkBehaviour, ISkill
     [Command(requiresAuthority = false)]
     public void UseSkill()
     {
-        if (!isOwned) return;
-        GameObject mine = Instantiate(_minePrefab, Vector3.zero, Quaternion.identity);
-        NetworkServer.Spawn(mine);
+        CmdUseSkill(GetComponent<Character>().transform.position);
+    }
+
+    public void CmdUseSkill(Vector2 position)
+    {
+        GameObject mine = Instantiate(_minePrefab, position, Quaternion.identity);
+        mine.GetComponent<MineScript>().Damage = 10;
+        NetworkServer.Spawn(mine, this.gameObject);
     }
 
     public void PowerUpSkillPoint()
