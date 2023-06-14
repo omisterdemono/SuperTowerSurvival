@@ -23,10 +23,6 @@ public class Character : NetworkBehaviour
 
     private Dictionary<int, KeyCode> _keyCodes;
 
-    private IAttacker _attacker;
-    private Action<Vector2> _performAttack;
-    private Vector2 _attackDirection;
-
     void Awake()
     {
         _movement = GetComponent<MovementComponent>();
@@ -39,8 +35,6 @@ public class Character : NetworkBehaviour
         {
             throw new NullReferenceException("Attacker script was not used on weapon");
         }
-<<<<<<< HEAD
-    }
     }
 
     private void Start()
@@ -50,8 +44,6 @@ public class Character : NetworkBehaviour
         {
             _keyCodes.Add(i, (KeyCode)System.Enum.Parse(typeof(KeyCode), $"Alpha{i + 1}"));
         }
-=======
->>>>>>> ac5e35fc3ac65fc8611d98edb73e2924bba5dcaa
     }
 
     void FixedUpdate()
@@ -77,95 +69,6 @@ public class Character : NetworkBehaviour
     {
         if (!isOwned) return;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _activeSkill[0].IsReady = true;
-        }
-
-        //weapon handle and rotation
-        HandleWeapon();
-<<<<<<< HEAD
-=======
-    }
-
-    private void HandleWeapon()
-    {
-        if (_attacker == null)
-        {
-            return;
-        }
-
-        HandleWeaponRotation(_attacker, out Vector2 targetDirection);
-
-        //rework, because some weapons have to be recharged
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            _attacker.Attack(targetDirection.normalized, ref _performAttack);
-            _attackDirection= targetDirection.normalized;
-
-            Cmd_AttackOnServer();
-        }
-
-    }
-
-    private void HandleWeaponRotation(IAttacker attacker, out Vector2 targetDirection)
-    {
-        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        targetDirection = worldPosition - (Vector2)transform.position;
-
-        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
-
-        attacker.Rotate(angle);
-    }
-
-    [ClientRpc]
-    private void Rpc_Attack()
-    {
-        Cmd_AttackOnServer();
-    }
-
-    [Command(requiresAuthority = false)]
-    private void Cmd_AttackOnServer()
-    {
-        _performAttack.Invoke(_attackDirection);
->>>>>>> ac5e35fc3ac65fc8611d98edb73e2924bba5dcaa
-    }
-
-    private void HandleWeapon()
-    {
-        if (_attacker == null)
-        {
-            return;
-        }
-
-        HandleWeaponRotation(_attacker, out Vector2 targetDirection);
-
-        //rework, because some weapons have to be recharged
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            _attacker.Attack(targetDirection.normalized, ref _performAttack);
-            _attackDirection= targetDirection.normalized;
-
-            Cmd_AttackOnServer();
-        }
-
-    }
-
-    private void HandleWeaponRotation(IAttacker attacker, out Vector2 targetDirection)
-    {
-        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        targetDirection = worldPosition - (Vector2)transform.position;
-
-        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
-
-        attacker.Rotate(angle);
-    }
-    private void Update()
-    {
-        if (!isOwned) return;
-
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("obtain");
@@ -183,17 +86,10 @@ public class Character : NetworkBehaviour
                 _activeSkills[code.Key].IsReady = true;
             }
         }
+
+        //weapon handle and rotation
+        HandleWeapon();
     }
-
-    public void TryObtain()
-    {
-        var instrument = GetComponentInChildren<Instrument>();
-        if (!instrument)
-        {
-            return;
-        }
-
-        instrument.Obtain();
 
     [ClientRpc]
     private void Rpc_Attack()
@@ -207,7 +103,47 @@ public class Character : NetworkBehaviour
         _performAttack.Invoke(_attackDirection);
     }
 
+    private void HandleWeapon()
+    {
+        if (_attacker == null)
+        {
+            return;
+        }
 
+        HandleWeaponRotation(_attacker, out Vector2 targetDirection);
+
+        //rework, because some weapons have to be recharged
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            _attacker.Attack(targetDirection.normalized, ref _performAttack);
+            _attackDirection= targetDirection.normalized;
+
+            Cmd_AttackOnServer();
+        }
+
+    }
+
+    private void HandleWeaponRotation(IAttacker attacker, out Vector2 targetDirection)
+    {
+        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        targetDirection = worldPosition - (Vector2)transform.position;
+
+        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+
+        attacker.Rotate(angle);
+    }
+
+    public void TryObtain()
+    {
+        var instrument = GetComponentInChildren<Instrument>();
+        if (!instrument)
+        {
+            return;
+        }
+
+        instrument.Obtain();
+    }
 
     public void PowerUpHealth()
     {
@@ -223,5 +159,4 @@ public class Character : NetworkBehaviour
     {
         //todo power up weapon
     }
-
 }
