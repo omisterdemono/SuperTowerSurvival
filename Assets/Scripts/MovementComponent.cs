@@ -28,6 +28,11 @@ public class MovementComponent : NetworkBehaviour
     {
         transform.position += _movementVector.normalized * _speed * Time.fixedDeltaTime;
     }
+
+    private void Update()
+    {
+        Move();
+    }
     void Start()
     {
         

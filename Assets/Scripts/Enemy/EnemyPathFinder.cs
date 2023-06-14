@@ -10,74 +10,61 @@ public class EnemyPathFinder : MonoBehaviour
 {
     public Transform target;
 
-    //public bool isTargetClosen;
-
-    public bool isTargetClosen;
+    public bool isTargetClosed;
 
     public bool useWallsStrategy;
 
-    public Path path;
+    public GameObject Wall2Destroy = null;
 
-    public float speed = 2;
+    public Vector3 direction;
 
     public float nextWaypointDistance = 3;
 
     public bool reachedEndOfPath;
 
-    public GameObject Wall2Destroy = null;
-
-    [SerializeField] private float _scanRadius = 7;
+    //[SerializeField] private float _scanRadius = 7;
 
     [SerializeField] private float _distanceDiffKoef = 2;
 
-    [SerializeField] private float corelationDistancePerWall = 5;
+    [SerializeField] private float _corelationDistancePerWall = 5;
+
+    private Path _path;
 
     private Seeker _seeker;
 
     private MovementComponent _movementComponent;
-
-    private Vector3 _previousPosition;
 
     private int currentWaypoint = 0;
 
     public void Start()
     {
         _movementComponent = GetComponent<MovementComponent>();
-        //_enemy = GetComponent<Enemy>();
         _seeker = GetComponent<Seeker>();
-        var res = RayCast(target);
-        //_seeker.
         InvokeRepeating("UpdatePath", 0f, .5f);
-        InvokeRepeating("SaveLastPosition", 0f, 1.0f);
     }
 
-    void SaveLastPosition()
-    {
-        _previousPosition = transform.position;
-    }
-
-    void UpdatePath()
+    public void UpdatePath()
     {
         _seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
     public void OnPathComplete(Path p)
     {
-        Debug.Log("A path was calculated. Did it fail with an error? " + p.error);
+        //Debug.Log("A path was calculated. Did it fail with an error? " + p.error);
 
         if (!p.error)
         {
-            path = p;
+            _path = p;
             currentWaypoint = 0;
 
-            isTargetClosen = target.position != path.vectorPath.Last();
+            isTargetClosed = target.position != _path.vectorPath.Last();
             //mb smooth in a future
         }
     }
 
     public void Update()
     {
-        if (path == null)
+        if (_path == null)
         {
             return;
         }
@@ -86,10 +73,10 @@ public class EnemyPathFinder : MonoBehaviour
         float distanceToWaypoint;
         while (true)
         {
-            distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            distanceToWaypoint = Vector3.Distance(transform.position, _path.vectorPath[currentWaypoint]);
             if (distanceToWaypoint < nextWaypointDistance)
             {
-                if (currentWaypoint + 1 < path.vectorPath.Count)
+                if (currentWaypoint + 1 < _path.vectorPath.Count)
                 {
                     currentWaypoint++;
                 }
@@ -104,9 +91,9 @@ public class EnemyPathFinder : MonoBehaviour
                 break;
             }
         }
-        List<RaycastHit2D> hits = RayCast(target);
+        List<RaycastHit2D> hits = RayCastWalls(target);
         Vector3 dir;
-        if ((IsBetterTroughWalls(hits) || isTargetClosen) && hits.Count() != 0)
+        if (IsBetterTroughWalls(hits) || isTargetClosed)
         {
             useWallsStrategy = true;
             Wall2Destroy = hits.First().collider.gameObject;
@@ -121,7 +108,7 @@ public class EnemyPathFinder : MonoBehaviour
         {
             useWallsStrategy = false;
             Wall2Destroy = null;
-            dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            dir = (_path.vectorPath[currentWaypoint] - transform.position).normalized;
         }
 
         if (reachedEndOfPath)
@@ -129,11 +116,12 @@ public class EnemyPathFinder : MonoBehaviour
             dir = Vector3.zero;
         }
 
-        _movementComponent.MovementVector = dir;
-        _movementComponent.Move();
+        direction = dir;
+        //_movementComponent.MovementVector = dir;
+        //_movementComponent.Move();
     }
 
-    private List<RaycastHit2D> RayCast(Transform target)
+    private List<RaycastHit2D> RayCastWalls(Transform target)
     {
         Vector2 direction = (target.position - transform.position).normalized;
 
@@ -161,9 +149,10 @@ public class EnemyPathFinder : MonoBehaviour
     private bool IsBetterTroughWalls(List<RaycastHit2D> wallHits)
     {
         var wallCount = wallHits.Count();
+        if (wallCount < 1) return false;
 
-        var wallDistance = Vector3.Distance(transform.position, target.position) + corelationDistancePerWall * wallCount;
-        var pathDistance = path.GetTotalLength();
+        var wallDistance = Vector3.Distance(transform.position, target.position) + _corelationDistancePerWall * wallCount;
+        var pathDistance = _path.GetTotalLength();
 
         return wallDistance < pathDistance;
     }
@@ -173,7 +162,7 @@ public class EnemyPathFinder : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, nextWaypointDistance);
 
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, _scanRadius);
+        //Gizmos.color = Color.white;
+        //Gizmos.DrawWireSphere(transform.position, _scanRadius);
     }
 }

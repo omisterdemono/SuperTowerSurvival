@@ -13,6 +13,7 @@ public class Enemy : NetworkBehaviour
 {
     private Transform _hall;
     private Transform _target;
+    private Vector3 _direction;
 
     [SerializeField] private List<TargetPriorities> _favouriteTargets;
     [SerializeField] private float _searchRadius;
@@ -20,6 +21,7 @@ public class Enemy : NetworkBehaviour
 
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private MovementComponent _movementComponent;
+    [SerializeField] private EnemyPathFinder _pathFinder;
 
     private StateMachine _stateMachine = new StateMachine();
 
@@ -28,11 +30,16 @@ public class Enemy : NetworkBehaviour
         _hall = GameObject.FindGameObjectWithTag("MainHall").transform;
         _target = _hall;
         _movementComponent = GetComponent<MovementComponent>();
+        _pathFinder = GetComponent<EnemyPathFinder>();
+        _pathFinder.target = _target;
+        //_direction = Vector3.zero;
 
         _stateMachine.AddState("Move2Target", new State(
         onLogic: (state) =>
         {
-            _movementComponent.MovementVector = (_target.position - transform.position).normalized;
+            //_movementComponent.MovementVector = (_target.position - transform.position).normalized;
+            //_movementComponent.Move();
+            _movementComponent.MovementVector = _pathFinder.direction;
             _movementComponent.Move();
         },
         onEnter: (state) => 
@@ -87,6 +94,16 @@ public class Enemy : NetworkBehaviour
     {
         var currentTarget = _target;
         _target = FindTarget();
+
+        _pathFinder.target = _target;
+        _pathFinder.UpdatePath();
+        _pathFinder.Update();
+
+        GameObject wall = _pathFinder.Wall2Destroy;
+        if (wall != null)
+        {
+            _target = wall.transform;
+        }
         return _target != currentTarget;
     }
     
