@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5008485775042280948}
   - component: {fileID: 5008485775042280949}
+  - component: {fileID: -272196942101913252}
   - component: {fileID: 1127090800803803951}
   - component: {fileID: 5933435638300399278}
   - component: {fileID: -2400162555924161077}
@@ -89,6 +90,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-272196942101913252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f07a5cd93561944586db9af85aa2011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  inventoryUI: {fileID: 4634094015349029944, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
+  initialItems: []
+  dropClip: {fileID: 0}
+  size: 12
 --- !u!114 &1127090800803803951
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,10 +1,11 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : NetworkBehaviour
 {
     [SerializeField]
     private UIInventoryPage inventoryUI;
@@ -28,12 +29,13 @@ public class InventoryController : MonoBehaviour
 
     private void PrepareUI()
     {
+        inventoryUI = GameObject.FindAnyObjectByType<UIInventoryPage>();
         inventoryUI.InitializeInventoryUI(size);
     }
 
 
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
