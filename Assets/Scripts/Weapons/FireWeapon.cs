@@ -1,18 +1,18 @@
 using Mirror;
+using System;
 using UnityEngine;
 
 /// <summary>
 /// Spawns bullet, rotates parent object for all weapons
 /// towards cursor.
 /// </summary>
-public class FireWeapon : NetworkBehaviour, IAttacker
+public class FireWeapon : MonoBehaviour, IAttacker
 {
+    [SerializeField] private float _damage = 1.0f;
     [SerializeField] private GameObject _projectile;
-    [SerializeField] private float rotateSpeed = 1.0f;
-    [SerializeField] private float rotateAngle = 1.0f;
+    [SerializeField] private Transform _firePosition;
     
     private SpriteRenderer _spriteRenderer;
-    private Vector3 _direction;
 
     public float Damage { get; set; }
 
@@ -21,15 +21,17 @@ public class FireWeapon : NetworkBehaviour, IAttacker
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    public void Attack(Vector2 direction, ref Action<Vector2> performAttack)
     {
-
-
+        performAttack = FireBullet;
     }
 
-    public void Attack()
+    public void FireBullet(Vector2 direction)
     {
-        throw new System.NotImplementedException();
+        GameObject projectile = Instantiate(_projectile, _firePosition.position, transform.rotation);
+        NetworkServer.Spawn(projectile);
+
+        projectile.GetComponent<Rigidbody2D>().velocity = direction;
     }
 
     public void Rotate(float angle)

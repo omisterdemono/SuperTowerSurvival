@@ -11,7 +11,7 @@ using System.Linq;
 [RequireComponent(typeof(Collider2D))]
 public class Projectile : NetworkBehaviour
 {
-    [SerializeField] private Type[] _desiredTargets;
+    [SerializeField] private string[] _desiredTargets;
     [SerializeField] private Type _owner;
 
     public float Damage { get; set; }
