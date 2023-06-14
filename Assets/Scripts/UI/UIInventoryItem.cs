@@ -20,6 +20,7 @@ public class UIInventoryItem : NetworkBehaviour
     public event Action<UIInventoryItem> OnItemClicked,
             OnItemDroppedOn, OnItemBeginDrag, OnItemEndDrag,
             OnRightMouseBtnClick;
+  
 
     private bool empty = true;
 
@@ -52,6 +53,8 @@ public class UIInventoryItem : NetworkBehaviour
 
     public void OnPointerClick(BaseEventData data)
     {
+        if (empty)
+            return;
         PointerEventData pointerData =(PointerEventData)data;
         if (pointerData.button == PointerEventData.InputButton.Right)
         {

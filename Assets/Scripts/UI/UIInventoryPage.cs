@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UIInventoryPage : NetworkBehaviour
 {
@@ -12,6 +13,12 @@ public class UIInventoryPage : NetworkBehaviour
     [SerializeField]
     private RectTransform contentPanel;
 
+    [SerializeField]
+    private string name;
+    [SerializeField]
+    private Sprite image;
+    [SerializeField]
+    private int count;
 
     //[SerializeField]
     //private MouseFollower mouseFollower;
@@ -47,6 +54,7 @@ public class UIInventoryPage : NetworkBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        listOfUIItems[0].SetData(image, count);
     }
 
 
