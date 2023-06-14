@@ -50,8 +50,9 @@ public class UIInventoryItem : NetworkBehaviour
         borderImage.enabled = true;
     }
 
-    public void OnPointerClick(PointerEventData pointerData)
+    public void OnPointerClick(BaseEventData data)
     {
+        PointerEventData pointerData =(PointerEventData)data;
         if (pointerData.button == PointerEventData.InputButton.Right)
         {
             OnRightMouseBtnClick?.Invoke(this);
@@ -62,19 +63,19 @@ public class UIInventoryItem : NetworkBehaviour
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag()
     {
         OnItemEndDrag?.Invoke(this);
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag()
     {
         if (empty)
             return;
         OnItemBeginDrag?.Invoke(this);
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop()
     {
         OnItemDroppedOn?.Invoke(this);
     }
