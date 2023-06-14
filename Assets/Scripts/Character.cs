@@ -55,6 +55,18 @@ public class Character : NetworkBehaviour
 
     private void Update()
     {
+        if (!isOwned) return;
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("obtain");
+            _animator.SetBool("IsObtaining", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.F))
+        {
+            _animator.SetBool("IsObtaining", false);
+        }
+
         foreach (var code in _keyCodes)
         {
             if (Input.GetKeyDown(code.Value))
@@ -63,6 +75,20 @@ public class Character : NetworkBehaviour
             }
         }
     }
+
+    public void TryObtain()
+    {
+        var instrument = GetComponentInChildren<Instrument>();
+        if (!instrument)
+        {
+            return;
+        }
+
+        instrument.Obtain();
+
+    }
+
+
 
     public void PowerUpHealth()
     {

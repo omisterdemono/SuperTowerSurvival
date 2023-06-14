@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class HealthComponent : NetworkBehaviour
 {
+    public Action OnDeath;
+
     [SerializeField] private float _maxHealth;
+    
     private float _currentHealth;
     public float MaxHealth
     {
@@ -38,9 +42,11 @@ public class HealthComponent : NetworkBehaviour
 
     public void Damage(float damageHP)
     {
-        if (_currentHealth < damageHP)
+        if (_currentHealth <= damageHP)
         {
             _currentHealth = 0;
+
+            OnDeath.Invoke();
             return;
         }
         _currentHealth -= damageHP;
