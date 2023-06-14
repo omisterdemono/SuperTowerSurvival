@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Weapons/FireWeapon.cs.meta
 guid: 434b7baa685c1f347bff2a0eea238517
+========
+guid: 6db743a34f115474ba4bfe450de80bb0
+>>>>>>>> ac5e35fc3ac65fc8611d98edb73e2924bba5dcaa:Assets/Scripts/Weapons/IDamageAble.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

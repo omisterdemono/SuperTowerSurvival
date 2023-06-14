@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprites/Weapons/Arrow.png.meta
 guid: 32475f0dbe31f2a44abf6eb168463075
+========
+guid: 8af4c1c7061e2a7468ccc8a17d3ac678
+>>>>>>>> ac5e35fc3ac65fc8611d98edb73e2924bba5dcaa:Assets/Sprites/Weapons/Hammer.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

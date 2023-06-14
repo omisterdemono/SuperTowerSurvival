@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/MineScript.cs.meta
 guid: 284c1a21a26e60d48b1d31c613a91839
+========
+guid: 94612c194e95a5d4cb556b980d56237f
+>>>>>>>> ac5e35fc3ac65fc8611d98edb73e2924bba5dcaa:Assets/Scripts/Weapons/IAttacker.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

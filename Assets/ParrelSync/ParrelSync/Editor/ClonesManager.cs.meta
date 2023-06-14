@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ParrelSync/ParrelSync/Editor/ClonesManager.cs.meta
 guid: 6148e48ed6b61d748b187d06d3687b83
+========
+guid: e9b02c864add5344d8c60f3301b19201
+>>>>>>>> ac5e35fc3ac65fc8611d98edb73e2924bba5dcaa:Assets/Scripts/Weapons/Projectile.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
