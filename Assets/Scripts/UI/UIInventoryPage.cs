@@ -20,8 +20,8 @@ public class UIInventoryPage : NetworkBehaviour
     [SerializeField]
     private int count;
 
-    //[SerializeField]
-    //private MouseFollower mouseFollower;
+    [SerializeField]
+    private MouseFollower mouseFollower;
 
     List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
 
@@ -50,6 +50,11 @@ public class UIInventoryPage : NetworkBehaviour
         }
     }
 
+    public void Awake()
+    {
+        Hide();
+        mouseFollower.Toggle(false);
+    }
 
     public void Show()
     {
@@ -76,7 +81,7 @@ public class UIInventoryPage : NetworkBehaviour
 
     private void HandleEndDrag(UIInventoryItem inventoryItemUI)
     {
-        
+        mouseFollower.Toggle(false);
     }
 
     private void HandleSwap(UIInventoryItem inventoryItemUI)
@@ -85,7 +90,9 @@ public class UIInventoryPage : NetworkBehaviour
     }
     private void HandleBeginDrag(UIInventoryItem inventoryItemUI)
     {
-        
+        mouseFollower.Toggle(true);
+        mouseFollower.SetData(image, count);
+
     }
 
 
