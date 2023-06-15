@@ -18,6 +18,8 @@ public class UIInventoryPage : NetworkBehaviour
     [SerializeField]
     private Sprite image;
     [SerializeField]
+    private Sprite image2;
+    [SerializeField]
     private int count;
 
     [SerializeField]
@@ -60,6 +62,7 @@ public class UIInventoryPage : NetworkBehaviour
     {
         gameObject.SetActive(true);
         listOfUIItems[0].SetData(image, count);
+        listOfUIItems[1].SetData(image2, count);
     }
 
 
@@ -82,22 +85,41 @@ public class UIInventoryPage : NetworkBehaviour
     private void HandleEndDrag(UIInventoryItem inventoryItemUI)
     {
         mouseFollower.Toggle(false);
+        currentlyDraggedItemIndex = -1;
     }
 
     private void HandleSwap(UIInventoryItem inventoryItemUI)
     {
-        
+        int index = listOfUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+        {
+            mouseFollower.Toggle(false);
+            currentlyDraggedItemIndex = -1;
+            return;
+
+        }
+        listOfUIItems[currentlyDraggedItemIndex].SetData(index == 0 ? image : image2, count);
+        listOfUIItems[index].SetData(currentlyDraggedItemIndex == 0 ? image : image2, count);
+        mouseFollower.Toggle(false);
+        currentlyDraggedItemIndex=-1;
+
     }
     private void HandleBeginDrag(UIInventoryItem inventoryItemUI)
     {
+        int index = listOfUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+            return;
+        currentlyDraggedItemIndex = index;
         mouseFollower.Toggle(true);
-        mouseFollower.SetData(image, count);
+        mouseFollower.SetData(index == 0 ? image : image2, count);
 
     }
 
 
     private void HandleItemSelection(UIInventoryItem inventoryItemUI)
     {
-        Debug.Log(inventoryItemUI.name);
+        int index = listOfUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+            return;
     }
 }
