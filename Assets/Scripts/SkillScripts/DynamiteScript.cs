@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DynamiteScript : NetworkBehaviour
 {
-    private float _damage;
+    [SyncVar] private float _damage;
     [SerializeField] private GameObject _explosionPrefab;
     public float Damage { set => _damage = value; }
 

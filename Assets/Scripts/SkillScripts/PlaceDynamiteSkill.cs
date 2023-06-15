@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlaceDynamiteSkill : ActiveSkill, ISkill
 {
     [SerializeField] private GameObject _dynamitePrefab;
+
     [SerializeField] private float _damage = 10;
 
     public override void FinishCastPositive()

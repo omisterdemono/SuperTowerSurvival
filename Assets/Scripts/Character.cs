@@ -15,7 +15,7 @@ public class Character : NetworkBehaviour
     [SerializeField] private float _buildSpeedModifier = 1;
     [SerializeField] private float _weaponDamageModifier = 1;
 
-    [SerializeField] private List<ActiveSkill> _activeSkills;
+    private List<ActiveSkill> _activeSkills;
 
     private Dictionary<int, KeyCode> _keyCodes;
 
@@ -27,6 +27,8 @@ public class Character : NetworkBehaviour
 
     private void Start()
     {
+        _activeSkills = new List<ActiveSkill>();
+        _activeSkills.AddRange(GetComponents<ActiveSkill>());
         _keyCodes = new Dictionary<int, KeyCode>();
         for (int i = 0; i < _activeSkills.Count; i++)
         {

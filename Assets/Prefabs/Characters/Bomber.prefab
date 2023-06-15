@@ -200,9 +200,6 @@ MonoBehaviour:
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _activeSkills:
-  - {fileID: 1387008168866226149}
-  - {fileID: 2200435535518075900}
 --- !u!114 &1127090800803803951
 MonoBehaviour:
   m_ObjectHideFlags: 0

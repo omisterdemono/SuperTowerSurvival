@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class MineScript : NetworkBehaviour
 {
-    private float _damage;
+
+    [SyncVar] private float _damage;
     private bool _explode = false;
     private float _explodeRadius = 1f;
     [SerializeField] private GameObject _explosionPrefab;
