@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIInventoryItem : NetworkBehaviour
+public class UIInventoryItem : NetworkBehaviour, IBeginDragHandler
+    , IEndDragHandler, IDropHandler, IPointerClickHandler, IDragHandler
 {
     [SerializeField]
     private Image itemImage;
@@ -51,12 +52,29 @@ public class UIInventoryItem : NetworkBehaviour
         borderImage.enabled = true;
     }
 
-    public void OnPointerClick(BaseEventData data)
+    public void OnBeginDrag(PointerEventData eventData)
     {
         if (empty)
             return;
-        PointerEventData pointerData =(PointerEventData)data;
-        if (pointerData.button == PointerEventData.InputButton.Right)
+        OnItemBeginDrag?.Invoke(this);
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+        OnItemEndDrag?.Invoke(this);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+
+        OnItemDroppedOn?.Invoke(this);
+    }
+    
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             OnRightMouseBtnClick?.Invoke(this);
         }
@@ -66,22 +84,7 @@ public class UIInventoryItem : NetworkBehaviour
         }
     }
 
-    public void OnEndDrag()
+    public void OnDrag(PointerEventData eventData)
     {
-        OnItemEndDrag?.Invoke(this);
     }
-
-    public void OnBeginDrag()
-    {
-        if (empty)
-            return;
-        OnItemBeginDrag?.Invoke(this);
-    }
-
-    public void OnDrop()
-    {
-        OnItemDroppedOn?.Invoke(this);
-    }
-
-    
 }
