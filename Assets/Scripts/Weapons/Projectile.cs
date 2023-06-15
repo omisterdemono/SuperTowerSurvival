@@ -18,9 +18,11 @@ public class Projectile : NetworkBehaviour
     [SerializeField] private float _timeToFlyInSeconds;
     [SerializeField] private float _speed;
 
-    public float Damage { get; set; }
+    [SyncVar] private float _damage;
+    [SyncVar] private Vector2 _direction;
 
-    [SyncVar] public Vector2 Direction;
+    public float Damage { get => _damage; set => _damage = value; }
+    public Vector2 Direction { get => _direction; set => _direction = value; }
 
     private void Start()
     {
@@ -34,13 +36,6 @@ public class Projectile : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //for friendly fire - now only destroys bullet, but can damage in the future
-        //var possibleCharacter = collision.GetComponent<Character>();
-        //if (possibleCharacter != null)
-        //{
-        //    throw new NotImplementedException("Not implemented cause of player destroyal on server");
-        //}
-
         //do not forget about walls xd
         //if (collision.CompareTag("Structure"))
         //{

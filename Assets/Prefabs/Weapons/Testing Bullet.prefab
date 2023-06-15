@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8697947346487023613}
   - component: {fileID: 2270286200720712055}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Testing Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,5 +184,5 @@ MonoBehaviour:
   syncInterval: 0
   _desiredTargets:
   - Enemy
-  _timeToFlyInSeconds: 5
-  _speed: 15
+  _timeToFlyInSeconds: 60
+  _speed: 3

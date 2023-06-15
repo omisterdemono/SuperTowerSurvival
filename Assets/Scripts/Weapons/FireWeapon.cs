@@ -1,6 +1,7 @@
 using Mirror;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,15 +11,16 @@ using UnityEngine.UIElements;
 /// </summary>
 public class FireWeapon : MonoBehaviour, IAttacker
 {
-    [SerializeField] private float _damage = 1.0f;
     [SerializeField] private GameObject _projectile;
-    [SerializeField] private Transform _firePosition;
-    [SerializeField] private float _bulletSpeed;
-    
+    [SerializeField] private Transform[] _firePositions;
+    [SerializeField] private float _damage = 1.0f;
+    [SerializeField] private float _cooldownSeconds;
+
+    private float _timeToNextShot;
+
     private SpriteRenderer _spriteRenderer;
     private Transform _equippedSlot;
 
-    public bool flip;
 
     public float Damage { get; set; }
 
@@ -28,6 +30,27 @@ public class FireWeapon : MonoBehaviour, IAttacker
         _equippedSlot = transform.parent;
     }
 
+    private void Update()
+    {
+        HandleFireRate();
+    }
+
+    private void HandleFireRate()
+    {
+        if (_timeToNextShot == 0)
+        {
+            return;
+        }
+
+        if (_timeToNextShot < 0)
+        {
+            _timeToNextShot = 0;
+            return;
+        }
+
+        _timeToNextShot -= Time.deltaTime;
+    }
+
     public void Attack(Vector2 direction, ref Action<Vector2> performAttack)
     {
         FireBullet(direction);
@@ -35,10 +58,20 @@ public class FireWeapon : MonoBehaviour, IAttacker
 
     public void FireBullet(Vector2 direction)
     {
-        GameObject projectile = Instantiate(_projectile, _firePosition.position, transform.rotation);
-        var bulletComponent = projectile.GetComponent<Projectile>();
-        bulletComponent.Direction = direction;
+        if (_timeToNextShot != 0)
+        {
+            return;
+        }
 
-        NetworkServer.Spawn(projectile);
+        foreach (var firePosition in _firePositions)
+        {
+            GameObject projectile = Instantiate(_projectile, firePosition.position, _equippedSlot.rotation);
+            var bulletComponent = projectile.GetComponent<Projectile>();
+            bulletComponent.Direction = direction;
+            bulletComponent.Damage = _damage;
+            NetworkServer.Spawn(projectile);
+        }
+
+        _timeToNextShot = _cooldownSeconds;
     }
 }

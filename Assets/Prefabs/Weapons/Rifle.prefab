@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6897715842247935621}
   - component: {fileID: 2999557769609847020}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434b7baa685c1f347bff2a0eea238517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
   _projectile: {fileID: 3363046323343731480, guid: 9a6a4ea90f4026f4db44f57dfeb81c0f, type: 3}
-  _firePosition: {fileID: 5142064971839516460}
-  _bulletSpeed: 50
+  _firePositions:
+  - {fileID: 5142064971839516460}
+  _damage: 10
+  _cooldownSeconds: 0.2

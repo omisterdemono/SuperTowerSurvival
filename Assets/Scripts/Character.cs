@@ -112,11 +112,13 @@ public class Character : NetworkBehaviour
         //rework, because some weapons have to be recharged
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //_attacker.Attack(targetDirection.normalized, ref _performAttack);
-
             Cmd_AttackOnServer(targetDirection.normalized);
         }
 
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            Cmd_AttackOnServer(targetDirection.normalized);
+        }
     }
 
     private void HandleEquippedItemRotation(IAttacker attacker, out Vector2 targetDirection)
