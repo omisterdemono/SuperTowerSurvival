@@ -18,6 +18,7 @@ public class Character : NetworkBehaviour
     [SerializeField] private List<ActiveSkill> _activeSkills;
 
     private IAttacker _attacker;
+    private EquipedSlot _equippedItemSlot;
     private Action<Vector2> _performAttack;
     private Vector2 _attackDirection;
 
@@ -30,6 +31,7 @@ public class Character : NetworkBehaviour
 
         //change to something more generic
         _attacker = GetComponentInChildren<FireWeapon>();
+        _equippedItemSlot = GetComponentInChildren<EquipedSlot>();
 
         if (_attacker == null)
         {
@@ -48,7 +50,7 @@ public class Character : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!isOwned) return;
+        if (!isLocalPlayer) return;
 
         Vector3 moveVector = Vector3.zero;
 
@@ -67,11 +69,10 @@ public class Character : NetworkBehaviour
 
     private void Update()
     {
-        if (!isOwned) return;
+        if (!isLocalPlayer) return;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("obtain");
             _animator.SetBool("IsObtaining", true);
         }
         else if (Input.GetKeyUp(KeyCode.F))
@@ -91,16 +92,12 @@ public class Character : NetworkBehaviour
         HandleWeapon();
     }
 
-    [ClientRpc]
-    private void Rpc_Attack()
-    {
-        Cmd_AttackOnServer();
-    }
-
     [Command(requiresAuthority = false)]
-    private void Cmd_AttackOnServer()
+    private void Cmd_AttackOnServer(Vector2 direction)
     {
-        _performAttack.Invoke(_attackDirection);
+        _attacker.Attack(direction, ref _performAttack);
+
+        //_performAttack.Invoke(direction);
     }
 
     private void HandleWeapon()
@@ -110,20 +107,19 @@ public class Character : NetworkBehaviour
             return;
         }
 
-        HandleWeaponRotation(_attacker, out Vector2 targetDirection);
+        HandleEquippedItemRotation(_attacker, out Vector2 targetDirection);
 
         //rework, because some weapons have to be recharged
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            _attacker.Attack(targetDirection.normalized, ref _performAttack);
-            _attackDirection= targetDirection.normalized;
+            //_attacker.Attack(targetDirection.normalized, ref _performAttack);
 
-            Cmd_AttackOnServer();
+            Cmd_AttackOnServer(targetDirection.normalized);
         }
 
     }
 
-    private void HandleWeaponRotation(IAttacker attacker, out Vector2 targetDirection)
+    private void HandleEquippedItemRotation(IAttacker attacker, out Vector2 targetDirection)
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
@@ -131,7 +127,7 @@ public class Character : NetworkBehaviour
 
         var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 
-        attacker.Rotate(angle);
+        _equippedItemSlot.Rotate(angle);
     }
 
     public void TryObtain()

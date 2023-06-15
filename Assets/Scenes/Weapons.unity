@@ -856,7 +856,7 @@ MonoBehaviour:
   DualMode: 1
   NoDelay: 1
   Interval: 10
-  Timeout: 10000
+  Timeout: 60000
   RecvBufferSize: 7361536
   SendBufferSize: 7361536
   FastResend: 2
@@ -910,13 +910,10 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
-  - {fileID: 5008485775042280947, guid: 84f09126fc1582c4e9396ac4ac866cc5, type: 3}
-  - {fileID: 5008485775042280947, guid: 8f5cc528b8f68c442b153b561a251b73, type: 3}
-  - {fileID: 4184418881177675161, guid: 90df933218757434f9500e7c4b1124df, type: 3}
   - {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
   - {fileID: 3363046323343731480, guid: 9a6a4ea90f4026f4db44f57dfeb81c0f, type: 3}
-  - {fileID: 2566183356743434054, guid: a0372ef6722e32d4399fb33a31f9bd1b, type: 3}
   - {fileID: 1332376983714181301, guid: 35015129290025f4988f9225c42d6b95, type: 3}
+  - {fileID: 5008485775042280947, guid: 8f5cc528b8f68c442b153b561a251b73, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
@@ -928,6 +925,10 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
+  _characters:
+  - {fileID: 1332376983714181301, guid: 35015129290025f4988f9225c42d6b95, type: 3}
+  - {fileID: 5008485775042280947, guid: 8f5cc528b8f68c442b153b561a251b73, type: 3}
+  _choosenCharacter: 0
 --- !u!4 &1040986183
 Transform:
   m_ObjectHideFlags: 0

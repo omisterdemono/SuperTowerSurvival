@@ -6,7 +6,7 @@ using UnityEngine;
 public class NetworkManagerSTS : NetworkManager
 {
     [SerializeField] private GameObject[] _characters;
-    public int _choosenCharacter = 1;
+    public int _choosenCharacter;
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         GameObject player = Instantiate(_characters[_choosenCharacter], Vector3.zero, Quaternion.identity);
