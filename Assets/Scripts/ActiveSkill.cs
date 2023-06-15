@@ -2,18 +2,19 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements.Experimental;
 
 public class ActiveSkill : NetworkBehaviour
 {
-    [SerializeField] private SkillAttributes _skillAttributes;
+    [SerializeField] protected SkillAttributes _skillAttributes;
     private MovementComponent _movementComponent;
 
     public string SkillName { get => _name; set => _name = value; }
     public bool IsReady { get => _isReady; set => _isReady = value; }
-    public ISkill Skill { get; set; }
+    protected ISkill Skill;
     
     private string _name;
     private float _cooldown;
@@ -97,8 +98,7 @@ public class ActiveSkill : NetworkBehaviour
                 }
                 else if (_castProgress == _castTime)
                 {
-                    FinishCast();
-                    Skill.UseSkill();
+                    FinishCastPositive();
                 }
             }
         }
@@ -138,5 +138,10 @@ public class ActiveSkill : NetworkBehaviour
         _castBar.GetComponent<CanvasGroup>().alpha = 0;
         _isStarted = false;
         _skillButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+    }
+
+    public virtual void FinishCastPositive()
+    {
+        FinishCast();
     }
 }

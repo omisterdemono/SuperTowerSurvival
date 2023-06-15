@@ -1,13 +1,11 @@
 using Mirror;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class PlaceMineSkill : ActiveSkill, ISkill
+public class PlaceDynamiteSkill : ActiveSkill, ISkill
 {
-    [SerializeField] private GameObject _minePrefab;
+    [SerializeField] private GameObject _dynamitePrefab;
     [SerializeField] private float _damage = 10;
 
     public override void FinishCastPositive()
@@ -19,11 +17,10 @@ public class PlaceMineSkill : ActiveSkill, ISkill
     [Command(requiresAuthority = false)]
     public void CmdUseSkill(Vector2 position)
     {
-        GameObject mine = Instantiate(_minePrefab, position, Quaternion.identity);
-        mine.GetComponent<MineScript>().Damage = _damage;
+        GameObject mine = Instantiate(_dynamitePrefab, position, Quaternion.identity);
+        mine.GetComponent<DynamiteScript>().Damage = _damage;
         NetworkServer.Spawn(mine, this.gameObject);
     }
-
     public void PowerUpSkillPoint()
     {
         throw new System.NotImplementedException();
