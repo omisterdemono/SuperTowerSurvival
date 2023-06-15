@@ -29,12 +29,30 @@ public class UIInventoryPage : NetworkBehaviour
 
     private int currentlyDraggedItemIndex = -1;
 
-    public event Action<int> OnDescriptionRequested,
-            OnItemActionRequested,
+    public event Action<int> OnItemActionRequested,
             OnStartDragging;
 
     public event Action<int, int> OnSwapItems;
 
+    public void DeselectAllItems()
+    {
+        foreach (UIInventoryItem item in listOfUIItems)
+        {
+            item.Deselect();
+        }
+    }
+    internal void ResetAllItems()
+    {
+        foreach (var item in listOfUIItems)
+        {
+            item.ResetData();
+            item.Deselect();
+        }
+    }
+    private void ResetSelection()
+    {
+        DeselectAllItems();
+    }
 
     public void InitializeInventoryUI(int inventorysize)
     {
@@ -61,10 +79,10 @@ public class UIInventoryPage : NetworkBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
-        listOfUIItems[0].SetData(image, count);
-        listOfUIItems[1].SetData(image2, count);
+        ResetSelection();
     }
 
+    
 
     public void Hide()
     {
@@ -72,7 +90,14 @@ public class UIInventoryPage : NetworkBehaviour
     }
 
 
-
+    public void UpdateData(int itemIndex,
+            Sprite itemImage, int itemQuantity)
+    {
+        if (listOfUIItems.Count > itemIndex)
+        {
+            listOfUIItems[itemIndex].SetData(itemImage, itemQuantity);
+        }
+    }
 
 
 
@@ -92,18 +117,24 @@ public class UIInventoryPage : NetworkBehaviour
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
         if (index == -1)
-        {
-            mouseFollower.Toggle(false);
-            currentlyDraggedItemIndex = -1;
             return;
-
-        }
-        listOfUIItems[currentlyDraggedItemIndex].SetData(index == 0 ? image : image2, count);
-        listOfUIItems[index].SetData(currentlyDraggedItemIndex == 0 ? image : image2, count);
-        mouseFollower.Toggle(false);
-        currentlyDraggedItemIndex=-1;
+        currentlyDraggedItemIndex = index;
+        HandleItemSelection(inventoryItemUI);
+        OnStartDragging?.Invoke(index);
 
     }
+    public void CreateDraggedItem(Sprite sprite, int quantity)
+    {
+        mouseFollower.Toggle(true);
+        mouseFollower.SetData(sprite, quantity);
+    }
+
+    private void ResetDraggedItem()
+    {
+        mouseFollower.Toggle(false);
+        currentlyDraggedItemIndex = -1;
+    }
+
     private void HandleBeginDrag(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
