@@ -99,6 +99,11 @@ public class Enemy : NetworkBehaviour
         _pathFinder.UpdatePath();
         _pathFinder.Update();
 
+        if (_pathFinder.isTargetReachableThroughWall(_target))
+        {
+            return _target != currentTarget;
+        }
+
         GameObject wall = _pathFinder.Wall2Destroy;
         if (wall != null)
         {
@@ -132,7 +137,7 @@ public class Enemy : NetworkBehaviour
         return _hall;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _stateMachine.OnLogic();
     }

@@ -28,6 +28,8 @@ public class EnemyPathFinder : MonoBehaviour
 
     [SerializeField] private float _corelationDistancePerWall = 5;
 
+    [SerializeField] private int _attackRadius = 3;
+
     private Path _path;
 
     private Seeker _seeker;
@@ -35,6 +37,7 @@ public class EnemyPathFinder : MonoBehaviour
     private MovementComponent _movementComponent;
 
     private int currentWaypoint = 0;
+
 
     public void Start()
     {
@@ -92,13 +95,14 @@ public class EnemyPathFinder : MonoBehaviour
                 break;
             }
         }
-        List<RaycastHit2D> hits = RayCastWalls(target);
+
+        List<RaycastHit2D> wallHits = RayCastWalls(target);
         Vector3 dir;
-        if (IsBetterTroughWalls(hits))
+        if (IsBetterTroughWalls(wallHits))
         {
             useWallsStrategy = true;
             //here smt Sequence error
-            Wall2Destroy = hits.First().collider.gameObject;
+            Wall2Destroy = wallHits.First().collider.gameObject;
             var attackRadius = 1.5;
             if (DistanceToTarget(Wall2Destroy.transform) < attackRadius)
             {
@@ -115,22 +119,33 @@ public class EnemyPathFinder : MonoBehaviour
 
         if (reachedEndOfPath)
         {
+            var firstHit = wallHits.First();
+            if (firstHit != null)
+            {
+                Wall2Destroy = firstHit.collider.gameObject;
+                useWallsStrategy = true;
+            }
             dir = Vector3.zero;
         }
 
         direction = dir;
-        //_movementComponent.MovementVector = dir;
-        //_movementComponent.Move();
     }
 
-    private List<RaycastHit2D> RayCastWalls(Transform target)
+    private RaycastHit2D[] RayCast(Transform target)
     {
         Vector2 direction = (target.position - transform.position).normalized;
 
         float distance = Vector2.Distance(target.position, transform.position);
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, distance);
+        return Physics2D.RaycastAll(transform.position, direction, distance);
+    }
+    private List<RaycastHit2D> RayCastWalls(Transform target)
+    {
+        //Vector2 direction = (target.position - transform.position).normalized;
 
+        //float distance = Vector2.Distance(target.position, transform.position);
+
+        RaycastHit2D[] hits = RayCast(target);
         List<RaycastHit2D> hitsWalls = new List<RaycastHit2D>();
         foreach (RaycastHit2D hit in hits)
         {
@@ -140,6 +155,31 @@ public class EnemyPathFinder : MonoBehaviour
             }
         }
         return hitsWalls;
+    }
+
+    public bool isTargetReachableThroughWall(Transform target)
+    {
+        var hits = RayCast(target);
+        if (hits.Length == 0) return false;
+        GameObject firstWall = hits.First().collider.gameObject;
+        if (firstWall.tag == "Wall")
+        {
+            hits.Select(hit => hit.collider.gameObject.transform == target.transform).FirstOrDefault();
+            if(hits.Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                //wall - target
+                var dis = Vector3.Distance(firstWall.transform.position, target.position);
+                if(dis < _attackRadius)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private float DistanceToTarget(Transform target)
