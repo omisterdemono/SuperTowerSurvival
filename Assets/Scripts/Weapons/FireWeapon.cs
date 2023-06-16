@@ -1,3 +1,4 @@
+using Assets.Scripts.Weapons;
 using Mirror;
 using System;
 using System.Collections;
@@ -9,24 +10,23 @@ using UnityEngine.UIElements;
 /// Spawns bullet, rotates parent object for all weapons
 /// towards cursor.
 /// </summary>
-public class FireWeapon : MonoBehaviour, IAttacker
+public class FireWeapon : MonoBehaviour, IAttacker, IEquipable
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform[] _firePositions;
     [SerializeField] private float _damage = 1.0f;
     [SerializeField] private float _cooldownSeconds;
+    [SerializeField] private bool _needFlip;
 
     private float _timeToNextShot;
-
-    private SpriteRenderer _spriteRenderer;
     private Transform _equippedSlot;
 
 
     public float Damage { get; set; }
+    public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _equippedSlot = transform.parent;
     }
 
@@ -51,7 +51,7 @@ public class FireWeapon : MonoBehaviour, IAttacker
         _timeToNextShot -= Time.deltaTime;
     }
 
-    public void Attack(Vector2 direction, ref Action<Vector2> performAttack)
+    public void Attack(Vector2 direction)
     {
         FireBullet(direction);
     }
@@ -65,13 +65,23 @@ public class FireWeapon : MonoBehaviour, IAttacker
 
         foreach (var firePosition in _firePositions)
         {
-            GameObject projectile = Instantiate(_projectile, firePosition.position, _equippedSlot.rotation);
+            GameObject projectile = Instantiate(_projectile, firePosition.position, firePosition.rotation);
             var bulletComponent = projectile.GetComponent<Projectile>();
-            bulletComponent.Direction = direction;
+            bulletComponent.Direction = firePosition.right;
             bulletComponent.Damage = _damage;
             NetworkServer.Spawn(projectile);
         }
 
         _timeToNextShot = _cooldownSeconds;
+    }
+
+    public void Hold(Vector2 direction)
+    {
+        FireBullet(direction);
+    }
+
+    public void KeyUp(Vector2 direction)
+    {
+        return;
     }
 }

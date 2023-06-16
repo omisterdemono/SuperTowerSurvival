@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5142064971839516460}
   m_Layer: 0
-  m_Name: FirePosition
+  m_Name: FirePosition_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,14 +23,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665340690325679064}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.419, y: 0.005, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -0.02300001, y: -0.051000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5183617381679070727}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!1 &2566183356743434054
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5183617381679070727}
   - component: {fileID: 6897715842247935621}
-  - component: {fileID: 2999557769609847020}
+  - component: {fileID: 2675249137211223213}
   m_Layer: 0
-  m_Name: Rifle
+  m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,9 +56,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2566183356743434054}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5142064971839516460}
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e55847815d286aa489d74624e1729dfb, type: 3}
+  m_Sprite: {fileID: -1972509457, guid: 0195a7a9638984540b225f741eed9339, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2999557769609847020
+--- !u!114 &2675249137211223213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,12 +126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2566183356743434054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 434b7baa685c1f347bff2a0eea238517, type: 3}
+  m_Script: {fileID: 11500000, guid: 78ccd06cb114f0c4681fb70699bf5dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectile: {fileID: 3363046323343731480, guid: 9a6a4ea90f4026f4db44f57dfeb81c0f, type: 3}
-  _firePositions:
-  - {fileID: 5142064971839516460}
-  _damage: 10
-  _cooldownSeconds: 0.2
-  _needFlip: 1
+  _projectile: {fileID: 8271526954206739466, guid: 80adfd2519cb0354fadf004e9841d5b5, type: 3}
+  _firePosition: {fileID: 5142064971839516460}
+  _needFlip: 0
+  _damage: 15
+  _minProgressToShotSeconds: 1
+  _maxChargeSeconds: 3
+  _cooldownSeconds: 1

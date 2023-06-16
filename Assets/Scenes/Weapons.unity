@@ -912,10 +912,12 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
   - {fileID: 3363046323343731480, guid: 9a6a4ea90f4026f4db44f57dfeb81c0f, type: 3}
+  - {fileID: 8271526954206739466, guid: 80adfd2519cb0354fadf004e9841d5b5, type: 3}
+  - {fileID: 3363046323343731480, guid: f56e1ebb087d68a4a8c6408e03725957, type: 3}
   - {fileID: 5008485775042280947, guid: 8f5cc528b8f68c442b153b561a251b73, type: 3}
   - {fileID: 1332376983714181301, guid: 35015129290025f4988f9225c42d6b95, type: 3}
   - {fileID: 1332376983714181301, guid: 6bf5c8c15f6bd5a429077a9bd8619c1a, type: 3}
-  - {fileID: 3363046323343731480, guid: 6bee6331fef57a549b7b10da53b0c2a9, type: 3}
+  - {fileID: 4184418881177675161, guid: b87b48622f8aacf479d05a3cd887c569, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
@@ -927,10 +929,11 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
+  _choosenCharacter: 2
   _characters:
   - {fileID: 1332376983714181301, guid: 35015129290025f4988f9225c42d6b95, type: 3}
   - {fileID: 1332376983714181301, guid: 6bf5c8c15f6bd5a429077a9bd8619c1a, type: 3}
-  _choosenCharacter: 1
+  - {fileID: 4184418881177675161, guid: b87b48622f8aacf479d05a3cd887c569, type: 3}
 --- !u!4 &1040986183
 Transform:
   m_ObjectHideFlags: 0

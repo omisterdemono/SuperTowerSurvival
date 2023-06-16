@@ -30,7 +30,7 @@ public class Character : NetworkBehaviour
         _animator = GetComponent<Animator>();
 
         //change to something more generic
-        _attacker = GetComponentInChildren<FireWeapon>();
+        _attacker = GetComponentInChildren<IAttacker>();
         _equippedItemSlot = GetComponentInChildren<EquipedSlot>();
 
         if (_attacker == null)
@@ -93,11 +93,21 @@ public class Character : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    private void Cmd_AttackOnServer(Vector2 direction)
+    private void Cmd_PressOnServer(Vector2 direction)
     {
-        _attacker.Attack(direction, ref _performAttack);
+        _attacker.Attack(direction);
+    }
 
-        //_performAttack.Invoke(direction);
+    [Command(requiresAuthority = false)]
+    private void Cmd_HoldOnServer(Vector2 direction)
+    {
+        _attacker.Hold(direction);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_KeyUpOnServer(Vector2 direction)
+    {
+        _attacker.KeyUp(direction);
     }
 
     private void HandleWeapon()
@@ -112,12 +122,17 @@ public class Character : NetworkBehaviour
         //rework, because some weapons have to be recharged
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Cmd_AttackOnServer(targetDirection.normalized);
+            Cmd_PressOnServer(targetDirection.normalized);
         }
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            Cmd_AttackOnServer(targetDirection.normalized);
+            Cmd_HoldOnServer(targetDirection.normalized);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            Cmd_KeyUpOnServer(targetDirection.normalized);
         }
     }
 

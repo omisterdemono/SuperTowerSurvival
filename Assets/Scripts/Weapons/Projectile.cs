@@ -16,12 +16,13 @@ public class Projectile : NetworkBehaviour
     [SerializeField] private Type _owner;
 
     [SerializeField] private float _timeToFlyInSeconds;
-    [SerializeField] private float _speed;
+    [SerializeField][SyncVar] private float _speed;
 
     [SyncVar] private float _damage;
     [SyncVar] private Vector2 _direction;
 
     public float Damage { get => _damage; set => _damage = value; }
+    public float Speed { get => _speed; set => _speed = value; }
     public Vector2 Direction { get => _direction; set => _direction = value; }
 
     private void Start()
@@ -31,7 +32,7 @@ public class Projectile : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += (Vector3)(Direction * _speed * Time.fixedDeltaTime);
+        transform.position += (Vector3)(Direction * Speed * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
