@@ -15,15 +15,18 @@ public class Bow : MonoBehaviour, IAttacker, IEquipable
     [SerializeField] private float _maxChargeSeconds;
     [SerializeField] private float _cooldownSeconds;
 
+    private Animator _animator;
+
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
 
+    private bool _isCharging = false;
     private float _chargeProgressSeconds;
     private float _timeToNextShot;
 
-    public void Attack(Vector2 direction)
+    private void Awake()
     {
-        return;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -54,6 +57,10 @@ public class Bow : MonoBehaviour, IAttacker, IEquipable
             _chargeProgressSeconds = _maxChargeSeconds;
         }
 
+        if (!_isCharging)
+        {
+            ChangeChargeAnimationState();
+        }
         _chargeProgressSeconds += Time.deltaTime;
     }
 
@@ -61,6 +68,7 @@ public class Bow : MonoBehaviour, IAttacker, IEquipable
     {
         if (_timeToNextShot != 0 || _chargeProgressSeconds < _minProgressToShotSeconds)
         {
+            ChangeChargeAnimationState();
             _chargeProgressSeconds = 0;
             return;
         }
@@ -70,11 +78,23 @@ public class Bow : MonoBehaviour, IAttacker, IEquipable
 
         projectileComponent.Speed *= _chargeProgressSeconds / _maxChargeSeconds;
         projectileComponent.Direction = _firePosition.right;
-        
+
         NetworkServer.Spawn(projectile);
 
+        ChangeChargeAnimationState();
         _chargeProgressSeconds = 0;
         _timeToNextShot = _cooldownSeconds;
+    }
+
+    private void ChangeChargeAnimationState()
+    {
+        _isCharging = !_isCharging;
+        _animator.SetBool("isCharging", _isCharging);
+    }
+
+    public void Attack(Vector2 direction)
+    {
+        return;
     }
 
     public void Hold(Vector2 direction)
