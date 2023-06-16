@@ -11,6 +11,8 @@ public class Character : NetworkBehaviour
     private HealthComponent _health;
     private Animator _animator;
 
+    [SerializeField] private bool _isAlive = true;
+
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
     [SerializeField] private float _weaponDamageModifier = 1;
@@ -18,6 +20,8 @@ public class Character : NetworkBehaviour
     private List<ActiveSkill> _activeSkills;
 
     private Dictionary<int, KeyCode> _keyCodes;
+
+    public bool IsAlive { get => _isAlive; set => _isAlive = value; }
 
     void Awake()
     {
@@ -38,7 +42,7 @@ public class Character : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!isOwned) return;
+        if (!isOwned && _isAlive) return;
 
         Vector3 moveVector = Vector3.zero;
 

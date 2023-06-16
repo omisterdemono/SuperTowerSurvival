@@ -378,6 +378,8 @@ MonoBehaviour:
   - {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
   - {fileID: 4153535944577513394, guid: 36c23f8accca0f64d85168bc6d67bc35, type: 3}
   - {fileID: 5832317216093094716, guid: 55c417d0c04b4f24d88b6516358c94eb, type: 3}
+  - {fileID: 5008485775042280947, guid: 0bcbe8539f3151b46ad798f409a4be9b, type: 3}
+  - {fileID: 727817354428766094, guid: 31968489197d9f149a38478fd6c1e9de, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
@@ -391,7 +393,8 @@ MonoBehaviour:
   timeInterpolationGui: 0
   _characters:
   - {fileID: 5008485775042280947, guid: 8f5cc528b8f68c442b153b561a251b73, type: 3}
-  _choosenCharacter: 0
+  - {fileID: 5008485775042280947, guid: 0bcbe8539f3151b46ad798f409a4be9b, type: 3}
+  _choosenCharacter: 1
 --- !u!4 &1040986183
 Transform:
   m_ObjectHideFlags: 0
