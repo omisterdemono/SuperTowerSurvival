@@ -41,6 +41,7 @@ public class EnemyPathFinder : MonoBehaviour
         _movementComponent = GetComponent<MovementComponent>();
         _seeker = GetComponent<Seeker>();
         InvokeRepeating("UpdatePath", 0f, .5f);
+        AstarPath.active.logPathResults = PathLog.None;
     }
 
     public void UpdatePath()
@@ -93,9 +94,10 @@ public class EnemyPathFinder : MonoBehaviour
         }
         List<RaycastHit2D> hits = RayCastWalls(target);
         Vector3 dir;
-        if (IsBetterTroughWalls(hits) || isTargetClosed)
+        if (IsBetterTroughWalls(hits))
         {
             useWallsStrategy = true;
+            //here smt Sequence error
             Wall2Destroy = hits.First().collider.gameObject;
             var attackRadius = 1.5;
             if (DistanceToTarget(Wall2Destroy.transform) < attackRadius)
