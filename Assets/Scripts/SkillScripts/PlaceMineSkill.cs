@@ -5,29 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlaceMineSkill : NetworkBehaviour, ISkill
+public class PlaceMineSkill : ActiveSkill, ISkill
 {
-    [SerializeField] private SkillAttributes _skillAttributes;
     [SerializeField] private GameObject _minePrefab;
+    [SerializeField] private float _damage = 10;
 
-    private ActiveSkill _activeSkill;
-
-    public void Start()
+    public override void FinishCastPositive()
     {
-        _activeSkill = GetComponents<ActiveSkill>().Where(x => x.SkillName == _skillAttributes.Name).First();
-        _activeSkill.Skill = this;
+        base.FinishCastPositive();
+        CmdUseSkill(transform.position);
     }
 
     [Command(requiresAuthority = false)]
-    public void UseSkill()
-    {
-        CmdUseSkill(GetComponent<Character>().transform.position);
-    }
-
     public void CmdUseSkill(Vector2 position)
     {
         GameObject mine = Instantiate(_minePrefab, position, Quaternion.identity);
-        mine.GetComponent<MineScript>().Damage = 10;
+        mine.GetComponent<MineScript>().Damage = _damage;
         NetworkServer.Spawn(mine, this.gameObject);
     }
 

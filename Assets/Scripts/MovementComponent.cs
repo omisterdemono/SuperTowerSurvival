@@ -12,6 +12,10 @@ public class MovementComponent : NetworkBehaviour
         {
             _speed = value;
         }
+        get
+        {
+            return _speed;
+        }
     }
     public Vector3 MovementVector
     {
