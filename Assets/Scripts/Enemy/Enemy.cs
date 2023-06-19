@@ -22,8 +22,12 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private MovementComponent _movementComponent;
     [SerializeField] private EnemyPathFinder _pathFinder;
+    [SerializeField] private AttackManager _attackManager;
 
     private StateMachine _stateMachine = new StateMachine();
+
+    public int damage = 10;
+    public float cooldown = 1000;
 
     private void Awake()
     {
@@ -32,6 +36,9 @@ public class Enemy : NetworkBehaviour
         _movementComponent = GetComponent<MovementComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();
         _pathFinder.target = _target;
+        _attackManager = new AttackManager();
+        _attackManager.UpdateEnemy(this);
+        _attackManager.UpdateTarget(_target.gameObject);
         //_direction = Vector3.zero;
 
         _stateMachine.AddState("Move2Target", new State(
@@ -58,6 +65,11 @@ public class Enemy : NetworkBehaviour
         }));
 
         _stateMachine.AddState("Attack", new State(
+        onLogic: (state) =>
+        {
+            _attackManager.AttackTarget();
+            Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
+        },
         onEnter: (state) =>
         {
             Debug.Log($"Attacked target: {_target}");
@@ -99,17 +111,26 @@ public class Enemy : NetworkBehaviour
         _pathFinder.UpdatePath();
         _pathFinder.Update();
 
-        if (_pathFinder.isTargetReachableThroughWall(_target))
+        //if (_pathFinder.isTargetReachableThroughWall(_target))
+        //{
+        //    //_attackManager.UpdateTarget(_target.gameObject);
+        //    //return _target != currentTarget;
+        //}
+        if (!_pathFinder.isTargetReachableThroughWall(_target))
         {
-            return _target != currentTarget;
+            GameObject wall = _pathFinder.Wall2Destroy;
+            if (wall != null)
+            {
+                _target = wall.transform;
+            }
         }
 
-        GameObject wall = _pathFinder.Wall2Destroy;
-        if (wall != null)
+        if (_target != currentTarget) 
         {
-            _target = wall.transform;
-        }
-        return _target != currentTarget;
+            _attackManager.UpdateTarget(_target.gameObject);
+            return true;
+        };
+        return false;
     }
     
     private bool targetInAtackRange(Transition<string> transition)
