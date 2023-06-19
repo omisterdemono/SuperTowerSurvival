@@ -21,8 +21,8 @@ public class AttackManager : MonoBehaviour
         if (_target == null) return;
         if (_targetHealthComponent == null) return;
         if (isAttackOnCooldown) return;
-        _targetHealthComponent.Damage(damage);
-        StartCoroutine(StartCooldown());
+        //_targetHealthComponent.Damage(damage);
+        //StartCoroutine(StartCooldown());
     }
 
     private IEnumerator StartCooldown()
