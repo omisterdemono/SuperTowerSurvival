@@ -14,7 +14,7 @@ namespace Inventory.Model
         private List<InventoryItem> inventoryItems;
 
         [field: SerializeField]
-        public int Size { get; private set; } = 10;
+        public int Size { get; private set; } = 12;
 
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
@@ -149,6 +149,8 @@ namespace Inventory.Model
 
         public void SwapItems(int itemIndex_1, int itemIndex_2)
         {
+            if (itemIndex_1<inventoryItems.Count && itemIndex_2<inventoryItems.Count)
+                return;
             InventoryItem item1 = inventoryItems[itemIndex_1];
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;

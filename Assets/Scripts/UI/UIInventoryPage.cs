@@ -13,14 +13,6 @@ public class UIInventoryPage : NetworkBehaviour
     [SerializeField]
     private RectTransform contentPanel;
 
-    [SerializeField]
-    private string name;
-    [SerializeField]
-    private Sprite image;
-    [SerializeField]
-    private Sprite image2;
-    [SerializeField]
-    private int count;
 
     [SerializeField]
     private MouseFollower mouseFollower;
@@ -29,29 +21,17 @@ public class UIInventoryPage : NetworkBehaviour
 
     private int currentlyDraggedItemIndex = -1;
 
-    public event Action<int> OnItemActionRequested,
+    public event Action<int> OnDescriptionRequested,
+            OnItemActionRequested,
             OnStartDragging;
 
     public event Action<int, int> OnSwapItems;
 
-    public void DeselectAllItems()
+
+    private void Awake()
     {
-        foreach (UIInventoryItem item in listOfUIItems)
-        {
-            item.Deselect();
-        }
-    }
-    internal void ResetAllItems()
-    {
-        foreach (var item in listOfUIItems)
-        {
-            item.ResetData();
-            item.Deselect();
-        }
-    }
-    private void ResetSelection()
-    {
-        DeselectAllItems();
+        Hide();
+        mouseFollower.Toggle(false);
     }
 
     public void InitializeInventoryUI(int inventorysize)
@@ -70,28 +50,23 @@ public class UIInventoryPage : NetworkBehaviour
         }
     }
 
-    public void Awake()
+    internal void ResetAllItems()
     {
-        Hide();
-        mouseFollower.Toggle(false);
+        foreach (var item in listOfUIItems)
+        {
+            item.ResetData();
+            item.Deselect();
+        }
     }
 
-    public void Show()
+    internal void UpdateDescription(int itemIndex, Sprite itemImage, string name, string description)
     {
-        gameObject.SetActive(true);
-        ResetSelection();
+        DeselectAllItems();
+        listOfUIItems[itemIndex].Select();
     }
-
-    
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-
 
     public void UpdateData(int itemIndex,
-            Sprite itemImage, int itemQuantity)
+        Sprite itemImage, int itemQuantity)
     {
         if (listOfUIItems.Count > itemIndex)
         {
@@ -99,34 +74,30 @@ public class UIInventoryPage : NetworkBehaviour
         }
     }
 
-
-
-
     private void HandleShowItemActions(UIInventoryItem inventoryItemUI)
     {
-
+        int index = listOfUIItems.IndexOf(inventoryItemUI);
+        if (index == -1)
+        {
+            return;
+        }
+        OnItemActionRequested?.Invoke(index);
     }
 
     private void HandleEndDrag(UIInventoryItem inventoryItemUI)
     {
-        mouseFollower.Toggle(false);
-        currentlyDraggedItemIndex = -1;
+        ResetDraggedItem();
     }
 
     private void HandleSwap(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
         if (index == -1)
+        {
             return;
-        currentlyDraggedItemIndex = index;
+        }
+        OnSwapItems?.Invoke(currentlyDraggedItemIndex, index);
         HandleItemSelection(inventoryItemUI);
-        OnStartDragging?.Invoke(index);
-
-    }
-    public void CreateDraggedItem(Sprite sprite, int quantity)
-    {
-        mouseFollower.Toggle(true);
-        mouseFollower.SetData(sprite, quantity);
     }
 
     private void ResetDraggedItem()
@@ -141,16 +112,49 @@ public class UIInventoryPage : NetworkBehaviour
         if (index == -1)
             return;
         currentlyDraggedItemIndex = index;
-        mouseFollower.Toggle(true);
-        mouseFollower.SetData(index == 0 ? image : image2, count);
-
+        HandleItemSelection(inventoryItemUI);
+        OnStartDragging?.Invoke(index);
     }
 
+    public void CreateDraggedItem(Sprite sprite, int quantity)
+    {
+        mouseFollower.Toggle(true);
+        mouseFollower.SetData(sprite, quantity);
+    }
 
     private void HandleItemSelection(UIInventoryItem inventoryItemUI)
     {
         int index = listOfUIItems.IndexOf(inventoryItemUI);
         if (index == -1)
             return;
+        OnDescriptionRequested?.Invoke(index);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+        ResetSelection();
+    }
+
+    public void ResetSelection()
+    {
+        DeselectAllItems();
+    }
+
+    
+
+
+    private void DeselectAllItems()
+    {
+        foreach (UIInventoryItem item in listOfUIItems)
+        {
+            item.Deselect();
+        }
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+        ResetDraggedItem();
     }
 }

@@ -106,7 +106,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   inventoryUI: {fileID: 4634094015349029944, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
-  initialItems: []
+  inventoryData: {fileID: 11400000, guid: 997fc5b98fc4c0242822d82c15941074, type: 2}
+  initialItems:
+  - quantity: 3
+    item: {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
+    itemState: []
+  - quantity: 2
+    item: {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
+    itemState: []
+  - quantity: 4
+    item: {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
+    itemState: []
+  - quantity: 10
+    item: {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
+    itemState: []
   dropClip: {fileID: 0}
   size: 12
 --- !u!114 &1127090800803803951

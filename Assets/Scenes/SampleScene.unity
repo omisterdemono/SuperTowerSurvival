@@ -516,11 +516,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6244735272321829162, guid: e3520f49489e3fd4f94204a4ec2d8815, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6244735272321829162, guid: e3520f49489e3fd4f94204a4ec2d8815, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6244735272321829162, guid: e3520f49489e3fd4f94204a4ec2d8815, type: 3}
       propertyPath: m_LocalPosition.x
@@ -577,6 +577,10 @@ PrefabInstance:
     - target: {fileID: 8973064502613686004, guid: e3520f49489e3fd4f94204a4ec2d8815, type: 3}
       propertyPath: m_Name
       value: Slot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973064502613686004, guid: e3520f49489e3fd4f94204a4ec2d8815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1359,7 +1363,7 @@ MonoBehaviour:
   sceneId: 119087726
   _assetId: 0
   serverOnly: 0
-  visible: 0
+  visible: 1
   hasSpawned: 0
 --- !u!114 &1599606492
 MonoBehaviour:
@@ -1812,6 +1816,22 @@ PrefabInstance:
     - target: {fileID: 6262242153918134345, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
       propertyPath: m_CellSize.y
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262242153918134345, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262242153918134345, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262242153918134345, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262242153918134345, guid: 8ec7a598baa5b224197bbd8743dd982b, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

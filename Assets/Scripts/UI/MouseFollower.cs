@@ -15,6 +15,7 @@ public class MouseFollower : NetworkBehaviour
     {
         canvas = transform.root.GetComponent<Canvas>();
         item = GetComponentInChildren<UIInventoryItem>();
+        gameObject.SetActive(false);
     }
 
     public void SetData(Sprite sprite, int quantity)
