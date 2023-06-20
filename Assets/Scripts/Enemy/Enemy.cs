@@ -25,9 +25,15 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private AttackManager _attackManager;
 
     private StateMachine _stateMachine = new StateMachine();
+    private Animator _animator;
 
     public int damage = 10;
     public float cooldown = 1000;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Awake()
     {
@@ -44,6 +50,15 @@ public class Enemy : NetworkBehaviour
         onLogic: (state) =>
         {
             _movementComponent.MovementVector = _pathFinder.direction;
+            _animator.SetBool("isMoving", true);
+            if(_movementComponent.MovementVector.x > 0)
+            {
+                _animator.SetBool("isMovingRight", true);
+            }
+            else if (_movementComponent.MovementVector.x < 0)
+            {
+                _animator.SetBool("isMovingRight", false);
+            }
             _movementComponent.Move();
         },
         onEnter: (state) => 
@@ -69,6 +84,7 @@ public class Enemy : NetworkBehaviour
         },
         onEnter: (state) =>
         {
+            _animator.SetBool("isMoving", false);
             Debug.Log($"Attacked target: {_target}");
         }));
 
