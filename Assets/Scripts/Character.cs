@@ -33,7 +33,7 @@ public class Character : NetworkBehaviour
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
 
-        _structurePlacer = FindObjectOfType<StructurePlacer>();
+        _structurePlacer = GetComponent<StructurePlacer>();
     }
 
     private void Start()
@@ -89,14 +89,14 @@ public class Character : NetworkBehaviour
         }
 
         //should be moved to build hammer
-        //HandleBuild();
+        HandleBuild();
     }
 
     private void HandleBuild()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) // && 
         {
-            CmdPlaceStructure();
+            _structurePlacer.PlaceStructure(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
     public void TryObtain()
@@ -108,12 +108,6 @@ public class Character : NetworkBehaviour
         }
 
         instrument.Obtain();
-    }
-
-    [Command(requiresAuthority = false)]
-    private void CmdPlaceStructure()
-    {
-        _structurePlacer.PlaceStructure();
     }
 
     public void PowerUpHealth()

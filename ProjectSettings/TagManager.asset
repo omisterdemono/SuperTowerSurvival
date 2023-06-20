@@ -9,6 +9,8 @@ TagManager:
   - MainHall
   - Defence
   - Wall
+  - StructuresHolder
+  - StructuresTilemap
   layers:
   - Default
   - TransparentFX

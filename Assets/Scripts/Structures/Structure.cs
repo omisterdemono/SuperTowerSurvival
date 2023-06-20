@@ -7,12 +7,19 @@ public class Structure : NetworkBehaviour, IBuildable
 {
     private HealthComponent _healthComponent;
     private SpriteRenderer _spriteRenderer;
-    public bool IsBuilt { get; set; } = false;
 
-    private void Awake()
+    [SyncVar] private Vector3 _spawnPosition;
+    public bool IsBuilt { get; set; } = false;
+    public Vector3 SpawnPosition { get => _spawnPosition; set => _spawnPosition = value; }
+
+    private void Start()
     {
         _healthComponent = GetComponent<HealthComponent>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        var parent = GameObject.FindGameObjectWithTag("StructuresTilemap").transform;
+        transform.parent = parent;
+        transform.localPosition = SpawnPosition;
     }
 
     public void Init()
