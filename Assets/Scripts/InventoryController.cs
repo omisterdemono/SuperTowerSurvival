@@ -12,7 +12,7 @@ public class InventoryController : NetworkBehaviour
     private UIInventoryPage inventoryUI;
 
     [SerializeField]
-    private CraftBookUI craftUI;
+    private GameObject craftUI;
 
     [SerializeField]
     private InventorySO inventoryData;
@@ -27,6 +27,7 @@ public class InventoryController : NetworkBehaviour
 
     private void Start()
     {
+        craftUI = GameObject.FindGameObjectWithTag("CraftUI");
         if (isOwned)
         {
             PrepareUI();
@@ -67,8 +68,7 @@ public class InventoryController : NetworkBehaviour
         inventoryUI.OnItemActionRequested += HandleItemActionRequest;
 
 
-        craftUI.InitializeCraftUI(2);
-
+        craftUI.GetComponent<CraftBookUI>().InitializeCraftUI(2);
     }
 
     private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
@@ -127,15 +127,15 @@ public class InventoryController : NetworkBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.B))
+        else if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (craftUI.isActiveAndEnabled == false)
+            if (craftUI.GetComponent<CraftBookUI>().isActiveAndEnabled == false)
             {
-                craftUI.Show();
+                craftUI.GetComponent<CraftBookUI>().Show();
             }
             else
             {
-                craftUI.Hide();
+                craftUI.GetComponent<CraftBookUI>().Hide();
             }
         }
     }
