@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIInventoryItem : NetworkBehaviour, IPointerClickHandler,
+public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
         IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
 {
     [SerializeField]

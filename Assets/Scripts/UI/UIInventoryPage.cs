@@ -1,3 +1,4 @@
+using Inventory.Model;
 using Mirror;
 using System;
 using System.Collections;
@@ -13,6 +14,8 @@ public class UIInventoryPage : NetworkBehaviour
     [SerializeField]
     private RectTransform contentPanel;
 
+    [SerializeField]
+    private Button buttonPrefab;
 
     [SerializeField]
     private MouseFollower mouseFollower;
@@ -23,7 +26,7 @@ public class UIInventoryPage : NetworkBehaviour
 
     public event Action<int> OnDescriptionRequested,
             OnItemActionRequested,
-            OnStartDragging;
+            OnStartDragging, OnStackRequest;
 
     public event Action<int, int> OnSwapItems;
 
@@ -100,6 +103,8 @@ public class UIInventoryPage : NetworkBehaviour
         HandleItemSelection(inventoryItemUI);
     }
 
+    
+
     private void ResetDraggedItem()
     {
         mouseFollower.Toggle(false);
@@ -140,9 +145,6 @@ public class UIInventoryPage : NetworkBehaviour
     {
         DeselectAllItems();
     }
-
-    
-
 
     private void DeselectAllItems()
     {

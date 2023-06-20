@@ -1,15 +1,11 @@
 using Inventory.Model;
 using Mirror;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
-public class InventoryController : NetworkBehaviour
+public class CraftController : NetworkBehaviour
 {
-    [SerializeField]
-    private UIInventoryPage inventoryUI;
 
     [SerializeField]
     private CraftBookUI craftUI;
@@ -17,7 +13,6 @@ public class InventoryController : NetworkBehaviour
     [SerializeField]
     private InventorySO inventoryData;
 
-    public List<InventoryItem> initialItems = new List<InventoryItem>();
 
     [SerializeField]
     private AudioClip dropClip;
@@ -31,44 +26,14 @@ public class InventoryController : NetworkBehaviour
         {
             PrepareUI();
         }
-        PrepareInventoryData();
     }
 
-
-    private void PrepareInventoryData()
-    {
-        inventoryData.Initialize();
-        inventoryData.OnInventoryUpdated += UpdateInventoryUI;
-        foreach (var item in initialItems)
-        {
-            if (item.IsEmpty)
-                continue;
-            inventoryData.AddItem(item);
-        }
-    }
-
-    private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
-    {
-        inventoryUI.ResetAllItems();
-        foreach (var item in inventoryState)
-        {
-            inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
-                item.Value.quantity);
-        }
-    }
 
     private void PrepareUI()
     {
-        inventoryUI = GameObject.FindAnyObjectByType<UIInventoryPage>();
-        inventoryUI.InitializeInventoryUI(inventoryData.Size);
 
-        inventoryUI.OnSwapItems += HandleSwapItems;
-        inventoryUI.OnStartDragging += HandleDragging;
-        inventoryUI.OnItemActionRequested += HandleItemActionRequest;
-
-
+        craftUI = GameObject.FindAnyObjectByType<CraftBookUI>();
         craftUI.InitializeCraftUI(2);
-
     }
 
     private void HandleSwapItems(int itemIndex_1, int itemIndex_2)
@@ -83,7 +48,6 @@ public class InventoryController : NetworkBehaviour
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
-        inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity);
     }
 
     private void HandleItemActionRequest(int itemIndex)
@@ -109,25 +73,8 @@ public class InventoryController : NetworkBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (inventoryUI.isActiveAndEnabled == false)
-            {
-                inventoryUI.Show();
-                foreach (var item in inventoryData.GetCurrentInventoryState())
-                {
-                    inventoryUI.UpdateData(item.Key,
-                        item.Value.item.ItemImage,
-                        item.Value.quantity);
-                }
-            }
-            else
-            {
-                inventoryUI.Hide();
-            }
-
-        }
-        else if (Input.GetKeyDown(KeyCode.B))
+        
+        if (Input.GetKeyDown(KeyCode.B))
         {
             if (craftUI.isActiveAndEnabled == false)
             {

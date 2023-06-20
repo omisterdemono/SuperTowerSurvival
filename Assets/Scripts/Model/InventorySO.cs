@@ -27,6 +27,50 @@ namespace Inventory.Model
             }
         }
 
+        
+
+        public void RemoveItem(ItemSO item, int amount, List<ItemParameter> itemState = null)
+        {
+            var items = inventoryItems.FindAll(x =>
+            {
+                if(x.IsEmpty)
+                    return false;
+                return x.item.name == item.name;
+            }).ToList();
+            int quantity = 0;
+            foreach(var i in items)
+            {
+                quantity+= i.quantity;
+            }
+            if (quantity < amount)
+                return;
+            for(int i=items.Count-1; i>=0; i--)
+            {
+                if(items[i].quantity - amount >= 0)
+                {
+                    RemoveItem(inventoryItems.FindLastIndex(x =>
+                    {
+                        if (x.IsEmpty)
+                            return false;
+                        return x.item.name == item.name;
+                    }), amount);
+                    break;
+                }
+                else
+                {
+                    int q =  amount- items[i].quantity;
+                    RemoveItem(inventoryItems.FindLastIndex(x =>
+                    {
+                        if (x.IsEmpty)
+                            return false;
+                        return x.item.name == item.name;
+                    }), amount);
+                    amount = q;
+                }
+            }
+            InformAboutChange();
+        }
+
         public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)
         {
             if (item.IsStackable == false)
@@ -147,10 +191,35 @@ namespace Inventory.Model
             return inventoryItems[itemIndex];
         }
 
+        public bool Stack(int itemIndex_1, int itemIndex_2)
+        {
+            if(inventoryItems[itemIndex_1].item.IsStackable&& inventoryItems[itemIndex_2].item!=null)
+            {
+                if (inventoryItems[itemIndex_1].item.Name== inventoryItems[itemIndex_2].item.Name)
+                {
+                    int maxQuantity= inventoryItems[itemIndex_1].item.MaxStackSize;
+                    int sumOfQuantities = inventoryItems[itemIndex_1].quantity + inventoryItems[itemIndex_2].quantity;
+                    if (sumOfQuantities <= maxQuantity)
+                    {
+                        inventoryItems[itemIndex_2]=inventoryItems[itemIndex_2].ChangeQuantity(sumOfQuantities);
+                        inventoryItems[itemIndex_1]= InventoryItem.GetEmptyItem();
+                    }
+                    else
+                    {
+                        inventoryItems[itemIndex_2] = inventoryItems[itemIndex_2].ChangeQuantity(maxQuantity);
+                        inventoryItems[itemIndex_1] = inventoryItems[itemIndex_1].ChangeQuantity(sumOfQuantities-maxQuantity);
+                    }
+                    InformAboutChange();
+                    return true;
+                }
+            }
+            return false;
+            
+        }
+
         public void SwapItems(int itemIndex_1, int itemIndex_2)
         {
-            if (itemIndex_1<inventoryItems.Count && itemIndex_2<inventoryItems.Count)
-                return;
+            
             InventoryItem item1 = inventoryItems[itemIndex_1];
             inventoryItems[itemIndex_1] = inventoryItems[itemIndex_2];
             inventoryItems[itemIndex_2] = item1;
