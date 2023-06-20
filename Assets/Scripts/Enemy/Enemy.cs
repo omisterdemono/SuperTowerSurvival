@@ -22,8 +22,12 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private MovementComponent _movementComponent;
     [SerializeField] private EnemyPathFinder _pathFinder;
+    [SerializeField] private AttackManager _attackManager;
 
     private StateMachine _stateMachine = new StateMachine();
+
+    public int damage = 10;
+    public float cooldown = 1000;
 
     private void Awake()
     {
@@ -32,13 +36,13 @@ public class Enemy : NetworkBehaviour
         _movementComponent = GetComponent<MovementComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();
         _pathFinder.target = _target;
-        //_direction = Vector3.zero;
+        _attackManager = new AttackManager();
+        _attackManager.UpdateEnemy(this);
+        _attackManager.UpdateTarget(_target.gameObject);
 
         _stateMachine.AddState("Move2Target", new State(
         onLogic: (state) =>
         {
-            //_movementComponent.MovementVector = (_target.position - transform.position).normalized;
-            //_movementComponent.Move();
             _movementComponent.MovementVector = _pathFinder.direction;
             _movementComponent.Move();
         },
@@ -58,6 +62,11 @@ public class Enemy : NetworkBehaviour
         }));
 
         _stateMachine.AddState("Attack", new State(
+        onLogic: (state) =>
+        {
+            _attackManager.AttackTarget();
+            Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
+        },
         onEnter: (state) =>
         {
             Debug.Log($"Attacked target: {_target}");
@@ -96,15 +105,22 @@ public class Enemy : NetworkBehaviour
         _target = FindTarget();
 
         _pathFinder.target = _target;
-        _pathFinder.UpdatePath();
-        _pathFinder.Update();
 
-        GameObject wall = _pathFinder.Wall2Destroy;
-        if (wall != null)
+        if (!_pathFinder.isTargetReachableThroughWall(_target))
         {
-            _target = wall.transform;
+            GameObject wall = _pathFinder.Wall2Destroy;
+            if (wall != null)
+            {
+                _target = wall.transform;
+            }
         }
-        return _target != currentTarget;
+
+        if (_target != currentTarget) 
+        {
+            _attackManager.UpdateTarget(_target.gameObject);
+            return true;
+        };
+        return false;
     }
     
     private bool targetInAtackRange(Transition<string> transition)
@@ -132,7 +148,7 @@ public class Enemy : NetworkBehaviour
         return _hall;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _stateMachine.OnLogic();
     }
