@@ -104,7 +104,7 @@ public class EnemyPathFinder : MonoBehaviour
             //here smt Sequence error
             Wall2Destroy = wallHits.First().collider.gameObject;
             var attackRadius = 1.5;
-            if (DistanceToTarget(Wall2Destroy.transform) < attackRadius)
+            if (DistanceToTarget(Wall2Destroy.transform) < _attackRadius)
             {
                 reachedEndOfPath = true;
             }
@@ -141,20 +141,19 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private List<RaycastHit2D> RayCastWalls(Transform target)
     {
-        //Vector2 direction = (target.position - transform.position).normalized;
-
-        //float distance = Vector2.Distance(target.position, transform.position);
-
         RaycastHit2D[] hits = RayCast(target);
-        List<RaycastHit2D> hitsWalls = new List<RaycastHit2D>();
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider.gameObject.tag == "Wall")
-            {
-                hitsWalls.Add(hit);
-            }
-        }
-        return hitsWalls;
+        return hits.Where(h => h.collider.gameObject.tag == "Wall").ToList();
+
+        //List<RaycastHit2D> hitsWalls = new List<RaycastHit2D>();
+        //hitsWalls = hits.Where(h => h.collider.gameObject.tag == "Wall").ToList();
+        //foreach (RaycastHit2D hit in hits)
+        //{
+        //    if (hit.collider.gameObject.tag == "Wall")
+        //    {
+        //        hitsWalls.Add(hit);
+        //    }
+        //}
+        //return hitsWalls;
     }
 
     public bool isTargetReachableThroughWall(Transform target)

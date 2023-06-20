@@ -49,14 +49,14 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _spawnRadius: 3
-  _maxSpawnedNumber: 6
+  _maxSpawnedNumber: 10
   _cooldownSeconds: 1
   _enemyTypesPrefabs:
   - {fileID: 8215673108970294812, guid: 3b37a9ea0793f5345869e79e96eb2194, type: 3}
   - {fileID: 6781048625402489722, guid: 9fce7fa71390b1f4a83ee155126d19ca, type: 3}
   _enemyTypesPrefabsWeights:
   - 1
-  - 1
+  - 5
   _actualSpawnedNumber: 0
 --- !u!114 &105473078408188961
 MonoBehaviour:

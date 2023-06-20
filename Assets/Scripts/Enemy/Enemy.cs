@@ -39,13 +39,10 @@ public class Enemy : NetworkBehaviour
         _attackManager = new AttackManager();
         _attackManager.UpdateEnemy(this);
         _attackManager.UpdateTarget(_target.gameObject);
-        //_direction = Vector3.zero;
 
         _stateMachine.AddState("Move2Target", new State(
         onLogic: (state) =>
         {
-            //_movementComponent.MovementVector = (_target.position - transform.position).normalized;
-            //_movementComponent.Move();
             _movementComponent.MovementVector = _pathFinder.direction;
             _movementComponent.Move();
         },
@@ -108,14 +105,7 @@ public class Enemy : NetworkBehaviour
         _target = FindTarget();
 
         _pathFinder.target = _target;
-        _pathFinder.UpdatePath();
-        _pathFinder.Update();
 
-        //if (_pathFinder.isTargetReachableThroughWall(_target))
-        //{
-        //    //_attackManager.UpdateTarget(_target.gameObject);
-        //    //return _target != currentTarget;
-        //}
         if (!_pathFinder.isTargetReachableThroughWall(_target))
         {
             GameObject wall = _pathFinder.Wall2Destroy;
