@@ -24,12 +24,16 @@ public class Character : NetworkBehaviour
 
     private Dictionary<int, KeyCode> _keyCodes;
 
+    private StructurePlacer _structurePlacer;
+
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
 
     void Awake()
     {
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
+
+        _structurePlacer = FindObjectOfType<StructurePlacer>();
     }
 
     private void Start()
@@ -64,7 +68,7 @@ public class Character : NetworkBehaviour
 
     private void Update()
     {
-        if (!isOwned) return;
+        if (!isLocalPlayer) return;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -83,8 +87,18 @@ public class Character : NetworkBehaviour
                 _activeSkills[code.Key].IsReady = true;
             }
         }
+
+        //should be moved to build hammer
+        //HandleBuild();
     }
 
+    private void HandleBuild()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) // && 
+        {
+            CmdPlaceStructure();
+        }
+    }
     public void TryObtain()
     {
         var instrument = GetComponentInChildren<Instrument>();
@@ -94,10 +108,13 @@ public class Character : NetworkBehaviour
         }
 
         instrument.Obtain();
-
     }
 
-
+    [Command(requiresAuthority = false)]
+    private void CmdPlaceStructure()
+    {
+        _structurePlacer.PlaceStructure();
+    }
 
     public void PowerUpHealth()
     {

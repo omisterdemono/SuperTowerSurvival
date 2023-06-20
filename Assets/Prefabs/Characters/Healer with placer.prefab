@@ -4849,6 +4849,7 @@ GameObject:
   - component: {fileID: -2154287660249558889}
   - component: {fileID: -4891781410401255679}
   - component: {fileID: 1540226576662219588}
+  - component: {fileID: 2116091346126746610}
   m_Layer: 0
   m_Name: Healer with placer
   m_TagString: Untagged
@@ -4912,7 +4913,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -989157952, guid: 94cbb700755503a41be9624f917886ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5164,3 +5165,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &2116091346126746610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b80ccf4fd7b4e4a8b477bbff28f567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _structures:
+  - {fileID: 3689379919031479192, guid: 4740b2c5f2e550d45addfd3648b53c8f, type: 3}
+  - {fileID: 3625508984780255458, guid: ca1332938387ce14fbd680fc336d3209, type: 3}
+  _structuresTilemapIndex: 1
+  _buttonPrefab: {fileID: 2331052584847828899, guid: 8b4f6bc9744d0f8479ae81526767b029, type: 3}
