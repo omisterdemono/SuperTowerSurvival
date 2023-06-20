@@ -929,7 +929,7 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
-  _choosenCharacter: 2
+  _choosenCharacter: 1
   _characters:
   - {fileID: 1332376983714181301, guid: 35015129290025f4988f9225c42d6b95, type: 3}
   - {fileID: 1332376983714181301, guid: 6bf5c8c15f6bd5a429077a9bd8619c1a, type: 3}

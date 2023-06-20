@@ -12,6 +12,8 @@ public class NetworkManagerSTS : NetworkManager
     {
         GameObject player = Instantiate(_characters[_choosenCharacter], Vector3.zero, Quaternion.identity);
         NetworkServer.AddPlayerForConnection(conn, player, _characters[_choosenCharacter].GetComponent<NetworkIdentity>().assetId);
+
+        _choosenCharacter++;
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
