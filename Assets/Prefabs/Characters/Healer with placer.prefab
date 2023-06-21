@@ -4850,6 +4850,7 @@ GameObject:
   - component: {fileID: -4891781410401255679}
   - component: {fileID: 1540226576662219588}
   - component: {fileID: 2116091346126746610}
+  - component: {fileID: -2549285236576942988}
   m_Layer: 0
   m_Name: Healer with placer
   m_TagString: Untagged
@@ -5177,8 +5178,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b80ccf4fd7b4e4a8b477bbff28f567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _structures:
   - {fileID: 3689379919031479192, guid: 4740b2c5f2e550d45addfd3648b53c8f, type: 3}
   - {fileID: 3625508984780255458, guid: ca1332938387ce14fbd680fc336d3209, type: 3}
   _structuresTilemapIndex: 1
   _buttonPrefab: {fileID: 2331052584847828899, guid: 8b4f6bc9744d0f8479ae81526767b029, type: 3}
+--- !u!61 &-2549285236576942988
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1}
+  m_EdgeRadius: 0

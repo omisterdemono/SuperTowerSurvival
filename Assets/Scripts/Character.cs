@@ -94,7 +94,9 @@ public class Character : NetworkBehaviour
 
     private void HandleBuild()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject()) // && 
+        if (Input.GetKeyDown(KeyCode.Mouse0) 
+            && !EventSystem.current.IsPointerOverGameObject()
+            && _structurePlacer.TempStructureCanBePlaced) // && 
         {
             _structurePlacer.PlaceStructure(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }

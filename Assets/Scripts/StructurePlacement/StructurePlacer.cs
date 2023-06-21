@@ -11,8 +11,11 @@ public class StructurePlacer : NetworkBehaviour
 
     [SerializeField] private GameObject _buttonPrefab;
 
+    public bool TempStructureCanBePlaced => _tempStructureComponent.CanBePlaced;
+
     [SyncVar] private int _currentStructureIndex = -1;
     private GameObject _tempStructure;
+    private Structure _tempStructureComponent;
 
     private Transform _structuresTilemap;
     private Grid _grid;
@@ -53,7 +56,7 @@ public class StructurePlacer : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _currentStructureIndex = -1;
+            CmdUpdateCurrentStructure(-1);
         }
     }
 
@@ -96,6 +99,7 @@ public class StructurePlacer : NetworkBehaviour
 
         CmdUpdateCurrentStructure(structureIndex);
         _tempStructure = Instantiate(_structures[structureIndex], _structuresTilemap);
+        _tempStructureComponent = _tempStructure.GetComponent<Structure>();
     }
 
     [Command(requiresAuthority = false)]
@@ -126,12 +130,14 @@ public class StructurePlacer : NetworkBehaviour
         structure.transform.position = mousePosition;
         var spawnPosition = CalculateStructurePosition(structure.transform);
         structure.GetComponent<Structure>().SpawnPosition = spawnPosition;
+
+        //structure.GetComponent<IBuildable>().Init();
+        InitStructureOnClients(structure);
     }
 
-    //[ClientRpc]
-    //public void PlaceStructureOnClient()
-    //{
-    //    structure.GetComponent<IBuildable>().Init();
-
-    //}
+    [ClientRpc]
+    private void InitStructureOnClients(GameObject structure)
+    {
+        structure.GetComponent<IBuildable>().Init();
+    }
 }

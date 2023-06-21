@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class Structure : NetworkBehaviour, IBuildable
 {
+    [SerializeField] private string _parentTag;
+    public bool IsBeingPlaced { get; private set; } = true;
+    public bool CanBePlaced { get; private set; } = true;
+    public bool IsBuilt { get; set; } = false;
+    public Vector3 SpawnPosition { get => _spawnPosition; set => _spawnPosition = value; }
+    
+    [SyncVar] private Vector3 _spawnPosition;
+
     private HealthComponent _healthComponent;
     private SpriteRenderer _spriteRenderer;
 
-    [SyncVar] private Vector3 _spawnPosition;
-    public bool IsBuilt { get; set; } = false;
-    public Vector3 SpawnPosition { get => _spawnPosition; set => _spawnPosition = value; }
 
     private void Start()
     {
@@ -20,13 +25,20 @@ public class Structure : NetworkBehaviour, IBuildable
         var parent = GameObject.FindGameObjectWithTag("StructuresTilemap").transform;
         transform.parent = parent;
         transform.localPosition = SpawnPosition;
+
+        _spriteRenderer.sortingOrder += 1;
     }
 
     public void Init()
     {
+        IsBeingPlaced = false;
+        _spriteRenderer.sortingOrder -= 1;
+
         _healthComponent.CurrentHealth = 1;
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         _healthComponent.OnCurrentHealthChanged += Build;
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        _spriteRenderer.color = Color.white;
     }
 
     public void Build()
@@ -45,6 +57,26 @@ public class Structure : NetworkBehaviour, IBuildable
         if (!IsBuilt)
         {
             return;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //temporary code with boxcollider2d, should be removed
+        if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
+        {
+            _spriteRenderer.color = Color.red;
+            CanBePlaced = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //temporary code with boxcollider2d, should be removed
+        if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
+        {
+            _spriteRenderer.color = Color.green;
+            CanBePlaced = true;
         }
     }
 }
