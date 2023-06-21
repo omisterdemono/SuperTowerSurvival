@@ -144,7 +144,6 @@ public class StructurePlacer : NetworkBehaviour
         var spawnPosition = CalculateStructurePosition(structure.transform);
         structure.GetComponent<Structure>().SpawnPosition = spawnPosition;
 
-        //structure.GetComponent<IBuildable>().Init();
         InitStructureOnClients(structure);
     }
 

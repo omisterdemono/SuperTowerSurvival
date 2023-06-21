@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Structure : NetworkBehaviour, IBuildable
 {
-    [SerializeField] private string _parentTag;
     public bool IsBeingPlaced { get; private set; } = true;
     public bool NoObstaclesUnder { get; private set; } = true;
     public bool CanBePlaced { get; private set; } = true;
@@ -17,15 +16,17 @@ public class Structure : NetworkBehaviour, IBuildable
     private HealthComponent _healthComponent;
     private SpriteRenderer _spriteRenderer;
 
+    private const string _parentTag = "StructuresTilemap";
+    private const float _minimalAlpha = 0.3f;
+
 
     private void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        var parent = GameObject.FindGameObjectWithTag("StructuresTilemap").transform;
+        var parent = GameObject.FindGameObjectWithTag(_parentTag).transform;
         transform.parent = parent;
-        transform.localPosition = SpawnPosition;
 
         _spriteRenderer.sortingOrder += 1;
     }
@@ -35,11 +36,10 @@ public class Structure : NetworkBehaviour, IBuildable
         IsBeingPlaced = false;
         _spriteRenderer.sortingOrder -= 1;
 
-        _healthComponent.CurrentHealth = 1;
-        _healthComponent.OnCurrentHealthChanged += Build;
+        transform.localPosition = SpawnPosition;
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        _spriteRenderer.color = Color.white;
+        _healthComponent.OnCurrentHealthChanged += Build;
+        _healthComponent.CurrentHealth = 1.0f;
     }
 
     public void Build()
@@ -50,8 +50,11 @@ public class Structure : NetworkBehaviour, IBuildable
             _healthComponent.OnCurrentHealthChanged -= Build;
         }
 
-        _spriteRenderer.material.color = new Color(0, 0, 0, _healthComponent.CurrentHealth / _healthComponent.MaxHealth);
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.b, _spriteRenderer.color.g, BuildAlpha);
     }
+
+    private float BuildAlpha => _healthComponent.CurrentHealth / _healthComponent.MaxHealth + _minimalAlpha;
+
 
     private void Update()
     {
@@ -86,6 +89,11 @@ public class Structure : NetworkBehaviour, IBuildable
     /// <param name="newState"></param>
     public void ChangePlacementState(bool newState)
     {
+        if(_spriteRenderer == null)
+        {
+            return;
+        }
+
         CanBePlaced = NoObstaclesUnder && newState;
         _spriteRenderer.color = CanBePlaced ? Color.green : Color.red;
     }
