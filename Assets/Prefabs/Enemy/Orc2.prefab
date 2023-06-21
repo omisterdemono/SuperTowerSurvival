@@ -216,7 +216,7 @@ MonoBehaviour:
   syncInterval: 0
   _favouriteTargets: 01000000
   _searchRadius: 8
-  _attackRadius: 1.5
+  _attackRadius: 2
   _playerTransform: {fileID: 0}
   _movementComponent: {fileID: 0}
   _pathFinder: {fileID: 0}
