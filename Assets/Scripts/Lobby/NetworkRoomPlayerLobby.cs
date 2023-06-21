@@ -13,6 +13,12 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[5];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[5];
     [SerializeField] private Button startGameButton = null;
+    [SerializeField] private Button readyButton = null;
+
+    [SyncVar]
+    public int CurrentCharacter = 0;
+
+    [SerializeField] private List<Button> _choseCharacterButton = new List<Button>();
 
     [SyncVar(hook = nameof(HandleDisplayNameChanged))]
     public string DisplayName = "Loading...";
@@ -39,6 +45,28 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             if (room != null) return room;
 
             return room = NetworkManager.singleton as NetworkManagerLobby;
+        }
+    }
+
+    private void Update()
+    {
+        if (IsReady)
+        {
+            var colors = readyButton.colors;
+            colors.normalColor = Color.red;
+            colors.highlightedColor = Color.red;
+            colors.selectedColor = Color.red;
+            readyButton.colors = colors;
+            readyButton.GetComponentInChildren<TMP_Text>().text = "Not Ready";
+        }
+        else
+        {
+            var colors = readyButton.colors;
+            colors.normalColor = Color.green;
+            colors.highlightedColor = Color.green;
+            colors.selectedColor = Color.green;
+            readyButton.colors = colors;
+            readyButton.GetComponentInChildren<TMP_Text>().text = "Ready";
         }
     }
 
@@ -81,6 +109,7 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             return;
         }
 
+
         for (int i = 0; i < playerNameTexts.Length; i++)
         {
             playerNameTexts[i].text = "Waiting for player...";
@@ -122,6 +151,22 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
     {
         if (Room.RoomPlayers[0].connectionToClient != connectionToClient) return;
 
-        //StartGame
+        Room.StartGame();
+    }
+
+    [Command]
+    public void UpdateChosenCharacter(int chosenCharacter)
+    {
+        CurrentCharacter = chosenCharacter;
+    }
+
+    public void ChangeCharacter(int characterIndex)
+    {
+        if (!IsReady)
+        {
+            _choseCharacterButton[CurrentCharacter].GetComponent<Outline>().effectColor = Color.white;
+            _choseCharacterButton[characterIndex].GetComponent<Outline>().effectColor = Color.green;
+            UpdateChosenCharacter(characterIndex);
+        }
     }
 }
