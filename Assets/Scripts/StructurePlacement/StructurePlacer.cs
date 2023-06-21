@@ -6,21 +6,27 @@ using UnityEngine.UI;
 
 public class StructurePlacer : NetworkBehaviour
 {
+    [Header("Infrastructure")]
     [SerializeField] private GameObject[] _structures;
     [SerializeField] private int _structuresTilemapIndex;
 
+    [Header("UI")]
     [SerializeField] private GameObject _buttonPrefab;
 
-    public bool TempStructureCanBePlaced => _tempStructureComponent.CanBePlaced;
+    [Header("Build properties")]
+    [SerializeField] private float _placeRadius;
 
     [SyncVar] private int _currentStructureIndex = -1;
     private GameObject _tempStructure;
     private Structure _tempStructureComponent;
 
     private Transform _structuresTilemap;
+    private Transform _playerTransform;
     private Grid _grid;
 
     private Vector3 _mousePosition;
+
+    private bool StructureInBuildRadius => Vector2.Distance(transform.position, _tempStructure.transform.position) <= _placeRadius;
 
     private void Start()
     {
@@ -47,6 +53,8 @@ public class StructurePlacer : NetworkBehaviour
         {
             _tempStructure.transform.position = _mousePosition;
             CalculateStructurePosition(_tempStructure.transform);
+
+            _tempStructureComponent.ChangePlacementState(_tempStructureComponent.CanBePlaced && StructureInBuildRadius);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -100,6 +108,11 @@ public class StructurePlacer : NetworkBehaviour
         CmdUpdateCurrentStructure(structureIndex);
         _tempStructure = Instantiate(_structures[structureIndex], _structuresTilemap);
         _tempStructureComponent = _tempStructure.GetComponent<Structure>();
+    }
+
+    public bool GetTempStructureCanBePlaced()
+    {
+        return _tempStructureComponent.CanBePlaced && StructureInBuildRadius;
     }
 
     [Command(requiresAuthority = false)]

@@ -65,8 +65,8 @@ public class Structure : NetworkBehaviour, IBuildable
         //temporary code with boxcollider2d, should be removed
         if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
         {
-            _spriteRenderer.color = Color.red;
-            CanBePlaced = false;
+            ChangePlacementState(false);
+
         }
     }
 
@@ -75,8 +75,18 @@ public class Structure : NetworkBehaviour, IBuildable
         //temporary code with boxcollider2d, should be removed
         if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
         {
-            _spriteRenderer.color = Color.green;
-            CanBePlaced = true;
+            ChangePlacementState(true);
         }
+    }
+
+    public void ChangePlacementState(bool newState)
+    {
+        if (newState == CanBePlaced)
+        {
+            return;
+        }
+
+        CanBePlaced = newState;
+        _spriteRenderer.color = CanBePlaced ? Color.green : Color.red;
     }
 }
