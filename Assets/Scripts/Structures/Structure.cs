@@ -7,6 +7,7 @@ public class Structure : NetworkBehaviour, IBuildable
 {
     [SerializeField] private string _parentTag;
     public bool IsBeingPlaced { get; private set; } = true;
+    public bool NoObstaclesUnder { get; private set; } = true;
     public bool CanBePlaced { get; private set; } = true;
     public bool IsBuilt { get; set; } = false;
     public Vector3 SpawnPosition { get => _spawnPosition; set => _spawnPosition = value; }
@@ -17,7 +18,7 @@ public class Structure : NetworkBehaviour, IBuildable
     private SpriteRenderer _spriteRenderer;
 
 
-    private void Start()
+    private void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -65,7 +66,7 @@ public class Structure : NetworkBehaviour, IBuildable
         //temporary code with boxcollider2d, should be removed
         if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
         {
-            ChangePlacementState(false);
+            NoObstaclesUnder = false;
 
         }
     }
@@ -75,18 +76,17 @@ public class Structure : NetworkBehaviour, IBuildable
         //temporary code with boxcollider2d, should be removed
         if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
         {
-            ChangePlacementState(true);
+            NoObstaclesUnder = true;
         }
     }
 
+    /// <summary>
+    /// This method is used to get state from outside.
+    /// </summary>
+    /// <param name="newState"></param>
     public void ChangePlacementState(bool newState)
     {
-        if (newState == CanBePlaced)
-        {
-            return;
-        }
-
-        CanBePlaced = newState;
+        CanBePlaced = NoObstaclesUnder && newState;
         _spriteRenderer.color = CanBePlaced ? Color.green : Color.red;
     }
 }

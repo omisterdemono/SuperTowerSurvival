@@ -54,7 +54,7 @@ public class StructurePlacer : NetworkBehaviour
             _tempStructure.transform.position = _mousePosition;
             CalculateStructurePosition(_tempStructure.transform);
 
-            _tempStructureComponent.ChangePlacementState(_tempStructureComponent.CanBePlaced && StructureInBuildRadius);
+            _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -112,7 +112,7 @@ public class StructurePlacer : NetworkBehaviour
 
     public bool GetTempStructureCanBePlaced()
     {
-        return _tempStructureComponent.CanBePlaced && StructureInBuildRadius;
+        return _tempStructureComponent.CanBePlaced;
     }
 
     [Command(requiresAuthority = false)]
