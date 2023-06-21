@@ -16,6 +16,8 @@ public class InventoryController : NetworkBehaviour
 
     [SerializeField]
     private InventorySO inventoryData;
+    [SerializeField]
+    private CraftBookSO book;
 
     public List<InventoryItem> initialItems = new List<InventoryItem>();
 
@@ -33,6 +35,8 @@ public class InventoryController : NetworkBehaviour
             PrepareUI();
         }
         PrepareInventoryData();
+        craftUI.SetActive(true);
+        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes);
     }
 
 
@@ -46,6 +50,9 @@ public class InventoryController : NetworkBehaviour
                 continue;
             inventoryData.AddItem(item);
         }
+        book.UpdateCraft(inventoryData);
+        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes);
+
     }
 
     private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
@@ -56,6 +63,8 @@ public class InventoryController : NetworkBehaviour
             inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
                 item.Value.quantity);
         }
+        book.UpdateCraft(inventoryData);
+        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes);
     }
 
     private void PrepareUI()
@@ -67,8 +76,7 @@ public class InventoryController : NetworkBehaviour
         inventoryUI.OnStartDragging += HandleDragging;
         inventoryUI.OnItemActionRequested += HandleItemActionRequest;
 
-
-        craftUI.GetComponent<CraftBookUI>().InitializeCraftUI(2);
+        craftUI.GetComponent<CraftBookUI>().InitializeCraftUI(book);
     }
 
     private void HandleSwapItems(int itemIndex_1, int itemIndex_2)

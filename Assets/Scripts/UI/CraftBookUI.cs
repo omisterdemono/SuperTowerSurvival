@@ -1,3 +1,4 @@
+using Inventory.Model;
 using Mirror;
 using System;
 using System.Collections;
@@ -31,16 +32,33 @@ public class CraftBookUI : NetworkBehaviour
         contentPanel = GameObject.FindGameObjectWithTag("CraftHolder");
     }
 
-    public void InitializeCraftUI(int inventorysize)
+    public void InitializeCraftUI(CraftBookSO bookSO)
     {
         //contentPanel = GameObject.FindGameObjectWithTag("CraftHolder");
-        for (int i = 0; i < inventorysize; i++)
+        for (int i = 0; i < bookSO.craftRecipes.Count; i++)
         {
             var uiItem =
                 Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
             uiItem.gameObject.transform.SetParent(contentPanel.transform);
-
+            uiItem.GetComponent<CraftSlotUI>().InitializeSlotUI(bookSO.craftRecipes[i].items.Count);
             listOfUIItems.Add(uiItem);
+        }
+    }
+
+    public void UpdateData(int itemIndex,
+       CraftRecipeSO recipeSO)
+    {
+        if (listOfUIItems.Count > itemIndex)
+        {
+            listOfUIItems[itemIndex].GetComponent<CraftSlotUI>().SetData(recipeSO);
+        }
+    }
+
+    public void UpdateData(List<CraftRecipeSO> recipeSO)
+    {
+        for(int i = 0;i<recipeSO.Count; i++)
+        {
+            UpdateData(i, recipeSO[i]);
         }
     }
 

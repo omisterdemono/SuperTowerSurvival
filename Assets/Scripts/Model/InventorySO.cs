@@ -1,4 +1,5 @@
 using Inventory.Model;
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -69,6 +70,22 @@ namespace Inventory.Model
                 }
             }
             InformAboutChange();
+        }
+
+        public int GetQuantityOfItem(ItemSO item)
+        {
+            var res = inventoryItems.FindAll(x => {
+                if (x.IsEmpty)
+                    return false;
+                return x.item.name == item.name;
+                });
+            
+            int q = 0;
+            foreach (var i in res)
+            {
+                q += i.quantity;
+            }
+            return q;
         }
 
         public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)
@@ -186,6 +203,7 @@ namespace Inventory.Model
             return returnValue;
         }
 
+        
         public InventoryItem GetItemAt(int itemIndex)
         {
             return inventoryItems[itemIndex];

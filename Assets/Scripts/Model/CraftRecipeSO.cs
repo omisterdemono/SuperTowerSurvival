@@ -10,21 +10,30 @@ namespace Inventory.Model
     public class CraftRecipeSO : ScriptableObject
     {
         [SerializeField]
-        private List<CraftItemSO> items = new List<CraftItemSO>();
+        public List<ItemSO> items = new List<ItemSO>();
+        [SerializeField]
+        public List<int> quantityOfItems = new List<int>();
         [SerializeField]
         private ItemSO item;
-        [SerializeField]
-        public InventorySO inventory;
 
-        public void Craft()
+
+
+        public void Craft(InventorySO inventory)
         {
-            foreach(var i in items)
+            for(int i=0; i < items.Count; i++)
             {
-                inventory.RemoveItem(i.item.item, i.needQuantity);
+                inventory.RemoveItem(items[i], quantityOfItems[i]);
             }
             inventory.AddItem(item, 1);
         }
 
+        public void UpdateCraftItems(InventorySO inventory)
+        {
+            foreach(ItemSO item in items)
+            {
+                item.quantity= inventory.GetQuantityOfItem(item);
+            }
+        }
     }
 
 

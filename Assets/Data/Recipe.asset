@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Recipe
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 89eeab5f126ee264f8fb3863c77631e8, type: 2}
+  - {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
+  - {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
+  quantityOfItems: 0300000002000000
   item: {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
-  inventory: {fileID: 11400000, guid: 997fc5b98fc4c0242822d82c15941074, type: 2}

@@ -6,31 +6,25 @@ using UnityEngine;
 
 namespace Inventory.Model
 {
-    //[CreateAssetMenu]
-    //public class CraftBookSO : ScriptableObject
-    //{
-    //    [SerializeField]
-    //    private List<CraftBookItem> craftItems;
+    [CreateAssetMenu]
+    public class CraftBookSO : ScriptableObject
+    {
+        [SerializeField]
+        public List<CraftRecipeSO> craftRecipes;
 
-    //    [SerializeField]
-    //    private ItemSO result;
 
-    //    [field: SerializeField]
-    //    public int Size { get; private set; } = 2;
+        [field: SerializeField]
+        public int Size { get; private set; } = 2;
 
-    //    public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
+        public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
-    //    public void Initialize()
-    //    {
-    //        craftItems = new List<CraftBookItem>();
-    //        for (int i = 0; i < Size; i++)
-    //        {
-    //            craftItems.Add(CraftBookItem.GetEmptyItem());
-    //        }
-    //    }
 
-        
-    //}
+        public void UpdateCraft(InventorySO inventory)
+        {
+            foreach (var craft in craftRecipes)
+                craft.UpdateCraftItems(inventory);
+        }
+    }
 
-    
+
 }

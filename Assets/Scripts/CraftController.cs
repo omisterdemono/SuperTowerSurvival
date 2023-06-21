@@ -33,7 +33,7 @@ public class CraftController : NetworkBehaviour
     {
 
         craftUI = GameObject.FindAnyObjectByType<CraftBookUI>();
-        craftUI.InitializeCraftUI(2);
+        //craftUI.InitializeCraftUI(bookSO);
     }
 
     private void HandleSwapItems(int itemIndex_1, int itemIndex_2)

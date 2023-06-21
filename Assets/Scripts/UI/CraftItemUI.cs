@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class CraftItemUI : NetworkBehaviour
 {
     [SerializeField]
-    private Image itemImage;
+    public Image itemImage;
     [SerializeField]
     private TMP_Text quantityTxt;
 

@@ -21,7 +21,7 @@ public class Button1 : NetworkBehaviour
     }
     private void R()
     {
-        craftRecipe.Craft();
+        //craftRecipe.Craft();
     }
 
 }
