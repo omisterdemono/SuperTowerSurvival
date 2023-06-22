@@ -7,8 +7,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIInventoryItem : NetworkBehaviour, IPointerClickHandler,
-        IBeginDragHandler, IEndDragHandler, IDropHandler, IDragHandler
+public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
+    IDragHandler, IDropHandler, IEndDragHandler, IBeginDragHandler
 {
     [SerializeField]
     private Image itemImage;
@@ -63,19 +63,19 @@ public class UIInventoryItem : NetworkBehaviour, IPointerClickHandler,
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData pointerData)
     {
         OnItemEndDrag?.Invoke(this);
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData pointerData)
     {
         if (empty)
             return;
         OnItemBeginDrag?.Invoke(this);
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData pointerData)
     {
         OnItemDroppedOn?.Invoke(this);
     }

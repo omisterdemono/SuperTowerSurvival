@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UIInventoryPage : NetworkBehaviour
+public class UIInventoryPage : MonoBehaviour
 {
     [SerializeField]
     private UIInventoryItem itemPrefab;
@@ -30,10 +30,9 @@ public class UIInventoryPage : NetworkBehaviour
 
     public event Action<int, int> OnSwapItems;
 
-
+    
     private void Awake()
     {
-        Hide();
         mouseFollower.Toggle(false);
     }
 

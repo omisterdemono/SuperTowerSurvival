@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CraftBookUI : NetworkBehaviour
+public class CraftBookUI : MonoBehaviour
 {
     [SerializeField]
     private GameObject itemPrefab;

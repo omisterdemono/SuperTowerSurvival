@@ -8,6 +8,7 @@ TagManager:
   - CraftUI
   - Craftitems
   - CraftResult
+  - Inventory
   layers:
   - Default
   - TransparentFX

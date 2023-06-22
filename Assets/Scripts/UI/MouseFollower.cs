@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseFollower : NetworkBehaviour
+public class MouseFollower : MonoBehaviour
 {
     [SerializeField]
     private Canvas canvas;
@@ -11,10 +11,10 @@ public class MouseFollower : NetworkBehaviour
     [SerializeField]
     private UIInventoryItem item;
 
-    public void Awake()
+    public void Start()
     {
         canvas = transform.root.GetComponent<Canvas>();
-        item = GetComponentInChildren<UIInventoryItem>();
+        //item = GetComponentInChildren<UIInventoryItem>();
         gameObject.SetActive(false);
     }
 

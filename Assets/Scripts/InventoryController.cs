@@ -24,19 +24,17 @@ public class InventoryController : NetworkBehaviour
     [SerializeField]
     private AudioClip dropClip;
 
-
-
-
     private void Start()
     {
         craftUI = GameObject.FindGameObjectWithTag("CraftUI");
         if (isOwned)
         {
             PrepareUI();
+
+            PrepareInventoryData();
+            craftUI.SetActive(true);
+            craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes, inventoryData);
         }
-        PrepareInventoryData();
-        craftUI.SetActive(true);
-        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes, inventoryData);
     }
 
 
@@ -69,7 +67,7 @@ public class InventoryController : NetworkBehaviour
 
     private void PrepareUI()
     {
-        inventoryUI = GameObject.FindAnyObjectByType<UIInventoryPage>();
+        inventoryUI = GameObject.FindGameObjectWithTag("Inventory").GetComponent<UIInventoryPage>();
         inventoryUI.InitializeInventoryUI(inventoryData.Size);
 
         inventoryUI.OnSwapItems += HandleSwapItems;
