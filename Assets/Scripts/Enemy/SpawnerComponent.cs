@@ -11,7 +11,7 @@ using static UnityEngine.GraphicsBuffer;
 public class SpawnerComponent : NetworkBehaviour
 {
     [SerializeField] private int _spawnRadius = 5;
-    [SerializeField] private int _maxSpawnedNumber = 7;
+    [SerializeField] private int _maxSpawnedNumber = 5;
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private List<GameObject> _enemyTypesPrefabs = new List<GameObject>();
     [SerializeField] private List<float> _enemyTypesPrefabsWeights = new List<float>();
@@ -28,6 +28,12 @@ public class SpawnerComponent : NetworkBehaviour
             throw new System.Exception("Invalid key-value");
         }
         _worldLight = FindObjectOfType<WorldLight>();
+    }
+
+    public void UpdateSpawnerParams(int newMaxSpawnedNumber)
+    {
+        _actualSpawnedNumber = 0;
+        _maxSpawnedNumber = newMaxSpawnedNumber;
     }
 
     GameObject ChoseType()
