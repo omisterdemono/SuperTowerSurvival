@@ -32,9 +32,9 @@ public class HealthComponent : NetworkBehaviour
 
     public void Heal(float healHP)
     {
-        if (_currentHealth + healHP >= healHP)
+        if (_currentHealth + healHP >= MaxHealth)
         {
-            _currentHealth = healHP;
+            _currentHealth = MaxHealth;
             return;
         }
         _currentHealth += healHP;

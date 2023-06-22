@@ -21,11 +21,14 @@ public class ThrowPoisonousGasSkill : ActiveSkill, ISkill
     public void CmdUseSkill(Vector2 throwFrom)
     {
         GameObject poisonousGas = Instantiate(_poisonousGasPrefab, throwFrom, Quaternion.identity);
-        poisonousGas.GetComponent<PoisonousGasScript>().Damage = _damage;
-        poisonousGas.GetComponent<PoisonousGasScript>().DamageRate = _damageRate;
-        poisonousGas.GetComponent<PoisonousGasScript>().WorkTime = _time;
-        poisonousGas.GetComponent<PoisonousGasScript>().SlowDownModifier = _slowDownModifier;
-        poisonousGas.GetComponent<PoisonousGasScript>().ThrowTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        PoisonousGasScript poisonousGasScript = poisonousGas.GetComponent<PoisonousGasScript>();
+
+        poisonousGasScript.Damage = _damage;
+        poisonousGasScript.DamageRate = _damageRate;
+        poisonousGasScript.WorkTime = _time;
+        poisonousGasScript.SlowDownModifier = _slowDownModifier;
+        poisonousGasScript.ThrowTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         NetworkServer.Spawn(poisonousGas, this.gameObject);
     }
 
