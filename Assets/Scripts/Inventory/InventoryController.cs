@@ -30,7 +30,6 @@ public class InventoryController : NetworkBehaviour
         if (isOwned)
         {
             PrepareUI();
-
             PrepareInventoryData();
             craftUI.SetActive(true);
             craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes, inventoryData);
