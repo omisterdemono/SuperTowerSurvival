@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class WorldLight : MonoBehaviour
     public float currentTime;
     public float dayLengthMinutes;
     public bool isNight;
+    public Action OnIsNightChanged;
 
     private float midday;
     private float gameHour;
@@ -19,7 +21,6 @@ public class WorldLight : MonoBehaviour
     private float displayTime;
     private int dayNumber;
 
-    private int day, min, hour;
 
     [SerializeField] private Gradient gradient;
     private Light2D _light;
@@ -30,6 +31,7 @@ public class WorldLight : MonoBehaviour
         gameHour = midday / 12;
         dayNumber = 1;
         generalTime = 0;
+        isNight = false;
         SetTime(0.5f);
     }
 
@@ -41,7 +43,7 @@ public class WorldLight : MonoBehaviour
     void Update()
     {
         generalTime += 1 * Time.deltaTime;
-        currentTime = generalTime % (midday * 2);
+        currentTime += 1 * Time.deltaTime;
         translateTime = (currentTime / (midday * 2));
 
         if (translateTime >= 1)
@@ -53,17 +55,14 @@ public class WorldLight : MonoBehaviour
         _light.color = gradient.Evaluate(translateTime);
         displayTime = translateTime * 24f;
 
-        day = GetDay();
-        hour = GetHour();
-        min = GetMinute();
-
-        if(currentTime > midday + 2* gameHour)
+        if(currentTime > midday + 2 * gameHour && !isNight)
         {
             isNight = true;
         }
-        else
+        if(currentTime < midday + 2 * gameHour && isNight)
         {
             isNight = false;
+            OnIsNightChanged?.Invoke();
         }
 
     }
@@ -100,5 +99,6 @@ public class WorldLight : MonoBehaviour
     {
         float setTime = (midday * 2) * dayRatio;
         generalTime = setTime;
+        currentTime = setTime;
     }
 }
