@@ -36,6 +36,8 @@ public class EnemyPathFinder : MonoBehaviour
 
     private MovementComponent _movementComponent;
 
+    private CapsuleCollider2D _capsuleCollider;
+
     private int currentWaypoint = 0;
 
 
@@ -45,10 +47,14 @@ public class EnemyPathFinder : MonoBehaviour
         _seeker = GetComponent<Seeker>();
         InvokeRepeating("UpdatePath", 0f, .5f);
         AstarPath.active.logPathResults = PathLog.None;
+        _capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     public void UpdatePath()
     {
+        var transformOffset = transform.position;
+        transformOffset.y += _capsuleCollider.offset.y;
+        //transform.position = transformOffset;
         _seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
@@ -119,8 +125,8 @@ public class EnemyPathFinder : MonoBehaviour
 
         if (reachedEndOfPath)
         {
-            var firstHit = wallHits.First();
-            if (firstHit != null)
+            var firstHit = wallHits.FirstOrDefault();
+            if (!firstHit.Equals(default(RaycastHit2D)))
             {
                 Wall2Destroy = firstHit.collider.gameObject;
                 useWallsStrategy = true;
@@ -143,17 +149,6 @@ public class EnemyPathFinder : MonoBehaviour
     {
         RaycastHit2D[] hits = RayCast(target);
         return hits.Where(h => h.collider.gameObject.tag == "Wall").ToList();
-
-        //List<RaycastHit2D> hitsWalls = new List<RaycastHit2D>();
-        //hitsWalls = hits.Where(h => h.collider.gameObject.tag == "Wall").ToList();
-        //foreach (RaycastHit2D hit in hits)
-        //{
-        //    if (hit.collider.gameObject.tag == "Wall")
-        //    {
-        //        hitsWalls.Add(hit);
-        //    }
-        //}
-        //return hitsWalls;
     }
 
     public bool isTargetReachableThroughWall(Transform target)

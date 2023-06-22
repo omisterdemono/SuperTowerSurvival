@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &905126288299717339
 Transform:
   m_ObjectHideFlags: 0
@@ -49,14 +49,16 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _spawnRadius: 3
-  _maxSpawnedNumber: 10
+  _maxSpawnedNumber: 7
   _cooldownSeconds: 1
   _enemyTypesPrefabs:
-  - {fileID: 8215673108970294812, guid: 3b37a9ea0793f5345869e79e96eb2194, type: 3}
-  - {fileID: 6781048625402489722, guid: 9fce7fa71390b1f4a83ee155126d19ca, type: 3}
+  - {fileID: 5852208132793593498, guid: 1e833311e54376e4ca99f71fce361fb3, type: 3}
+  - {fileID: 3992476166478106539, guid: f749aea4fb2690746a73847b14992bfd, type: 3}
+  - {fileID: 5528914298825596530, guid: 370ce46866778434681ea067aad226a4, type: 3}
   _enemyTypesPrefabsWeights:
   - 1
-  - 5
+  - 1
+  - 1
   _actualSpawnedNumber: 0
 --- !u!114 &105473078408188961
 MonoBehaviour:

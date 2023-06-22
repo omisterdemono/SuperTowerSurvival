@@ -19,8 +19,7 @@ public class SpawnerComponent : NetworkBehaviour
     [SyncVar] public int _actualSpawnedNumber = 0;
 
     private float _timeToNextSpawn = 0;
-    //private float _spawnTimeSeconds;
-    //private bool _isSpawnable;
+    private WorldLight _worldLight;
 
     void Start()
     {
@@ -28,28 +27,7 @@ public class SpawnerComponent : NetworkBehaviour
         {
             throw new System.Exception("Invalid key-value");
         }
-        //InvokeRepeating("Spawn", 0f, .1f);
-
-    }
-
-    //[Command(requiresAuthority = false)]
-    void SpawnOLD()
-    {
-        float radius = Random.value * _spawnRadius;
-        float angle = Random.value * 2 * Mathf.PI;
-
-        float posX = transform.position.x + radius * Mathf.Cos(angle);
-        float posY = transform.position.y + radius * Mathf.Sin(angle);
-
-        GameObject type = ChoseType();
-        if (type == null)
-        {
-            throw new System.Exception("Couldnt find a type in list");
-        }
-
-        _actualSpawnedNumber++;
-        GameObject newEnemy = Instantiate(type, new Vector3(posX, posY), Quaternion.identity);
-        //NetworkServer.Spawn(newEnemy);
+        _worldLight = FindObjectOfType<WorldLight>();
     }
 
     GameObject ChoseType()
@@ -94,7 +72,7 @@ public class SpawnerComponent : NetworkBehaviour
 
     public void Spawn()
     {
-        if (_actualSpawnedNumber < _maxSpawnedNumber)
+        if (_actualSpawnedNumber < _maxSpawnedNumber && _worldLight.isNight)
         {
             SpawnEnemy();
         }
