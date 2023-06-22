@@ -23,6 +23,7 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private MovementComponent _movementComponent;
     [SerializeField] private EnemyPathFinder _pathFinder;
     [SerializeField] private AttackManager _attackManager;
+    [SerializeField] private IEnemyAttacker _enemyAttacker;
 
     private StateMachine _stateMachine = new StateMachine();
     private Animator _animator;
@@ -39,6 +40,7 @@ public class Enemy : NetworkBehaviour
     {
         _hall = GameObject.FindGameObjectWithTag("MainHall").transform;
         _target = _hall;
+        _enemyAttacker = GetComponent<IEnemyAttacker>();
         _movementComponent = GetComponent<MovementComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();
         _pathFinder.target = _hall;
@@ -80,7 +82,7 @@ public class Enemy : NetworkBehaviour
         onLogic: (state) =>
         {
             _attackManager.AttackTarget();
-            Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
+            //Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
         },
         onEnter: (state) =>
         {
@@ -139,15 +141,10 @@ public class Enemy : NetworkBehaviour
             }
         }
 
-        //if ((isCurrentTargetOpened && previousTarget.tag == "Wall") || _pathFinder.isTargetReachableThroughWall(_target))
-        //{
-        //    _attackManager.UpdateTarget(_target.gameObject);
-        //    return true;
-        //}
-
         if (_target != previousTarget) 
         {
             _attackManager.UpdateTarget(_target.gameObject);
+            _enemyAttacker.Target = _target;
             return true;
         };
         return false;
