@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class MineScript : NetworkBehaviour
 {
-    private float _damage;
+
+    [SyncVar] private float _damage;
     private bool _explode = false;
+    private float _explodeRadius = 1f;
     [SerializeField] private GameObject _explosionPrefab;
 
     public float Damage { set => _damage = value; }
@@ -23,7 +25,7 @@ public class MineScript : NetworkBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Vector2.Distance((Vector2)collision.transform.position, (Vector2)transform.position) <= 1f 
+        if (Vector2.Distance((Vector2)collision.transform.position, (Vector2)transform.position) <= _explodeRadius
             && !collision.CompareTag("Player") 
             && !_explode 
             && collision.TryGetComponent<HealthComponent>(out HealthComponent healthComponent))

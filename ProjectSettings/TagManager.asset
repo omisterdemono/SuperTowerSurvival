@@ -6,6 +6,14 @@ TagManager:
   tags:
   - CastFill
   - SkillHolder
+  - MainHall
+  - Defence
+  - Wall
+  - CraftHolder
+  - CraftUI
+  - Craftitems
+  - CraftResult
+  - Inventory
   layers:
   - Default
   - TransparentFX
@@ -13,8 +21,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Entities
+  - Environment
   - 
   - 
   - 
