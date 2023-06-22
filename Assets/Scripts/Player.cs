@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.S)) moveDirection.y = -1f;
         if(Input.GetKey(KeyCode.D)) moveDirection.x = 1f;
         if(Input.GetKey(KeyCode.A)) moveDirection.x = -1f;
+        if(Input.GetKey(KeyCode.I)) moveDirection.x = -1f;
 
         transform.position += moveDirection.normalized * speed * Time.fixedDeltaTime;
     }
