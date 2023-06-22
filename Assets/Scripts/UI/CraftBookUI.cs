@@ -54,11 +54,17 @@ public class CraftBookUI : NetworkBehaviour
         }
     }
 
-    public void UpdateData(List<CraftRecipeSO> recipeSO)
+    public void SetButton(int itemIndex,CraftRecipeSO recipeSO, InventorySO inventorySO)
+    {
+        listOfUIItems[itemIndex].GetComponent<CraftSlotUI>().SetButton(recipeSO, inventorySO);
+    }
+
+    public void UpdateData(List<CraftRecipeSO> recipeSO, InventorySO inventorySO)
     {
         for(int i = 0;i<recipeSO.Count; i++)
         {
             UpdateData(i, recipeSO[i]);
+            SetButton(i, recipeSO[i], inventorySO);
         }
     }
 

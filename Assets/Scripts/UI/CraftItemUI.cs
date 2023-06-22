@@ -34,11 +34,14 @@ public class CraftItemUI : NetworkBehaviour
     {
         borderImage.enabled = false;
     }
-    public void SetData(Sprite sprite, int quantity, int quantityNeed)
+    public void SetData(Sprite sprite, int? quantity, int? quantityNeed)
     {
         itemImage.gameObject.SetActive(true);
         itemImage.sprite = sprite;
-        quantityTxt.text = quantity + "/"+quantityNeed;
+        if (quantityNeed == null ||quantity==null)
+            quantityTxt.text = "";
+        else
+            quantityTxt.text = quantity + "/"+quantityNeed;
         empty = false;
     }
 
@@ -46,6 +49,7 @@ public class CraftItemUI : NetworkBehaviour
     {
         borderImage.enabled = true;
     }
-
     
+
+
 }

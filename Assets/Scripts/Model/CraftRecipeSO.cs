@@ -14,9 +14,7 @@ namespace Inventory.Model
         [SerializeField]
         public List<int> quantityOfItems = new List<int>();
         [SerializeField]
-        private ItemSO item;
-
-
+        public ItemSO itemRes;
 
         public void Craft(InventorySO inventory)
         {
@@ -24,18 +22,15 @@ namespace Inventory.Model
             {
                 inventory.RemoveItem(items[i], quantityOfItems[i]);
             }
-            inventory.AddItem(item, 1);
+            inventory.AddItem(itemRes, 1);
         }
 
         public void UpdateCraftItems(InventorySO inventory)
         {
             foreach(ItemSO item in items)
             {
-                item.quantity= inventory.GetQuantityOfItem(item);
+                item.quantity = inventory.GetQuantityOfItem(item);
             }
         }
     }
-
-
-    
 }

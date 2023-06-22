@@ -36,7 +36,7 @@ public class InventoryController : NetworkBehaviour
         }
         PrepareInventoryData();
         craftUI.SetActive(true);
-        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes);
+        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes, inventoryData);
     }
 
 
@@ -51,7 +51,7 @@ public class InventoryController : NetworkBehaviour
             inventoryData.AddItem(item);
         }
         book.UpdateCraft(inventoryData);
-        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes);
+        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes, inventoryData);
 
     }
 
@@ -64,7 +64,7 @@ public class InventoryController : NetworkBehaviour
                 item.Value.quantity);
         }
         book.UpdateCraft(inventoryData);
-        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes);
+        craftUI.GetComponent<CraftBookUI>().UpdateData(book.craftRecipes, inventoryData);
     }
 
     private void PrepareUI()

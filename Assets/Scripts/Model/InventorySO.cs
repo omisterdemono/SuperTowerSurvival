@@ -88,6 +88,21 @@ namespace Inventory.Model
             return q;
         }
 
+        public bool CheckRecipe(CraftRecipeSO recipeSO)
+        {
+            bool check= true;
+            for(int i = 0; i < recipeSO.items.Count; i++)
+            {
+                if (recipeSO.items[i].quantity < recipeSO.quantityOfItems[i])
+                {
+                    check = false;
+                    break;
+                }
+            }
+
+            return check;
+        }
+
         public int AddItem(ItemSO item, int quantity, List<ItemParameter> itemState = null)
         {
             if (item.IsStackable == false)

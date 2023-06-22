@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f4793b88ea6514498cb76bc48ef02fb, type: 3}
-  m_Name: Recipe
+  m_Name: Recipe 1
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
   - {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
-  quantityOfItems: 0300000001000000
-  itemRes: {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
+  quantityOfItems: 02000000
+  itemRes: {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
