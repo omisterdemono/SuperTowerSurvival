@@ -46,7 +46,7 @@ public class HealthComponent : NetworkBehaviour
         {
             _currentHealth = 0;
 
-            OnDeath.Invoke();
+            OnDeath?.Invoke();
             return;
         }
         _currentHealth -= damageHP;
