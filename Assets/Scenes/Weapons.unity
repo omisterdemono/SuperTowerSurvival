@@ -919,6 +919,7 @@ MonoBehaviour:
   - {fileID: 1332376983714181301, guid: 6bf5c8c15f6bd5a429077a9bd8619c1a, type: 3}
   - {fileID: 4184418881177675161, guid: b87b48622f8aacf479d05a3cd887c569, type: 3}
   - {fileID: 5008485775042280947, guid: 55a03a5f48750584396853b1ec73f824, type: 3}
+  - {fileID: 5008485775042280947, guid: 0961f9cb48b8fe24f80d333efd0d698b, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
@@ -930,12 +931,13 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
-  _choosenCharacter: 3
+  _choosenCharacter: 4
   _characters:
   - {fileID: 1332376983714181301, guid: 35015129290025f4988f9225c42d6b95, type: 3}
   - {fileID: 1332376983714181301, guid: 6bf5c8c15f6bd5a429077a9bd8619c1a, type: 3}
   - {fileID: 4184418881177675161, guid: b87b48622f8aacf479d05a3cd887c569, type: 3}
   - {fileID: 5008485775042280947, guid: 55a03a5f48750584396853b1ec73f824, type: 3}
+  - {fileID: 5008485775042280947, guid: 0961f9cb48b8fe24f80d333efd0d698b, type: 3}
 --- !u!4 &1040986183
 Transform:
   m_ObjectHideFlags: 0

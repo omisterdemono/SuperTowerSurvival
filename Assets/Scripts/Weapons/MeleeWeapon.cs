@@ -13,6 +13,7 @@ public class MeleeWeapon : MonoBehaviour, IAttacker, IEquipable
 
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
+    public bool NeedRotation { get; set; } = true;
 
     private Animator _animator;
     private List<HealthComponent> _targetsInRange = new List<HealthComponent>();
@@ -67,8 +68,6 @@ public class MeleeWeapon : MonoBehaviour, IAttacker, IEquipable
         _timeToNextHit -= Time.deltaTime;
     }
 
-
-
     public void ChangeAttackingState()
     {
         _isAttacking = !_isAttacking;
@@ -100,7 +99,8 @@ public class MeleeWeapon : MonoBehaviour, IAttacker, IEquipable
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+
+private void OnTriggerExit2D(Collider2D collision)
     {
         //removing from attack
         foreach (var target in _desiredTargets)

@@ -14,6 +14,8 @@ public class FireWeapon : MonoBehaviour, IAttacker, IEquipable
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private bool _needFlip;
 
+    public bool NeedRotation { get; set; } = true;
+
     private float _timeToNextShot;
     private Transform _equippedSlot;
 

@@ -19,6 +19,7 @@ public class Bow : MonoBehaviour, IAttacker, IEquipable
 
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
+    public bool NeedRotation { get; set; } = true;
 
     private bool _isCharging = false;
     private float _chargeProgressSeconds;
