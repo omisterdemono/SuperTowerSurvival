@@ -1,7 +1,7 @@
 using Assets.Scripts.Weapons;
 using UnityEngine;
 
-public class EquipedSlot : MonoBehaviour
+public class EquipSlot : MonoBehaviour
 {
     private SpriteRenderer _itemSpriteRenderer;
     private IEquipable _equipable;

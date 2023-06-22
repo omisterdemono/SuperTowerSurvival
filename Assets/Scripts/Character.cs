@@ -18,7 +18,7 @@ public class Character : NetworkBehaviour
     [SerializeField] private List<ActiveSkill> _activeSkills;
 
     private IAttacker _attacker;
-    private EquipedSlot _equippedItemSlot;
+    private EquipSlot _equippedItemSlot;
     private Action<Vector2> _performAttack;
     private Vector2 _attackDirection;
 
@@ -31,7 +31,7 @@ public class Character : NetworkBehaviour
 
         //change to something more generic
         _attacker = GetComponentInChildren<IAttacker>();
-        _equippedItemSlot = GetComponentInChildren<EquipedSlot>();
+        _equippedItemSlot = GetComponentInChildren<EquipSlot>();
 
         if (_attacker == null)
         {

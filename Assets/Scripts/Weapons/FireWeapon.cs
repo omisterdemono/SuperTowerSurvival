@@ -1,10 +1,6 @@
 using Assets.Scripts.Weapons;
 using Mirror;
-using System;
-using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Spawns bullet, rotates parent object for all weapons
@@ -14,15 +10,14 @@ public class FireWeapon : MonoBehaviour, IAttacker, IEquipable
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform[] _firePositions;
-    [SerializeField] private float _damage = 1.0f;
+    [SerializeField] private float _damage;
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private bool _needFlip;
 
     private float _timeToNextShot;
     private Transform _equippedSlot;
 
-
-    public float Damage { get; set; }
+    public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
 
     private void Awake()

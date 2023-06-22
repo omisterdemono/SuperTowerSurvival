@@ -1,7 +1,6 @@
 using Mirror;
 using System;
 using UnityEngine;
-using System.Linq;
 using System.Collections;
 
 /// <summary>
@@ -55,7 +54,7 @@ public class Projectile : NetworkBehaviour
 
             if(component != null) 
             {
-                component.GetComponent<IDamageAble>().TakeDamage(Damage);
+                component.GetComponent<HealthComponent>().Damage(Damage);
                 return;
             }
         }
