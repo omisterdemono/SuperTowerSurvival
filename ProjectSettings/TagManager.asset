@@ -14,6 +14,7 @@ TagManager:
   - Craftitems
   - CraftResult
   - Inventory
+  - ItemHolder
   layers:
   - Default
   - TransparentFX
