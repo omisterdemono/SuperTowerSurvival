@@ -91,7 +91,7 @@ public class Character : NetworkBehaviour
 
     private void Update()
     {
-        if (!isLocalPlayer) return;
+        if (!isOwned) return;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -125,11 +125,11 @@ public class Character : NetworkBehaviour
             _itemHolder.ChangeSlot(_equipedSlot);
         }
 
-        //weapon handle and rotation
-        HandleWeapon();
+        ////weapon handle and rotation
+        //HandleWeapon();
 
-        //should be moved to build hammer
-        HandleBuild();
+        ////should be moved to build hammer
+        //HandleBuild();
     }
     private void HandleEquipedSlotChanged(int oldValue, int newValue)
     {

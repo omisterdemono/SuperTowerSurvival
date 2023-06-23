@@ -11,7 +11,6 @@ public class InventoryController : NetworkBehaviour
     [SerializeField]
     private UIInventoryPage inventoryUI;
 
-    [SerializeField]
     private GameObject craftUI;
 
     [SerializeField]

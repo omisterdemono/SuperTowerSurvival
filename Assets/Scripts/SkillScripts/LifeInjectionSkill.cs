@@ -12,7 +12,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
     private bool _isCasting = false;
     private ParticleSystem _particleSystem;
 
-    private void Start()
+    private new void Start()
     {
         base.Start();
         _playerColliders = new List<Collider2D>();

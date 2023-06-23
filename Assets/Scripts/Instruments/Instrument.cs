@@ -11,7 +11,7 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     public bool NeedFlip { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public bool NeedRotation { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
-    private Obtainable _lastCollectable;
+    private Obtainable _lastObtainable;
 
     private void Awake()
     {
@@ -22,21 +22,21 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     public void Obtain()
     {
-        if (!_lastCollectable)
+        if (!_lastObtainable)
         {
             return;
         }
 
-        _lastCollectable.GetObtained(this);
+        _lastObtainable.GetObtained(this);
         Durability -= 1.0f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var collectable = collision.GetComponent<Obtainable>();
-        if (collectable)
+        var obtainable = collision.GetComponent<Obtainable>();
+        if (obtainable)
         {
-            _lastCollectable = collectable;
+            _lastObtainable = obtainable;
         }
     }
 
@@ -45,7 +45,7 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
         var collectable = collision.GetComponent<Obtainable>();
         if (collectable)
         {
-            _lastCollectable = null;
+            _lastObtainable = null;
         }
     }
 }

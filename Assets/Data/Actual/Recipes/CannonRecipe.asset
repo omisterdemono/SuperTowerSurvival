@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4793b88ea6514498cb76bc48ef02fb, type: 3}
+  m_Name: CannonRecipe
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
+  - {fileID: 11400000, guid: 4a83ffbd7e170f3439cf428f83319b05, type: 2}
+  quantityOfItems: 050000000a000000
+  itemRes: {fileID: 11400000, guid: 7cbcd8249ba15974e8ecd4284f58932e, type: 2}
