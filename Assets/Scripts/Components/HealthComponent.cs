@@ -11,7 +11,8 @@ public class HealthComponent : NetworkBehaviour
 
     [SerializeField] private float _maxHealth;
     
-    private float _currentHealth;
+    [SyncVar] private float _currentHealth;
+
     public float MaxHealth
     {
         get
@@ -32,6 +33,7 @@ public class HealthComponent : NetworkBehaviour
         set
         {
             _currentHealth = value;
+            ChangeHealth(value);
             OnCurrentHealthChanged?.Invoke();
         }
     }
@@ -56,6 +58,12 @@ public class HealthComponent : NetworkBehaviour
             return;
         }
         CurrentHealth -= damageHP;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void ChangeHealth(float health)
+    {
+        _currentHealth = health;
     }
 
     void Start()

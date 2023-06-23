@@ -36,16 +36,11 @@ public class Projectile : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //do not forget about walls xd
-        //if (collision.CompareTag("Structure"))
-        //{
-        //    if (!_desiredTargets.Contains("Structure"))
-        //    {
-        //        DestroyProjectile();
-        //    }
-
-        //    throw new NotImplementedException("Not implemented because class structure is needed");
-        //}
+        if (!collision.GetComponent<BoxCollider2D>())
+        {
+            Debug.Log("Is not Box Collider 2D");
+            return;
+        }
 
         //hitting all desired targets
         foreach (var target in _desiredTargets)
@@ -55,6 +50,7 @@ public class Projectile : NetworkBehaviour
             if(component != null) 
             {
                 component.GetComponent<HealthComponent>().Damage(Damage);
+                DestroyProjectile();
                 return;
             }
         }
