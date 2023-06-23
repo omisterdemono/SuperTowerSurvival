@@ -6,6 +6,7 @@ using System;
 
 public class HealthComponent : NetworkBehaviour
 {
+    public Action OnCurrentHealthChanged;
     public Action OnDeath;
 
     [SerializeField] private float _maxHealth;
@@ -28,32 +29,37 @@ public class HealthComponent : NetworkBehaviour
         {
             return _currentHealth;
         }
+        set
+        {
+            _currentHealth = value;
+            OnCurrentHealthChanged?.Invoke();
+        }
     }
 
     public void Heal(float healHP)
     {
-        if (_currentHealth + healHP >= MaxHealth)
+        if (CurrentHealth + healHP >= MaxHealth)
         {
-            _currentHealth = MaxHealth;
+            CurrentHealth = MaxHealth;
             return;
         }
-        _currentHealth += healHP;
+        CurrentHealth += healHP;
     }
 
     public void Damage(float damageHP)
     {
-        if (_currentHealth <= damageHP)
+        if (CurrentHealth <= damageHP)
         {
-            _currentHealth = 0;
+            CurrentHealth = 0;
 
             OnDeath?.Invoke();
             return;
         }
-        _currentHealth -= damageHP;
+        CurrentHealth -= damageHP;
     }
 
     void Start()
     {
-        _currentHealth = _maxHealth;
+        CurrentHealth = _maxHealth;
     }
 }

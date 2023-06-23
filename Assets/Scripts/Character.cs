@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.EventSystems;
 using Assets.Scripts.Weapons;
 
 [RequireComponent(typeof(HealthComponent))]
@@ -29,6 +30,8 @@ public class Character : NetworkBehaviour
 
     private Dictionary<int, KeyCode> _keyCodes;
 
+    private StructurePlacer _structurePlacer;
+
     [SerializeField] private List<GameObject> _toolSlots = new List<GameObject>();
     [SerializeField] private List<GameObject> _tools = new List<GameObject>();
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
@@ -49,6 +52,8 @@ public class Character : NetworkBehaviour
         {
             throw new NullReferenceException("Attacker script was not used on weapon");
         }
+
+        _structurePlacer = GetComponent<StructurePlacer>();
     }
 
     private void Start()
@@ -122,6 +127,9 @@ public class Character : NetworkBehaviour
 
         //weapon handle and rotation
         HandleWeapon();
+
+        //should be moved to build hammer
+        HandleBuild();
     }
     private void HandleEquipedSlotChanged(int oldValue, int newValue)
     {
@@ -188,6 +196,16 @@ public class Character : NetworkBehaviour
         var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 
         _equippedItemSlot.Rotate(angle);
+    }
+
+    private void HandleBuild()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) 
+            && !EventSystem.current.IsPointerOverGameObject()
+            && _structurePlacer.GetTempStructureCanBePlaced()) // && 
+        {
+            _structurePlacer.PlaceStructure(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
     }
 
     public void TryObtain()

@@ -14,6 +14,8 @@ TagManager:
   - Craftitems
   - CraftResult
   - Inventory
+  - StructuresHolder
+  - StructuresTilemap
   - ItemHolder
   layers:
   - Default
