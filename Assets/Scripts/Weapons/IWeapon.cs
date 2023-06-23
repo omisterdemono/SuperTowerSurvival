@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public interface IAttacker
+public interface IWeapon
 {
     float Damage { get; set; }   
     void Attack(Vector2 direction);

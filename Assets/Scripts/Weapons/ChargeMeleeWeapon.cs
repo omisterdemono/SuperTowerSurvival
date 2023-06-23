@@ -4,7 +4,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class ChargeMeleeWeapon : MonoBehaviour, IAttacker, IEquipable
+public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 {
     [Header("Hit parameters")]
     [SerializeField] private string[] _desiredTargets;

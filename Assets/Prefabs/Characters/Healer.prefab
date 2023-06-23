@@ -5115,6 +5115,7 @@ MonoBehaviour:
   _skillAttributes: {fileID: 11400000, guid: 89b495b1355f8b24daab04033a86415b, type: 2}
   _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
   _healModifier: 0.3
+  _selfHealModifier: 0.5
 --- !u!114 &-4891781410401255679
 MonoBehaviour:
   m_ObjectHideFlags: 0
