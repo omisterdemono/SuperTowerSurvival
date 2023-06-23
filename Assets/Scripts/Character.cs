@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
