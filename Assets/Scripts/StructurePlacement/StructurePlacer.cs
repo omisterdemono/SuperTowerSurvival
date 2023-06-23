@@ -112,7 +112,7 @@ public class StructurePlacer : NetworkBehaviour
 
     public bool GetTempStructureCanBePlaced()
     {
-        return _tempStructureComponent.CanBePlaced;
+        return _tempStructureComponent != null && _tempStructureComponent.CanBePlaced;
     }
 
     [Command(requiresAuthority = false)]
