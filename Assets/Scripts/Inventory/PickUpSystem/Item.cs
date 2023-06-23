@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using System.Globalization;
 
 namespace Assets.Scripts.PickUpSystem
 {
@@ -23,19 +22,17 @@ namespace Assets.Scripts.PickUpSystem
 
         private void Start()
         {
-            this.GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
+            GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
         }
-        [Command(requiresAuthority =false)]
+
         public void DestroyItem()
         {
             GetComponent<Collider2D>().enabled = false;
             StartCoroutine(AnimateItemPickup());
-
         }
 
         private IEnumerator AnimateItemPickup()
         {
-            
             audioSource.Play();
             Vector3 startScale = transform.localScale;
             Vector3 endScale = Vector3.zero;
@@ -47,8 +44,7 @@ namespace Assets.Scripts.PickUpSystem
                     Vector3.Lerp(startScale, endScale, currentTime / duration);
                 yield return null;
             }
-            NetworkServer.Destroy(gameObject);
-            
+            Destroy(gameObject);
         }
     }
 }

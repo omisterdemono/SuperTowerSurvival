@@ -9,23 +9,19 @@ namespace Assets.Scripts.PickUpSystem
     public class PickUpSystem : NetworkBehaviour
     {
         [SerializeField]
-        private InventoryController controller;
+        private InventorySO inventoryData;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (isOwned)
+            Item item = collision.GetComponent<Item>();
+            if (item != null)
             {
-                Item item = collision.GetComponent<Item>();
-                if (item != null)
-                {
-                    int reminder = controller.inventoryData.AddItem(item.InventoryItem, item.Quantity);
-                    if (reminder == 0)
-                        item.DestroyItem();
-                    else
-                        item.Quantity = reminder;
-                }
+                int reminder = inventoryData.AddItem(item.InventoryItem, item.Quantity);
+                if (reminder == 0)
+                    item.DestroyItem();
+                else
+                    item.Quantity = reminder;
             }
-
         }
     }
 }
