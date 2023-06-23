@@ -2,7 +2,7 @@ using Assets.Scripts.Weapons;
 using Mirror;
 using UnityEngine;
 
-public class Bow : MonoBehaviour, IAttacker, IEquipable
+public class Bow : MonoBehaviour, IWeapon, IEquipable
 {
     [Header("Required setup")]
     [SerializeField] private GameObject _projectile;

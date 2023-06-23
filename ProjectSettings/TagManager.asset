@@ -16,6 +16,7 @@ TagManager:
   - Inventory
   - StructuresHolder
   - StructuresTilemap
+  - ItemHolder
   layers:
   - Default
   - TransparentFX

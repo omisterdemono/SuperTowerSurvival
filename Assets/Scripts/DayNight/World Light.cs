@@ -32,7 +32,7 @@ public class WorldLight : MonoBehaviour
         dayNumber = 1;
         generalTime = 0;
         isNight = false;
-        SetTime(0.5f);
+        //SetTime(0.5f);
     }
 
     void Awake()

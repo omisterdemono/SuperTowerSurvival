@@ -3,6 +3,7 @@ using UnityEngine;
 using Mirror;
 using System;
 using UnityEngine.EventSystems;
+using Assets.Scripts.Weapons;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
@@ -12,6 +13,7 @@ public class Character : NetworkBehaviour
     private MovementComponent _movement;
     private HealthComponent _health;
     private Animator _animator;
+    private ItemHolderScript _itemHolder;
 
     [SerializeField] private bool _isAlive = true;
 
@@ -21,7 +23,7 @@ public class Character : NetworkBehaviour
 
     private List<ActiveSkill> _activeSkills;
 
-    private IAttacker _attacker;
+    private IWeapon _attacker;
     private EquipSlot _equippedItemSlot;
     private Action<Vector2> _performAttack;
     private Vector2 _attackDirection;
@@ -29,6 +31,11 @@ public class Character : NetworkBehaviour
     private Dictionary<int, KeyCode> _keyCodes;
 
     private StructurePlacer _structurePlacer;
+
+    [SerializeField] private List<GameObject> _toolSlots = new List<GameObject>();
+    [SerializeField] private List<GameObject> _tools = new List<GameObject>();
+    [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
+    private int _equipedSlot = 0;
 
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
 
@@ -38,7 +45,7 @@ public class Character : NetworkBehaviour
         _animator = GetComponent<Animator>();
 
         //change to something more generic
-        _attacker = GetComponentInChildren<IAttacker>();
+        _attacker = GetComponentInChildren<IWeapon>();
         _equippedItemSlot = GetComponentInChildren<EquipSlot>();
 
         if (_attacker == null)
@@ -58,6 +65,9 @@ public class Character : NetworkBehaviour
         {
             _keyCodes.Add(i, (KeyCode)System.Enum.Parse(typeof(KeyCode), $"Alpha{i + 1}"));
         }
+        _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolderScript>();
+
+        _itemHolder.SetIcons(_tools);
     }
 
     void FixedUpdate()
@@ -100,11 +110,37 @@ public class Character : NetworkBehaviour
             }
         }
 
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollInput != 0)
+        {
+            if (scrollInput > 0)
+            {
+                CmdChangeTool((_equipedSlot + 1) % 4);
+            }
+            else if (scrollInput < 0)
+            {
+                CmdChangeTool((_equipedSlot - 1 + 4) % 4);
+            }
+
+            _itemHolder.ChangeSlot(_equipedSlot);
+        }
+
         //weapon handle and rotation
         HandleWeapon();
 
         //should be moved to build hammer
         HandleBuild();
+    }
+    private void HandleEquipedSlotChanged(int oldValue, int newValue)
+    {
+        _tools[oldValue].SetActive(false);
+        _tools[newValue].SetActive(true);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdChangeTool(int equipedSlot)
+    {
+        _equipedSlot = equipedSlot;
     }
 
     [Command(requiresAuthority = false)]
@@ -151,7 +187,7 @@ public class Character : NetworkBehaviour
         }
     }
 
-    private void HandleEquippedItemRotation(IAttacker attacker, out Vector2 targetDirection)
+    private void HandleEquippedItemRotation(IWeapon attacker, out Vector2 targetDirection)
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);

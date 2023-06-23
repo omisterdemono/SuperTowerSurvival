@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 4521536384172897432}
   m_Layer: 0
   m_Name: Scout with bow
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,10 +195,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _isAlive: 1
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _activeSkills: []
 --- !u!114 &-9221005935386559535
 MonoBehaviour:
   m_ObjectHideFlags: 0

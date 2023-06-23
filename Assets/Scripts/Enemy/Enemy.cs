@@ -18,11 +18,13 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private List<TargetPriorities> _favouriteTargets;
     [SerializeField] private float _searchRadius;
     [SerializeField] private float _attackRadius;
+    [SerializeField] private AttackType _attackType;
 
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private MovementComponent _movementComponent;
     [SerializeField] private EnemyPathFinder _pathFinder;
     [SerializeField] private AttackManager _attackManager;
+    private IEnemyAttacker _enemyAttacker;
 
     private StateMachine _stateMachine = new StateMachine();
     private Animator _animator;
@@ -42,7 +44,9 @@ public class Enemy : NetworkBehaviour
         _movementComponent = GetComponent<MovementComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();
         _pathFinder.target = _hall;
-        _attackManager = new AttackManager();
+        _attackManager = GetComponent<AttackManager>();
+        _attackManager.SetStrategy(GetComponent<IEnemyAttacker>());
+        //_enemyAttacker = GetComponent<IEnemyAttacker>();
         _attackManager.UpdateEnemy(this);
         _attackManager.UpdateTarget(_target.gameObject);
 
@@ -80,7 +84,7 @@ public class Enemy : NetworkBehaviour
         onLogic: (state) =>
         {
             _attackManager.AttackTarget();
-            Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
+            //Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
         },
         onEnter: (state) =>
         {
@@ -139,15 +143,11 @@ public class Enemy : NetworkBehaviour
             }
         }
 
-        //if ((isCurrentTargetOpened && previousTarget.tag == "Wall") || _pathFinder.isTargetReachableThroughWall(_target))
-        //{
-        //    _attackManager.UpdateTarget(_target.gameObject);
-        //    return true;
-        //}
-
         if (_target != previousTarget) 
         {
-            _attackManager.UpdateTarget(_target.gameObject);
+            //_attackManager.UpdateTarget(_target.gameObject);
+            _attackManager.SetTarget(_target);
+            //_enemyAttacker.Target = _target;
             return true;
         };
         return false;
@@ -234,6 +234,21 @@ public class Enemy : NetworkBehaviour
         if (character && character.transform == _playerTransform)
         {
             _playerTransform = null;
+        }
+    }
+
+    private IEnemyAttacker GetStratedyForEnemyType()
+    {
+        //string enemyTypeString = this.gameObject.GetType().ToString();
+        //IEnemyAttacker attacker;
+        switch (_attackType)
+        {
+            case AttackType.MeleeCharged:
+                return new MeleeAttacker();
+                //break;
+            default:
+                Debug.Log("There is no strategy: " + _attackType.ToString());
+                return null;
         }
     }
 }

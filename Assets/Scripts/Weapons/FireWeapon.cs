@@ -6,7 +6,7 @@ using UnityEngine;
 /// Spawns bullet, rotates parent object for all weapons
 /// towards cursor.
 /// </summary>
-public class FireWeapon : MonoBehaviour, IAttacker, IEquipable
+public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
 {
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform[] _firePositions;
