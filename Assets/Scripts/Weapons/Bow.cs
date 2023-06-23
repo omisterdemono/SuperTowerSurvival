@@ -50,7 +50,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
 
         _timeToNextShot -= Time.deltaTime;
     }
-
+   
     private void HandleCharge()
     {
         if (_chargeProgressSeconds > _maxChargeSeconds)
@@ -95,7 +95,24 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
 
     public void Attack(Vector2 direction)
     {
-        return;
+        if (_chargeProgressSeconds >= _maxChargeSeconds)
+        {
+            FireArrow(direction);
+        }
+        else
+        {
+            Hold(direction);
+        }
+        //return;
+    }
+
+    public float GetChargeProgressSeconds()
+    {
+        return _chargeProgressSeconds;
+    }
+    public float GetMaxChargeSeconds()
+    {
+        return _maxChargeSeconds;
     }
 
     public void Hold(Vector2 direction)
