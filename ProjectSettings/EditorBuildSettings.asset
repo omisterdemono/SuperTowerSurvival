@@ -5,19 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 0
-    path: Assets/Scenes/Dima Test Scene.unity
-    guid: 9f464fb28d382784ca0d251f7f5d0f68
-  - enabled: 0
-    path: Assets/Scenes/Lobby.unity
-    guid: 27341e7ecba352d40a43735c1b51ba9d
-  - enabled: 0
-    path: Assets/Scenes/Scene_Map_01.unity
-    guid: 4a580c6325b245a4bb07de099cec6206
-  - enabled: 1
-    path: Assets/Scenes/EnemyScene.unity
-    guid: 2ad73f26ccc18b24ab5c5fadfba04e68
   m_configObjects: {}

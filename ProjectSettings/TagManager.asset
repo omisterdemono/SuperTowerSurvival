@@ -4,19 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - CastFill
-  - SkillHolder
-  - MainHall
-  - Defence
-  - Wall
   - CraftHolder
   - CraftUI
   - Craftitems
   - CraftResult
   - Inventory
-  - StructuresHolder
-  - StructuresTilemap
-  - ItemHolder
   layers:
   - Default
   - TransparentFX
@@ -24,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Entities
-  - Environment
+  - 
+  - 
   - 
   - 
   - 

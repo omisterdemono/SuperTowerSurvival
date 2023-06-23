@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Player : MonoBehaviour 
+public class Player : NetworkBehaviour 
 {
     [SerializeField] private float speed = 3f;
 
     void FixedUpdate()
     {
-        //if (!isOwned) return;
+        if (!isOwned) return;
         Vector3 moveDirection = Vector3.zero;
 
         if(Input.GetKey(KeyCode.W)) moveDirection.y = 1f;
