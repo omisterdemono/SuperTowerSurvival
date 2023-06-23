@@ -15,7 +15,7 @@ public class InventoryController : NetworkBehaviour
     private GameObject craftUI;
 
     [SerializeField]
-    private InventorySO inventoryData;
+    public InventorySO inventoryData;
     [SerializeField]
     private CraftBookSO book;
 
@@ -132,7 +132,7 @@ public class InventoryController : NetworkBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Tab))
+        else if (Input.GetKeyDown(KeyCode.Tab) && isOwned)
         {
             if (craftUI.GetComponent<CraftBookUI>().isActiveAndEnabled == false)
             {
