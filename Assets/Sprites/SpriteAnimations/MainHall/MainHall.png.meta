@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 55d8991064223d742ac668dea8c039b9
+guid: e6cc46c8a1a77bc4da434a5ed3ea124c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MainHall_0
+      name: MainHall 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b7923d02cc9f8c49b6b70cddab497dc
-      internalID: 819249521
+      spriteID: a124741cb655f2640aa741e7398813e8
+      internalID: -94724590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_1
+      name: MainHall 1_1
       rect:
         serializedVersion: 2
         x: 128
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88b3109bebb9d7148a54a817d12d541a
-      internalID: 122930531
+      spriteID: 04ec774485fc02d4baf66afd61fda849
+      internalID: -336215839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_2
+      name: MainHall 1_2
       rect:
         serializedVersion: 2
         x: 256
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce65f23fe05dbe5448e2e1bac8973380
-      internalID: -1820323846
+      spriteID: ec915830d203df54088a721f587ca175
+      internalID: -1692206058
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_3
+      name: MainHall 1_3
       rect:
         serializedVersion: 2
         x: 384
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6127c322eab03924bb5f65aae397bab9
-      internalID: 842556273
+      spriteID: 25ca1266d508f164a989f1645d6e37f6
+      internalID: -611247224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_4
+      name: MainHall 1_4
       rect:
         serializedVersion: 2
         x: 512
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11dfe039416a64e4fab6a5c3b8bf9915
-      internalID: -1555629991
+      spriteID: 1d70d44566d866a48a6880e6628ce007
+      internalID: 1094267277
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_5
+      name: MainHall 1_5
       rect:
         serializedVersion: 2
         x: 640
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ab26a2263b710e4f85021083ec8fe9a
-      internalID: 793757643
+      spriteID: 07cdb974b10eaed4e883c704526f8ba0
+      internalID: -1481268856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_6
+      name: MainHall 1_6
       rect:
         serializedVersion: 2
         x: 768
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd2e68f8513910d4f8a9450404c7aa55
-      internalID: 913724649
+      spriteID: 56a0d76dbb0ef0a4796f67c907ae549f
+      internalID: -802020367
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_7
+      name: MainHall 1_7
       rect:
         serializedVersion: 2
         x: 896
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94e8eda1482ba114bb4206fd23c43287
-      internalID: 1362412092
+      spriteID: 29ccfa1bdc5b26a4fa28aec2bec8e13b
+      internalID: -1349814865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_8
+      name: MainHall 1_8
       rect:
         serializedVersion: 2
         x: 1024
@@ -305,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2306851a149b4546bef403697a8d876
-      internalID: 896546049
+      spriteID: a02df0c768bd915488b6f2aa25024798
+      internalID: 1766666974
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_9
+      name: MainHall 1_9
       rect:
         serializedVersion: 2
         x: 1152
@@ -326,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a697321b067b7a740bfc6ad68f68df0e
-      internalID: 1560769370
+      spriteID: 810187b032cb6ed429db74acd64d8094
+      internalID: 113289732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_10
+      name: MainHall 1_10
       rect:
         serializedVersion: 2
         x: 1280
@@ -347,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82b0f417800e40d48828000be6cd2b2b
-      internalID: -78283386
+      spriteID: df582ce4d6449784d8f9534fa8b5c3f3
+      internalID: -1630718433
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_11
+      name: MainHall 1_11
       rect:
         serializedVersion: 2
         x: 1408
@@ -368,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9a5be2e8d22f4b49bd066e8af96f4eb
-      internalID: -1415432828
+      spriteID: 036d247748b99e34f801b608a5a383de
+      internalID: 1619510069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_12
+      name: MainHall 1_12
       rect:
         serializedVersion: 2
         x: 1536
@@ -389,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cda8dda1e37f10488c82ebe716d147d
-      internalID: -2142749742
+      spriteID: c258c7a30cca53d4293534ac21bed3de
+      internalID: 739693268
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_13
+      name: MainHall 1_13
       rect:
         serializedVersion: 2
         x: 1664
@@ -410,14 +410,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90c23e8198d489b49adcaf44f896e663
-      internalID: 278569390
+      spriteID: 8d44ea12ed2751f4ca4634121976362f
+      internalID: -582665269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_14
+      name: MainHall 1_14
       rect:
         serializedVersion: 2
         x: 1792
@@ -431,14 +431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ba8cd2a018d3924fb971536d8dafce6
-      internalID: -256256218
+      spriteID: 5ab312a2d14cdf04ebea20fc4c30d1bd
+      internalID: 1534856462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_15
+      name: MainHall 1_15
       rect:
         serializedVersion: 2
         x: 1920
@@ -452,14 +452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 579176caa1f4ca845a330e35568c1887
-      internalID: -1268098137
+      spriteID: 5290465530e8fc64c99a5ef93d78df67
+      internalID: -1296129027
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_16
+      name: MainHall 1_16
       rect:
         serializedVersion: 2
         x: 2048
@@ -473,14 +473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e20f86dd4dcea84395eeae33b45bdd8
-      internalID: -1900153055
+      spriteID: 80645a3d46bc43942aa6b2aae94a4952
+      internalID: -760068680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_17
+      name: MainHall 1_17
       rect:
         serializedVersion: 2
         x: 2176
@@ -494,14 +494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e716600bda2f8ab43bdf2d04263311fe
-      internalID: -1451612626
+      spriteID: d5cb990527536694890448b1c88bbd6b
+      internalID: -2036974873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_18
+      name: MainHall 1_18
       rect:
         serializedVersion: 2
         x: 2304
@@ -515,14 +515,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dad453e967b293d4f8d1920eb5b5a3e9
-      internalID: 353571927
+      spriteID: e3ea5c49af852814fa5cbdc6fd2b77be
+      internalID: -2047044616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainHall_19
+      name: MainHall 1_19
       rect:
         serializedVersion: 2
         x: 2432
@@ -536,8 +536,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f273963ccdd35743b0e13c83dafaaef
-      internalID: -2008446292
+      spriteID: b071b7c36a588924493e7f651b37e665
+      internalID: -831405124
       vertices: []
       indices: 
       edges: []
@@ -553,26 +553,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MainHall_0: 819249521
-      MainHall_1: 122930531
-      MainHall_10: -78283386
-      MainHall_11: -1415432828
-      MainHall_12: -2142749742
-      MainHall_13: 278569390
-      MainHall_14: -256256218
-      MainHall_15: -1268098137
-      MainHall_16: -1900153055
-      MainHall_17: -1451612626
-      MainHall_18: 353571927
-      MainHall_19: -2008446292
-      MainHall_2: -1820323846
-      MainHall_3: 842556273
-      MainHall_4: -1555629991
-      MainHall_5: 793757643
-      MainHall_6: 913724649
-      MainHall_7: 1362412092
-      MainHall_8: 896546049
-      MainHall_9: 1560769370
+      MainHall 1_0: -94724590
+      MainHall 1_1: -336215839
+      MainHall 1_10: -1630718433
+      MainHall 1_11: 1619510069
+      MainHall 1_12: 739693268
+      MainHall 1_13: -582665269
+      MainHall 1_14: 1534856462
+      MainHall 1_15: -1296129027
+      MainHall 1_16: -760068680
+      MainHall 1_17: -2036974873
+      MainHall 1_18: -2047044616
+      MainHall 1_19: -831405124
+      MainHall 1_2: -1692206058
+      MainHall 1_3: -611247224
+      MainHall 1_4: 1094267277
+      MainHall 1_5: -1481268856
+      MainHall 1_6: -802020367
+      MainHall 1_7: -1349814865
+      MainHall 1_8: 1766666974
+      MainHall 1_9: 113289732
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
