@@ -40,7 +40,7 @@ public class MovementComponent : NetworkBehaviour
 
     private void Update()
     {
-        Move();
+        //Move();
     }
     void Start()
     {

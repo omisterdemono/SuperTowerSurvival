@@ -9,6 +9,11 @@ TagManager:
   - MainHall
   - Defence
   - Wall
+  - CraftHolder
+  - CraftUI
+  - Craftitems
+  - CraftResult
+  - Inventory
   - StructuresHolder
   - StructuresTilemap
   layers:

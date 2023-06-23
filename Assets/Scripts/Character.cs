@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.EventSystems;
-using System.Linq;
+using System;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
@@ -22,6 +20,11 @@ public class Character : NetworkBehaviour
 
     private List<ActiveSkill> _activeSkills;
 
+    private IAttacker _attacker;
+    private EquipSlot _equippedItemSlot;
+    private Action<Vector2> _performAttack;
+    private Vector2 _attackDirection;
+
     private Dictionary<int, KeyCode> _keyCodes;
 
     private StructurePlacer _structurePlacer;
@@ -32,6 +35,15 @@ public class Character : NetworkBehaviour
     {
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
+
+        //change to something more generic
+        _attacker = GetComponentInChildren<IAttacker>();
+        _equippedItemSlot = GetComponentInChildren<EquipSlot>();
+
+        if (_attacker == null)
+        {
+            throw new NullReferenceException("Attacker script was not used on weapon");
+        }
 
         _structurePlacer = GetComponent<StructurePlacer>();
     }
@@ -72,7 +84,6 @@ public class Character : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("obtain");
             _animator.SetBool("IsObtaining", true);
         }
         else if (Input.GetKeyUp(KeyCode.F))
@@ -88,8 +99,66 @@ public class Character : NetworkBehaviour
             }
         }
 
+        //weapon handle and rotation
+        HandleWeapon();
+
         //should be moved to build hammer
         HandleBuild();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_PressOnServer(Vector2 direction)
+    {
+        _attacker.Attack(direction);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_HoldOnServer(Vector2 direction)
+    {
+        _attacker.Hold(direction);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_KeyUpOnServer(Vector2 direction)
+    {
+        _attacker.KeyUp(direction);
+    }
+
+    private void HandleWeapon()
+    {
+        if (_attacker == null)
+        {
+            return;
+        }
+
+        HandleEquippedItemRotation(_attacker, out Vector2 targetDirection);
+
+        //rework, because some weapons have to be recharged
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Cmd_PressOnServer(targetDirection.normalized);
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            Cmd_HoldOnServer(targetDirection.normalized);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            Cmd_KeyUpOnServer(targetDirection.normalized);
+        }
+    }
+
+    private void HandleEquippedItemRotation(IAttacker attacker, out Vector2 targetDirection)
+    {
+        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        targetDirection = worldPosition - (Vector2)transform.position;
+
+        var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+
+        _equippedItemSlot.Rotate(angle);
     }
 
     private void HandleBuild()
@@ -101,6 +170,7 @@ public class Character : NetworkBehaviour
             _structurePlacer.PlaceStructure(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
     }
+
     public void TryObtain()
     {
         var instrument = GetComponentInChildren<Instrument>();
@@ -119,12 +189,11 @@ public class Character : NetworkBehaviour
 
     public void PowerUpSkill()
     {
-        
+
     }
 
     public void PowerUpWeapon()
     {
         //todo power up weapon
     }
-
 }

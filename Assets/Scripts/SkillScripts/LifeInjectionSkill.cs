@@ -7,6 +7,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 {
     private List<Collider2D> _playerColliders;
     [SerializeField] private float _healModifier = 0.3f;
+    [SerializeField] private float _selfHealModifier = 0.5f;
     [SyncVar(hook = "OnIsCasting")]
     private bool _isCasting = false;
     private ParticleSystem _particleSystem;
@@ -62,7 +63,9 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
     public override void FinishCastPositive()
     {
         base.FinishCastPositive();
+        GetComponent<CircleCollider2D>().enabled = true;
         CmdUseSkill();
+        GetComponent<HealthComponent>().Heal(GetComponent<HealthComponent>().MaxHealth * _selfHealModifier);
     }
 
     [Command(requiresAuthority = false)]
@@ -73,6 +76,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
             players.GetComponent<Character>().IsAlive = true;
             players.GetComponent<HealthComponent>().Heal(players.GetComponent<HealthComponent>().MaxHealth * _healModifier);
         }
+        GetComponent<CircleCollider2D>().enabled = false;
     }
 
     public void PowerUpSkillPoint()

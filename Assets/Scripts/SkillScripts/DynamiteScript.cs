@@ -9,11 +9,10 @@ public class DynamiteScript : NetworkBehaviour
     [SerializeField] private GameObject _explosionPrefab;
     public float Damage { set => _damage = value; }
 
-    private List<Collider2D> _colliders;
+    private List<Collider2D> _colliders = new List<Collider2D>();
 
     private void Start()
     {
-        _colliders = new List<Collider2D>();
         Invoke("DestroyMine", 5);
     }
 

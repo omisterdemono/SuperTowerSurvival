@@ -54,7 +54,7 @@ public class ActiveSkill : NetworkBehaviour
 
     public void Update()
     {
-        if (!isLocalPlayer) return;
+        if (!isOwned) return;
 
         if (_passedTime < _cooldown)
         {

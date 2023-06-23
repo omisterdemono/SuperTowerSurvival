@@ -28,23 +28,33 @@ public class EnemyPathFinder : MonoBehaviour
 
     [SerializeField] private float _corelationDistancePerWall = 5;
 
+    [SerializeField] private int _attackRadius = 3;
+
     private Path _path;
 
     private Seeker _seeker;
 
     private MovementComponent _movementComponent;
 
+    private CapsuleCollider2D _capsuleCollider;
+
     private int currentWaypoint = 0;
+
 
     public void Start()
     {
         _movementComponent = GetComponent<MovementComponent>();
         _seeker = GetComponent<Seeker>();
         InvokeRepeating("UpdatePath", 0f, .5f);
+        AstarPath.active.logPathResults = PathLog.None;
+        _capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     public void UpdatePath()
     {
+        var transformOffset = transform.position;
+        transformOffset.y += _capsuleCollider.offset.y;
+        //transform.position = transformOffset;
         _seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
@@ -91,14 +101,16 @@ public class EnemyPathFinder : MonoBehaviour
                 break;
             }
         }
-        List<RaycastHit2D> hits = RayCastWalls(target);
+
+        List<RaycastHit2D> wallHits = RayCastWalls(target);
         Vector3 dir;
-        if (IsBetterTroughWalls(hits) || isTargetClosed)
+        if (IsBetterTroughWalls(wallHits))
         {
             useWallsStrategy = true;
-            Wall2Destroy = hits.First().collider.gameObject;
+            //here smt Sequence error
+            Wall2Destroy = wallHits.First().collider.gameObject;
             var attackRadius = 1.5;
-            if (DistanceToTarget(Wall2Destroy.transform) < attackRadius)
+            if (DistanceToTarget(Wall2Destroy.transform) < _attackRadius)
             {
                 reachedEndOfPath = true;
             }
@@ -113,31 +125,55 @@ public class EnemyPathFinder : MonoBehaviour
 
         if (reachedEndOfPath)
         {
+            var firstHit = wallHits.FirstOrDefault();
+            if (!firstHit.Equals(default(RaycastHit2D)))
+            {
+                Wall2Destroy = firstHit.collider.gameObject;
+                useWallsStrategy = true;
+            }
             dir = Vector3.zero;
         }
 
         direction = dir;
-        //_movementComponent.MovementVector = dir;
-        //_movementComponent.Move();
     }
 
-    private List<RaycastHit2D> RayCastWalls(Transform target)
+    private RaycastHit2D[] RayCast(Transform target)
     {
         Vector2 direction = (target.position - transform.position).normalized;
 
         float distance = Vector2.Distance(target.position, transform.position);
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, distance);
+        return Physics2D.RaycastAll(transform.position, direction, distance);
+    }
+    private List<RaycastHit2D> RayCastWalls(Transform target)
+    {
+        RaycastHit2D[] hits = RayCast(target);
+        return hits.Where(h => h.collider.gameObject.tag == "Wall").ToList();
+    }
 
-        List<RaycastHit2D> hitsWalls = new List<RaycastHit2D>();
-        foreach (RaycastHit2D hit in hits)
+    public bool isTargetReachableThroughWall(Transform target)
+    {
+        var hits = RayCast(target);
+        if (hits.Length == 0) return false;
+        GameObject firstWall = hits.First().collider.gameObject;
+        if (firstWall.tag == "Wall")
         {
-            if (hit.collider.gameObject.tag == "Wall")
+            hits.Select(hit => hit.collider.gameObject.transform == target.transform).FirstOrDefault();
+            if(hits.Length == 0)
             {
-                hitsWalls.Add(hit);
+                return false;
+            }
+            else
+            {
+                //wall - target
+                var dis = Vector3.Distance(firstWall.transform.position, target.position);
+                if(dis < _attackRadius)
+                {
+                    return true;
+                }
             }
         }
-        return hitsWalls;
+        return false;
     }
 
     private float DistanceToTarget(Transform target)

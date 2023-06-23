@@ -38,9 +38,9 @@ public class HealthComponent : NetworkBehaviour
 
     public void Heal(float healHP)
     {
-        if (CurrentHealth + healHP >= healHP)
+        if (CurrentHealth + healHP >= MaxHealth)
         {
-            CurrentHealth = healHP;
+            CurrentHealth = MaxHealth;
             return;
         }
         CurrentHealth += healHP;
@@ -52,7 +52,7 @@ public class HealthComponent : NetworkBehaviour
         {
             CurrentHealth = 0;
 
-            OnDeath.Invoke();
+            OnDeath?.Invoke();
             return;
         }
         CurrentHealth -= damageHP;

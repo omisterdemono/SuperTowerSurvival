@@ -22,8 +22,18 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private MovementComponent _movementComponent;
     [SerializeField] private EnemyPathFinder _pathFinder;
+    [SerializeField] private AttackManager _attackManager;
 
     private StateMachine _stateMachine = new StateMachine();
+    private Animator _animator;
+
+    public int damage = 10;
+    public float cooldown = 1;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Awake()
     {
@@ -31,15 +41,24 @@ public class Enemy : NetworkBehaviour
         _target = _hall;
         _movementComponent = GetComponent<MovementComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();
-        _pathFinder.target = _target;
-        //_direction = Vector3.zero;
+        _pathFinder.target = _hall;
+        _attackManager = new AttackManager();
+        _attackManager.UpdateEnemy(this);
+        _attackManager.UpdateTarget(_target.gameObject);
 
         _stateMachine.AddState("Move2Target", new State(
         onLogic: (state) =>
         {
-            //_movementComponent.MovementVector = (_target.position - transform.position).normalized;
-            //_movementComponent.Move();
             _movementComponent.MovementVector = _pathFinder.direction;
+            _animator.SetBool("isMoving", true);
+            if(_movementComponent.MovementVector.x > 0)
+            {
+                _animator.SetBool("isMovingRight", true);
+            }
+            else if (_movementComponent.MovementVector.x < 0)
+            {
+                _animator.SetBool("isMovingRight", false);
+            }
             _movementComponent.Move();
         },
         onEnter: (state) => 
@@ -58,15 +77,21 @@ public class Enemy : NetworkBehaviour
         }));
 
         _stateMachine.AddState("Attack", new State(
+        onLogic: (state) =>
+        {
+            _attackManager.AttackTarget();
+            Debug.Log($"Target health: {_attackManager.GetTargetHealth()}");
+        },
         onEnter: (state) =>
         {
+            _animator.SetBool("isMoving", false);
             Debug.Log($"Attacked target: {_target}");
         }));
 
         _stateMachine.AddTransition(new Transition(
             "Move2Target",
             "UpdateTarget",
-            targetRefresh
+            TargetRefresh
         ));
 
         _stateMachine.AddTransition(new Transition(
@@ -78,43 +103,83 @@ public class Enemy : NetworkBehaviour
         _stateMachine.AddTransition(new Transition(
             "Move2Target",
             "Attack",
-            targetInAtackRange
+            TargetInAtackRange
         ));
 
         _stateMachine.AddTransition(new Transition(
             "Attack",
             "Move2Target",
-            targetOutAtackRange
+            TargetOutAtackRange
+        ));
+
+        _stateMachine.AddTransition(new Transition(
+            "Attack",
+            "UpdateTarget",
+            PlayerEntered
         ));
 
         _stateMachine.SetStartState("Move2Target");
         _stateMachine.Init();
     }
-    private bool targetRefresh(Transition<string> transition)
+    private bool TargetRefresh(Transition<string> transition)
     {
-        var currentTarget = _target;
+        var previousTarget = _target;
+
         _target = FindTarget();
-
         _pathFinder.target = _target;
-        _pathFinder.UpdatePath();
-        _pathFinder.Update();
 
-        GameObject wall = _pathFinder.Wall2Destroy;
-        if (wall != null)
+        var isCurrentTargetOpened = !_pathFinder.isTargetClosed;
+
+        if (!_pathFinder.isTargetReachableThroughWall(_target))
         {
-            _target = wall.transform;
+            GameObject wall = _pathFinder.Wall2Destroy;
+            if (wall != null)
+            {
+                _target = wall.transform;
+            }
         }
-        return _target != currentTarget;
+
+        //if ((isCurrentTargetOpened && previousTarget.tag == "Wall") || _pathFinder.isTargetReachableThroughWall(_target))
+        //{
+        //    _attackManager.UpdateTarget(_target.gameObject);
+        //    return true;
+        //}
+
+        if (_target != previousTarget) 
+        {
+            _attackManager.UpdateTarget(_target.gameObject);
+            return true;
+        };
+        return false;
     }
     
-    private bool targetInAtackRange(Transition<string> transition)
+    private bool TargetInAtackRange(Transition<string> transition)
     {
         return DistanceToTarget(_target) < _attackRadius;
     }
 
-    private bool targetOutAtackRange(Transition<string> transition)
+    private bool TargetOutAtackRange(Transition<string> transition)
     {
         return DistanceToTarget(_target) > _attackRadius && DistanceToTarget(_target) < _searchRadius;
+    }
+
+    private bool PlayerEntered(Transition<string> transition)
+    {
+        var playerTarget = FindTarget();
+        if (_target.tag != "Wall" || playerTarget.tag != "Player")
+        {
+            return false;
+        }
+
+        _pathFinder.target = playerTarget;
+        _pathFinder.Update();
+        if (_pathFinder.isTargetClosed)
+        {
+            return false;
+        }
+
+        return true;
+
     }
 
     private Transform FindTarget()
@@ -132,7 +197,7 @@ public class Enemy : NetworkBehaviour
         return _hall;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _stateMachine.OnLogic();
     }
