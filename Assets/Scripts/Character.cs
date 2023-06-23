@@ -20,7 +20,7 @@ public class Character : NetworkBehaviour
 
     private List<ActiveSkill> _activeSkills;
 
-    private IAttacker _attacker;
+    private IWeapon _attacker;
     private EquipSlot _equippedItemSlot;
     private Action<Vector2> _performAttack;
     private Vector2 _attackDirection;
@@ -35,7 +35,7 @@ public class Character : NetworkBehaviour
         _animator = GetComponent<Animator>();
 
         //change to something more generic
-        _attacker = GetComponentInChildren<IAttacker>();
+        _attacker = GetComponentInChildren<IWeapon>();
         _equippedItemSlot = GetComponentInChildren<EquipSlot>();
 
         if (_attacker == null)
@@ -143,7 +143,7 @@ public class Character : NetworkBehaviour
         }
     }
 
-    private void HandleEquippedItemRotation(IAttacker attacker, out Vector2 targetDirection)
+    private void HandleEquippedItemRotation(IWeapon attacker, out Vector2 targetDirection)
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);

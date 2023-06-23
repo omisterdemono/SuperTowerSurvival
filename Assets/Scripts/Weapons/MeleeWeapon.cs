@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MeleeWeapon : MonoBehaviour, IAttacker, IEquipable
+public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 {
     [SerializeField] private string[] _desiredTargets;
     [SerializeField] private float _damage;

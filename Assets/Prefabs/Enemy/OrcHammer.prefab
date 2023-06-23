@@ -105,6 +105,8 @@ MonoBehaviour:
   - Character
   - Defence
   - MainHall
+  - StructureScript
+  - Character
   _damage: 5
   _needFlip: 1
   _cooldown: 0.83
@@ -169,14 +171,14 @@ GameObject:
   - component: {fileID: 3354782871004226544}
   - component: {fileID: 955783698807349197}
   - component: {fileID: 3228913819318790133}
-  - component: {fileID: 2944711768465371182}
-  - component: {fileID: 366104805016949227}
   - component: {fileID: 2220420512827275764}
   - component: {fileID: 625983129450111423}
   - component: {fileID: 5916374549890526896}
   - component: {fileID: 1793852495050316847}
   - component: {fileID: 5480905220218197512}
   - component: {fileID: -93062701825654887}
+  - component: {fileID: 7437558884832244864}
+  - component: {fileID: 3046937729584280386}
   m_Layer: 0
   m_Name: OrcHammer
   m_TagString: Untagged
@@ -191,7 +193,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5852208132793593498}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.28, y: -2.83, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -337,7 +339,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _maxHealth: 0
+  _maxHealth: 100
 --- !u!114 &955783698807349197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,44 +374,13 @@ MonoBehaviour:
   _favouriteTargets: 0000000001000000
   _searchRadius: 8
   _attackRadius: 2
+  _attackType: 1
   _playerTransform: {fileID: 0}
   _movementComponent: {fileID: 0}
   _pathFinder: {fileID: 0}
   _attackManager: {fileID: 0}
   damage: 10
   cooldown: 1
---- !u!114 &2944711768465371182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5852208132793593498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d8fc757fb6c1245a64f7c9f4c7776f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _maxHealth: 0
---- !u!114 &366104805016949227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5852208132793593498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7120abbe69ece5e46b275a2eb8c3417e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _speed: 1
 --- !u!114 &2220420512827275764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +540,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f8b372dac11fa4bb6c2a22fe568355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7437558884832244864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852208132793593498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfd6ee05f9f5b4741a457c7474ff287e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &3046937729584280386
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852208132793593498}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.432}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.05}
+    oldSize: {x: 0.64, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.8}
+  m_EdgeRadius: 0
 --- !u!1 &6987574885506191601
 GameObject:
   m_ObjectHideFlags: 0

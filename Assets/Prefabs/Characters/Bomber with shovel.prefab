@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 1397295181964670264}
   m_Layer: 0
   m_Name: Bomber with shovel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,11 +296,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _isAlive: 1
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _activeSkills:
-  - {fileID: 27742149250520096}
 --- !u!114 &1127090800803803951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +365,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _skillAttributes: {fileID: 11400000, guid: 988d12e7366e8994695d4ca9426b74db, type: 2}
+  _skillButton: {fileID: 0}
   _minePrefab: {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
+  _damage: 10
 --- !u!50 &-5576025672415806377
 Rigidbody2D:
   serializedVersion: 4
@@ -490,6 +491,10 @@ PrefabInstance:
     - target: {fileID: 4113575510673230434, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283820900120437926, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
+      propertyPath: _damage
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6729883625000520483, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
       propertyPath: m_Name

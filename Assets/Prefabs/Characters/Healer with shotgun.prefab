@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: -6495742460497925353}
   m_Layer: 0
   m_Name: Healer with shotgun
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,10 +184,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _isAlive: 1
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _activeSkills: []
 --- !u!114 &5008485775042280951
 MonoBehaviour:
   m_ObjectHideFlags: 0
