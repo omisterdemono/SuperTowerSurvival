@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 75c5a065477a59243bb38deb7b8b62ed
+guid: cd1be9dfa2a293549936d555cbb08d02
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DefenseGun_0
+      name: Multigun_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4abbb834a7b4b8049bfde01e67117efa
-      internalID: 1228936661
+      spriteID: 8c4736848c0797a4aa670b0a55f8b1ea
+      internalID: -733903081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_1
+      name: Multigun_1
       rect:
         serializedVersion: 2
         x: 96
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49aa24ee4e7fbc24fac77a3b123a8199
-      internalID: -2072776286
+      spriteID: f667a251307a24d48bbc63582a49b4ca
+      internalID: 363435674
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_2
+      name: Multigun_2
       rect:
         serializedVersion: 2
         x: 192
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e48b77b5292b15e4697c4747b68cb30c
-      internalID: -1139852303
+      spriteID: b2d9871bb25757646ad1f4f37b6ec1d5
+      internalID: -1477146531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_3
+      name: Multigun_3
       rect:
         serializedVersion: 2
         x: 288
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a083498271004744a44f1fb9f6b63fb
-      internalID: 1156345809
+      spriteID: 073ffe73329653e4e9382ae8a567caa0
+      internalID: -1094569073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_4
+      name: Multigun_4
       rect:
         serializedVersion: 2
         x: 384
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b2c204a96687d746a32553fb0d36aea
-      internalID: 682103783
+      spriteID: 1b4e7b4cb04242e4ea50b2fa7e935876
+      internalID: 999126263
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_5
+      name: Multigun_5
       rect:
         serializedVersion: 2
         x: 480
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2cbe59aac2f253d448e00125b5d8a191
-      internalID: 176253929
+      spriteID: 854dd83a03c06774aa3a6a6d24163ddf
+      internalID: 391970392
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_6
+      name: Multigun_6
       rect:
         serializedVersion: 2
         x: 576
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4216d3b63ed58e848a69376f4afd48e3
-      internalID: 1216447395
+      spriteID: 20673c1bda34d67409685de1e55a3254
+      internalID: 525058369
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_7
+      name: Multigun_7
       rect:
         serializedVersion: 2
         x: 672
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e7ef5ae3559cde4e8fb09f384d7e6da
-      internalID: -401439965
+      spriteID: ef70cb02ff7d1ce4dbb7a0b508d901e3
+      internalID: 51598744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_8
+      name: Multigun_8
       rect:
         serializedVersion: 2
         x: 768
@@ -305,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a17174442f981db42a079bc98dd9437f
-      internalID: 420931138
+      spriteID: 2d555ba31bc6d9e4fadcff92cf7bd847
+      internalID: 300809292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_9
+      name: Multigun_9
       rect:
         serializedVersion: 2
         x: 864
@@ -326,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f1a1842130c84244b277523ecd67591
-      internalID: -301245370
+      spriteID: 9680fc8f69a37744e9b8dab3de1062ae
+      internalID: 1429300808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_10
+      name: Multigun_10
       rect:
         serializedVersion: 2
         x: 960
@@ -347,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e160bb51a763c13479b66f0fe6edcb72
-      internalID: 684722801
+      spriteID: fb81c9ab88d35dc4db0417cfa7e629a8
+      internalID: 1475597856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_11
+      name: Multigun_11
       rect:
         serializedVersion: 2
         x: 1056
@@ -368,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1728c8886a122e48b9950a8155545ef
-      internalID: -199552630
+      spriteID: 8b2db780952c0bd4088fbac060400c93
+      internalID: -149880273
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_12
+      name: Multigun_12
       rect:
         serializedVersion: 2
         x: 1152
@@ -389,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 040b4a3508695f14a89b25b1991b4e5c
-      internalID: -1219930021
+      spriteID: fdd345488a93c59428e69b72e68698fb
+      internalID: 578948599
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_13
+      name: Multigun_13
       rect:
         serializedVersion: 2
         x: 1248
@@ -410,14 +410,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3cbf94a41a889c4b990ccd346f4c092
-      internalID: 1243013504
+      spriteID: 77ba6db558de51c4187e2a28549a00e1
+      internalID: 736996366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_14
+      name: Multigun_14
       rect:
         serializedVersion: 2
         x: 1344
@@ -431,14 +431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d8d97f228fc00440a0056541ff4f97f
-      internalID: 569768813
+      spriteID: 08cdb1d606ab68b4a85e8fbb2d4f718c
+      internalID: -1868895184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_15
+      name: Multigun_15
       rect:
         serializedVersion: 2
         x: 1440
@@ -452,14 +452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8525918823b1d394d8a2ac444ff80f79
-      internalID: -628536201
+      spriteID: 8d41252ac92a46943ab7ae334796e89e
+      internalID: 1748787903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_16
+      name: Multigun_16
       rect:
         serializedVersion: 2
         x: 1536
@@ -473,14 +473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6675fa84deba6174f9a87a5fc08649cd
-      internalID: -2137845100
+      spriteID: 7574003ff92198740a73c966aed7b949
+      internalID: -818921570
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_17
+      name: Multigun_17
       rect:
         serializedVersion: 2
         x: 1632
@@ -494,14 +494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f495a6a30d4690c4fb45a03552ad3a12
-      internalID: 1937621325
+      spriteID: 357ad7f28c98e9845bdef998797ce2aa
+      internalID: -1209551847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_18
+      name: Multigun_18
       rect:
         serializedVersion: 2
         x: 1728
@@ -515,14 +515,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b243fb4019d1e67499a8b7eecc509a27
-      internalID: 691780863
+      spriteID: 666be473c543b1d4f8dd3a6186318cc2
+      internalID: 1762418537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DefenseGun_19
+      name: Multigun_19
       rect:
         serializedVersion: 2
         x: 1824
@@ -536,8 +536,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed834255742ef0d4c849d6c9d0b90831
-      internalID: -1144115328
+      spriteID: 00a9684e6adf5e84a8841e389106d2d4
+      internalID: 1547861389
       vertices: []
       indices: 
       edges: []
@@ -553,26 +553,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DefenseGun_0: 1228936661
-      DefenseGun_1: -2072776286
-      DefenseGun_10: 684722801
-      DefenseGun_11: -199552630
-      DefenseGun_12: -1219930021
-      DefenseGun_13: 1243013504
-      DefenseGun_14: 569768813
-      DefenseGun_15: -628536201
-      DefenseGun_16: -2137845100
-      DefenseGun_17: 1937621325
-      DefenseGun_18: 691780863
-      DefenseGun_19: -1144115328
-      DefenseGun_2: -1139852303
-      DefenseGun_3: 1156345809
-      DefenseGun_4: 682103783
-      DefenseGun_5: 176253929
-      DefenseGun_6: 1216447395
-      DefenseGun_7: -401439965
-      DefenseGun_8: 420931138
-      DefenseGun_9: -301245370
+      Multigun_0: -733903081
+      Multigun_1: 363435674
+      Multigun_10: 1475597856
+      Multigun_11: -149880273
+      Multigun_12: 578948599
+      Multigun_13: 736996366
+      Multigun_14: -1868895184
+      Multigun_15: 1748787903
+      Multigun_16: -818921570
+      Multigun_17: -1209551847
+      Multigun_18: 1762418537
+      Multigun_19: 1547861389
+      Multigun_2: -1477146531
+      Multigun_3: -1094569073
+      Multigun_4: 999126263
+      Multigun_5: 391970392
+      Multigun_6: 525058369
+      Multigun_7: 51598744
+      Multigun_8: 300809292
+      Multigun_9: 1429300808
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

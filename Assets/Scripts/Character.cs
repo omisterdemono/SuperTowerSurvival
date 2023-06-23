@@ -27,6 +27,8 @@ public class Character : NetworkBehaviour
 
     private Dictionary<int, KeyCode> _keyCodes;
 
+    private StructurePlacer _structurePlacer;
+
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
 
     void Awake()
@@ -42,6 +44,8 @@ public class Character : NetworkBehaviour
         {
             throw new NullReferenceException("Attacker script was not used on weapon");
         }
+
+        _structurePlacer = GetComponent<StructurePlacer>();
     }
 
     private void Start()
@@ -97,6 +101,9 @@ public class Character : NetworkBehaviour
 
         //weapon handle and rotation
         HandleWeapon();
+
+        //should be moved to build hammer
+        HandleBuild();
     }
 
     [Command(requiresAuthority = false)]
@@ -152,6 +159,16 @@ public class Character : NetworkBehaviour
         var angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
 
         _equippedItemSlot.Rotate(angle);
+    }
+
+    private void HandleBuild()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) 
+            && !EventSystem.current.IsPointerOverGameObject()
+            && _structurePlacer.GetTempStructureCanBePlaced()) // && 
+        {
+            _structurePlacer.PlaceStructure(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
     }
 
     public void TryObtain()
