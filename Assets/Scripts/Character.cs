@@ -68,6 +68,8 @@ public class Character : NetworkBehaviour
         _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolderScript>();
 
         _itemHolder.SetIcons(_tools);
+
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
     }
 
     void FixedUpdate()
