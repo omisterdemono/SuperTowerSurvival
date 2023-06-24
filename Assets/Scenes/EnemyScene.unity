@@ -395,26 +395,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1074430204}
     m_Modifications:
-    - target: {fileID: 2115797201060599961, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-      propertyPath: _desiredTargets.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2115797201060599961, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-      propertyPath: _desiredTargets.Array.data[4]
-      value: StructureScript
-      objectReference: {fileID: 0}
-    - target: {fileID: 2115797201060599961, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-      propertyPath: _desiredTargets.Array.data[5]
-      value: Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 3228913819318790133, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-      propertyPath: _attackType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354782871004226544, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-      propertyPath: _maxHealth
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4780897941312202658, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
       propertyPath: sceneId
       value: 1304484132
@@ -467,15 +447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrcHammer
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2944711768465371182, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-    - {fileID: 366104805016949227, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5852208132793593498, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2034296641}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
 --- !u!1 &137569140 stripped
 GameObject:
@@ -3844,28 +3819,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5491459466370203548, guid: 2ca070bbe8a852b48819a14f64129b5a, type: 3}
   m_PrefabInstance: {fileID: 2125800622}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2034296624 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5852208132793593498, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
-  m_PrefabInstance: {fileID: 77399503}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2034296625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5610727408254057267, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
   m_PrefabInstance: {fileID: 77399503}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2034296641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034296624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfd6ee05f9f5b4741a457c7474ff287e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2055285297
 GameObject:
   m_ObjectHideFlags: 0

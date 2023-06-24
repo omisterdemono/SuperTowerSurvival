@@ -142,7 +142,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9259583, y: 0.010566123}
+  m_Offset: {x: 0.71, y: 0.010566123}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -153,7 +153,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25525093, y: 0.44121456}
+  m_Size: {x: 0.67, y: 0.44121456}
   m_EdgeRadius: 0
 --- !u!1 &5852208132793593498
 GameObject:
@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: -93062701825654887}
   - component: {fileID: 7437558884832244864}
   - component: {fileID: 3046937729584280386}
+  - component: {fileID: 9094123980437194668}
   m_Layer: 0
   m_Name: OrcHammer
   m_TagString: Untagged
@@ -377,6 +378,7 @@ MonoBehaviour:
   _attackType: 1
   _playerTransform: {fileID: 0}
   _movementComponent: {fileID: 0}
+  _healthComponent: {fileID: 0}
   _pathFinder: {fileID: 0}
   _attackManager: {fileID: 0}
   damage: 10
@@ -597,6 +599,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &9094123980437194668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852208132793593498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfd6ee05f9f5b4741a457c7474ff287e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6987574885506191601
 GameObject:
   m_ObjectHideFlags: 0
