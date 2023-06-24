@@ -1,22 +1,31 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class MeleeAttacker : MonoBehaviour, IEnemyAttacker
+public class RangeAttacker : NetworkBehaviour, IEnemyAttacker
 {
     private IWeapon _weapon;
     private Transform _equipSlot;
     private Vector3 direction;
 
-    public Transform Target 
+    public Transform Target
     {
         get; set;
     }
 
     public void AttackTarget()
     {
+        Cmd_AttackFullCharge(direction);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_AttackFullCharge(Vector2 direction)
+    {
         _weapon.Attack(direction);
     }
+
 
     void Start()
     {
@@ -26,9 +35,9 @@ public class MeleeAttacker : MonoBehaviour, IEnemyAttacker
 
     void Update()
     {
-        if(Target == null) 
+        if (Target == null)
         {
-            return; 
+            return;
         }
 
         direction = (Target.position - transform.position).normalized;
