@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 2487391752368118237}
   - component: {fileID: 7722323779527237615}
   - component: {fileID: 7290635012916999755}
+  - component: {fileID: 5293001689951727993}
   m_Layer: 0
   m_Name: Bomber with shovel
   m_TagString: Player
@@ -204,7 +205,6 @@ MonoBehaviour:
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _toolSlots: []
   _tools:
   - {fileID: 2942427489863126251}
   - {fileID: 882454565241232499}
@@ -383,7 +383,10 @@ MonoBehaviour:
   inventoryUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: e67b241776e75674aa42073b0437431d, type: 2}
   book: {fileID: 11400000, guid: 87af28857ac9d88439036e047d4cbc4a, type: 2}
-  initialItems: []
+  initialItems:
+  - quantity: 25
+    item: {fileID: 11400000, guid: 4a83ffbd7e170f3439cf428f83319b05, type: 2}
+    itemState: []
   dropClip: {fileID: 0}
 --- !u!114 &7290635012916999755
 MonoBehaviour:
@@ -404,6 +407,28 @@ MonoBehaviour:
   _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
   _dynamitePrefab: {fileID: 4153535944577513394, guid: 36c23f8accca0f64d85168bc6d67bc35, type: 3}
   _damage: 10
+--- !u!114 &5293001689951727993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404823552754963484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b80ccf4fd7b4e4a8b477bbff28f567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _structures:
+  - {fileID: 3689379919031479192, guid: 4740b2c5f2e550d45addfd3648b53c8f, type: 3}
+  - {fileID: 3625508984780255458, guid: ca1332938387ce14fbd680fc336d3209, type: 3}
+  - {fileID: 3625508984780255458, guid: 522010559319f5c45bdd36642e7efcfb, type: 3}
+  _structuresTilemapIndex: 1
+  _buttonPrefab: {fileID: 2331052584847828899, guid: 8b4f6bc9744d0f8479ae81526767b029, type: 3}
+  _placeRadius: 3
 --- !u!1 &4828594612361098752
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,24 +543,12 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.109
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.038
+      value: -0.047
       objectReference: {fileID: 0}
     - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_LocalPosition.z
@@ -571,7 +584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_Name
-      value: Mallet
+      value: BuildHammer
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_IsActive
@@ -602,7 +615,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8838569770955771769, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_Name
-      value: Wooden Axe
+      value: Axe
       objectReference: {fileID: 0}
     - target: {fileID: 8838569770955771769, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_IsActive
@@ -622,11 +635,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.112999916
+      value: -0.056
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.13600007
+      value: -0.148
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalPosition.z
@@ -634,19 +647,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -658,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -683,10 +696,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8872873966590815221}
     m_Modifications:
-    - target: {fileID: 3216435141590812145, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8838569770955771769, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
       propertyPath: m_Name
       value: Pickaxe
@@ -700,20 +709,12 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9169631142256663058, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9169631142256663058, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02699995
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21000007
+      value: -0.335
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
       propertyPath: m_LocalPosition.z

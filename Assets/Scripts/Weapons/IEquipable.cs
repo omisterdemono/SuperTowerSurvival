@@ -4,5 +4,8 @@
     {
         bool NeedFlip { get; set; }
         bool NeedRotation { get; set; }
+        void Interact();
+        void Hold();
+        void FinishHold();
     }
 }

@@ -69,12 +69,12 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         }
     }
 
-    public void Attack(Vector2 direction)
+    public void Attack()
     {
         return;
     }
 
-    public void Hold(Vector2 direction)
+    public void Hold()
     {
         if (_isAttacking || _timeToNextHit != 0)
         {
@@ -104,7 +104,7 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         _chargeProgressSeconds += Time.deltaTime;
     }
 
-    public void KeyUp(Vector2 direction)
+    public void KeyUp()
     {
         ReleaseCharge();
     }
@@ -181,5 +181,13 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         HandleCharge();
     }
 
+    public void Interact()
+    {
+        Attack();
+    }
 
+    public void FinishHold()
+    {
+        KeyUp();
+    }
 }

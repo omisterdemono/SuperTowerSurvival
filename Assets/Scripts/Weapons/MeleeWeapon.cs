@@ -26,7 +26,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         _animator = GetComponent<Animator>();
     }
 
-    public void Attack(Vector2 direction)
+    public void Attack()
     {
         if (_timeToNextHit > 0)
         {
@@ -74,12 +74,12 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         _animator.SetBool("isAttacking", _isAttacking);
     }
 
-    public void Hold(Vector2 direction)
+    public void Hold()
     {
-        Attack(direction);
+        Attack();
     }
 
-    public void KeyUp(Vector2 direction)
+    public void KeyUp()
     {
         return;
     }
@@ -99,8 +99,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         }
     }
 
-
-private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         //removing from attack
         foreach (var target in _desiredTargets)
@@ -113,5 +112,15 @@ private void OnTriggerExit2D(Collider2D collision)
                 return;
             }
         }
+    }
+
+    public void Interact()
+    {
+        Attack();
+    }
+
+    public void FinishHold()
+    {
+        KeyUp();
     }
 }

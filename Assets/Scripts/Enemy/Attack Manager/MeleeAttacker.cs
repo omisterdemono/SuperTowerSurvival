@@ -17,7 +17,7 @@ public class MeleeAttacker : MonoBehaviour, IEnemyAttacker
 
     public void AttackTarget()
     {
-        _weapon.Attack(direction);
+        _weapon.Attack();
     }
 
     void Start()

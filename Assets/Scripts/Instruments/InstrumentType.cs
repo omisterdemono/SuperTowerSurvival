@@ -1,5 +1,6 @@
 public enum InstrumentType
 {
     Pickaxe,
-    Axe
+    Axe,
+    BuildHammer
 }

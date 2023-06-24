@@ -65,7 +65,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         _chargeProgressSeconds += Time.deltaTime;
     }
 
-    private void FireArrow(Vector2 direction)
+    private void FireArrow()
     {
         if (_timeToNextShot != 0 || _chargeProgressSeconds < _minProgressToShotSeconds)
         {
@@ -93,18 +93,28 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         _animator.SetBool("isCharging", _isCharging);
     }
 
-    public void Attack(Vector2 direction)
+    public void Attack()
     {
         return;
     }
 
-    public void Hold(Vector2 direction)
+    public void Hold()
     {
         HandleCharge();
     }
 
-    public void KeyUp(Vector2 direction)
+    public void KeyUp()
     {
-        FireArrow(direction);
+        FireArrow();
+    }
+
+    public void Interact()
+    {
+        Attack();
+    }
+
+    public void FinishHold()
+    {
+        KeyUp();
     }
 }

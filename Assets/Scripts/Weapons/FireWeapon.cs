@@ -48,12 +48,12 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
         _timeToNextShot -= Time.deltaTime;
     }
 
-    public void Attack(Vector2 direction)
+    public void Attack()
     {
-        FireBullet(direction);
+        FireBullet();
     }
 
-    public void FireBullet(Vector2 direction)
+    public void FireBullet()
     {
         if (_timeToNextShot != 0)
         {
@@ -72,13 +72,23 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
         _timeToNextShot = _cooldownSeconds;
     }
 
-    public void Hold(Vector2 direction)
+    public void Hold()
     {
-        FireBullet(direction);
+        FireBullet();
     }
 
-    public void KeyUp(Vector2 direction)
+    public void KeyUp()
     {
         return;
+    }
+
+    public void Interact()
+    {
+        Attack();
+    }
+
+    public void FinishHold()
+    {
+        KeyUp();
     }
 }

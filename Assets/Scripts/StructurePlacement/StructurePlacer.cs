@@ -12,19 +12,23 @@ public class StructurePlacer : NetworkBehaviour
 
     [Header("UI")]
     [SerializeField] private GameObject _buttonPrefab;
+    [SerializeField] private const string StructureHolderTagName = "StructuresHolder";
+    private bool _isMenuOpened = true;
 
     [Header("Build properties")]
     [SerializeField] private float _placeRadius;
+    
+    public bool StructureCanBePlaced => _tempStructureComponent != null && _tempStructureComponent.CanBePlaced;
 
     [SyncVar] private int _currentStructureIndex = -1;
+
     private GameObject _tempStructure;
     private Structure _tempStructureComponent;
+    private Vector3 _mousePosition;
 
     private Transform _structuresTilemap;
-    private Transform _playerTransform;
     private Grid _grid;
-
-    private Vector3 _mousePosition;
+    private GameObject _structuresHolder;
 
     private bool StructureInBuildRadius => Vector2.Distance(transform.position, _tempStructure.transform.position) <= _placeRadius;
 
@@ -59,7 +63,8 @@ public class StructurePlacer : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            //command to open build menu
+            _isMenuOpened = !_isMenuOpened;
+            _structuresHolder.SetActive(_isMenuOpened);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -70,21 +75,24 @@ public class StructurePlacer : NetworkBehaviour
 
     private void InitUI()
     {
-        var structuresHolder = GameObject.FindGameObjectWithTag("StructuresHolder");
+        _structuresHolder = GameObject.FindGameObjectWithTag(StructureHolderTagName);
 
         for (int i = 0; i < _structures.Length; i++)
         {
             var objectOfButton = Instantiate(_buttonPrefab);
-            objectOfButton.transform.SetParent(structuresHolder.transform);
+            objectOfButton.transform.SetParent(_structuresHolder.transform);
+            objectOfButton.name = _structures[i].name;
+            
+            var tmpPro = objectOfButton.GetComponentInChildren<TextMeshProUGUI>();
+            tmpPro.text = _structures[i].name;
 
             var button = objectOfButton.GetComponent<Button>();
             var structureIndex = i;
 
-            button.onClick.AddListener(delegate { SelectStructure(structureIndex); });
-            objectOfButton.name = $"{_structures[i].name} button";
-
-            var tmpPro = objectOfButton.GetComponentInChildren<TextMeshProUGUI>();
-            tmpPro.text = _structures[i].name;
+            button.onClick.AddListener(() =>  
+            { 
+                SelectStructure(structureIndex); 
+            });
         }
     }
 
@@ -110,10 +118,6 @@ public class StructurePlacer : NetworkBehaviour
         _tempStructureComponent = _tempStructure.GetComponent<Structure>();
     }
 
-    public bool GetTempStructureCanBePlaced()
-    {
-        return _tempStructureComponent != null && _tempStructureComponent.CanBePlaced;
-    }
 
     [Command(requiresAuthority = false)]
     private void CmdUpdateCurrentStructure(int structureIndex)
