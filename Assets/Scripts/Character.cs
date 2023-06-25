@@ -43,6 +43,9 @@ public class Character : NetworkBehaviour
     {
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
+        _health = GetComponent<HealthComponent>();
+
+        _health.OnDeath += OnDeath;
 
         //change to something more generic
         _attacker = GetComponentInChildren<IWeapon>();
@@ -74,7 +77,7 @@ public class Character : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!isOwned && _isAlive) return;
+        if (!isOwned || !_isAlive) return;
 
         Vector3 moveVector = Vector3.zero;
 
@@ -132,6 +135,12 @@ public class Character : NetworkBehaviour
 
         ////should be moved to build hammer
         //HandleBuild();
+    }
+
+    private void OnDeath()
+    {
+        IsAlive = false;
+        _animator.SetBool("IsAlive", false);
     }
     private void HandleEquipedSlotChanged(int oldValue, int newValue)
     {
