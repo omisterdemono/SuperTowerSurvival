@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4fda090d7f28a4c8a04866f8644bfe, type: 3}
   m_Name: Observe
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Observe
   SkillDescription: 
-  Cooldown: 0
-  CastTime: 0
-  SkillIcon: {fileID: 0}
+  Cooldown: 30
+  CastTime: 10
+  SkillIcon: {fileID: 21300000, guid: cfd240ac74cf5aa4cb78e285bf64d27e, type: 3}

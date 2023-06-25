@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4fda090d7f28a4c8a04866f8644bfe, type: 3}
   m_Name: SelfMovingTurret
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Self moving turret
   SkillDescription: 
-  Cooldown: 0
-  CastTime: 0
-  SkillIcon: {fileID: 0}
+  Cooldown: 60
+  CastTime: 5
+  SkillIcon: {fileID: 21300000, guid: 6a3fa60db45ac4b4388c147fe611e1e7, type: 3}
