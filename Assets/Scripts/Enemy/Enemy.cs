@@ -16,6 +16,7 @@ public class Enemy : NetworkBehaviour
     private Transform _target;
     private Vector3 _direction;
 
+    [SerializeField] private GameObject _deathEffect;
     [SerializeField] private List<TargetPriorities> _favouriteTargets;
     [SerializeField] private float _searchRadius;
     [SerializeField] private float _attackRadius;
@@ -50,7 +51,7 @@ public class Enemy : NetworkBehaviour
 
         _target = _hall;
         _pathFinder.target = _hall;
-        _healthComponent.OnDeath += Cmd_Die;
+        _healthComponent.OnDeath += Die;
 
         _attackManager.SetStrategy(GetComponent<IEnemyAttacker>());
         _attackManager.UpdateEnemy(this);
@@ -258,14 +259,21 @@ public class Enemy : NetworkBehaviour
         }
     }
 
-    [Command(requiresAuthority = false)]
-    private void Cmd_Die()
+    private void Die()
     {
+        Cmd_Die(transform.position);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_Die(Vector3 position)
+    {
+        GameObject explosion = Instantiate(_deathEffect, position, Quaternion.identity);
+        NetworkServer.Spawn(explosion);
         NetworkServer.Destroy(this.gameObject);
     }
 
     private void OnDestroy()
     {
-        _healthComponent.OnDeath -= Cmd_Die;
+        _healthComponent.OnDeath -= Die;
     }
 }
