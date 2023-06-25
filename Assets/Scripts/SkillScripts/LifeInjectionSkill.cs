@@ -74,6 +74,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
         foreach (var players in _playerColliders)
         {
             players.GetComponent<Character>().IsAlive = true;
+            players.GetComponent<Animator>().SetBool("IsAlive", true);
             players.GetComponent<HealthComponent>().Heal(players.GetComponent<HealthComponent>().MaxHealth * _healModifier);
         }
         GetComponent<CircleCollider2D>().enabled = false;
