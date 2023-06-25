@@ -15,7 +15,7 @@ public class Character : NetworkBehaviour
     private Animator _animator;
     private ItemHolderScript _itemHolder;
 
-    [SerializeField] private bool _isAlive = true;
+    [SerializeField][SyncVar] private bool _isAlive = true;
 
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
