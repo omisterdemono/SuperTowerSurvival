@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.UI;
 
 public class HealthComponent : NetworkBehaviour
 {
@@ -10,8 +11,11 @@ public class HealthComponent : NetworkBehaviour
     public Action OnDeath;
 
     [SerializeField] private float _maxHealth;
-    
+    [SerializeField] private GameObject _healthBar;
+
     [SyncVar] private float _currentHealth;
+    private CanvasGroup _canvasGroupHB;
+    private Image _imageHP;
 
     public float MaxHealth
     {
@@ -64,10 +68,19 @@ public class HealthComponent : NetworkBehaviour
     public void ChangeHealth(float health)
     {
         _currentHealth = health;
+        if (_imageHP != null)
+        {
+            _imageHP.fillAmount = _currentHealth / _maxHealth;
+        }
     }
 
     void Start()
     {
         CurrentHealth = _maxHealth;
+        if (_healthBar != null)
+        {
+            _canvasGroupHB = _healthBar.GetComponentInChildren<CanvasGroup>();
+            _imageHP = _canvasGroupHB.transform.GetChild(1).GetComponentInChildren<Image>();
+        }
     }
 }

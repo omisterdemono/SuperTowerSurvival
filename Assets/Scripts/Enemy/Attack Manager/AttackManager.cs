@@ -7,8 +7,9 @@ using UnityEngine;
 public class AttackManager : MonoBehaviour
 {
     private Enemy _enemy;
-    private GameObject _target;
     private HealthComponent _targetHealthComponent;
+    private GameObject _target;
+    //private GameObject _healthBar;
 
     private IEnemyAttacker _strategy;
 
@@ -91,6 +92,8 @@ public class AttackManager : MonoBehaviour
     public void UpdateTarget(GameObject newTarget)
     {
         _target = newTarget;
+        _strategy.Target = newTarget.transform;
+        //_healthBar = newTarget.GetComponent<Heal>
         _targetHealthComponent = _target.GetComponent<HealthComponent>();
     }
 }
