@@ -22,7 +22,7 @@ public class RangeAttacker : NetworkBehaviour, IEnemyAttacker
     [Command(requiresAuthority = false)]
     private void Cmd_AttackFullCharge(Vector2 direction)
     {
-        _weapon.Attack(direction);
+        _weapon.Attack();
     }
 
 

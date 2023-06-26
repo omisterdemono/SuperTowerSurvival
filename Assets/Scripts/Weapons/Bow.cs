@@ -73,11 +73,11 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     {
         if (_chargeProgressSeconds >= _maxChargeSeconds)
         {
-            FireArrow(direction);
+            FireArrow();
         }
         else
         {
-            Hold(direction);
+            Hold();
         }
         //return;
     }
