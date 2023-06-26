@@ -81,7 +81,7 @@ public class PoisonousGasScript : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") && elapsedTime >= duration)
+        if (!collision.CompareTag("Player") && collision is BoxCollider2D && elapsedTime >= duration)
         {
             _colliders.Add(collision);
             
@@ -93,7 +93,7 @@ public class PoisonousGasScript : NetworkBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player"))
+        if (!collision.CompareTag("Player") && collision is BoxCollider2D)
         {
             _colliders.Remove(collision);
 
