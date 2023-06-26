@@ -18,6 +18,7 @@ public class HealthComponent : NetworkBehaviour
     }
     [SerializeField] private GameObject _healthBar;
 
+    [SyncVar] private float _hpRatio;
     private CanvasGroup _canvasGroupHB;
     private Image _imageHP;
 
@@ -40,8 +41,13 @@ public class HealthComponent : NetworkBehaviour
         }
         set
         {
-            _currentHealth = value;
+            //_currentHealth = value;
             ChangeHealth(value);
+            _hpRatio = _currentHealth / _maxHealth;
+            if (_imageHP != null)
+            {
+                _imageHP.fillAmount = _hpRatio;
+            }
             OnCurrentHealthChanged?.Invoke();
         }
     }
@@ -68,14 +74,11 @@ public class HealthComponent : NetworkBehaviour
         CurrentHealth -= damageHP;
     }
 
-    [Command(requiresAuthority = false)]
+    //[Command(requiresAuthority = false)]
+    [Server]
     public void ChangeHealth(float health)
     {
         _currentHealth = health;
-        if (_imageHP != null)
-        {
-            _imageHP.fillAmount = _currentHealth / _maxHealth;
-        }
     }
 
     void Start()

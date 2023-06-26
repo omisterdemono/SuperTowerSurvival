@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,21 +6,19 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Light2D))]
-public class WorldLight : MonoBehaviour
+public class WorldLight : NetworkBehaviour
 {
-    public float duration = 5f;
-
-    public float generalTime;
-    public float currentTime;
-    public float dayLengthMinutes;
-    public bool isNight;
+    [SyncVar] public float generalTime;
+    [SyncVar] public float currentTime;
+    [SyncVar] public float dayLengthMinutes;
+    [SyncVar] public bool isNight;
     public Action OnIsNightChanged;
 
-    private float midday;
-    private float gameHour;
-    private float translateTime;
-    private float displayTime;
-    private int dayNumber;
+    [SyncVar] private float midday;
+    [SyncVar] private float gameHour;
+    [SyncVar] private float translateTime;
+    [SyncVar] private float displayTime;
+    [SyncVar] private int dayNumber;
 
 
     [SerializeField] private Gradient gradient;
@@ -42,6 +41,16 @@ public class WorldLight : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            ServerCalculation();
+        }
+        ClientUpload();
+    }
+
+    [Server]
+    void ServerCalculation()
+    {
         generalTime += 1 * Time.deltaTime;
         currentTime += 1 * Time.deltaTime;
         translateTime = (currentTime / (midday * 2));
@@ -52,19 +61,26 @@ public class WorldLight : MonoBehaviour
             dayNumber++;
         }
 
-        _light.color = gradient.Evaluate(translateTime);
-        displayTime = translateTime * 24f;
+        //_light.color = gradient.Evaluate(translateTime);
+        //displayTime = translateTime * 24f;
 
-        if(currentTime > midday + 2 * gameHour && !isNight)
+        if (currentTime > midday + 2 * gameHour && !isNight)
         {
             isNight = true;
         }
-        if(currentTime < midday + 2 * gameHour && isNight)
+        if (currentTime < midday + 2 * gameHour && isNight)
         {
             isNight = false;
             OnIsNightChanged?.Invoke();
         }
 
+    }
+
+    [Client]
+    void ClientUpload()
+    {
+        _light.color = gradient.Evaluate(translateTime);
+        displayTime = translateTime * 24f;
     }
 
     public int GetDay()
@@ -86,7 +102,7 @@ public class WorldLight : MonoBehaviour
     {
         float decimalPart = displayTime - (int)displayTime;
         int min = Mathf.RoundToInt(decimalPart * 60);
-        if(min > 59)
+        if (min > 59)
         {
             min = 59;
         }
