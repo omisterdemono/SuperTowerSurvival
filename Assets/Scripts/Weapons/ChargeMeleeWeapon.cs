@@ -21,6 +21,9 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get; set; }
     public bool NeedRotation { get; set; } = true;
+    public bool CanPerform => throw new NotImplementedException();
+
+    public float CooldownSeconds => throw new NotImplementedException();
 
     private Collider2D _hitCollider;
     private Vector3 _rotationBeforeCharge;
@@ -189,5 +192,10 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public void FinishHold()
     {
         KeyUp();
+    }
+
+    public void ChangeAnimationState()
+    {
+        return;
     }
 }

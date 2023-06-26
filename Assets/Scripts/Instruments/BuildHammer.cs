@@ -1,8 +1,10 @@
 using Assets.Scripts.Weapons;
 using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
-enum BuildHammerStates
+enum BuildHammerState
 {
     Repairing,
     Building
@@ -17,17 +19,20 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     public float Strength { get; set; }
     public float Durability { get; set; }
-    public bool NeedFlip { get; set; }
-    public bool NeedRotation { get; set; }
+    public bool NeedFlip { get; set; } = true;
+    public bool NeedRotation { get; set; } = true;
+    public bool CanPerform => _cooldownComponent.CanPerform;
+    public float CooldownSeconds => _cooldownSeconds;
 
     private Animator _animator;
     private StructurePlacer _structurePlacer;
     private CooldownComponent _cooldownComponent;
     private HealthComponent _currentStructureToRepair;
-    private BuildHammerStates _currentState = BuildHammerStates.Building;
-    private bool _isObtaining = false;
+    private BuildHammerState _currentState = BuildHammerState.Building;
+    private bool _isObtaining;
 
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
 
     private void Awake()
     {
@@ -47,16 +52,16 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     public void Interact()
     {
-        if (!_cooldownComponent.CanHit)
+        if (!_cooldownComponent.CanPerform)
         {
             return;
         }
         _cooldownComponent.ResetCooldown();
 
-        ChangeObtainingState();
+        StartCoroutine(DelayedObtain());
     }
 
-    private void ChangeObtainingState()
+    public void ChangeAnimationState()
     {
         _isObtaining = !_isObtaining;
         _animator.SetBool("isObtaining", _isObtaining);
@@ -72,41 +77,64 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
         return;
     }
 
+    private IEnumerator DelayedObtain()
+    {
+        yield return new WaitForSeconds(_cooldownSeconds);
+        Obtain();
+    }
+
     public void Obtain()
     {
         switch (_currentState)
         {
-            case BuildHammerStates.Repairing:
-                if (!_currentStructureToRepair)
-                {
-                    return;
-                }
+            case BuildHammerState.Repairing:
                 Repair();
                 break;
-            case BuildHammerStates.Building:
+            case BuildHammerState.Building:
                 Place();
                 break;
             default:
                 break;
         }
-
-        ChangeObtainingState();
     }
 
     private void Repair()
     {
+        if (!_currentStructureToRepair)
+        {
+            return;
+        }
+
         _currentStructureToRepair.Heal(Strength);
         Durability -= 1.0f;
     }
 
     private void Place()
     {
-        if (!_structurePlacer.StructureCanBePlaced) 
+        if (!_structurePlacer.StructureCanBePlaced)
         {
             return;
         }
 
         _structurePlacer.PlaceStructure(_mousePosition);
+    }
+
+    public void ChangeMode()
+    {
+        if (_currentState == BuildHammerState.Building)
+        {
+            _structurePlacer.CancelPlacement();
+        }
+
+        var highestState = Enum.GetValues(typeof(BuildHammerState)).Cast<BuildHammerState>().Max();
+
+        if (_currentState == highestState)
+        {
+            _currentState = 0;
+            return;
+        }
+
+        _currentState++;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

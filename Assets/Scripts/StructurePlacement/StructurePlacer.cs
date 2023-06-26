@@ -69,7 +69,7 @@ public class StructurePlacer : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            CmdUpdateCurrentStructure(-1);
+            CancelPlacement();
         }
     }
 
@@ -94,6 +94,13 @@ public class StructurePlacer : NetworkBehaviour
                 SelectStructure(structureIndex); 
             });
         }
+    }
+
+    public void CancelPlacement()
+    {
+        CmdUpdateCurrentStructure(-1);
+        Destroy(_tempStructure);
+        _tempStructure = null;
     }
 
     public void SelectStructure(int structureIndex)

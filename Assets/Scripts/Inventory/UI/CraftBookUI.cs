@@ -34,7 +34,7 @@ public class CraftBookUI : MonoBehaviour
 
     public void InitializeCraftUI(CraftBookSO bookSO)
     {
-        //contentPanel = GameObject.FindGameObjectWithTag("CraftHolder");
+        contentPanel = GameObject.FindGameObjectWithTag("CraftHolder");
         for (int i = 0; i < bookSO.craftRecipes.Count; i++)
         {
             var uiItem =

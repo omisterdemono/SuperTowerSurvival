@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 6175998349414627956}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &190057826729732585
 Rigidbody2D:
@@ -92,7 +92,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.27743515, y: 0.27671814}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _instrumentAttributes: {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
-  _cooldownSeconds: 0.42
+  _cooldownSeconds: 0.75
 --- !u!95 &8710973469679265569
 Animator:
   serializedVersion: 5

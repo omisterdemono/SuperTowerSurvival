@@ -1,7 +1,6 @@
 using Assets.Scripts.Weapons;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
@@ -9,37 +8,47 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private string[] _desiredTargets;
     [SerializeField] private float _damage;
     [SerializeField] private bool _needFlip;
-    [SerializeField] private float _cooldown;
+    [SerializeField] private float _cooldownSeconds;
 
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool NeedRotation { get; set; } = true;
+    public bool CanPerform => _cooldownComponent.CanPerform;
+    public float CooldownSeconds => _cooldownSeconds;
 
     private Animator _animator;
     private List<HealthComponent> _targetsInRange = new List<HealthComponent>();
+    private CooldownComponent _cooldownComponent;
 
-    private float _timeToNextHit;
     private bool _isAttacking;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
     }
 
     public void Attack()
     {
-        if (_timeToNextHit > 0)
+        if (!_cooldownComponent.CanPerform)
         {
             return;
         }
-        _timeToNextHit = _cooldown;
+        _cooldownComponent.ResetCooldown();
 
-        ChangeAttackingState();
+        StartCoroutine(DelayedAttack());
+    }
+
+    private IEnumerator DelayedAttack()
+    {
+        yield return new WaitForSeconds(_cooldownSeconds);
+        DealDamage();
     }
 
     private void Update()
     {
-        HandleCooldown();
+        _cooldownComponent.HandleCooldown();
     }
 
     public void DealDamage()
@@ -48,27 +57,9 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         {
             enemyHealth.Damage(Damage);
         }
-
-        ChangeAttackingState();
     }
 
-    private void HandleCooldown()
-    {
-        if (_timeToNextHit == 0)
-        {
-            return;
-        }
-
-        if (_timeToNextHit < 0)
-        {
-            _timeToNextHit = 0;
-            return;
-        }
-
-        _timeToNextHit -= Time.deltaTime;
-    }
-
-    public void ChangeAttackingState()
+    public void ChangeAnimationState()
     {
         _isAttacking = !_isAttacking;
         _animator.SetBool("isAttacking", _isAttacking);

@@ -1,5 +1,6 @@
 using Assets.Scripts.Weapons;
 using Mirror;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -16,50 +17,36 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
 
     public bool NeedRotation { get; set; } = true;
 
-    private float _timeToNextShot;
-    private Transform _equippedSlot;
-
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
+    public bool CanPerform => _cooldownComponent.CanPerform;
+    public float CooldownSeconds => _cooldownSeconds;
+
+    private CooldownComponent _cooldownComponent;
 
     private void Awake()
     {
-        _equippedSlot = transform.parent;
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
     }
 
     private void Update()
     {
-        HandleFireRate();
-    }
-
-    private void HandleFireRate()
-    {
-        if (_timeToNextShot == 0)
-        {
-            return;
-        }
-
-        if (_timeToNextShot < 0)
-        {
-            _timeToNextShot = 0;
-            return;
-        }
-
-        _timeToNextShot -= Time.deltaTime;
+        _cooldownComponent.HandleCooldown();
     }
 
     public void Attack()
     {
+        if (!_cooldownComponent.CanPerform)
+        {
+            return;
+        }
+        _cooldownComponent.ResetCooldown();
+
         FireBullet();
     }
 
     public void FireBullet()
     {
-        if (_timeToNextShot != 0)
-        {
-            return;
-        }
-
         foreach (var firePosition in _firePositions)
         {
             GameObject projectile = Instantiate(_projectile, firePosition.position, firePosition.rotation);
@@ -68,13 +55,11 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
             bulletComponent.Damage = _damage;
             NetworkServer.Spawn(projectile);
         }
-
-        _timeToNextShot = _cooldownSeconds;
     }
 
     public void Hold()
     {
-        FireBullet();
+        Attack();
     }
 
     public void KeyUp()
@@ -90,5 +75,10 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
     public void FinishHold()
     {
         KeyUp();
+    }
+
+    public void ChangeAnimationState()
+    {
+        return;
     }
 }

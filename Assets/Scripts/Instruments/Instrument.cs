@@ -1,4 +1,5 @@
 using Assets.Scripts.Weapons;
+using System.Collections;
 using UnityEngine;
 
 public class Instrument : MonoBehaviour, IInstrument, IEquipable
@@ -9,8 +10,11 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     public float Strength { get; set; }
     public float Durability { get; set; }
     public InstrumentType InstrumentType { get; set; }
-    public bool NeedFlip { get; set; }
-    public bool NeedRotation { get; set; }
+    public bool NeedRotation { get; set; } = true; 
+    public bool NeedFlip { get; set; } = true;
+    public bool CanPerform => _cooldownComponent.CanPerform;
+
+    public float CooldownSeconds => _cooldownSeconds;
 
     private Obtainable _lastObtainable;
     private Animator _animator;
@@ -42,11 +46,9 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
         _lastObtainable.GetObtained(this);
         Durability -= 1.0f;
-
-        ChangeObtainingState();
     }
 
-    public void ChangeObtainingState()
+    public void ChangeAnimationState()
     {
         _isObtaining = !_isObtaining;
         _animator.SetBool("isObtaining", _isObtaining);
@@ -72,13 +74,19 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     public void Interact()
     {
-        if (!_cooldownComponent.CanHit)
+        if (!_cooldownComponent.CanPerform)
         {
             return;
         }
         _cooldownComponent.ResetCooldown();
 
-        ChangeObtainingState();
+        StartCoroutine(DelayedObtain());
+    }
+
+    private IEnumerator DelayedObtain()
+    {
+        yield return new WaitForSeconds(_cooldownSeconds);
+        Obtain();
     }
 
     public void Hold()

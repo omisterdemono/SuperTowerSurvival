@@ -4,28 +4,28 @@ public class CooldownComponent
 {
     public float CooldownSeconds { get; set; }
 
-    private float _timeToNextHit;
+    private float _timeToNextPerform;
 
-    public bool CanHit => _timeToNextHit == 0;
+    public bool CanPerform => _timeToNextPerform == 0;
 
     public void ResetCooldown()
     {
-        _timeToNextHit = CooldownSeconds;
+        _timeToNextPerform = CooldownSeconds;
     }
 
     public void HandleCooldown()
     {
-        if (_timeToNextHit == 0)
+        if (_timeToNextPerform == 0)
         {
             return;
         }
 
-        if (_timeToNextHit < 0)
+        if (_timeToNextPerform < 0)
         {
-            _timeToNextHit = 0;
+            _timeToNextPerform = 0;
             return;
         }
 
-        _timeToNextHit -= Time.deltaTime;
+        _timeToNextPerform -= Time.deltaTime;
     }
 }

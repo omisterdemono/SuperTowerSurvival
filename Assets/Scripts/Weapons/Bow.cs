@@ -1,5 +1,6 @@
 using Assets.Scripts.Weapons;
 using Mirror;
+using System;
 using UnityEngine;
 
 public class Bow : MonoBehaviour, IWeapon, IEquipable
@@ -20,6 +21,8 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool NeedRotation { get; set; } = true;
+    public bool CanPerform { get; }
+    public float CooldownSeconds => throw new NotImplementedException();
 
     private bool _isCharging = false;
     private float _chargeProgressSeconds;
@@ -116,5 +119,10 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     public void FinishHold()
     {
         KeyUp();
+    }
+
+    public void ChangeAnimationState()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -7,5 +7,8 @@
         void Interact();
         void Hold();
         void FinishHold();
+        void ChangeAnimationState();
+        bool CanPerform { get; }
+        float CooldownSeconds { get; }
     }
 }

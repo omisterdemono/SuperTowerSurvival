@@ -77,9 +77,6 @@ public class Structure : NetworkBehaviour, IBuildable
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.LogWarning("Remove IsBuilt there");
-        IsBuilt = true;
-
         //temporary code with boxcollider2d, should be removed
         if (IsBeingPlaced && collision.GetComponent<BoxCollider2D>() != null)
         {
