@@ -60,6 +60,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         var projectileComponent = projectile.GetComponent<Projectile>();
 
         projectileComponent.Speed *= _chargeComponent.ChargeProgress;
+        projectileComponent.Damage = _chargeComponent.ChargeProgress * Damage;
         projectileComponent.Direction = _firePosition.right;
 
         NetworkServer.Spawn(projectile);
