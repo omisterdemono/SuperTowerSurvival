@@ -38,6 +38,8 @@ public class Character : NetworkBehaviour
     private int _equipedSlot = 0;
 
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
+    public float RepairSpeedModifier { get => _repairSpeedModifier; set => _repairSpeedModifier = value; }
+    public float BuildSpeedModifier { get => _buildSpeedModifier; set => _buildSpeedModifier = value; }
 
     void Awake()
     {
@@ -53,7 +55,7 @@ public class Character : NetworkBehaviour
 
         if (_attacker == null)
         {
-            throw new NullReferenceException("Attacker script was not used on weapon");
+            //throw new NullReferenceException("Attacker script was not used on weapon");
         }
 
         _structurePlacer = GetComponent<StructurePlacer>();
