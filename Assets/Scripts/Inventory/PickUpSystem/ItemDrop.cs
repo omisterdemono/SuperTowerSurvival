@@ -7,13 +7,17 @@ using System.Globalization;
 
 namespace Assets.Scripts.PickUpSystem
 {
-    public class Item : NetworkBehaviour
+    public class ItemDrop : NetworkBehaviour
     {
-        [field: SerializeField]
-        public ItemSO InventoryItem { get; private set; }
 
-        [field: SerializeField]
-        public int Quantity { get; set; } = 1;
+        public ItemSO inventoryItem;
+        [SerializeField]
+        private ItemsSO AllItems;
+        [SyncVar]
+        public int idOfItem;
+        [SyncVar]
+        public int Quantity  = 1;
+
 
         [SerializeField]
         private AudioSource audioSource;
@@ -23,15 +27,23 @@ namespace Assets.Scripts.PickUpSystem
 
         private void Start()
         {
-            this.GetComponent<SpriteRenderer>().sprite = InventoryItem.ItemImage;
+            inventoryItem= AllItems.GetItem(idOfItem);
+            GetComponent<SpriteRenderer>().sprite = inventoryItem.ItemImage;
         }
         [Command(requiresAuthority =false)]
         public void DestroyItem()
         {
             GetComponent<Collider2D>().enabled = false;
             StartCoroutine(AnimateItemPickup());
-
         }
+        public void SetItem(int id, int quantity)
+        {
+            inventoryItem = AllItems.GetItem(id);
+            idOfItem = id;
+            Quantity = quantity;
+        }
+
+
 
         private IEnumerator AnimateItemPickup()
         {

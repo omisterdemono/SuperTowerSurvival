@@ -1,3 +1,4 @@
+using Assets.Scripts.PickUpSystem;
 using Inventory.Model;
 using Mirror;
 using System;
@@ -11,6 +12,7 @@ public class InventoryController : NetworkBehaviour
     [SerializeField]
     private UIInventoryPage inventoryUI;
 
+
     [SerializeField]
     private GameObject craftUI;
 
@@ -20,6 +22,10 @@ public class InventoryController : NetworkBehaviour
     private CraftBookSO book;
 
     public List<InventoryItem> initialItems = new List<InventoryItem>();
+
+
+    [SerializeField]
+    private GameObject ItemPrefab;
 
     [SerializeField]
     private AudioClip dropClip;
@@ -93,25 +99,64 @@ public class InventoryController : NetworkBehaviour
 
     private void HandleItemActionRequest(int itemIndex)
     {
+        InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+        if (inventoryItem.IsEmpty|| !isOwned)
+            return;
+
+        
+        inventoryUI.ShowItemAction(itemIndex);
+        inventoryUI.AddAction("Build", () => PerformAction(itemIndex));
+        
+
+        IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+        var vector = new Vector3(transform.position.x, transform.position.y-1.5f);
+        
+        inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity, vector));
+        
+
+    }
+    public void PerformAction(int itemIndex)
+    {
         //InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         //if (inventoryItem.IsEmpty)
         //    return;
 
-        //IItemAction itemAction = inventoryItem.item as IItemAction;
-        //if (itemAction != null)
-        //{
-
-        //    inventoryUI.ShowItemAction(itemIndex);
-        //    inventoryUI.AddAction(itemAction.ActionName, () => PerformAction(itemIndex));
-        //}
-
         //IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
         //if (destroyableItem != null)
         //{
-        //    inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity));
+        //    inventoryData.RemoveItem(itemIndex, 1);
         //}
 
+        //IItemAction itemAction = inventoryItem.item as IItemAction;
+        //if (itemAction != null)
+        //{
+        //    itemAction.PerformAction(gameObject, inventoryItem.itemState);
+        //    //audioSource.PlayOneShot(itemAction.actionSFX);
+        //    if (inventoryData.GetItemAt(itemIndex).IsEmpty)
+        //        inventoryUI.ResetSelection();
+        //}
     }
+    [Command(requiresAuthority = false)]
+    private void DropItem(int itemIndex, int quantity, Vector3 vector)
+    {
+        GameObject uiItem =
+                Instantiate(ItemPrefab, vector, Quaternion.identity);
+        //var i= inventoryData.GetItemAt(itemIndex);
+        uiItem.GetComponent<ItemDrop>().SetItem(inventoryData.GetItemAt(itemIndex).item.IdOfItem, quantity);
+
+        inventoryData.RemoveItem(itemIndex, quantity);
+        inventoryUI.ResetSelection();
+        //SpawnOnClient(uiItem);
+        NetworkServer.Spawn(uiItem);
+    }
+
+    [ClientRpc]
+    private void SpawnOnClient(GameObject gameObject)
+    {
+        Instantiate(gameObject);
+
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
