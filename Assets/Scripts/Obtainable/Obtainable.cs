@@ -5,8 +5,9 @@ using UnityEngine;
 public class Obtainable : NetworkBehaviour
 {
     [SerializeField] private GameObject[] _loot;
-    [SerializeField] private HealthComponent _healthComponent;
     [SerializeField] private InstrumentType _instrument;
+    
+    private HealthComponent _healthComponent;
 
     private void Awake()
     {

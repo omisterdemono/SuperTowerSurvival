@@ -12,10 +12,6 @@ namespace Inventory.Model
         [SerializeField]
         public List<CraftRecipeSO> craftRecipes;
 
-
-        [field: SerializeField]
-        public int Size { get; private set; } = 2;
-
         public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
 
 

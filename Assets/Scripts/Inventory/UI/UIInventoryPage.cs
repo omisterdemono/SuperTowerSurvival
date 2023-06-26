@@ -1,4 +1,5 @@
 using Inventory.Model;
+using Inventory.UI;
 using Mirror;
 using System;
 using System.Collections;
@@ -19,6 +20,9 @@ public class UIInventoryPage : MonoBehaviour
 
     [SerializeField]
     private MouseFollower mouseFollower;
+
+    [SerializeField]
+    private ItemActionPanel itemActionPanel;
 
     List<UIInventoryItem> listOfUIItems = new List<UIInventoryItem>();
 
@@ -135,6 +139,18 @@ public class UIInventoryPage : MonoBehaviour
         OnDescriptionRequested?.Invoke(index);
     }
 
+    public void ShowItemAction(int itemIndex)
+    {
+        itemActionPanel.Toggle(true);
+        itemActionPanel.transform.position = listOfUIItems[itemIndex].transform.position;
+    }
+
+    public void AddAction(string actionName, Action action)
+    {
+        itemActionPanel.AddButon(actionName, action);
+    }
+
+
     public void Show()
     {
         gameObject.SetActive(true);
@@ -152,11 +168,15 @@ public class UIInventoryPage : MonoBehaviour
         {
             item.Deselect();
         }
+        if(itemActionPanel!=null)
+            itemActionPanel.Toggle(false);
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
         ResetDraggedItem();
+        if (itemActionPanel != null)
+            itemActionPanel.Toggle(false);
     }
 }

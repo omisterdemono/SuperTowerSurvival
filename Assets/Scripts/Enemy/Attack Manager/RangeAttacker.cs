@@ -1,7 +1,6 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class RangeAttacker : NetworkBehaviour, IEnemyAttacker
@@ -23,7 +22,7 @@ public class RangeAttacker : NetworkBehaviour, IEnemyAttacker
     [Command(requiresAuthority = false)]
     private void Cmd_AttackFullCharge(Vector2 direction)
     {
-        _weapon.Attack(direction);
+        _weapon.Attack();
     }
 
 

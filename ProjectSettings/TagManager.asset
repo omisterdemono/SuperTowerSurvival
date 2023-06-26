@@ -17,6 +17,7 @@ TagManager:
   - StructuresHolder
   - StructuresTilemap
   - ItemHolder
+  - Fog
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - UI
   - Entities
   - Environment
-  - 
+  - Minimap
   - 
   - 
   - 
@@ -53,4 +54,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Structures
+    uniqueID: 622520145
+    locked: 0
+  - name: Grass
+    uniqueID: 1951377217
     locked: 0

@@ -21,6 +21,11 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get; set; }
     public bool NeedRotation { get; set; } = true;
+    public bool CanPerform => throw new NotImplementedException();
+
+    public float CooldownSeconds => throw new NotImplementedException();
+
+    public Vector3 MousePosition { get; set; }
 
     private Collider2D _hitCollider;
     private Vector3 _rotationBeforeCharge;
@@ -69,12 +74,12 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         }
     }
 
-    public void Attack(Vector2 direction)
+    public void Attack()
     {
         return;
     }
 
-    public void Hold(Vector2 direction)
+    public void Hold()
     {
         if (_isAttacking || _timeToNextHit != 0)
         {
@@ -104,7 +109,7 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         _chargeProgressSeconds += Time.deltaTime;
     }
 
-    public void KeyUp(Vector2 direction)
+    public void KeyUp()
     {
         ReleaseCharge();
     }
@@ -181,5 +186,18 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         HandleCharge();
     }
 
+    public void Interact()
+    {
+        Attack();
+    }
 
+    public void FinishHold()
+    {
+        KeyUp();
+    }
+
+    public void ChangeAnimationState()
+    {
+        return;
+    }
 }

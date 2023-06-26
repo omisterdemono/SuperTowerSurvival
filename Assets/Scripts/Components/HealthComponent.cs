@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
@@ -11,9 +9,15 @@ public class HealthComponent : NetworkBehaviour
     public Action OnDeath;
 
     [SerializeField] private float _maxHealth;
+
+    [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
+
+    private void CurrentHealthHook(float oldValue, float newValue)
+    {
+        OnCurrentHealthChanged?.Invoke();
+    }
     [SerializeField] private GameObject _healthBar;
 
-    [SyncVar] private float _currentHealth;
     [SyncVar] private float _hpRatio;
     private CanvasGroup _canvasGroupHB;
     private Image _imageHP;
@@ -79,8 +83,11 @@ public class HealthComponent : NetworkBehaviour
 
     void Start()
     {
-        //ChangeHealth(_maxHealth);
-        CurrentHealth = _maxHealth;
+        if (!isLocalPlayer)
+        {
+            _currentHealth = _maxHealth;
+        }
+
         if (_healthBar != null)
         {
             _canvasGroupHB = _healthBar.GetComponentInChildren<CanvasGroup>();
