@@ -71,7 +71,15 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
 
     public void Attack()
     {
-        return;
+        if (_chargeProgressSeconds >= _maxChargeSeconds)
+        {
+            FireArrow(direction);
+        }
+        else
+        {
+            Hold(direction);
+        }
+        //return;
     }
 
     public void Hold()
@@ -108,5 +116,14 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     public void ChangeAnimationState()
     {
         return;
+    }
+
+    public float GetChargeProgressSeconds()
+    {
+        return _chargeProgressSeconds;
+    }
+    public float GetMaxChargeSeconds()
+    {
+        return _maxChargeSeconds;
     }
 }

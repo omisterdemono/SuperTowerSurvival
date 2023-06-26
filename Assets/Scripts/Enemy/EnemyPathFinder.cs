@@ -54,14 +54,11 @@ public class EnemyPathFinder : MonoBehaviour
     {
         var transformOffset = transform.position;
         transformOffset.y += _capsuleCollider.offset.y;
-        //transform.position = transformOffset;
         _seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
     public void OnPathComplete(Path p)
     {
-        //Debug.Log("A path was calculated. Did it fail with an error? " + p.error);
-
         if (!p.error)
         {
             _path = p;
@@ -109,10 +106,11 @@ public class EnemyPathFinder : MonoBehaviour
             useWallsStrategy = true;
             //here smt Sequence error
             Wall2Destroy = wallHits.First().collider.gameObject;
-            var attackRadius = 1.5;
+            //var attackRadius = 1.5;
             if (DistanceToTarget(Wall2Destroy.transform) < _attackRadius)
             {
                 reachedEndOfPath = true;
+                direction = Vector3.zero;
             }
             dir = (Wall2Destroy.transform.position - transform.position).normalized;
         }

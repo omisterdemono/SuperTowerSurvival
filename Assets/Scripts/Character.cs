@@ -3,6 +3,7 @@ using UnityEngine;
 using Mirror;
 using System;
 using Assets.Scripts.Weapons;
+using Unity.Collections.LowLevel.Unsafe;
 using System.Collections;
 
 [RequireComponent(typeof(HealthComponent))]
@@ -15,7 +16,8 @@ public class Character : NetworkBehaviour
     private Animator _animator;
     private ItemHolderScript _itemHolder;
 
-    [SerializeField] private bool _isAlive = true;
+    [SerializeField][SyncVar] private bool _isAlive = true;
+    [SerializeField][SyncVar] private bool _isInvisible = false;
 
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
@@ -33,6 +35,9 @@ public class Character : NetworkBehaviour
     private StructurePlacer _structurePlacer;
     private EquipSlot _equippedItemsSlot;
 
+    [SerializeField] private List<GameObject> _tools = new List<GameObject>();
+    [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
+    private int _equipedSlot = 0;
     private BuildHammer _buildHammer;
 
     private Vector2 _attackDirection;
@@ -41,12 +46,20 @@ public class Character : NetworkBehaviour
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
+    public float RepairSpeedModifier { get => _repairSpeedModifier; set => _repairSpeedModifier = value; }
+    public float BuildSpeedModifier { get => _buildSpeedModifier; set => _buildSpeedModifier = value; }
+    public bool IsInvisible { get => _isInvisible; set => _isInvisible = value; }
 
     void Awake()
     {
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
+        _health = GetComponent<HealthComponent>();
 
+        _health.OnDeath += OnDeath;
+
+        //change to something more generic
+        _attacker = GetComponentInChildren<IWeapon>();
         _equippedItemsSlot = GetComponentInChildren<EquipSlot>();
         _buildHammer = GetComponentInChildren<BuildHammer>(true);
         _structurePlacer = GetComponent<StructurePlacer>();
@@ -60,6 +73,7 @@ public class Character : NetworkBehaviour
 
     private void Start()
     {
+        if (!isOwned) return;
         _activeSkills = new List<ActiveSkill>();
         _activeSkills.AddRange(GetComponents<ActiveSkill>());
         _keyCodes = new Dictionary<int, KeyCode>();
@@ -67,14 +81,17 @@ public class Character : NetworkBehaviour
         {
             _keyCodes.Add(i, (KeyCode)System.Enum.Parse(typeof(KeyCode), $"Alpha{i + 1}"));
         }
+
         _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolderScript>();
 
         _itemHolder.SetIcons(_tools);
+
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
     }
 
     void FixedUpdate()
     {
-        if (!isOwned && _isAlive) return;
+        if (!isOwned || !_isAlive) return;
 
         HandleMove();
     }
@@ -147,14 +164,13 @@ public class Character : NetworkBehaviour
         {
             if (scrollInput > 0)
             {
-                CmdChangeTool((_equipedSlot + 1) % 4);
+                CmdChangeTool((_equipedSlot + 1) % 4, _itemHolder);
             }
             else if (scrollInput < 0)
             {
-                CmdChangeTool((_equipedSlot - 1 + 4) % 4);
+                CmdChangeTool((_equipedSlot - 1 + 4) % 4, _itemHolder);
             }
 
-            _itemHolder.ChangeSlot(_equipedSlot);
             _equippedItemsSlot.ChangeRotatingChild(_equipedSlot);
         }
     }
@@ -182,6 +198,29 @@ public class Character : NetworkBehaviour
         {
             Cmd_FinishHoldOnServer();
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdChangeTool(int equipedSlot, ItemHolderScript itemHolder)
+    {
+        _equipedSlot = equipedSlot;
+    }
+
+    private void OnDeath()
+    {
+        IsAlive = false;
+        _animator.SetBool("IsAlive", false);
+    }
+
+    private void HandleEquipedSlotChanged(int oldValue, int newValue)
+    {
+        _tools[oldValue].SetActive(false);
+        _tools[newValue].SetActive(true);
+        if (_itemHolder != null)
+        {
+            _itemHolder.ChangeSlot(newValue);
+        }
+
     }
 
     private void HandleEquipableAnimation(bool oldValue, bool newValue)

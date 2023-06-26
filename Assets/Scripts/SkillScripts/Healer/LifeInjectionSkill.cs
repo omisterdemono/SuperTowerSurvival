@@ -6,6 +6,7 @@ using UnityEngine;
 public class LifeInjectionSkill : ActiveSkill, ISkill
 {
     private List<Collider2D> _playerColliders;
+    private Collider2D _playerCollider;
     [SerializeField] private float _healModifier = 0.3f;
     [SerializeField] private float _selfHealModifier = 0.5f;
     [SyncVar(hook = "OnIsCasting")]
@@ -17,6 +18,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
         base.Start();
         _playerColliders = new List<Collider2D>();
         _particleSystem = GetComponentInChildren<ParticleSystem>();
+        _playerCollider = GetComponent<CircleCollider2D>();
     }
 
     private void OnIsCasting(bool oldValue, bool newValue)
@@ -24,10 +26,12 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
         _isCasting = newValue;
         if (_isCasting)
         {
+            _playerCollider.enabled = true;
             _particleSystem.Play();
             return;
         }
         _particleSystem.Stop();
+        _playerCollider.enabled = false;
     }
     [Command(requiresAuthority = false)]
     private void CmdCasting()
@@ -37,13 +41,13 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision is BoxCollider2D)
             _playerColliders.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision is BoxCollider2D)
             _playerColliders.Remove(collision);
     }
 
@@ -58,14 +62,15 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
         base.FinishCast();
         GetComponentInChildren<ParticleSystem>().Stop();
         CmdCasting();
+        _playerCollider.enabled = false;
     }
 
     public override void FinishCastPositive()
     {
-        base.FinishCastPositive();
         GetComponent<CircleCollider2D>().enabled = true;
         CmdUseSkill();
         GetComponent<HealthComponent>().Heal(GetComponent<HealthComponent>().MaxHealth * _selfHealModifier);
+        base.FinishCastPositive();
     }
 
     [Command(requiresAuthority = false)]
@@ -74,6 +79,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
         foreach (var players in _playerColliders)
         {
             players.GetComponent<Character>().IsAlive = true;
+            players.GetComponent<Animator>().SetBool("IsAlive", true);
             players.GetComponent<HealthComponent>().Heal(players.GetComponent<HealthComponent>().MaxHealth * _healModifier);
         }
         GetComponent<CircleCollider2D>().enabled = false;

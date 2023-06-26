@@ -17,16 +17,17 @@ TagManager:
   - StructuresHolder
   - StructuresTilemap
   - ItemHolder
+  - Fog
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EnemiesUI
   - Water
   - UI
   - Entities
   - Environment
-  - 
+  - Minimap
   - 
   - 
   - 

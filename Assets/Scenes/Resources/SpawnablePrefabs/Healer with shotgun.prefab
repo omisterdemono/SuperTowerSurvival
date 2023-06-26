@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8500691761286526118}
   - component: {fileID: 3795979594900662743}
   - component: {fileID: 1971376605758112923}
+  - component: {fileID: 1179103293571595070}
   m_Layer: 0
   m_Name: Healer with shotgun
   m_TagString: Player
@@ -316,6 +317,41 @@ MonoBehaviour:
   _damageRate: 1
   _time: 20
   _slowDownModifier: 0.5
+--- !u!58 &1179103293571595070
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45124646799115585}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75
 --- !u!1 &2341311037778950664
 GameObject:
   m_ObjectHideFlags: 0

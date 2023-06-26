@@ -15,10 +15,10 @@ namespace Assets.Scripts.PickUpSystem
         {
             if (isOwned)
             {
-                Item item = collision.GetComponent<Item>();
+                ItemDrop item = collision.GetComponent<ItemDrop>();
                 if (item != null)
                 {
-                    int reminder = controller.inventoryData.AddItem(item.InventoryItem, item.Quantity);
+                    int reminder = controller.inventoryData.AddItem(item.inventoryItem, item.Quantity);
                     if (reminder == 0)
                         item.DestroyItem();
                     else

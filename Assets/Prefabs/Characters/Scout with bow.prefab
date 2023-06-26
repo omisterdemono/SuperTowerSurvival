@@ -199,6 +199,8 @@ MonoBehaviour:
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
+  _toolSlots: []
+  _tools: []
 --- !u!114 &-9221005935386559535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5183617381679070727, guid: 71cee09bce500864e9b171efa81ee619, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.38268343
+      value: -0.3826834
       objectReference: {fileID: 0}
     - target: {fileID: 5183617381679070727, guid: 71cee09bce500864e9b171efa81ee619, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

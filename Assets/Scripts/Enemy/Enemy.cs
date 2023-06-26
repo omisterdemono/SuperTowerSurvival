@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.TextCore.Text;
 
 [RequireComponent(typeof(HealthComponent))]
@@ -15,6 +16,7 @@ public class Enemy : NetworkBehaviour
     private Transform _target;
     private Vector3 _direction;
 
+    [SerializeField] private GameObject _deathEffect;
     [SerializeField] private List<TargetPriorities> _favouriteTargets;
     [SerializeField] private float _searchRadius;
     [SerializeField] private float _attackRadius;
@@ -22,6 +24,7 @@ public class Enemy : NetworkBehaviour
 
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private MovementComponent _movementComponent;
+    [SerializeField] private HealthComponent _healthComponent;
     [SerializeField] private EnemyPathFinder _pathFinder;
     [SerializeField] private AttackManager _attackManager;
     private IEnemyAttacker _enemyAttacker;
@@ -39,14 +42,18 @@ public class Enemy : NetworkBehaviour
 
     private void Awake()
     {
+
         _hall = GameObject.FindGameObjectWithTag("MainHall").transform;
-        _target = _hall;
         _movementComponent = GetComponent<MovementComponent>();
+        _healthComponent = GetComponent<HealthComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();
-        _pathFinder.target = _hall;
         _attackManager = GetComponent<AttackManager>();
+
+        _target = _hall;
+        _pathFinder.target = _hall;
+        _healthComponent.OnDeath += Die;
+
         _attackManager.SetStrategy(GetComponent<IEnemyAttacker>());
-        //_enemyAttacker = GetComponent<IEnemyAttacker>();
         _attackManager.UpdateEnemy(this);
         _attackManager.UpdateTarget(_target.gameObject);
 
@@ -250,5 +257,23 @@ public class Enemy : NetworkBehaviour
                 Debug.Log("There is no strategy: " + _attackType.ToString());
                 return null;
         }
+    }
+
+    private void Die()
+    {
+        Cmd_Die(transform.position);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_Die(Vector3 position)
+    {
+        GameObject explosion = Instantiate(_deathEffect, position, Quaternion.identity);
+        NetworkServer.Spawn(explosion);
+        NetworkServer.Destroy(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _healthComponent.OnDeath -= Die;
     }
 }

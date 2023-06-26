@@ -6,9 +6,7 @@ public class MeleeAttacker : MonoBehaviour, IEnemyAttacker
 {
     private IWeapon _weapon;
     private Transform _equipSlot;
-
     private Vector3 direction;
-    //private Enemy _enemy;
 
     public Transform Target 
     {
