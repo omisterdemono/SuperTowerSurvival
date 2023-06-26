@@ -1,12 +1,20 @@
+using Assets.Scripts.Weapons;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttacker : MonoBehaviour, IEnemyAttacker
+public class MeleeAttacker : NetworkBehaviour, IEnemyAttacker
 {
-    private IWeapon _weapon;
+    private IEquipable _weapon;
     private Transform _equipSlot;
     private Vector3 direction;
+
+    [SyncVar(hook = nameof(HandleEquipableAnimation))] private bool _isPerforming;
+    private void HandleEquipableAnimation(bool oldValue, bool newValue)
+    {
+        _weapon.ChangeAnimationState();
+    }
 
     public Transform Target 
     {
@@ -15,12 +23,23 @@ public class MeleeAttacker : MonoBehaviour, IEnemyAttacker
 
     public void AttackTarget()
     {
-        _weapon.Attack();
+        if (_weapon.CanPerform)
+        {
+            _isPerforming = true;
+            _weapon.Interact();
+            StartCoroutine(FinishAnimation());
+        }
+    }
+
+    private IEnumerator FinishAnimation()
+    {
+        yield return new WaitForSeconds(_weapon.CooldownSeconds);
+        _isPerforming = false;
     }
 
     void Start()
     {
-        _weapon = GetComponentInChildren<IWeapon>();
+        _weapon = GetComponentInChildren<IEquipable>();
         _equipSlot = transform.GetChild(0);
     }
 

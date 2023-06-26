@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class AttackManager : MonoBehaviour
+public class AttackManager : NetworkBehaviour
 {
     private Enemy _enemy;
     private HealthComponent _targetHealthComponent;
@@ -29,6 +29,7 @@ public class AttackManager : MonoBehaviour
         _strategy.Target = target;
     }
 
+    [Command (requiresAuthority = false)]
     public void AttackTarget()
     {
         if (_target == null) return;

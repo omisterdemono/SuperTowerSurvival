@@ -71,7 +71,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
 
     public void Attack()
     {
-        if (_chargeProgressSeconds >= _maxChargeSeconds)
+        if (_chargeComponent.CanShoot)
         {
             FireArrow();
         }

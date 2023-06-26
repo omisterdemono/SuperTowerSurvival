@@ -99,13 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ccd06cb114f0c4681fb70699bf5dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectile: {fileID: 8271526954206739466, guid: a3e3d71696c82ef40a47a786ec6d9e9e, type: 3}
+  _projectile: {fileID: 8271526954206739466, guid: b8e6e92426ba15549b8344e30c0098f9, type: 3}
   _firePosition: {fileID: 7583105338666370036}
   _needFlip: 0
   _damage: 15
   _minProgressToShotSeconds: 1
   _maxChargeSeconds: 3
-  _cooldownSeconds: 1
+  _cooldownSeconds: 4
 --- !u!95 &5752401450135553022
 Animator:
   serializedVersion: 5
@@ -403,7 +403,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &9003030021394583638
 MonoBehaviour:
@@ -664,7 +664,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _deathEffect: {fileID: 1502019500926672546, guid: d3efaf93e7a819b4b9e38836e0231ee1, type: 3}
+  _deathEffect: {fileID: 1502019500926672546, guid: 61f37caf0636d7740955f5a419963e00, type: 3}
   _favouriteTargets: 0000000001000000
   _searchRadius: 8
   _attackRadius: 5
@@ -871,6 +871,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd6ee05f9f5b4741a457c7474ff287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!114 &3389864274991680658
 MonoBehaviour:
   m_ObjectHideFlags: 0

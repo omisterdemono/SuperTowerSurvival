@@ -200,7 +200,7 @@ MonoBehaviour:
   - Character
   _damage: 5
   _needFlip: 1
-  _cooldownSeconds: 0
+  _cooldownSeconds: 0.8333333
 --- !u!61 &1554295862574232063
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -639,6 +639,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f8b372dac11fa4bb6c2a22fe568355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!114 &7437558884832244864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,6 +654,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd6ee05f9f5b4741a457c7474ff287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!61 &3046937729584280386
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -708,6 +714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd6ee05f9f5b4741a457c7474ff287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &5976878540301480116
 GameObject:
   m_ObjectHideFlags: 0

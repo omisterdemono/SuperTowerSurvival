@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9169856053072121590}
   - component: {fileID: 7220379297416161685}
   - component: {fileID: 7030703951664927287}
+  - component: {fileID: 8815692894235410964}
   m_Layer: 0
   m_Name: Global Light 2D
   m_TagString: Untagged
@@ -179,3 +180,18 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &8815692894235410964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376687118330248984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebd42ba3d64ef643baf8e13b49c04a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wavesNumber: 10
+  initEnemiesNumber: 10
+  multiplyKoef: 1.2
