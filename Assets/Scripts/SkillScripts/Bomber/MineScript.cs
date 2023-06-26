@@ -28,7 +28,8 @@ public class MineScript : NetworkBehaviour
         if (Vector2.Distance((Vector2)collision.transform.position, (Vector2)transform.position) <= _explodeRadius
             && !collision.CompareTag("Player") 
             && !_explode 
-            && collision.TryGetComponent<HealthComponent>(out HealthComponent healthComponent))
+            && collision.TryGetComponent<HealthComponent>(out HealthComponent healthComponent) 
+            && collision is BoxCollider2D)
         {
             _explode = true;
             GetComponentInChildren<ParticleSystem>().Play();

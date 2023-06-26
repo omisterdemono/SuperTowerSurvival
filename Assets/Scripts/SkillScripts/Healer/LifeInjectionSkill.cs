@@ -41,13 +41,13 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision is BoxCollider2D)
             _playerColliders.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision is BoxCollider2D)
             _playerColliders.Remove(collision);
     }
 
