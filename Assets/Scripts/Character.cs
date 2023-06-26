@@ -34,10 +34,6 @@ public class Character : NetworkBehaviour
 
     private StructurePlacer _structurePlacer;
     private EquipSlot _equippedItemsSlot;
-
-    [SerializeField] private List<GameObject> _tools = new List<GameObject>();
-    [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
-    private int _equipedSlot = 0;
     private BuildHammer _buildHammer;
 
     private Vector2 _attackDirection;
@@ -59,7 +55,6 @@ public class Character : NetworkBehaviour
         _health.OnDeath += OnDeath;
 
         //change to something more generic
-        _attacker = GetComponentInChildren<IWeapon>();
         _equippedItemsSlot = GetComponentInChildren<EquipSlot>();
         _buildHammer = GetComponentInChildren<BuildHammer>(true);
         _structurePlacer = GetComponent<StructurePlacer>();
@@ -220,18 +215,11 @@ public class Character : NetworkBehaviour
         {
             _itemHolder.ChangeSlot(newValue);
         }
-
     }
 
     private void HandleEquipableAnimation(bool oldValue, bool newValue)
     {
         _equipedTools[_equipedSlot].ChangeAnimationState();
-    }
-
-    private void HandleEquipedSlotChanged(int oldValue, int newValue)
-    {
-        _tools[oldValue].SetActive(false);
-        _tools[newValue].SetActive(true);
     }
 
     [Command(requiresAuthority = false)]
