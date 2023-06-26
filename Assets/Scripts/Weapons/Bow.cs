@@ -17,83 +17,54 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private float _cooldownSeconds;
 
     private Animator _animator;
+    private CooldownComponent _cooldownComponent;
+    private ChargeComponent _chargeComponent;
 
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool NeedRotation { get; set; } = true;
-    public bool CanPerform { get; }
-    public float CooldownSeconds => throw new NotImplementedException();
+    public bool CanPerform => _cooldownComponent.CanPerform;
+    public float CooldownSeconds => _cooldownSeconds;
 
     private bool _isCharging = false;
     private float _chargeProgressSeconds;
-    private float _timeToNextShot;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
+        _chargeComponent = new ChargeComponent() 
+        { 
+            MaxChargeSeconds = _maxChargeSeconds,
+            MinProgressToShotSeconds= _minProgressToShotSeconds 
+        };
     }
 
     private void Update()
     {
-        HandleCooldown();
-    }
-
-    private void HandleCooldown()
-    {
-        if (_timeToNextShot == 0)
-        {
-            return;
-        }
-
-        if (_timeToNextShot < 0)
-        {
-            _timeToNextShot = 0;
-            return;
-        }
-
-        _timeToNextShot -= Time.deltaTime;
-    }
-
-    private void HandleCharge()
-    {
-        if (_chargeProgressSeconds > _maxChargeSeconds)
-        {
-            _chargeProgressSeconds = _maxChargeSeconds;
-        }
-
-        if (!_isCharging)
-        {
-            ChangeChargeAnimationState();
-        }
-        _chargeProgressSeconds += Time.deltaTime;
+        _cooldownComponent.HandleCooldown();
     }
 
     private void FireArrow()
     {
-        if (_timeToNextShot != 0 || _chargeProgressSeconds < _minProgressToShotSeconds)
+        if (!_cooldownComponent.CanPerform || !_chargeComponent.CanShoot)
         {
             ChangeChargeAnimationState();
-            _chargeProgressSeconds = 0;
+            _chargeComponent.CancelCharge();
             return;
         }
 
         GameObject projectile = Instantiate(_projectile, _firePosition.position, _firePosition.rotation);
         var projectileComponent = projectile.GetComponent<Projectile>();
 
-        projectileComponent.Speed *= _chargeProgressSeconds / _maxChargeSeconds;
+        projectileComponent.Speed *= _chargeComponent.ChargeProgress;
         projectileComponent.Direction = _firePosition.right;
 
         NetworkServer.Spawn(projectile);
 
         ChangeChargeAnimationState();
-        _chargeProgressSeconds = 0;
-        _timeToNextShot = _cooldownSeconds;
-    }
-
-    private void ChangeChargeAnimationState()
-    {
-        _isCharging = !_isCharging;
-        _animator.SetBool("isCharging", _isCharging);
+        _chargeComponent.CancelCharge();
+        _cooldownComponent.ResetCooldown();
     }
 
     public void Attack()
@@ -103,7 +74,12 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
 
     public void Hold()
     {
-        HandleCharge();
+        if (!_chargeComponent.IsCharging)
+        {
+            ChangeChargeAnimationState();
+        }
+
+        _chargeComponent.HandleCharge();
     }
 
     public void KeyUp()
@@ -121,8 +97,14 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         KeyUp();
     }
 
+    public void ChangeChargeAnimationState()
+    {
+        _isCharging = !_isCharging;
+        _animator.SetBool("isCharging", _isCharging);
+    }
+
     public void ChangeAnimationState()
     {
-        throw new NotImplementedException();
+        return;
     }
 }

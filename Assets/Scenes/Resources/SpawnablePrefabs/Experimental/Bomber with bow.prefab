@@ -206,7 +206,7 @@ MonoBehaviour:
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
   _tools:
-  - {fileID: 0}
+  - {fileID: 1937143739411520504}
   - {fileID: 882454565241232499}
   - {fileID: 3904499612245241132}
   - {fileID: 3939227183071039648}
@@ -667,6 +667,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71cee09bce500864e9b171efa81ee619, type: 3}
+--- !u!1 &1937143739411520504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2566183356743434054, guid: 71cee09bce500864e9b171efa81ee619, type: 3}
+  m_PrefabInstance: {fileID: 4143021236278584510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9120105176572467897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5183617381679070727, guid: 71cee09bce500864e9b171efa81ee619, type: 3}
