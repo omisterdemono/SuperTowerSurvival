@@ -313,6 +313,10 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
+  clientLoadedScene: 0
+  <mode>k__BackingField: 0
+  finishStartHostPending: 0
+  clientSceneOperation: 0
   _minPlayers: 1
   _menuScene: Assets/Scenes/Lobby.unity
   _roomPlayerLobbyPrefab: {fileID: 7471860241961547086, guid: df2640f2882e4c94a828c9226957b362, type: 3}
