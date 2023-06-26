@@ -1,0 +1,125 @@
+* [33md3d79c4[m[33m ([m[1;31morigin/weapons[m[33m)[m Working bow animations
+* [33m6b0cdcd[m Fixed pivots of all weapons. Working bow.
+* [33m0e73f00[m Finished shotgun
+* [33mc5acbfb[m Working shooting rifle
+* [33m9879abd[m Merged character again
+*   [33ma68e86d[m Merge branch 'weapons' of https://github.com/omisterdemono/SuperTowerSurvival into weapons
+[32m|[m[33m\[m  
+[32m|[m * [33mac5e35f[m Shooting works, but need to be fixed
+[32m|[m * [33m7d7e408[m Added weapons, sprites and their rotation. Added projectile Added player handling Removed playfab.
+* [33m|[m [33me23b13b[m Shooting works, but need to be fixed
+* [33m|[m [33m0fe2cf2[m Added weapons, sprites and their rotation. Added projectile Added player handling Removed playfab.
+[33m|[m [33m|[m * [33m3722519[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #12 from omisterdemono/Enemy
+[33m|[m [33m|[m[33m/[m[35m|[m 
+[33m|[m[33m/[m[33m|[m [35m|[m 
+[33m|[m [33m|[m * [33m5061646[m[33m ([m[1;36mHEAD -> [m[1;32mEnemy[m[33m, [m[1;31morigin/Enemy[m[33m)[m kinda working v of enemy
+[33m|[m [33m|[m *   [33ma600bd4[m resolving merge conflicts
+[33m|[m [33m|[m [36m|[m[33m\[m  
+[33m|[m [33m|[m[33m_[m[36m|[m[33m/[m  
+[33m|[m[33m/[m[33m|[m [36m|[m   
+[33m|[m [33m|[m * [33m2e9e08b[m Path finder & Priorities implementation
+[33m|[m [33m|[m * [33m6eefac3[m PathFinder now can decide which strategy use
+[33m|[m [33m|[m * [33m86f1de2[m deleted old pathfinder & some enemy scene changes
+[33m|[m [33m|[m * [33m67e62de[m updated state machine
+[33m|[m [33m|[m * [33m3bbbc80[m finally pathfinder alive
+[33m|[m [33m|[m * [33meb40cb3[m missed unity save :)
+[33m|[m [33m|[m * [33mdc9ed0a[m PathFinder beta
+[33m|[m [33m|[m * [33m4d5ea47[m A little new objects
+[33m|[m [33m|[m * [33m3df9c09[m SM +UpdateTarget State & Target Priorities implementation
+[33m|[m [33m|[m * [33m21887be[m SM Enemy can target to nearest player if in sight
+[33m|[m [33m|[m * [33m5f6e7d4[m SM Hall-Move-Attack
+[33m|[m [33m|[m * [33maab4e34[m Enemy continously follows player
+[33m|[m [33m|[m * [33mf727566[m Offline working enemy with state machine
+[33m|[m [33m|[m [1;31m|[m * [33m0ebefb5[m[33m ([m[1;31morigin/skills[m[33m)[m Some stuff
+[33m|[m [33m|[m [1;31m|[m * [33m82a0b79[m Added sprites
+[33m|[m [33m|[m [1;31m|[m * [33m53c29c9[m refactor ActiveSkill, added PlaceDynamiteSkill
+[33m|[m [33m|[m[33m_[m[1;31m|[m[33m/[m  
+[33m|[m[33m/[m[33m|[m [1;31m|[m   
+* [33m|[m [1;31m|[m   [33md2bb69e[m Merge pull request #11 from omisterdemono/collectables-and-instruments
+[1;33m|[m[1;34m\[m [33m\[m [1;31m\[m  
+[1;33m|[m * [33m\[m [1;31m\[m   [33mb211f87[m[33m ([m[1;31morigin/collectables-and-instruments[m[33m)[m Merge branch 'collectables-and-instruments' of https://github.com/omisterdemono/SuperTowerSurvival into collectables-and-instruments
+[1;33m|[m [1;35m|[m[1;36m\[m [33m\[m [1;31m\[m  
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33m1481b79[m Fixed collectable in multiplayer
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33mc21f8c7[m Fixed collectables, and added two instruments and collectables for test
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33m431e599[m Fixed animations of obtain and input for character
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33mc6632fd[m Working destroy of collectable (but not spawning loot).
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33m441a813[m Replaced inspector set properties with scriptable object attributes
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33ma9e6f6a[m ParralelSync, animations, test sprites
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33m7e354dc[m Working animation and resource obtain
+[1;33m|[m [1;35m|[m * [33m|[m [1;31m|[m [33m4f31033[m Implemented collectible that takes damage and does it only if appropriate instument is used
+[1;33m|[m [1;35m|[m [1;31m|[m [33m|[m[1;31m/[m  
+[1;33m|[m [1;35m|[m [1;31m|[m[1;31m/[m[33m|[m   
+[1;33m|[m * [1;31m|[m [33m|[m [33m23c1015[m Fixed collectable in multiplayer
+[1;33m|[m * [1;31m|[m [33m|[m [33me5dccdc[m Fixed collectables, and added two instruments and collectables for test
+[1;33m|[m * [1;31m|[m [33m|[m [33m148474d[m Fixed animations of obtain and input for character
+[1;33m|[m * [1;31m|[m [33m|[m [33m6f3de47[m Working destroy of collectable (but not spawning loot).
+[1;33m|[m * [1;31m|[m [33m|[m [33mbc32d6f[m Replaced inspector set properties with scriptable object attributes
+[1;33m|[m * [1;31m|[m [33m|[m [33m13557f4[m ParralelSync, animations, test sprites
+[1;33m|[m * [1;31m|[m [33m|[m [33mb3d6447[m Working animation and resource obtain
+[1;33m|[m * [1;31m|[m [33m|[m [33mc6adf7c[m Implemented collectible that takes damage and does it only if appropriate instument is used
+[1;33m|[m[1;33m/[m [1;31m/[m [33m/[m  
+* [1;31m|[m [33m|[m   [33m30b5b07[m Merge pull request #10 from omisterdemono/skills
+[31m|[m[32m\[m [1;31m\[m [33m\[m  
+[31m|[m * [1;31m|[m [33m|[m [33md3a59af[m Spawn objects bug fixes
+* [32m|[m [1;31m|[m [33m|[m [33me7a7876[m r
+[32m|[m[32m/[m [1;31m/[m [33m/[m  
+* [1;31m|[m [33m|[m   [33m128bb48[m Merge pull request #9 from omisterdemono/skills-ui
+[33m|[m[34m\[m [1;31m\[m [33m\[m  
+[33m|[m [34m|[m[33m_[m[1;31m|[m[33m/[m  
+[33m|[m[33m/[m[34m|[m [1;31m|[m   
+[33m|[m * [1;31m|[m [33m7afa473[m[33m ([m[1;31morigin/skills-ui[m[33m)[m add skill ui system
+[33m|[m[33m/[m [1;31m/[m  
+* [1;31m|[m   [33m7476603[m Merge pull request #8 from omisterdemono/multiplayer
+[35m|[m[36m\[m [1;31m\[m  
+[35m|[m * [1;31m|[m [33m958a4e1[m[33m ([m[1;31morigin/multiplayer[m[33m)[m Add playFab
+[35m|[m [1;31m|[m[1;31m/[m  
+* [1;31m|[m   [33m06b045c[m Merge pull request #7 from omisterdemono/character-skills
+[1;31m|[m[1;32m\[m [1;31m\[m  
+[1;31m|[m [1;32m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;32m|[m   
+[1;31m|[m * [33mf12ef94[m[33m ([m[1;31morigin/character-skills[m[33m)[m Add character sprites and animations
+[1;31m|[m * [33m044c5dc[m Skill attributes
+[1;31m|[m * [33m29f5f6a[m Add active skill system
+[1;31m|[m * [33m84dd283[m commit for nazar fix
+[1;31m|[m * [33meb749a5[m add passive and active skill types and modify character
+[1;31m|[m[1;31m/[m  
+[1;31m|[m * [33m78558a6[m[33m ([m[1;31morigin/Inventory1[m[33m)[m add InventorySO
+[1;31m|[m * [33m45b95c9[m Add ItemSO and data
+[1;31m|[m * [33m28dc36e[m Finish ui
+[1;31m|[m * [33mc0a5e5b[m add intefaces to UIInventoryItem
+[1;31m|[m * [33m5c59f49[m Add swapping system
+[1;31m|[m * [33m6afc9f1[m add mouseFollower
+[1;31m|[m * [33mb705c6d[m Add a simple object to inventory
+[1;31m|[m * [33m11a97c7[m Add Events on UIItems
+[1;31m|[m * [33macc7b90[m Implement UIInventoryItem
+[1;31m|[m * [33m9e1972c[m Fix errors
+[1;31m|[m * [33m5afcc29[m Add Scripts
+[1;31m|[m [1;33m|[m * [33m42d4bdf[m[33m ([m[1;31morigin/Inventory[m[33m)[m add inventory controller
+[1;31m|[m [1;33m|[m[1;33m/[m  
+[1;31m|[m * [33mcb2dc2e[m Scene Update
+[1;31m|[m * [33m0850fad[m update
+[1;31m|[m * [33m36a8182[m int
+[1;31m|[m[1;31m/[m  
+*   [33m8b6edfa[m Merge pull request #6 from omisterdemono/Vova-branch
+[1;35m|[m[1;36m\[m  
+[1;35m|[m * [33m88c75ca[m[33m ([m[1;31morigin/Vova-branch[m[33m, [m[1;32mVova-branch[m[33m)[m Health Movement Character Enemy (beta) scripts
+[1;35m|[m[1;35m/[m  
+*   [33md2be352[m Merge pull request #5 from omisterdemono/player
+[31m|[m[32m\[m  
+[31m|[m * [33mf79b82d[m add textmesh and fix bugs related character selection
+* [32m|[m [33meebe35b[m Merge pull request #4 from omisterdemono/player
+[33m|[m[32m\[m[32m|[m 
+[33m|[m * [33mb6dc34e[m project version update
+* [34m|[m [33mfaec886[m Merge pull request #3 from omisterdemono/player
+[35m|[m[34m\[m[34m|[m 
+[35m|[m * [33me22057f[m common update
+* [36m|[m [33mc3f0ef7[m Merge pull request #2 from omisterdemono/player
+[1;31m|[m[36m\[m[36m|[m 
+[1;31m|[m * [33m0e18f87[m add Network manager
+* [1;32m|[m [33m3675055[m Merge pull request #1 from omisterdemono/player
+[1;33m|[m[1;32m\[m[1;32m|[m 
+[1;33m|[m * [33m1da9b8f[m mirror-playermovement
+[1;33m|[m[1;33m/[m  
+* [33m4bf08a6[m Init commit 2
+* [33m5fca03b[m Init commit
+* [33m5744d4e[m Initial commit

@@ -163,7 +163,7 @@ public class InventoryController : NetworkBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Tab)&&isOwned)
+        else if (Input.GetKeyDown(KeyCode.Tab) && isOwned)
         {
             if (craftUI.GetComponent<CraftBookUI>().isActiveAndEnabled == false)
             {

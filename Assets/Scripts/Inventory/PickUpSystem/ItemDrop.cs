@@ -30,7 +30,7 @@ namespace Assets.Scripts.PickUpSystem
             inventoryItem= AllItems.GetItem(idOfItem);
             GetComponent<SpriteRenderer>().sprite = inventoryItem.ItemImage;
         }
-        [Command(requiresAuthority =false)]
+        [Command(requiresAuthority = false)]
         public void DestroyItem()
         {
             GetComponent<Collider2D>().enabled = false;
@@ -47,7 +47,7 @@ namespace Assets.Scripts.PickUpSystem
 
         private IEnumerator AnimateItemPickup()
         {
-            
+
             audioSource.Play();
             Vector3 startScale = transform.localScale;
             Vector3 endScale = Vector3.zero;
@@ -60,7 +60,7 @@ namespace Assets.Scripts.PickUpSystem
                 yield return null;
             }
             NetworkServer.Destroy(gameObject);
-            
+
         }
     }
 }
