@@ -5,22 +5,23 @@ using UnityEngine.UIElements;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Mirror;
 
-public class EnemyPathFinder : MonoBehaviour
+public class EnemyPathFinder : NetworkBehaviour
 {
     public Transform target;
 
-    public bool isTargetClosed;
+    [SyncVar] public bool isTargetClosed;
 
-    public bool useWallsStrategy;
+    [SyncVar] public bool useWallsStrategy;
 
     public GameObject Wall2Destroy = null;
 
-    public Vector3 direction;
+    [SyncVar] public Vector3 direction;
 
     public float nextWaypointDistance = 3;
 
-    public bool reachedEndOfPath;
+    [SyncVar] public bool reachedEndOfPath;
 
     //[SerializeField] private float _scanRadius = 7;
 
@@ -50,6 +51,7 @@ public class EnemyPathFinder : MonoBehaviour
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
+    [Server]
     public void UpdatePath()
     {
         var transformOffset = transform.position;
@@ -57,6 +59,7 @@ public class EnemyPathFinder : MonoBehaviour
         _seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
+    [Server]
     public void OnPathComplete(Path p)
     {
         if (!p.error)
@@ -70,6 +73,12 @@ public class EnemyPathFinder : MonoBehaviour
     }
 
     public void Update()
+    {
+        Calculate();
+    }
+
+    [Server]
+    public void Calculate()
     {
         if (_path == null)
         {

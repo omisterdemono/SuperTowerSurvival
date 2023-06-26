@@ -60,6 +60,7 @@ public class SpawnerComponent : NetworkBehaviour
         Spawn();
     }
 
+    [Server]
     private void HandleSpawnRate()
     {
         if (_timeToNextSpawn == 0)

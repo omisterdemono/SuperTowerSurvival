@@ -13,8 +13,8 @@ using UnityEngine.TextCore.Text;
 public class Enemy : NetworkBehaviour
 {
     private Transform _hall;
-    private Transform _target;
-    private Vector3 _direction;
+    [SyncVar] private Transform _target;
+    [SyncVar] private Vector3 _direction;
 
     [SerializeField] private GameObject _deathEffect;
     [SerializeField] private List<TargetPriorities> _favouriteTargets;
@@ -132,6 +132,8 @@ public class Enemy : NetworkBehaviour
         _stateMachine.SetStartState("Move2Target");
         _stateMachine.Init();
     }
+
+    [Server]
     private bool TargetRefresh(Transition<string> transition)
     {
         var previousTarget = _target;

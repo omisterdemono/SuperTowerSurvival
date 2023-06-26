@@ -2629,6 +2629,9 @@ MonoBehaviour:
   - {fileID: 8271526954206739466, guid: 80adfd2519cb0354fadf004e9841d5b5, type: 3}
   - {fileID: 8271526954206739466, guid: a3e3d71696c82ef40a47a786ec6d9e9e, type: 3}
   - {fileID: 1502019500926672546, guid: d3efaf93e7a819b4b9e38836e0231ee1, type: 3}
+  - {fileID: 6788654084264179966, guid: 3afd57aca48f4d0449eb355e1cce6ac0, type: 3}
+  - {fileID: 5852208132793593498, guid: af1a12133b1850645b6fb92c8fed913f, type: 3}
+  - {fileID: 5528914298825596530, guid: f5524cd2934a565458ea637b608ab9b0, type: 3}
   snapshotSettings:
     bufferTimeMultiplier: 2
     catchupNegativeThreshold: -1
@@ -3745,6 +3748,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2528367358373767220, guid: 095737d19820ca94aab2aa877c670182, type: 3}
+      propertyPath: _maxSpawnedNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2528367358373767220, guid: 095737d19820ca94aab2aa877c670182, type: 3}
       propertyPath: _enemyTypesPrefabs.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -4481,6 +4488,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 176681537972965910, guid: 3afd57aca48f4d0449eb355e1cce6ac0, type: 3}
+      propertyPath: sceneId
+      value: 1079046546
+      objectReference: {fileID: 0}
     - target: {fileID: 3437639261166097675, guid: 3afd57aca48f4d0449eb355e1cce6ac0, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -4531,7 +4542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8227139024022397874, guid: 3afd57aca48f4d0449eb355e1cce6ac0, type: 3}
       propertyPath: dayLengthMinutes
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
