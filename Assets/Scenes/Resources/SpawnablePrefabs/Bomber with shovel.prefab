@@ -383,6 +383,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _isAlive: 1
+  _isInvisible: 0
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
