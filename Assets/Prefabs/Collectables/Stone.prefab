@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7441947742660689460
 SpriteRenderer:
@@ -105,7 +105,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _loot:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 72ad3ee0388eaef4e8e0f6fbc14d4bbd, type: 2}
+  - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
+  _quantity: 0500000001000000
   _instrument: 0
 --- !u!114 &6889792636589908369
 MonoBehaviour:

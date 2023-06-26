@@ -470,6 +470,7 @@ GameObject:
   - component: {fileID: 1994881260512814598}
   - component: {fileID: 2357381566981236089}
   - component: {fileID: 3389864274991680658}
+  - component: {fileID: 2571129974951369181}
   m_Layer: 0
   m_Name: SkeletonBow
   m_TagString: Untagged
@@ -691,7 +692,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _maxHealth: 0
+  _maxHealth: 300
   _healthBar: {fileID: 0}
 --- !u!114 &2597886586094886669
 MonoBehaviour:
@@ -889,6 +890,51 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+--- !u!61 &2571129974951369181
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5528914298825596530}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.003584683, y: 0.40218958}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.05}
+    oldSize: {x: 0.64, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5240811, y: 0.9003791}
+  m_EdgeRadius: 0
 --- !u!1 &7491294425546744926
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,6 +46,8 @@ GameObject:
   - component: {fileID: -2839516403279259854}
   - component: {fileID: 5192040179121611235}
   - component: {fileID: 1943273743413824024}
+  - component: {fileID: 2163809647013595077}
+  - component: {fileID: 6659406401007303218}
   m_Layer: 0
   m_Name: DefenseGun
   m_TagString: Untagged
@@ -206,12 +208,92 @@ MonoBehaviour:
   - {fileID: -2137845100, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
   - {fileID: 1937621325, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
   - {fileID: 691780863, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
-  _projectile: {fileID: 3363046323343731480, guid: cce0ee655038a684abfc1397512b0470, type: 3}
+  _projectile: {fileID: 3363046323343731480, guid: be9a46eed07554d4a827609b4881e0b4, type: 3}
   _firePositionsHolder: {fileID: 1454760039978024169}
   _firePositions:
   - {fileID: 4275034772919770821}
-  _damage: 5
+  _damage: 30
   _cooldownSeconds: 1
+--- !u!61 &2163809647013595077
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625508984780255458}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.9, y: 2.6}
+  m_EdgeRadius: 0
+--- !u!70 &6659406401007303218
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625508984780255458}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.015651884, y: -0.4982558}
+  m_Size: {x: 2.3051977, y: 1.0217394}
+  m_Direction: 1
 --- !u!1 &7304186381069987218
 GameObject:
   m_ObjectHideFlags: 0

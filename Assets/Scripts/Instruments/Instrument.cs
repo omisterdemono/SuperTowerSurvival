@@ -10,7 +10,7 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     public float Strength { get; set; }
     public float Durability { get; set; }
     public InstrumentType InstrumentType { get; set; }
-    public bool NeedRotation { get; set; } = true; 
+    public bool NeedRotation { get; set; } = true;
     public bool NeedFlip { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
 
@@ -47,6 +47,11 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
         }
 
         _lastObtainable.GetObtained(this);
+
+        if (_lastObtainable)
+        {
+            _lastObtainable.LastInventory = GetComponentInParent<InventoryController>().inventoryData;
+        }
         Durability -= 1.0f;
     }
 
@@ -59,6 +64,12 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var obtainable = collision.GetComponent<Obtainable>();
+
+        if (obtainable == _lastObtainable)
+        {
+            return;
+        }
+
         if (obtainable)
         {
             _lastObtainable = obtainable;
@@ -67,8 +78,14 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        var collectable = collision.GetComponent<Obtainable>();
-        if (collectable)
+        var obtainable = collision.GetComponent<Obtainable>();
+
+        if (obtainable != _lastObtainable)
+        {
+            return;
+        }
+
+        if (obtainable)
         {
             _lastObtainable = null;
         }

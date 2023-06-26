@@ -36,12 +36,12 @@ public class Structure : NetworkBehaviour, IBuildable
         transform.localPosition = SpawnPosition;
 
         _healthComponent.OnCurrentHealthChanged += Build;
-        _healthComponent.CurrentHealth = 1.0f;
+        _healthComponent.ChangeHealth(1.0f);
     }
 
     public void Build()
     {
-        if (_healthComponent.CurrentHealth == _healthComponent.MaxHealth)
+        if (_healthComponent.CurrentHealth >= _healthComponent.MaxHealth)
         {
             IsBuilt = true;
             _healthComponent.OnCurrentHealthChanged -= Build;

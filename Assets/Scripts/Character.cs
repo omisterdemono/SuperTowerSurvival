@@ -5,6 +5,7 @@ using System;
 using Assets.Scripts.Weapons;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
@@ -179,12 +180,16 @@ public class Character : NetworkBehaviour
 
         HandleEquippedItemRotation();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && _equipedTools[_equipedSlot].CanPerform)
+        if (Input.GetKeyDown(KeyCode.Mouse0) 
+            && _equipedTools[_equipedSlot].CanPerform
+            && !EventSystem.current.IsPointerOverGameObject())
         {
             Cmd_InteractOnServer(_mousePosition);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && _equipedTools[_equipedSlot].CanPerform)
+        if (Input.GetKey(KeyCode.Mouse0) 
+            && _equipedTools[_equipedSlot].CanPerform
+            && !EventSystem.current.IsPointerOverGameObject())
         {
             Cmd_HoldOnServer();
         }

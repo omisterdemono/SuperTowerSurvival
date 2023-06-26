@@ -26,6 +26,10 @@ public class DefenseStructure : Structure
     public new void Update()
     {
         base.Update();
+        if (!IsBuilt)
+        {
+            return;
+        }
 
         RotateTowardsTarget();
         CountRotationIndex();
@@ -79,7 +83,7 @@ public class DefenseStructure : Structure
         base.OnTriggerEnter2D(collision);
 
         //handling enemies that entered the attack radius
-        if (collision.TryGetComponent<Enemy>(out Enemy enemy) && _currentTarget == null)
+        if (collision.TryGetComponent(out Enemy enemy) && _currentTarget == null)
         {
             _currentTarget = enemy.transform;
             _rotateIndex = 0;

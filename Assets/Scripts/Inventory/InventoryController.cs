@@ -23,7 +23,6 @@ public class InventoryController : NetworkBehaviour
 
     public List<InventoryItem> initialItems = new List<InventoryItem>();
 
-
     [SerializeField]
     private GameObject ItemPrefab;
 

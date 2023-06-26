@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d72383cf0bb53443a52a5adb790c875, type: 3}
   m_Name: PickaxeAttributes
   m_EditorClassIdentifier: 
-  Strength: 5
+  Strength: 25
   Durability: 100
   InstrumentType: 0

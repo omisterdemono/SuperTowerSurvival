@@ -137,8 +137,13 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!(collision is BoxCollider2D))
+        {
+            return;
+        }
+
         //saving for repair
-        if (collision.TryGetComponent<Structure>(out var component))
+        if (collision.TryGetComponent<Structure>(out var component) && _currentStructureToRepair != component)
         {
             _currentStructureToRepair = component.GetComponent<HealthComponent>();
         }
@@ -146,8 +151,13 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!(collision is BoxCollider2D))
+        {
+            return;
+        }
+
         //removing from repair
-        if (collision.TryGetComponent<Structure>(out var component))
+        if (collision.TryGetComponent<Structure>(out var component) && _currentStructureToRepair == component)
         {
             _currentStructureToRepair = null;
         }

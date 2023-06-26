@@ -36,7 +36,7 @@ public class Projectile : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.GetComponent<BoxCollider2D>())
+        if (!(collision is BoxCollider2D))
         {
             Debug.Log("Is not Box Collider 2D");
             return;

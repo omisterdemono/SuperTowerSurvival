@@ -1,5 +1,7 @@
+using Inventory.Model;
 using Mirror;
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +10,7 @@ public class StructurePlacer : NetworkBehaviour
 {
     [Header("Infrastructure")]
     [SerializeField] private GameObject[] _structures;
+    [SerializeField] private ItemSO[] _structureItems;
     [SerializeField] private int _structuresTilemapIndex;
 
     [Header("UI")]
@@ -23,6 +26,8 @@ public class StructurePlacer : NetworkBehaviour
 
     [SyncVar] private int _currentStructureIndex = -1;
 
+    private InventoryController _inventoryController;
+
     private GameObject _tempStructure;
     private Structure _tempStructureComponent;
     private Vector3 _mousePosition;
@@ -31,11 +36,13 @@ public class StructurePlacer : NetworkBehaviour
     private Grid _grid;
     private GameObject _structuresHolder;
 
+
     private bool StructureInBuildRadius => Vector2.Distance(transform.position, _tempStructure.transform.position) <= _placeRadius;
 
     private void Start()
     {
         _grid = FindObjectOfType<Grid>();
+        _inventoryController = GetComponent<InventoryController>();
 
         _structuresTilemap = _grid.transform.GetChild(_structuresTilemapIndex);
 
@@ -60,7 +67,9 @@ public class StructurePlacer : NetworkBehaviour
             CalculateStructurePosition(_tempStructure.transform);
 
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
-            var newState = _tempStructureComponent != null && _tempStructureComponent.CanBePlaced;
+            var newState = _tempStructureComponent != null 
+                && _tempStructureComponent.CanBePlaced 
+                && _inventoryController.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
             UpdateStructurePlaceState(newState);
         }
 
@@ -162,14 +171,18 @@ public class StructurePlacer : NetworkBehaviour
 
         structure.transform.position = mousePosition;
         var spawnPosition = CalculateStructurePosition(structure.transform);
-        structure.GetComponent<Structure>().SpawnPosition = spawnPosition;
+        var component = structure.GetComponent<Structure>();
+        component.SpawnPosition = spawnPosition;
 
-        InitStructureOnClients(structure);
+        _inventoryController.inventoryData.RemoveItem(_structureItems[_currentStructureIndex], 1);
+
+        InitStructureOnClients(component.netId);
     }
 
     [ClientRpc]
-    private void InitStructureOnClients(GameObject structure)
+    private void InitStructureOnClients(uint structureId)
     {
-        structure.GetComponent<IBuildable>().Init();
+        var component = FindObjectsOfType<Structure>().Where(component => component.netId == structureId).First();
+        component.Init();
     }
 }

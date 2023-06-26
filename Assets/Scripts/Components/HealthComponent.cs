@@ -16,6 +16,7 @@ public class HealthComponent : NetworkBehaviour
     {
         OnCurrentHealthChanged?.Invoke();
     }
+
     [SerializeField] private GameObject _healthBar;
 
     [SyncVar] private float _hpRatio;
@@ -74,19 +75,26 @@ public class HealthComponent : NetworkBehaviour
         CurrentHealth -= damageHP;
     }
 
-    //[Command(requiresAuthority = false)]
-    [Server]
+    [Command(requiresAuthority = false)]
+    //[Server]
     public void ChangeHealth(float health)
     {
         _currentHealth = health;
     }
 
+    [Server]
+    private void InitHealth() 
+    {
+        ChangeHealth(MaxHealth);
+    }
+
     void Start()
     {
-        if (!isLocalPlayer)
-        {
-            _currentHealth = _maxHealth;
-        }
+        //if (isLocalPlayer)
+        //{
+        //    _currentHealth = _maxHealth;
+        //}
+        InitHealth();
 
         if (_healthBar != null)
         {

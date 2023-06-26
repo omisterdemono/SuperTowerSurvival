@@ -1,13 +1,16 @@
+using Inventory.Model;
 using Mirror;
 using System;
 using UnityEngine;
 
 public class Obtainable : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] _loot;
+    [SerializeField] private ItemSO[] _loot;
+    [SerializeField] private int[] _quantity;
     [SerializeField] private InstrumentType _instrument;
     
     private HealthComponent _healthComponent;
+    public InventorySO LastInventory { get; set; }
 
     private void Awake()
     {
@@ -31,16 +34,13 @@ public class Obtainable : NetworkBehaviour
         _healthComponent.OnDeath -= GetDestroyed;
     }
 
-    [Command(requiresAuthority = false)]
     private void GetDestroyed()
     {
-        //dropping items
-        foreach (var drop in _loot)
+        for (int i = 0; i < _loot.Length; i++)
         {
-            NetworkServer.Spawn(Instantiate(drop, transform.position, Quaternion.identity));
+            LastInventory.AddItem(_loot[i], _quantity[i]);
         }
 
-        //deleting on server side
         NetworkServer.Destroy(this.gameObject);
     }
 }
