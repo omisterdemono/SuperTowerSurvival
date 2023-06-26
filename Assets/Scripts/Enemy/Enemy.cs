@@ -62,7 +62,7 @@ public class Enemy : NetworkBehaviour
         {
             _movementComponent.MovementVector = _pathFinder.direction;
             _animator.SetBool("isMoving", true);
-            if(_movementComponent.MovementVector.x > 0)
+            if (_movementComponent.MovementVector.x > 0)
             {
                 _animator.SetBool("isMovingRight", true);
             }
@@ -72,8 +72,8 @@ public class Enemy : NetworkBehaviour
             }
             _movementComponent.Move();
         },
-        onEnter: (state) => 
-        { 
+        onEnter: (state) =>
+        {
             Debug.Log($"Moving to target: {_target}");
         },
         onExit: (state) =>
@@ -139,6 +139,7 @@ public class Enemy : NetworkBehaviour
         var previousTarget = _target;
 
         _target = FindTarget();
+
         _pathFinder.target = _target;
 
         var isCurrentTargetOpened = !_pathFinder.isTargetClosed;
@@ -152,24 +153,41 @@ public class Enemy : NetworkBehaviour
             }
         }
 
-        if (_target != previousTarget) 
+        if (_target != previousTarget)
         {
-            //_attackManager.UpdateTarget(_target.gameObject);
             _attackManager.SetTarget(_target);
-            //_enemyAttacker.Target = _target;
             return true;
         };
         return false;
     }
-    
+
     private bool TargetInAtackRange(Transition<string> transition)
     {
+        if (_target.tag == "Player" && !isPlayerVisible(_target.gameObject))
+        {
+            return false;
+        }
         return DistanceToTarget(_target) < _attackRadius;
     }
 
     private bool TargetOutAtackRange(Transition<string> transition)
     {
-        return DistanceToTarget(_target) > _attackRadius && DistanceToTarget(_target) < _searchRadius;
+        bool targetOutAttackRange = DistanceToTarget(_target) > _attackRadius && DistanceToTarget(_target) < _searchRadius;
+        if (targetOutAttackRange)
+        {
+            return true;
+        }
+
+        // here can be in attack but player also can be invisible
+        else
+        {
+            // if not a player          OR Invisible                            -> out range (true)
+            if (_target.tag != "Player" || !isPlayerVisible(_target.gameObject))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
     private bool PlayerEntered(Transition<string> transition)
@@ -193,17 +211,31 @@ public class Enemy : NetworkBehaviour
 
     private Transform FindTarget()
     {
-        foreach(TargetPriorities target in _favouriteTargets)
+        foreach (TargetPriorities target in _favouriteTargets)
         {
             var targetTransformList = GameObject.FindGameObjectsWithTag(target.ToString())?
                 .OrderBy(obj => DistanceToTarget(obj.transform));
             Transform targetTransform = targetTransformList.FirstOrDefault()?.transform;
-            if (targetTransform!=null && DistanceToTarget(targetTransform) < _searchRadius)
+            if (targetTransform != null && DistanceToTarget(targetTransform) < _searchRadius)
             {
+                if (targetTransform.tag == "Player" && !isPlayerVisible(targetTransform.gameObject))
+                {
+                    break;
+                }
                 return targetTransform;
             }
         }
         return _hall;
+    }
+
+    private bool isPlayerVisible(GameObject obj)
+    {
+        Character player = obj.GetComponent<Character>();
+        if (player != null && player.IsInvisible == false)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void FixedUpdate()
@@ -254,7 +286,7 @@ public class Enemy : NetworkBehaviour
         {
             case AttackType.MeleeCharged:
                 return new MeleeAttacker();
-                //break;
+            //break;
             default:
                 Debug.Log("There is no strategy: " + _attackType.ToString());
                 return null;
