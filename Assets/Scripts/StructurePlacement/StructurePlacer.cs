@@ -17,8 +17,9 @@ public class StructurePlacer : NetworkBehaviour
 
     [Header("Build properties")]
     [SerializeField] private float _placeRadius;
-    
-    public bool StructureCanBePlaced => _tempStructureComponent != null && _tempStructureComponent.CanBePlaced;
+
+    [SyncVar] private bool _structureCanBePlaced;
+    public bool StructureCanBePlaced => _structureCanBePlaced;
 
     [SyncVar] private int _currentStructureIndex = -1;
 
@@ -53,12 +54,14 @@ public class StructurePlacer : NetworkBehaviour
 
         _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (_currentStructureIndex != -1)
+        if (_currentStructureIndex != -1 && _tempStructure != null)
         {
             _tempStructure.transform.position = _mousePosition;
             CalculateStructurePosition(_tempStructure.transform);
 
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
+            var newState = _tempStructureComponent != null && _tempStructureComponent.CanBePlaced;
+            UpdateStructurePlaceState(newState);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -71,6 +74,12 @@ public class StructurePlacer : NetworkBehaviour
         {
             CancelPlacement();
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void UpdateStructurePlaceState(bool newState)
+    {
+        _structureCanBePlaced = newState;
     }
 
     private void InitUI()

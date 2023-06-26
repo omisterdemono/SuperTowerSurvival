@@ -25,6 +25,8 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     public float CooldownSeconds => throw new NotImplementedException();
 
+    public Vector3 MousePosition { get; set; }
+
     private Collider2D _hitCollider;
     private Vector3 _rotationBeforeCharge;
     private float _chargeProgressSeconds;

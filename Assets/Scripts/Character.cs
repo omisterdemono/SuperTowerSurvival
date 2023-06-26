@@ -38,6 +38,7 @@ public class Character : NetworkBehaviour
     private Vector2 _attackDirection;
     private Dictionary<int, KeyCode> _keyCodes;
 
+    private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
 
@@ -48,6 +49,7 @@ public class Character : NetworkBehaviour
 
         _equippedItemsSlot = GetComponentInChildren<EquipSlot>();
         _buildHammer = GetComponentInChildren<BuildHammer>(true);
+        _structurePlacer = GetComponent<StructurePlacer>();
 
         //change to something more generic
         foreach (var tool in _tools)
@@ -108,8 +110,23 @@ public class Character : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse2) && _equipedSlot == _buildHammerSlotIndex)
         {
-            _buildHammer.ChangeMode();
+            if (_buildHammer.CurrentState == BuildHammerState.Building)
+            {
+                _structurePlacer.CancelPlacement();
+            }
+            ChangeBuildHammerStateOnServer();
+
+            if (isLocalPlayer)
+            {
+                //_buildHammer.ChangeMode();
+            }
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void ChangeBuildHammerStateOnServer()
+    {
+        _buildHammer.ChangeMode();
     }
 
     private void HandleActiveSkills()
@@ -153,7 +170,7 @@ public class Character : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && _equipedTools[_equipedSlot].CanPerform)
         {
-            Cmd_InteractOnServer();
+            Cmd_InteractOnServer(_mousePosition);
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && _equipedTools[_equipedSlot].CanPerform)
@@ -185,10 +202,11 @@ public class Character : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    private void Cmd_InteractOnServer()
+    private void Cmd_InteractOnServer(Vector3 mousePosition)
     {
         _isPerforming = true;
         _equipedTools[_equipedSlot].Interact();
+        _equipedTools[_equipedSlot].MousePosition = mousePosition;
 
         StartCoroutine(FinishAnimation());
     }

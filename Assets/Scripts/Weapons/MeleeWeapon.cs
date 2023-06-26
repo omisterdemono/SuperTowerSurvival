@@ -16,6 +16,8 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds => _cooldownSeconds;
 
+    public Vector3 MousePosition { get; set; }
+
     private Animator _animator;
     private List<HealthComponent> _targetsInRange = new List<HealthComponent>();
     private CooldownComponent _cooldownComponent;

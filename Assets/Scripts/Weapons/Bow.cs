@@ -26,6 +26,8 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds => _cooldownSeconds;
 
+    public Vector3 MousePosition { get; set; }
+
     private bool _isCharging = false;
     private float _chargeProgressSeconds;
 

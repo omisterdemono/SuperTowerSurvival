@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Weapons
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Weapons
 {
     public interface IEquipable
     {
@@ -10,5 +12,6 @@
         void ChangeAnimationState();
         bool CanPerform { get; }
         float CooldownSeconds { get; }
+        Vector3 MousePosition { get; set; }
     }
 }

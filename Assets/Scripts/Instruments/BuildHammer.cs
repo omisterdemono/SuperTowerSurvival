@@ -1,10 +1,11 @@
 using Assets.Scripts.Weapons;
+using Mirror;
 using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-enum BuildHammerState
+public enum BuildHammerState
 {
     Repairing,
     Building
@@ -23,15 +24,16 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
     public bool NeedRotation { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds => _cooldownSeconds;
+    public Vector3 MousePosition { get => mousePosition; set => mousePosition = value; }
+
+    private Vector3 mousePosition;
 
     private Animator _animator;
     private StructurePlacer _structurePlacer;
     private CooldownComponent _cooldownComponent;
     private HealthComponent _currentStructureToRepair;
-    private BuildHammerState _currentState = BuildHammerState.Building;
+    public BuildHammerState CurrentState = BuildHammerState.Building;
     private bool _isObtaining;
-
-    private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
     private void Awake()
@@ -48,6 +50,7 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
     private void Update()
     {
         _cooldownComponent.HandleCooldown();
+
     }
 
     public void Interact()
@@ -85,7 +88,7 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     public void Obtain()
     {
-        switch (_currentState)
+        switch (CurrentState)
         {
             case BuildHammerState.Repairing:
                 Repair();
@@ -116,25 +119,20 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
             return;
         }
 
-        _structurePlacer.PlaceStructure(_mousePosition);
+        _structurePlacer.PlaceStructure(MousePosition);
     }
 
     public void ChangeMode()
     {
-        if (_currentState == BuildHammerState.Building)
-        {
-            _structurePlacer.CancelPlacement();
-        }
-
         var highestState = Enum.GetValues(typeof(BuildHammerState)).Cast<BuildHammerState>().Max();
 
-        if (_currentState == highestState)
+        if (CurrentState == highestState)
         {
-            _currentState = 0;
+            CurrentState = 0;
             return;
         }
 
-        _currentState++;
+        CurrentState++;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

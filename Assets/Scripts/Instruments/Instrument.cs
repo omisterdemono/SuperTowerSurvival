@@ -16,6 +16,8 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     public float CooldownSeconds => _cooldownSeconds;
 
+    public Vector3 MousePosition { get; set; }
+
     private Obtainable _lastObtainable;
     private Animator _animator;
     private CooldownComponent _cooldownComponent;

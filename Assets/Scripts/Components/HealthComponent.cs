@@ -8,8 +8,13 @@ public class HealthComponent : NetworkBehaviour
     public Action OnDeath;
 
     [SerializeField] private float _maxHealth;
-    
-    [SyncVar] private float _currentHealth;
+
+    [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
+
+    private void CurrentHealthHook(float oldValue, float newValue)
+    {
+        OnCurrentHealthChanged?.Invoke();
+    }
 
     public float MaxHealth
     {
@@ -66,6 +71,9 @@ public class HealthComponent : NetworkBehaviour
 
     void Start()
     {
-        CurrentHealth = _maxHealth;
+        if (!isLocalPlayer)
+        {
+            _currentHealth = _maxHealth;
+        }
     }
 }

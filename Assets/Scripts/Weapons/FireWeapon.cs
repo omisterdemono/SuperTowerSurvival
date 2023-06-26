@@ -22,6 +22,8 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds => _cooldownSeconds;
 
+    public Vector3 MousePosition { get; set; }
+
     private CooldownComponent _cooldownComponent;
 
     private void Awake()
