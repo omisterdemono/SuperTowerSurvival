@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d72383cf0bb53443a52a5adb790c875, type: 3}
-  m_Name: WoodenAxeAttributes
+  m_Script: {fileID: 11500000, guid: dc4fda090d7f28a4c8a04866f8644bfe, type: 3}
+  m_Name: PlaceMineAttributes
   m_EditorClassIdentifier: 
-  Strength: 5
-  Durability: 100
-  InstrumentType: 1
+  Name: Place mine
+  SkillDescription: bla bla bla
+  Cooldown: 15
+  CastTime: 2
+  SkillIcon: {fileID: 21300000, guid: 57a1d3bb4b46900469fb87a1d73ed7c3, type: 3}

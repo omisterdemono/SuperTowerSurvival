@@ -133,5 +133,5 @@ MonoBehaviour:
   _firePositions:
   - {fileID: 5142064971839516460}
   _damage: 10
-  _cooldownSeconds: 0.2
+  _cooldownSeconds: 1
   _needFlip: 1

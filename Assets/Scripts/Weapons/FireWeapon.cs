@@ -1,5 +1,6 @@
 using Assets.Scripts.Weapons;
 using Mirror;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -16,50 +17,38 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
 
     public bool NeedRotation { get; set; } = true;
 
-    private float _timeToNextShot;
-    private Transform _equippedSlot;
-
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
+    public bool CanPerform => _cooldownComponent.CanPerform;
+    public float CooldownSeconds => _cooldownSeconds;
+
+    public Vector3 MousePosition { get; set; }
+
+    private CooldownComponent _cooldownComponent;
 
     private void Awake()
     {
-        _equippedSlot = transform.parent;
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
     }
 
     private void Update()
     {
-        HandleFireRate();
+        _cooldownComponent.HandleCooldown();
     }
 
-    private void HandleFireRate()
+    public void Attack()
     {
-        if (_timeToNextShot == 0)
+        if (!_cooldownComponent.CanPerform)
         {
             return;
         }
+        _cooldownComponent.ResetCooldown();
 
-        if (_timeToNextShot < 0)
-        {
-            _timeToNextShot = 0;
-            return;
-        }
-
-        _timeToNextShot -= Time.deltaTime;
+        FireBullet();
     }
 
-    public void Attack(Vector2 direction)
+    public void FireBullet()
     {
-        FireBullet(direction);
-    }
-
-    public void FireBullet(Vector2 direction)
-    {
-        if (_timeToNextShot != 0)
-        {
-            return;
-        }
-
         foreach (var firePosition in _firePositions)
         {
             GameObject projectile = Instantiate(_projectile, firePosition.position, firePosition.rotation);
@@ -68,16 +57,29 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
             bulletComponent.Damage = _damage;
             NetworkServer.Spawn(projectile);
         }
-
-        _timeToNextShot = _cooldownSeconds;
     }
 
-    public void Hold(Vector2 direction)
+    public void Hold()
     {
-        FireBullet(direction);
+        Attack();
     }
 
-    public void KeyUp(Vector2 direction)
+    public void KeyUp()
+    {
+        return;
+    }
+
+    public void Interact()
+    {
+        Attack();
+    }
+
+    public void FinishHold()
+    {
+        KeyUp();
+    }
+
+    public void ChangeAnimationState()
     {
         return;
     }
