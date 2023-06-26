@@ -117,25 +117,9 @@ public class InventoryController : NetworkBehaviour
     }
     public void PerformAction(int itemIndex)
     {
-        //InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
-        //if (inventoryItem.IsEmpty)
-        //    return;
-
-        //IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-        //if (destroyableItem != null)
-        //{
-        //    inventoryData.RemoveItem(itemIndex, 1);
-        //}
-
-        //IItemAction itemAction = inventoryItem.item as IItemAction;
-        //if (itemAction != null)
-        //{
-        //    itemAction.PerformAction(gameObject, inventoryItem.itemState);
-        //    //audioSource.PlayOneShot(itemAction.actionSFX);
-        //    if (inventoryData.GetItemAt(itemIndex).IsEmpty)
-        //        inventoryUI.ResetSelection();
-        //}
+        
     }
+
     [Command(requiresAuthority = false)]
     private void DropItem(int itemIndex, int quantity, Vector3 vector)
     {
@@ -149,6 +133,8 @@ public class InventoryController : NetworkBehaviour
         //SpawnOnClient(uiItem);
         NetworkServer.Spawn(uiItem);
     }
+
+
 
     [ClientRpc]
     private void SpawnOnClient(GameObject gameObject)
