@@ -383,10 +383,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _isAlive: 1
+  _isInvisible: 0
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _toolSlots: []
   _tools:
   - {fileID: 3773840873483915123}
   - {fileID: 6482214173650905196}
@@ -408,6 +408,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
+  _healthBar: {fileID: 0}
 --- !u!114 &3411912328037982115
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class Character : NetworkBehaviour
     private ItemHolderScript _itemHolder;
 
     [SerializeField][SyncVar] private bool _isAlive = true;
+    [SerializeField][SyncVar] private bool _isInvisible = false;
 
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
@@ -38,6 +39,9 @@ public class Character : NetworkBehaviour
     private int _equipedSlot = 0;
 
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
+    public float RepairSpeedModifier { get => _repairSpeedModifier; set => _repairSpeedModifier = value; }
+    public float BuildSpeedModifier { get => _buildSpeedModifier; set => _buildSpeedModifier = value; }
+    public bool IsInvisible { get => _isInvisible; set => _isInvisible = value; }
 
     void Awake()
     {
@@ -53,7 +57,7 @@ public class Character : NetworkBehaviour
 
         if (_attacker == null)
         {
-            throw new NullReferenceException("Attacker script was not used on weapon");
+            //throw new NullReferenceException("Attacker script was not used on weapon");
         }
 
         _structurePlacer = GetComponent<StructurePlacer>();
