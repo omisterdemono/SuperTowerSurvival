@@ -18,6 +18,11 @@ public class DefenseStructure : Structure
     private int _rotateIndex;
     private float _timeToNextShot;
 
+    public new void Awake()
+    {
+        base.Awake();
+    }
+
     public new void Update()
     {
         base.Update();

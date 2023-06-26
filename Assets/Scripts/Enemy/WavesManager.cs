@@ -27,12 +27,12 @@ public class WavesManager : MonoBehaviour
         firstWave.SetParams(1, initEnemiesNumber);
         _waves.Add(firstWave);
         GenerateWaves();
-        //_worldCycle.OnIsNightChanged += UpdateSpawnersParams;
+        _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
     }
 
     public void OnDestroy()
     {
-        //_worldCycle.OnIsNightChanged -= UpdateSpawnersParams;
+        _worldCycle.OnIsNightChanged -= UpdateSpawnersParams;
     }
 
     void Update()

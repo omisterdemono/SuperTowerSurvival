@@ -47,7 +47,7 @@ public class StructurePlacer : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer)
+        if (!isOwned)
         {
             return;
         }

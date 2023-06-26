@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7954063253781186099}
   - component: {fileID: 6741112811949461992}
   - component: {fileID: 4476104393615963958}
+  - component: {fileID: 2707793359288058362}
   m_Layer: 5
   m_Name: StructureBuildButton
   m_TagString: Untagged
@@ -122,6 +123,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &2707793359288058362
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331052584847828899}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5264226113590325862
 GameObject:
   m_ObjectHideFlags: 0

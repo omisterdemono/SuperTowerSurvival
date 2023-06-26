@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 6215057458296086262}
   - component: {fileID: 4990647148665268769}
   - component: {fileID: 7209853551525115248}
+  - component: {fileID: 3971073862153500591}
   m_Layer: 0
   m_Name: Bomber with shovel
   m_TagString: Player
@@ -248,7 +249,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1de64f06169549b4dacf1fc09b0608b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -392,6 +393,7 @@ MonoBehaviour:
   - {fileID: 6482214173650905196}
   - {fileID: 8737328713079823392}
   - {fileID: 6838423681899058805}
+  _buildHammerSlotIndex: 1
 --- !u!114 &7017892851504214497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,9 +566,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   inventoryUI: {fileID: 0}
+  craftUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: e67b241776e75674aa42073b0437431d, type: 2}
   book: {fileID: 11400000, guid: 87af28857ac9d88439036e047d4cbc4a, type: 2}
   initialItems: []
+  ItemPrefab: {fileID: 0}
   dropClip: {fileID: 0}
 --- !u!114 &7209853551525115248
 MonoBehaviour:
@@ -587,6 +591,28 @@ MonoBehaviour:
   _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
   _dynamitePrefab: {fileID: 4153535944577513394, guid: 36c23f8accca0f64d85168bc6d67bc35, type: 3}
   _damage: 10
+--- !u!114 &3971073862153500591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231169941632268351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b80ccf4fd7b4e4a8b477bbff28f567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _structures:
+  - {fileID: 3689379919031479192, guid: 4740b2c5f2e550d45addfd3648b53c8f, type: 3}
+  - {fileID: 3625508984780255458, guid: ca1332938387ce14fbd680fc336d3209, type: 3}
+  - {fileID: 3625508984780255458, guid: 522010559319f5c45bdd36642e7efcfb, type: 3}
+  _structuresTilemapIndex: 1
+  _buttonPrefab: {fileID: 2331052584847828899, guid: 8b4f6bc9744d0f8479ae81526767b029, type: 3}
+  _placeRadius: 3
 --- !u!1001 &281987679114138457
 PrefabInstance:
   m_ObjectHideFlags: 0

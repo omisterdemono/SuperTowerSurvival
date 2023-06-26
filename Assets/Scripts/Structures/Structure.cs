@@ -17,7 +17,7 @@ public class Structure : NetworkBehaviour, IBuildable
     private const string _parentTag = "StructuresTilemap";
     private const float _minimalAlpha = 0.3f;
 
-    private void Awake()
+    public void Awake()
     {
         _healthComponent = GetComponent<HealthComponent>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();

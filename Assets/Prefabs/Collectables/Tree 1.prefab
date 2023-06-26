@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4025250424965208966}
   - component: {fileID: 6810683371858705482}
   - component: {fileID: 4737026514459488176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tree 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1de64f06169549b4dacf1fc09b0608b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,6 +140,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 50
+  _healthBar: {fileID: 0}
 --- !u!61 &6810683371858705482
 BoxCollider2D:
   m_ObjectHideFlags: 0

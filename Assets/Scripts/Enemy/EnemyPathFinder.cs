@@ -55,7 +55,7 @@ public class EnemyPathFinder : NetworkBehaviour
     public void UpdatePath()
     {
         var transformOffset = transform.position;
-        transformOffset.y += _capsuleCollider.offset.y;
+        //transformOffset.y += _capsuleCollider.offset.y;
         _seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
