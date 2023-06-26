@@ -4,6 +4,7 @@ using Mirror;
 using System;
 using UnityEngine.EventSystems;
 using Assets.Scripts.Weapons;
+using Unity.Collections.LowLevel.Unsafe;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
@@ -32,7 +33,6 @@ public class Character : NetworkBehaviour
 
     private StructurePlacer _structurePlacer;
 
-    [SerializeField] private List<GameObject> _toolSlots = new List<GameObject>();
     [SerializeField] private List<GameObject> _tools = new List<GameObject>();
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
@@ -61,6 +61,7 @@ public class Character : NetworkBehaviour
 
     private void Start()
     {
+        if (!isOwned) return;
         _activeSkills = new List<ActiveSkill>();
         _activeSkills.AddRange(GetComponents<ActiveSkill>());
         _keyCodes = new Dictionary<int, KeyCode>();
@@ -68,6 +69,7 @@ public class Character : NetworkBehaviour
         {
             _keyCodes.Add(i, (KeyCode)System.Enum.Parse(typeof(KeyCode), $"Alpha{i + 1}"));
         }
+
         _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolderScript>();
 
         _itemHolder.SetIcons(_tools);
@@ -120,14 +122,12 @@ public class Character : NetworkBehaviour
         {
             if (scrollInput > 0)
             {
-                CmdChangeTool((_equipedSlot + 1) % 4);
+                CmdChangeTool((_equipedSlot + 1) % 4, _itemHolder);
             }
             else if (scrollInput < 0)
             {
-                CmdChangeTool((_equipedSlot - 1 + 4) % 4);
+                CmdChangeTool((_equipedSlot - 1 + 4) % 4, _itemHolder);
             }
-
-            _itemHolder.ChangeSlot(_equipedSlot);
         }
 
         ////weapon handle and rotation
@@ -146,10 +146,15 @@ public class Character : NetworkBehaviour
     {
         _tools[oldValue].SetActive(false);
         _tools[newValue].SetActive(true);
+        if (_itemHolder!=null)
+        {
+            _itemHolder.ChangeSlot(newValue);
+        }
+        
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdChangeTool(int equipedSlot)
+    private void CmdChangeTool(int equipedSlot, ItemHolderScript itemHolder)
     {
         _equipedSlot = equipedSlot;
     }
