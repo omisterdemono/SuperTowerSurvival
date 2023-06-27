@@ -129,7 +129,7 @@ public class InventoryController : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    private void DropItemOnServer(int itemIndex, int quantity, Vector3 vector)
+    public void DropItemOnServer(int itemIndex, int quantity, Vector3 vector)
     {
         GameObject uiItem =
             Instantiate(ItemPrefab, vector, Quaternion.identity);
