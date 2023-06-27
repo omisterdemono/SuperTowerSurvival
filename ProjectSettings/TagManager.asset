@@ -18,6 +18,7 @@ TagManager:
   - StructuresTilemap
   - ItemHolder
   - Fog
+  - CastBarText
   layers:
   - Default
   - TransparentFX

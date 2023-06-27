@@ -112,8 +112,16 @@ public class ActiveSkill : NetworkBehaviour
     public void Casting()
     {
         _castBar.GetComponent<CanvasGroup>().alpha = 1;
+        //CanvasGroup canvasGroup = _castBar.GetComponent<CanvasGroup>();
+        //canvasGroup.alpha = 1;
         float rate = 1.0f / _skillAttributes.CastTime;
         _castBar.transform.GetChild(0).GetComponent<Image>().fillAmount = Mathf.Lerp(0, 1, _castProgress * rate);
+        //Image fillAmount = _castBar.transform.GetChild(0).GetComponent<Image>();
+        //fillAmount.fillAmount = Mathf.Lerp(0, 1, _castProgress * rate);
+        //Text text = GameObject.FindGameObjectWithTag("CastBarText").GetComponent<Text>();
+        //text.text = _castProgress.ToString("0.0");
+
+        //_castBar.transform.GetChild(1).GetComponent<Text>().text = _castProgress.ToString("0.0");
         _castBar.GetComponentInChildren<Text>().text = _castProgress.ToString("0.0");
         _castProgress += 0.1f;
         if (_castProgress >= _castTime)
