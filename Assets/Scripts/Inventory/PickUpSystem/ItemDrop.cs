@@ -48,7 +48,7 @@ namespace Assets.Scripts.PickUpSystem
         private IEnumerator AnimateItemPickup()
         {
 
-            audioSource.Play();
+            //audioSource.Play();
             Vector3 startScale = transform.localScale;
             Vector3 endScale = Vector3.zero;
             float currentTime = 0;
@@ -60,6 +60,16 @@ namespace Assets.Scripts.PickUpSystem
                 yield return null;
             }
             NetworkServer.Destroy(gameObject);
+
+        }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (isOwned)
+            {
+                int i = 0;
+            }
 
         }
     }

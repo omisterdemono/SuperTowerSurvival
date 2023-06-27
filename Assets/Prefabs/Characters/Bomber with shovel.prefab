@@ -116,14 +116,15 @@ GameObject:
   - component: {fileID: 5008485775042280951}
   - component: {fileID: -1300800794969773045}
   - component: {fileID: -2400162555924161077}
-  - component: {fileID: 1127090800803803951}
   - component: {fileID: 5933435638300399278}
   - component: {fileID: 27742149250520096}
+  - component: {fileID: -4999383039666388989}
   - component: {fileID: 1387008168866226149}
   - component: {fileID: -5576025672415806377}
   - component: {fileID: 1397295181964670264}
   - component: {fileID: 2879571297199837190}
   - component: {fileID: 6994801580903179082}
+  - component: {fileID: 6288225525854008340}
   m_Layer: 0
   m_Name: Bomber with shovel
   m_TagString: Player
@@ -302,31 +303,15 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _isAlive: 1
+  _isInvisible: 0
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _toolSlots: []
   _tools:
   - {fileID: 3076176462371456190}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &1127090800803803951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5008485775042280947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d8fc757fb6c1245a64f7c9f4c7776f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _maxHealth: 100
 --- !u!114 &5933435638300399278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,6 +345,23 @@ MonoBehaviour:
   syncInterval: 0
   _skillAttributes: {fileID: 11400000, guid: 988d12e7366e8994695d4ca9426b74db, type: 2}
   _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
+--- !u!114 &-4999383039666388989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d8fc757fb6c1245a64f7c9f4c7776f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _maxHealth: 0
+  _healthBar: {fileID: 0}
 --- !u!114 &1387008168866226149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,10 +501,29 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   inventoryUI: {fileID: 0}
+  craftUI: {fileID: 0}
   inventoryData: {fileID: 11400000, guid: e67b241776e75674aa42073b0437431d, type: 2}
   book: {fileID: 11400000, guid: 87af28857ac9d88439036e047d4cbc4a, type: 2}
   initialItems: []
+  ItemPrefab: {fileID: 0}
   dropClip: {fileID: 0}
+--- !u!114 &6288225525854008340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d8fc757fb6c1245a64f7c9f4c7776f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _maxHealth: 0
+  _healthBar: {fileID: 0}
 --- !u!1001 &85643194113894449
 PrefabInstance:
   m_ObjectHideFlags: 0

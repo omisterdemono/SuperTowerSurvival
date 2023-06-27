@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5539c1d3a188e4a815e5a748ed56a3, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
+  <IdOfItem>k__BackingField: 3
   <IsStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 16
   <Name>k__BackingField: Wood

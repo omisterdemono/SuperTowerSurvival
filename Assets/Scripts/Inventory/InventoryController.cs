@@ -10,14 +10,14 @@ using UnityEngine;
 public class InventoryController : NetworkBehaviour
 {
     [SerializeField]
-    private UIInventoryPage inventoryUI;
-
+    private GameObject inventoryUI;
 
     [SerializeField]
     private GameObject craftUI;
 
     [SerializeField]
     public InventorySO inventoryData;
+
     [SerializeField]
     private CraftBookSO book;
 
@@ -60,10 +60,10 @@ public class InventoryController : NetworkBehaviour
 
     private void UpdateInventoryUI(Dictionary<int, InventoryItem> inventoryState)
     {
-        inventoryUI.ResetAllItems();
+        inventoryUI.GetComponent<UIInventoryPage>().ResetAllItems();
         foreach (var item in inventoryState)
         {
-            inventoryUI.UpdateData(item.Key, item.Value.item.ItemImage,
+            inventoryUI.GetComponent<UIInventoryPage>().UpdateData(item.Key, item.Value.item.ItemImage,
                 item.Value.quantity);
         }
         book.UpdateCraft(inventoryData);
@@ -72,12 +72,12 @@ public class InventoryController : NetworkBehaviour
 
     private void PrepareUI()
     {
-        inventoryUI = GameObject.FindGameObjectWithTag("Inventory").GetComponent<UIInventoryPage>();
-        inventoryUI.InitializeInventoryUI(inventoryData.Size);
+        inventoryUI = GameObject.FindGameObjectWithTag("Inventory");
+        inventoryUI.GetComponent<UIInventoryPage>().InitializeInventoryUI(inventoryData.Size);
 
-        inventoryUI.OnSwapItems += HandleSwapItems;
-        inventoryUI.OnStartDragging += HandleDragging;
-        inventoryUI.OnItemActionRequested += HandleItemActionRequest;
+        inventoryUI.GetComponent<UIInventoryPage>().OnSwapItems += HandleSwapItems;
+        inventoryUI.GetComponent<UIInventoryPage>().OnStartDragging += HandleDragging;
+        inventoryUI.GetComponent<UIInventoryPage>().OnItemActionRequested += HandleItemActionRequest;
 
         craftUI.GetComponent<CraftBookUI>().InitializeCraftUI(book);
     }
@@ -94,7 +94,7 @@ public class InventoryController : NetworkBehaviour
         InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
         if (inventoryItem.IsEmpty)
             return;
-        inventoryUI.CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity);
+        inventoryUI.GetComponent<UIInventoryPage>().CreateDraggedItem(inventoryItem.item.ItemImage, inventoryItem.quantity);
     }
 
     private void HandleItemActionRequest(int itemIndex)
@@ -104,14 +104,14 @@ public class InventoryController : NetworkBehaviour
             return;
 
         
-        inventoryUI.ShowItemAction(itemIndex);
-        inventoryUI.AddAction("Build", () => PerformAction(itemIndex));
+        inventoryUI.GetComponent<UIInventoryPage>().ShowItemAction(itemIndex);
+        inventoryUI.GetComponent<UIInventoryPage>().AddAction("Build", () => PerformAction(itemIndex));
         
 
         IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
-        var vector = new Vector3(transform.position.x, transform.position.y-1.5f);
+        var vector = new Vector3(transform.position.x, transform.position.y-2f);
         
-        inventoryUI.AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity, vector));
+        inventoryUI.GetComponent<UIInventoryPage>().AddAction("Drop", () => DropItem(itemIndex, inventoryItem.quantity, vector));
         
 
     }
@@ -119,17 +119,23 @@ public class InventoryController : NetworkBehaviour
     {
         
     }
-
-    [Command(requiresAuthority = false)]
     private void DropItem(int itemIndex, int quantity, Vector3 vector)
     {
-        GameObject uiItem =
-                Instantiate(ItemPrefab, vector, Quaternion.identity);
-        //var i= inventoryData.GetItemAt(itemIndex);
-        uiItem.GetComponent<ItemDrop>().SetItem(inventoryData.GetItemAt(itemIndex).item.IdOfItem, quantity);
-
+        int idOfItem = inventoryData.GetItemAt(itemIndex).item.IdOfItem;
         inventoryData.RemoveItem(itemIndex, quantity);
-        inventoryUI.ResetSelection();
+        inventoryUI.GetComponent<UIInventoryPage>().ResetSelection();
+        DropItemOnServer(idOfItem, quantity, vector);
+
+    }
+
+    [Command(requiresAuthority = false)]
+    private void DropItemOnServer(int itemIndex, int quantity, Vector3 vector)
+    {
+        GameObject uiItem =
+            Instantiate(ItemPrefab, vector, Quaternion.identity);
+        //var i= inventoryData.GetItemAt(itemIndex);
+        uiItem.GetComponent<ItemDrop>().SetItem(itemIndex, quantity);
+
         //SpawnOnClient(uiItem);
         NetworkServer.Spawn(uiItem);
     }
@@ -147,19 +153,19 @@ public class InventoryController : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (inventoryUI.isActiveAndEnabled == false)
+            if (inventoryUI.GetComponent<UIInventoryPage>().isActiveAndEnabled == false)
             {
-                inventoryUI.Show();
+                inventoryUI.GetComponent<UIInventoryPage>().Show();
                 foreach (var item in inventoryData.GetCurrentInventoryState())
                 {
-                    inventoryUI.UpdateData(item.Key,
+                    inventoryUI.GetComponent<UIInventoryPage>().UpdateData(item.Key,
                         item.Value.item.ItemImage,
                         item.Value.quantity);
                 }
             }
             else
             {
-                inventoryUI.Hide();
+                inventoryUI.GetComponent<UIInventoryPage>().Hide();
             }
 
         }

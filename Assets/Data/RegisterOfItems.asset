@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: RegisterOfItems
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
-  - {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
+  - {fileID: 11400000, guid: 4a83ffbd7e170f3439cf428f83319b05, type: 2}
+  - {fileID: 11400000, guid: 45ee621c834199947835aebcf7c33236, type: 2}
+  - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
+  - {fileID: 11400000, guid: 72ad3ee0388eaef4e8e0f6fbc14d4bbd, type: 2}
