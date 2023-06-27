@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3146219840684499382
 MonoBehaviour:
@@ -51,6 +51,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 1000
+  _healthBar: {fileID: 0}
 --- !u!212 &7662709501178140892
 SpriteRenderer:
   m_ObjectHideFlags: 0
