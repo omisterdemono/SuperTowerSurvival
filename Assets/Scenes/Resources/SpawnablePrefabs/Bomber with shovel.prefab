@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 6432959639328795225}
   - component: {fileID: 7076281384814493682}
   - component: {fileID: 6215057458296086262}
+  - component: {fileID: 6738604570701768281}
   - component: {fileID: 2442673106480009155}
   - component: {fileID: 7955120249271032550}
   - component: {fileID: 5517293515415230090}
@@ -387,6 +388,38 @@ MonoBehaviour:
   target: {fileID: 4556259820489150868}
   clientAuthority: 0
   syncPosition: 0
+  syncRotation: 1
+  syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  timelineOffset: 0
+--- !u!114 &6738604570701768281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231169941632268351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 5777101163592191538}
+  clientAuthority: 0
+  syncPosition: 1
   syncRotation: 1
   syncScale: 0
   interpolatePosition: 1
