@@ -1,6 +1,8 @@
 using Mirror;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class DefenseStructure : Structure
 {
@@ -14,13 +16,16 @@ public class DefenseStructure : Structure
 
     [SyncVar] private float _rotateAngle;
 
-    private Transform _currentTarget;
+    private List<Transform> _targetsInRange = new List<Transform>();
     private int _rotateIndex;
     private float _timeToNextShot;
 
     public new void Awake()
     {
         base.Awake();
+
+        Debug.Log("remove this line");
+        IsBuilt = true;
     }
 
     public new void Update()
@@ -49,15 +54,21 @@ public class DefenseStructure : Structure
         _spriteRenderer.sprite = _rotationSprites[_rotateIndex];
     }
 
+    private Vector3 SelectClosestTarget()
+    {
+        var closest = _targetsInRange.OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).First();
+        return closest.position;
+    }
+
     [Server]
     private void CountRotationIndex()
     {
-        if (_currentTarget == null)
+        if (_targetsInRange.Count == 0)
         {
             return;
         }
 
-        var direction = (_currentTarget.position - transform.position).normalized;
+        var direction = (SelectClosestTarget() - transform.position).normalized;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _rotateAngle = angle < 0 ? 360.0f + angle : angle;
     }
@@ -83,10 +94,15 @@ public class DefenseStructure : Structure
         base.OnTriggerEnter2D(collision);
 
         //handling enemies that entered the attack radius
-        if (collision.TryGetComponent(out Enemy enemy) && _currentTarget == null)
+        if (collision.TryGetComponent(out Enemy enemy) && !_targetsInRange.Contains(enemy.transform))
         {
-            _currentTarget = enemy.transform;
-            _rotateIndex = 0;
+            _targetsInRange.Add(enemy.transform);
+
+
+            if (_targetsInRange.Count == 1)
+            {
+                _rotateIndex = 0;
+            }
         }
     }
 
@@ -95,16 +111,21 @@ public class DefenseStructure : Structure
         base.OnTriggerExit2D(collision);
 
         //removing enemy that left the attack radius
-        if (collision.TryGetComponent<Enemy>(out Enemy enemy) && enemy.transform == _currentTarget)
+        if (collision.TryGetComponent<Enemy>(out Enemy enemy) && _targetsInRange.Contains(enemy.transform))
         {
-            _currentTarget = null;
-            _rotateIndex = -1;
+            _targetsInRange.Remove(enemy.transform);
+
+            if (_targetsInRange.Count == 0)
+            {
+                _rotateIndex = -1;
+            }
         }
     }
 
+    [Server]
     public void FireBullet()
     {
-        if (_timeToNextShot != 0 || _currentTarget == null)
+        if (_timeToNextShot != 0 || _targetsInRange.Count == 0)
         {
             return;
         }

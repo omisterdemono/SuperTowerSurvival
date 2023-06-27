@@ -138,7 +138,7 @@ MonoBehaviour:
   _desiredTargets:
   - Enemy
   _timeToFlyInSeconds: 5
-  _speed: 5
+  _speed: 15
 --- !u!114 &8153844066982454722
 MonoBehaviour:
   m_ObjectHideFlags: 0
