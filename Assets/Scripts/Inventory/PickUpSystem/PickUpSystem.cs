@@ -18,11 +18,15 @@ namespace Assets.Scripts.PickUpSystem
                 ItemDrop item = collision.GetComponent<ItemDrop>();
                 if (item != null)
                 {
-                    int reminder = controller.inventoryData.AddItem(item.inventoryItem, item.Quantity);
-                    if (reminder == 0)
-                        item.DestroyItem();
-                    else
-                        item.Quantity = reminder;
+                    if (item.gameObject.GetComponent<CircleCollider2D>().enabled)
+                    {
+                        item.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+                        int reminder = controller.inventoryData.AddItem(item.inventoryItem, item.Quantity);
+                        if (reminder == 0)
+                            item.DestroyItem();
+                        else
+                            item.Quantity = reminder;
+                    }
                 }
             }
 
