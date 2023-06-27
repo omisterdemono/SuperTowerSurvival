@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/EnemyScene.unity
     guid: 2ad73f26ccc18b24ab5c5fadfba04e68
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Placement/PlacementSystem 2.unity
     guid: 395dce8479bfb124d92b08d6be4ef74e
   - enabled: 1
