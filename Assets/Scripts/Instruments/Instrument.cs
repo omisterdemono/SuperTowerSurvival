@@ -63,9 +63,8 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var obtainable = collision.GetComponent<Obtainable>();
-
-        if (obtainable != null)
+        
+        if (!collision.TryGetComponent<Obtainable>(out var obtainable) || obtainable == _lastObtainable)
         {
             return;
         }
