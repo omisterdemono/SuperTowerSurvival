@@ -65,7 +65,7 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     {
         var obtainable = collision.GetComponent<Obtainable>();
 
-        if (obtainable == _lastObtainable)
+        if (obtainable != null)
         {
             return;
         }

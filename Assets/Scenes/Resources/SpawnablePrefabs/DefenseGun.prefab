@@ -365,8 +365,8 @@ MonoBehaviour:
   _firePositionsHolder: {fileID: 1454760039978024169}
   _firePositions:
   - {fileID: 4275034772919770821}
-  _damage: 30
-  _cooldownSeconds: 1
+  _damage: 50
+  _cooldownSeconds: 0.6
 --- !u!61 &2163809647013595077
 BoxCollider2D:
   m_ObjectHideFlags: 0

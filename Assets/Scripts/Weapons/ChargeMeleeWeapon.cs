@@ -21,42 +21,32 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get; set; }
     public bool NeedRotation { get; set; } = true;
-    public bool CanPerform => throw new NotImplementedException();
-
-    public float CooldownSeconds => throw new NotImplementedException();
-
+    public bool CanPerform => _cooldownComponent.CanPerform;
+    public float CooldownSeconds => _cooldownSeconds;
     public Vector3 MousePosition { get; set; }
+
+    private CooldownComponent _cooldownComponent;
+    private ChargeComponent _chargeComponent;
 
     private Collider2D _hitCollider;
     private Vector3 _rotationBeforeCharge;
-    private float _chargeProgressSeconds;
-    private float _timeToNextHit;
     private bool _isAttacking;
 
     private void Awake()
     {
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds= _cooldownSeconds };
+        _chargeComponent = new ChargeComponent()
+        {
+            MinProgressToShotSeconds = _minProgressTohitSeconds,
+            MaxChargeSeconds = _maxChargeSeconds
+        };
+
         _hitCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
-        HandleCooldown();
-    }
-
-    private void HandleCooldown()
-    {
-        if (_timeToNextHit == 0)
-        {
-            return;
-        }
-
-        if (_timeToNextHit < 0)
-        {
-            _timeToNextHit = 0;
-            return;
-        }
-
-        _timeToNextHit -= Time.deltaTime;
+        _cooldownComponent.HandleCooldown();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -81,32 +71,26 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     public void Hold()
     {
-        if (_isAttacking || _timeToNextHit != 0)
+        if (_isAttacking || !_cooldownComponent.CanPerform)
         {
             return;
         }
 
         PrepareForHit();
-
         HandleCharge();
     }
 
     private void HandleCharge()
     {
-        if (_chargeProgressSeconds == _maxChargeSeconds)
+        if (_chargeComponent.MaxCharged)
         {
             return;
         }
 
-        if (_chargeProgressSeconds > _maxChargeSeconds)
-        {
-            _chargeProgressSeconds = _maxChargeSeconds;
-        }
-
-        var chargeProgressAngle = _chargeProgressSeconds / _maxChargeSeconds * 180.0f;
+        var chargeProgressAngle = _chargeComponent.ChargeProgress * 180.0f;
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, chargeProgressAngle));
 
-        _chargeProgressSeconds += Time.deltaTime;
+        _chargeComponent.HandleCharge();
     }
 
     public void KeyUp()
@@ -116,13 +100,13 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     private void ReleaseCharge()
     {
-        if (_timeToNextHit != 0)
+        if (!_cooldownComponent.CanPerform)
         {
             RecoverAfterHit();
             return;
         }
 
-        if (_chargeProgressSeconds < _maxChargeSeconds && _chargeProgressSeconds >= _minProgressTohitSeconds)
+        if (_chargeComponent.ChargeProgress < 1.0f && _chargeComponent.CanShoot)
         {
             StartCoroutine(AttackRotate());
             return;
@@ -153,8 +137,7 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         _hitCollider.enabled = true;
         _isAttacking = true;
 
-        var chargeProgress = _chargeProgressSeconds / _maxChargeSeconds;
-        for (float i = 0; i < _countOfDeathRotates * _oneDeathRotateSeconds * chargeProgress; i += _oneDeathRotateStep)
+        for (float i = 0; i < _countOfDeathRotates * _oneDeathRotateSeconds * _chargeComponent.ChargeProgress; i += _oneDeathRotateStep)
         {
             var rotationStep = transform.localEulerAngles.z - (_oneDeathRotateStep / _oneDeathRotateSeconds * 360.0f);
             transform.localRotation = Quaternion.Euler(new Vector3(0, 0, rotationStep));
@@ -174,8 +157,8 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     private void RecoverAfterHit()
     {
-        _chargeProgressSeconds = 0;
-        _timeToNextHit = _cooldownSeconds;
+        _chargeComponent.ResetCharge();
+        _cooldownComponent.ResetCooldown();
 
         NeedFlip = true;
         NeedRotation = true;
