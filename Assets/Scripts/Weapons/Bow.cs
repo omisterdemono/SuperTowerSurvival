@@ -52,7 +52,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         if (!_cooldownComponent.CanPerform || !_chargeComponent.CanShoot)
         {
             ChangeChargeAnimationState();
-            _chargeComponent.CancelCharge();
+            _chargeComponent.ResetCharge();
             return;
         }
 
@@ -66,7 +66,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         NetworkServer.Spawn(projectile);
 
         ChangeChargeAnimationState();
-        _chargeComponent.CancelCharge();
+        _chargeComponent.ResetCharge();
         _cooldownComponent.ResetCooldown();
     }
 

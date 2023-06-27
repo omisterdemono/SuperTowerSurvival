@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 7209853551525115248}
   - component: {fileID: 3971073862153500591}
   - component: {fileID: 5517293515415230090}
+  - component: {fileID: 6341091844322635544}
   m_Layer: 0
   m_Name: Bomber with shovel
   m_TagString: Player
@@ -653,6 +654,38 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0050823865, y: -0.3571368}
   m_Size: {x: 0.5305887, y: 0.24573073}
   m_Direction: 1
+--- !u!114 &6341091844322635544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231169941632268351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 5777101163592191538}
+  clientAuthority: 0
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  timelineOffset: 0
 --- !u!1001 &281987679114138457
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class ChargeComponent
     public float MaxChargeSeconds { get; set; }
     public bool IsCharging => _chargeProgressSeconds > 0;
     public bool CanShoot => _chargeProgressSeconds >= MinProgressToShotSeconds;
+    public bool MaxCharged => _chargeProgressSeconds >= MaxChargeSeconds;
 
     private float _chargeProgressSeconds;
 
@@ -19,7 +20,7 @@ public class ChargeComponent
         _chargeProgressSeconds += Time.deltaTime;
     }
 
-    public void CancelCharge()
+    public void ResetCharge()
     {
         _chargeProgressSeconds = 0;
     }
