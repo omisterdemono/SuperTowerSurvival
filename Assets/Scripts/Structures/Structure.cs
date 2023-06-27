@@ -26,6 +26,7 @@ public class Structure : NetworkBehaviour, IBuildable
         transform.parent = parent;
 
         _spriteRenderer.sortingOrder += 1;
+        _healthComponent.OnDeath += GetDestroyed;
     }
 
     public void Init()
@@ -37,6 +38,11 @@ public class Structure : NetworkBehaviour, IBuildable
 
         _healthComponent.OnCurrentHealthChanged += Build;
         _healthComponent.ChangeHealth(1.0f);
+    }
+
+    private void OnDestroy()
+    {
+        _healthComponent.OnDeath -= Build;
     }
 
     public void Build()
@@ -91,5 +97,11 @@ public class Structure : NetworkBehaviour, IBuildable
         {
             NoObstaclesUnder = true;
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void GetDestroyed()
+    {
+        NetworkServer.Destroy(gameObject);
     }
 }

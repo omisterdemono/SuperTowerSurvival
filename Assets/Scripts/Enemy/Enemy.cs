@@ -163,7 +163,7 @@ public class Enemy : NetworkBehaviour
 
     private bool TargetInAtackRange(Transition<string> transition)
     {
-        if (_target.tag == "Player" && !isPlayerVisible(_target.gameObject))
+        if (_target.tag == "Player" && !CanPlayerBeAttacked(_target.gameObject))
         {
             return false;
         }
@@ -182,11 +182,7 @@ public class Enemy : NetworkBehaviour
         else
         {
             // if not a player          OR Invisible                            -> out range (true)
-            if (_target.tag != "Player" || !isPlayerVisible(_target.gameObject))
-            {
-                return true;
-            }
-            return false;
+            return _target.tag != "Player" || !CanPlayerBeAttacked(_target.gameObject);
         }
     }
 
@@ -218,7 +214,7 @@ public class Enemy : NetworkBehaviour
             Transform targetTransform = targetTransformList.FirstOrDefault()?.transform;
             if (targetTransform != null && DistanceToTarget(targetTransform) < _searchRadius)
             {
-                if (targetTransform.tag == "Player" && !isPlayerVisible(targetTransform.gameObject))
+                if (targetTransform.tag == "Player" && !CanPlayerBeAttacked(targetTransform.gameObject))
                 {
                     break;
                 }
@@ -228,14 +224,10 @@ public class Enemy : NetworkBehaviour
         return _hall;
     }
 
-    private bool isPlayerVisible(GameObject obj)
+    private bool CanPlayerBeAttacked(GameObject obj)
     {
         Character player = obj.GetComponent<Character>();
-        if (player != null && player.IsInvisible == false)
-        {
-            return true;
-        }
-        return false;
+        return player != null && player.IsInvisible == false && player.IsAlive;
     }
 
     private void FixedUpdate()
