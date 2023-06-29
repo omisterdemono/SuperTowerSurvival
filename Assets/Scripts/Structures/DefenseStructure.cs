@@ -24,7 +24,7 @@ public class DefenseStructure : Structure
     {
         base.Awake();
 
-        _cooldownComponent= new CooldownComponent();
+        _cooldownComponent= new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
 
         Debug.Log("remove this line");
         IsBuilt = true;
