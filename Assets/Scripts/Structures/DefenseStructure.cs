@@ -16,13 +16,15 @@ public class DefenseStructure : Structure
 
     [SyncVar] private float _rotateAngle;
 
-    private List<Transform> _targetsInRange = new List<Transform>();
+    private List<Transform> _targetsInRange = new();
+    private CooldownComponent _cooldownComponent;
     private int _rotateIndex;
-    private float _timeToNextShot;
 
     public new void Awake()
     {
         base.Awake();
+
+        _cooldownComponent= new CooldownComponent();
 
         Debug.Log("remove this line");
         IsBuilt = true;
@@ -38,7 +40,8 @@ public class DefenseStructure : Structure
 
         RotateTowardsTarget();
         CountRotationIndex();
-        HandleFireRate();
+
+        _cooldownComponent.HandleCooldown();
         FireBullet();
     }
 
@@ -71,22 +74,6 @@ public class DefenseStructure : Structure
         var direction = (SelectClosestTarget() - transform.position).normalized;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _rotateAngle = angle < 0 ? 360.0f + angle : angle;
-    }
-
-    private void HandleFireRate()
-    {
-        if (_timeToNextShot == 0)
-        {
-            return;
-        }
-
-        if (_timeToNextShot < 0)
-        {
-            _timeToNextShot = 0;
-            return;
-        }
-
-        _timeToNextShot -= Time.deltaTime;
     }
 
     private new void OnTriggerEnter2D(Collider2D collision)
@@ -125,7 +112,7 @@ public class DefenseStructure : Structure
     [Server]
     public void FireBullet()
     {
-        if (_timeToNextShot != 0 || _targetsInRange.Count == 0)
+        if (!_cooldownComponent.CanPerform || _targetsInRange.Count == 0)
         {
             return;
         }
@@ -139,6 +126,6 @@ public class DefenseStructure : Structure
             NetworkServer.Spawn(projectile);
         }
 
-        _timeToNextShot = _cooldownSeconds;
+        _cooldownComponent.ResetCooldown();
     }
 }
