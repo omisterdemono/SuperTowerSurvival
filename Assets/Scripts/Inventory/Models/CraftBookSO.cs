@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,6 @@ namespace Inventory.Model
         [SerializeField]
         public List<CraftRecipeSO> craftRecipes;
 
-        public event Action<Dictionary<int, InventoryItem>> OnInventoryUpdated;
+        public event Action<Dictionary<int, CraftItemSO>> OnInventoryUpdated;
     }
 }
