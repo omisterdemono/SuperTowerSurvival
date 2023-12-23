@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Inventory.Model
 {
     [CreateAssetMenu]
-    public class EdibleItemSO : ItemSO, IDestroyableItem, IItemAction
+    public class UsableItemSO : ItemSO, IItemAction
     {
         [SerializeField]
         private List<ModifierData> modifiersData = new List<ModifierData>();
@@ -17,28 +17,17 @@ namespace Inventory.Model
         [field: SerializeField]
         public AudioClip actionSFX { get; private set; }
 
-        public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
+        public void PerformAction(GameObject character, List<ItemParameter> itemState = null)
         {
-            foreach (ModifierData data in modifiersData)
-            {
-                Debug.Log("red");
-                Debug.Log(data);
-                //data.statModifier.AffectCharacter(character, data.value);
-            }
-            return true;
+
         }
-    }
-
-    public interface IDestroyableItem
-    {
-
     }
 
     public interface IItemAction
     {
         public string ActionName { get; }
         public AudioClip actionSFX { get; }
-        bool PerformAction(GameObject character, List<ItemParameter> itemState);
+        void PerformAction(GameObject character, List<ItemParameter> itemState);
     }
 
     [Serializable]

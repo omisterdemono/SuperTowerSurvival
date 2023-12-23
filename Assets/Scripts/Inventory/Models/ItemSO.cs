@@ -9,7 +9,7 @@ namespace Inventory.Model
     public class ItemSO : ScriptableObject
     {
         [field: SerializeField]
-        public int IdOfItem { get; set; }
+        public int Id { get; set; }
 
         [field: SerializeField]
         public bool IsStackable { get; set; }
@@ -31,9 +31,6 @@ namespace Inventory.Model
 
         [field: SerializeField]
         public List<ItemParameter> DefaultParametersList { get; set; }
-
-        public int quantity = 0;
-
     }
 
     [Serializable]

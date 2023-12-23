@@ -16,9 +16,5 @@ namespace Inventory.Model
 
         [field: SerializeField]
         public int needQuantity { get; set; } = 2;
-
-
     }
-
-   
 }

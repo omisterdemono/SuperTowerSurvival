@@ -1,3 +1,4 @@
+using Assets.Scripts.Inventory;
 using Inventory.Model;
 using Mirror;
 using System;
@@ -26,7 +27,7 @@ public class StructurePlacer : NetworkBehaviour
 
     [SyncVar] private int _currentStructureIndex = -1;
 
-    private InventoryController _inventoryController;
+    private PlayerInventory _inventory;
 
     private GameObject _tempStructure;
     private Structure _tempStructureComponent;
@@ -42,7 +43,7 @@ public class StructurePlacer : NetworkBehaviour
     private void Start()
     {
         _grid = FindObjectOfType<Grid>();
-        _inventoryController = GetComponent<InventoryController>();
+        _inventory = GetComponent<PlayerInventory>();
 
         _structuresTilemap = _grid.transform.GetChild(_structuresTilemapIndex);
 
@@ -61,17 +62,7 @@ public class StructurePlacer : NetworkBehaviour
 
         _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (_currentStructureIndex != -1 && _tempStructure != null)
-        {
-            _tempStructure.transform.position = _mousePosition;
-            CalculateStructurePosition(_tempStructure.transform);
-
-            _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
-            var newState = _tempStructureComponent != null 
-                && _tempStructureComponent.CanBePlaced 
-                && _inventoryController.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
-            UpdateStructurePlaceState(newState);
-        }
+        HandlePreviewStructurePosition();
 
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -83,6 +74,23 @@ public class StructurePlacer : NetworkBehaviour
         {
             CancelPlacement();
         }
+    }
+
+    private void HandlePreviewStructurePosition()
+    {
+        throw new NotImplementedException();
+
+        //if (_currentStructureIndex != -1 && _tempStructure != null)
+        //{
+        //    _tempStructure.transform.position = _mousePosition;
+        //    CalculateStructurePosition(_tempStructure.transform);
+
+        //    _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
+        //    var newState = _tempStructureComponent != null
+        //        && _tempStructureComponent.CanBePlaced
+        //        && _inventory.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
+        //    UpdateStructurePlaceState(newState);
+        //}
     }
 
     [Command(requiresAuthority = false)]
@@ -161,22 +169,24 @@ public class StructurePlacer : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlaceStructure(Vector3 mousePosition)
     {
-        if (_currentStructureIndex == -1)
-        {
-            return;
-        }
+        throw new NotImplementedException();
 
-        var structure = Instantiate(_structures[_currentStructureIndex]);
-        NetworkServer.Spawn(structure);
+        //if (_currentStructureIndex == -1)
+        //{
+        //    return;
+        //}
 
-        structure.transform.position = mousePosition;
-        var spawnPosition = CalculateStructurePosition(structure.transform);
-        var component = structure.GetComponent<Structure>();
-        component.SpawnPosition = spawnPosition;
+        //var structure = Instantiate(_structures[_currentStructureIndex]);
+        //NetworkServer.Spawn(structure);
 
-        _inventoryController.inventoryData.RemoveItem(_structureItems[_currentStructureIndex], 1);
+        //structure.transform.position = mousePosition;
+        //var spawnPosition = CalculateStructurePosition(structure.transform);
+        //var component = structure.GetComponent<Structure>();
+        //component.SpawnPosition = spawnPosition;
 
-        InitStructureOnClients(component.netId);
+        //_inventory.inventoryData.RemoveItem(_structureItems[_currentStructureIndex], 1);
+
+        //InitStructureOnClients(component.netId);
     }
 
     [ClientRpc]
