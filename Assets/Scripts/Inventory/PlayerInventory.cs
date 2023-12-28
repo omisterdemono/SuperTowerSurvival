@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
-namespace Assets.Scripts.Inventory
+namespace Inventory
 {
-    internal class PlayerInventory
+    public class PlayerInventory : MonoBehaviour
     {
+        [SerializeField] private int _count = 18;
+        private Inventory _inventory;
+
+        private void Awake()
+        {
+            _inventory = new Inventory(_count);
+        }
+        
+        
     }
 }

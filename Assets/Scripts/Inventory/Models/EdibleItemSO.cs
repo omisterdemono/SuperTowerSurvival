@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Inventory.Model;
 using UnityEngine;
 
-
-namespace Inventory.Model
+namespace Inventory.Models
 {
     [CreateAssetMenu]
     public class UsableItemSO : ItemSO, IItemAction

@@ -1,8 +1,8 @@
-using Assets.Scripts.Inventory;
 using Inventory.Model;
 using Mirror;
 using System;
 using System.Linq;
+using Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
