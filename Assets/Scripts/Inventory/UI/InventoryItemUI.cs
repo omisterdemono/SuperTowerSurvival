@@ -10,32 +10,40 @@ namespace Inventory.UI
         public bool IsGettingMoved { get; set; }
         private Image _image;
         private TextMeshProUGUI _text;
+        public bool IsAssigned { get; set; } = false;
 
         private void Awake()
         {
             _image = GetComponentInChildren<Image>();
             _text = GetComponentInChildren<TextMeshProUGUI>();
+
+            HandleItemShow();
+        }
+
+        private void HandleItemShow()
+        {
+            _image.gameObject.SetActive(IsAssigned);
+            _text.gameObject.SetActive(IsAssigned);
         }
 
         public void SetItem(ItemSO item, int count)
         {
+            IsAssigned = item != null;
+            
+            HandleItemShow();
+            
+            if (!IsAssigned)
+            {
+                return;
+            }
+            
             _image.sprite = item.ItemImage;
             _text.text = count.ToString();
         }
 
-        void Update()
+        public (Sprite, string) CloneForMoving()
         {
-            if (IsGettingMoved)
-            {
-                transform.position = Input.mousePosition;
-            }
-        }
-
-        public void SetIsGettingMoved(Transform newParent)
-        {
-            IsGettingMoved = !IsGettingMoved;
-            _image.raycastTarget = !_image.raycastTarget;
-            transform.SetParent(newParent, false);
+            return (_image.sprite, _text.text);
         }
     }
 }

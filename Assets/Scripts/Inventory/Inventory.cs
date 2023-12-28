@@ -4,6 +4,8 @@ using System.Linq;
 using Inventory.Model;
 using Inventory.Models;
 using JetBrains.Annotations;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine;
 
 namespace Inventory
 {
@@ -11,8 +13,8 @@ namespace Inventory
     {
         public InventoryCell[] Cells { get; private set; }
 
-        public Action<int, InventoryCell> ItemAdded;
-        public Action<int, InventoryCell> ItemRemoved;
+        // public Action<int, InventoryCell> ItemAdded;
+        // public Action<int, InventoryCell> ItemRemoved;
 
         public bool IsEmpty => Cells.Any(c => c.Item == null);
         public bool IsFull => Cells.All(c => c.IsFull);
@@ -65,7 +67,7 @@ namespace Inventory
 
         private IEnumerable<InventoryCell> GetCellsWithSameItem(ItemSO item)
         {
-            return Cells.Where(c => c.Item == item && !c.IsFull);
+            return Cells.Where(c => c.Item == item);
         }
 
         private int FillCells(ItemSO item, int countToAdd, IEnumerable<InventoryCell> availableCellsWithSameItem)
@@ -101,6 +103,8 @@ namespace Inventory
                 countToAdd = 0;
             }
 
+            cell.Modified.Invoke(cell);
+            
             return countToAdd;
         }
 
@@ -111,10 +115,18 @@ namespace Inventory
 
         public void MoveItem(int startIndex, int destinationIndex)
         {
-            (Cells[startIndex], Cells[destinationIndex]) = (Cells[destinationIndex], Cells[startIndex]);
+            var startCell = Cells[startIndex];
+            var destinationCell = Cells[destinationIndex];
+            var (item, count) = (startCell.Item, startCell.Count);
+            
+            (startCell.Item, startCell.Count) = (destinationCell.Item, destinationCell.Count);
+            (destinationCell.Item, destinationCell.Count) = (item, count);
+            
+            startCell.Modified.Invoke(startCell);
+            destinationCell.Modified.Invoke(destinationCell);
         }
 
-        public int RemoveItem(ItemSO item, int countToRemove)
+        public int TryRemoveItem(ItemSO item, int countToRemove)
         {
             var cellsWithItem = GetCellsWithSameItem(item);
 
@@ -133,7 +145,7 @@ namespace Inventory
 
         private static int RemoveFromCell(int countToRemove, InventoryCell cell)
         {
-            if (cell.Count < countToRemove)
+            if (cell.Count <= countToRemove)
             {
                 countToRemove -= cell.Count;
                 cell.Item = null;
@@ -144,11 +156,12 @@ namespace Inventory
                 cell.Count -= countToRemove;
                 countToRemove = 0;
             }
+            cell.Modified.Invoke(cell);
 
             return countToRemove;
         }
 
-        public int RemoveItem(int cellIndex, int countToRemove)
+        public int TryRemoveItem(int cellIndex, int countToRemove)
         {
             countToRemove = RemoveFromCell(countToRemove, Cells[cellIndex]);
 

@@ -1,5 +1,7 @@
+using System;
 using Inventory.Model;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Inventory.UI
@@ -9,81 +11,74 @@ namespace Inventory.UI
         [SerializeField] private int _rows;
         [SerializeField] private int _columns;
         [SerializeField] private InventoryCellUI _inventoryCellPrefab;
+        [SerializeField] private MovingItemUI _movingItemUIPrefab;
 
-        [Header("Testing")]
-        [SerializeField] private InventoryItemUI _inventoryItemPrefab;
-        [SerializeField] private ItemSO _inventoryItemPrefs;
+        private List<InventoryCellUI> _cells = new();
 
-        private List<InventoryCellUI> _inventoryCells = new();
-        private Canvas _canvas;
-        private InventoryCellUI _firstInventoryCell;
+        private MovingItemUI _movingItemUI;
+        private Inventory _inventory;
 
         private void Awake()
         {
-            _canvas = GetComponentInParent<Canvas>();
+            GetComponentInParent<Canvas>();
 
             for (int i = 0; i < _rows * _columns; i++)
             {
                 var inventoryCell = Instantiate(_inventoryCellPrefab, transform);
+                inventoryCell.Index = i;
                 inventoryCell.OnLeftButtonPressed += OnLeftButtonPressed;
 
-                _inventoryCells.Add(inventoryCell);
+                _cells.Add(inventoryCell);
             }
-        }
-
-        public void AddItemToFirstSlot()
-        {
-            _inventoryCells[0].Item = Instantiate(_inventoryItemPrefab, _inventoryCells[0].transform);
-            _inventoryCells[0].Item.SetItem(_inventoryItemPrefs, 10);
         }
 
         public void OnLeftButtonPressed(InventoryCellUI currentInventoryCellUI)
         {
-            //its first and item is empty
-            if (_firstInventoryCell == null && currentInventoryCellUI.Item == null)
+            //skipping blank cells
+            if (_movingItemUI == null && !currentInventoryCellUI.Item.IsAssigned)
             {
                 return;
             }
 
-            //its first and item is not empty
-            if (_firstInventoryCell == null)
+            //creating moving item
+            if (_movingItemUI == null)
             {
-                _firstInventoryCell = currentInventoryCellUI;
-                _firstInventoryCell.Item.SetIsGettingMoved(_canvas.transform);
+                _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, transform);
+                _movingItemUI.Init(currentInventoryCellUI);
+                
+                //todo rework, so hiding will be inside item
+                currentInventoryCellUI.Item.gameObject.SetActive(false);
                 return;
             }
 
-            //its first again
-            if (_firstInventoryCell != null && _firstInventoryCell == currentInventoryCellUI)
+            //same cell move
+            if (_movingItemUI != null && _movingItemUI.PreviousCell == currentInventoryCellUI)
             {
-                _firstInventoryCell.Item.SetIsGettingMoved(_firstInventoryCell.transform);
-                _firstInventoryCell = null;
+                _movingItemUI.PreviousCell.Item.gameObject.SetActive(true);
+                
+                Destroy(_movingItemUI.gameObject);
+                _movingItemUI = null;
                 return;
             }
 
-            //its second and is is free
-            if (_firstInventoryCell != null && currentInventoryCellUI.Item == null)
+            //moving item to other cell
+            if (_movingItemUI != null)
             {
-                currentInventoryCellUI.Item = _firstInventoryCell.Item;
-                currentInventoryCellUI.Item.SetIsGettingMoved(currentInventoryCellUI.transform);
-
-                _firstInventoryCell.Item = null;
-                _firstInventoryCell = null;
-                return;
+                _movingItemUI.PreviousCell.Item.gameObject.SetActive(true);
+                _inventory.MoveItem(_movingItemUI.PreviousCell.Index, currentInventoryCellUI.Index);
+                
+                Destroy(_movingItemUI.gameObject);
+                _movingItemUI = null;
             }
+        }
 
-            //its second and is not free
-            if (_firstInventoryCell != null && currentInventoryCellUI.Item == null)
+        public void AttachInventory(Inventory inventory)
+        {
+            _inventory = inventory;
+            for (var index = 0; index < inventory.Cells.Length; index++)
             {
-                var currentItem = _firstInventoryCell.Item;
-                currentInventoryCellUI.Item = _firstInventoryCell.Item;
-                _firstInventoryCell.Item = currentItem;
-
-                currentInventoryCellUI.Item.SetIsGettingMoved(currentInventoryCellUI.transform);
-                _firstInventoryCell.Item.transform.parent = _firstInventoryCell.transform;
-
-                _firstInventoryCell = null;
-                return;
+                var cell = inventory.Cells[index];
+                cell.Modified += _cells[index].OnModified;
             }
         }
     }

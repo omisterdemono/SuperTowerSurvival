@@ -1,6 +1,8 @@
 using System;
 using System.Net.Http.Headers;
 using System.Reflection.Emit;
+using Inventory.Model;
+using Inventory.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,9 +10,9 @@ namespace Inventory.UI
 {
     public class InventoryCellUI : MonoBehaviour, IPointerClickHandler
     {
+        public int Index { get; set; }
         public InventoryItemUI Item { get; set; }
         public Action<InventoryCellUI> OnLeftButtonPressed;
-
 
         private void Awake()
         {
@@ -25,15 +27,19 @@ namespace Inventory.UI
                     OnLeftButtonPressed.Invoke(this);
                     break;
                 case PointerEventData.InputButton.Right:
-                    //logic for dividing
-                    break;
-                case PointerEventData.InputButton.Middle:
-                    break;
-                default:
+                    //logic for dividing or using item
                     break;
             }
-            //Item.transform.SetParent(canvas.transform, false);
-            //Item.transform.SetAsLastSibling();
+        }
+
+        public void OnModified(InventoryCell cell)
+        {
+            Item.SetItem(cell.Item, cell.Count);
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log("Destroyed cell");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Inventory.Model;
+﻿using System;
+using Inventory.Model;
 
 namespace Inventory.Models
 {
@@ -8,5 +9,7 @@ namespace Inventory.Models
         public int Count { get; set; }
         public bool IsFull => Item != null && Item.MaxStackSize == Count;
         public int AvailableCount => Item.MaxStackSize - Count;
+
+        public Action<InventoryCell> Modified;
     }
 }
