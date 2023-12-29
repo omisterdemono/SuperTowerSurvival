@@ -52,7 +52,7 @@ namespace Inventory.UI
             }
 
             //same cell move
-            if (_movingItemUI != null && _movingItemUI.PreviousUICell == currentInventoryUICell)
+            if (_movingItemUI.PreviousUICell == currentInventoryUICell)
             {
                 _movingItemUI.PreviousUICell.ItemUI.gameObject.SetActive(true);
                 
@@ -79,7 +79,7 @@ namespace Inventory.UI
             }
             
             //swapping items in moving and current
-            if (_movingItemUI != null)
+            if (currentInventoryUICell.InventoryCell.Item != null)
             {
                 _inventory.MoveItem(_movingItemUI.PreviousUICell.Index, currentInventoryUICell.Index);
 
@@ -88,7 +88,7 @@ namespace Inventory.UI
             }
             
             //placing item in free cell
-            if (_movingItemUI != null && currentInventoryUICell.InventoryCell.IsFree)
+            if (currentInventoryUICell.InventoryCell.IsFree)
             {
                 _movingItemUI.PreviousUICell.ItemUI.gameObject.SetActive(true);
                 _inventory.MoveItem(_movingItemUI.PreviousUICell.Index, currentInventoryUICell.Index);

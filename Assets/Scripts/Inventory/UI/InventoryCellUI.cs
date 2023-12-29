@@ -37,10 +37,5 @@ namespace Inventory.UI
         {
             ItemUI.SetItem(cell.Item, cell.Count);
         }
-
-        private void OnDestroy()
-        {
-            Debug.Log("Destroyed cell");
-        }
     }
 }
