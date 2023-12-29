@@ -7,7 +7,7 @@ namespace Inventory.UI
 {
     public class MovingItemUI : MonoBehaviour
     {
-        public InventoryCellUI PreviousCell { get; set; }
+        public InventoryCellUI PreviousUICell { get; set; }
         private Image _image;
         private TextMeshProUGUI _text;
 
@@ -19,10 +19,26 @@ namespace Inventory.UI
 
         public void Init(InventoryCellUI inventoryCellUI)
         {
-            PreviousCell = inventoryCellUI;
+            PreviousUICell = inventoryCellUI;
             
             _image.raycastTarget = false;
-            (_image.sprite, _text.text) = inventoryCellUI.Item.CloneForMoving();
+            (_image.sprite, _text.text) = inventoryCellUI.ItemUI.CloneForMoving();
+        }
+
+        public void Set(Sprite sprite, string countText)
+        {
+            _image.sprite = sprite;
+            _text.text = countText;
+        }
+        
+        public void SetSprite(Sprite sprite)
+        {
+            _image.sprite = sprite;
+        }
+
+        public void SetCount(int count)
+        {
+            _text.text = count.ToString();
         }
 
         void Update()

@@ -12,10 +12,6 @@ namespace Inventory
     public class Inventory
     {
         public InventoryCell[] Cells { get; private set; }
-
-        // public Action<int, InventoryCell> ItemAdded;
-        // public Action<int, InventoryCell> ItemRemoved;
-
         public bool IsEmpty => Cells.Any(c => c.Item == null);
         public bool IsFull => Cells.All(c => c.IsFull);
 
@@ -57,10 +53,17 @@ namespace Inventory
 
             return countToAdd;
         }
-
-        public int TryAddToCell(ItemSO item, int index, int countToAdd)
+        
+        public int TryAddToCell(int cellIndex, int countToAdd)
         {
-            countToAdd = FillCell(item, countToAdd, Cells[index]);
+            countToAdd = FillCell(Cells[cellIndex].Item, countToAdd, Cells[cellIndex]);
+
+            return countToAdd;
+        }
+
+        public int TryAddToCell(ItemSO item, int cellIndex, int countToAdd)
+        {
+            countToAdd = FillCell(item, countToAdd, Cells[cellIndex]);
 
             return countToAdd;
         }
@@ -132,7 +135,7 @@ namespace Inventory
 
             foreach (var cell in cellsWithItem)
             {
-                countToRemove = RemoveFromCell(countToRemove, cell);
+                countToRemove = TryRemoveFromCell(cell, countToRemove);
 
                 if (countToRemove == 0)
                 {
@@ -143,7 +146,7 @@ namespace Inventory
             return countToRemove;
         }
 
-        private static int RemoveFromCell(int countToRemove, InventoryCell cell)
+        public int TryRemoveFromCell(InventoryCell cell, int countToRemove)
         {
             if (cell.Count <= countToRemove)
             {
@@ -161,9 +164,9 @@ namespace Inventory
             return countToRemove;
         }
 
-        public int TryRemoveItem(int cellIndex, int countToRemove)
+        public int TryRemoveFromCell(int cellIndex, int countToRemove)
         {
-            countToRemove = RemoveFromCell(countToRemove, Cells[cellIndex]);
+            countToRemove = TryRemoveFromCell(Cells[cellIndex], countToRemove);
 
             return countToRemove;
         }

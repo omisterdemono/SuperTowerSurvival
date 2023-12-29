@@ -11,12 +11,13 @@ namespace Inventory.UI
     public class InventoryCellUI : MonoBehaviour, IPointerClickHandler
     {
         public int Index { get; set; }
-        public InventoryItemUI Item { get; set; }
+        public InventoryItemUI ItemUI { get; set; }
+        public InventoryCell InventoryCell { get; set; }
         public Action<InventoryCellUI> OnLeftButtonPressed;
 
         private void Awake()
         {
-            Item = GetComponentInChildren<InventoryItemUI>();
+            ItemUI = GetComponentInChildren<InventoryItemUI>();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -34,7 +35,7 @@ namespace Inventory.UI
 
         public void OnModified(InventoryCell cell)
         {
-            Item.SetItem(cell.Item, cell.Count);
+            ItemUI.SetItem(cell.Item, cell.Count);
         }
 
         private void OnDestroy()

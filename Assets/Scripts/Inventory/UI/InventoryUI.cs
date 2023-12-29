@@ -32,10 +32,10 @@ namespace Inventory.UI
             }
         }
 
-        public void OnLeftButtonPressed(InventoryCellUI currentInventoryCellUI)
+        public void OnLeftButtonPressed(InventoryCellUI currentInventoryUICell)
         {
             //skipping blank cells
-            if (_movingItemUI == null && !currentInventoryCellUI.Item.IsAssigned)
+            if (_movingItemUI == null && !currentInventoryUICell.ItemUI.IsAssigned)
             {
                 return;
             }
@@ -44,29 +44,55 @@ namespace Inventory.UI
             if (_movingItemUI == null)
             {
                 _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, transform);
-                _movingItemUI.Init(currentInventoryCellUI);
+                _movingItemUI.Init(currentInventoryUICell);
                 
                 //todo rework, so hiding will be inside item
-                currentInventoryCellUI.Item.gameObject.SetActive(false);
+                currentInventoryUICell.ItemUI.gameObject.SetActive(false);
                 return;
             }
 
             //same cell move
-            if (_movingItemUI != null && _movingItemUI.PreviousCell == currentInventoryCellUI)
+            if (_movingItemUI != null && _movingItemUI.PreviousUICell == currentInventoryUICell)
             {
-                _movingItemUI.PreviousCell.Item.gameObject.SetActive(true);
+                _movingItemUI.PreviousUICell.ItemUI.gameObject.SetActive(true);
                 
                 Destroy(_movingItemUI.gameObject);
                 _movingItemUI = null;
                 return;
             }
+            
+            //combining stacks
+            if (_movingItemUI.PreviousUICell.InventoryCell.Item == currentInventoryUICell.InventoryCell.Item)
+            {
+                var countInPrevious = _movingItemUI.PreviousUICell.InventoryCell.Count;
+                var availableInCurrent = currentInventoryUICell.InventoryCell.AvailableCount;
 
-            //moving item to other cell
+                if (availableInCurrent != 0)
+                {
+                    var left = _inventory.TryAddToCell(currentInventoryUICell.Index, countInPrevious);
+                    _inventory.TryRemoveFromCell(_movingItemUI.PreviousUICell.Index, availableInCurrent);
+                    
+                    _movingItemUI.SetCount(left);
+                    
+                    return;
+                }
+            }
+            
+            //swapping items in moving and current
             if (_movingItemUI != null)
             {
-                _movingItemUI.PreviousCell.Item.gameObject.SetActive(true);
-                _inventory.MoveItem(_movingItemUI.PreviousCell.Index, currentInventoryCellUI.Index);
-                
+                _inventory.MoveItem(_movingItemUI.PreviousUICell.Index, currentInventoryUICell.Index);
+
+                var (sprite, text) = _movingItemUI.PreviousUICell.ItemUI.CloneForMoving();
+                _movingItemUI.Set(sprite, text);
+            }
+            
+            //placing item in free cell
+            if (_movingItemUI != null && currentInventoryUICell.InventoryCell.IsFree)
+            {
+                _movingItemUI.PreviousUICell.ItemUI.gameObject.SetActive(true);
+                _inventory.MoveItem(_movingItemUI.PreviousUICell.Index, currentInventoryUICell.Index);
+
                 Destroy(_movingItemUI.gameObject);
                 _movingItemUI = null;
             }
@@ -79,6 +105,7 @@ namespace Inventory.UI
             {
                 var cell = inventory.Cells[index];
                 cell.Modified += _cells[index].OnModified;
+                _cells[index].InventoryCell = cell;
             }
         }
     }
