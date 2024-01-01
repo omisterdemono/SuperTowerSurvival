@@ -4,8 +4,6 @@ using System.Linq;
 using Inventory.Model;
 using Inventory.Models;
 using JetBrains.Annotations;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEngine;
 
 namespace Inventory
 {
@@ -19,7 +17,7 @@ namespace Inventory
         {
             Cells = new InventoryCell[count];
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 Cells[i] = new InventoryCell()
                 {
@@ -56,13 +54,17 @@ namespace Inventory
         
         public int TryAddToCell(int cellIndex, int countToAdd)
         {
-            countToAdd = FillCell(Cells[cellIndex].Item, countToAdd, Cells[cellIndex]);
+            var itemSo = Cells[cellIndex].Item;
+            if (itemSo != null)
+                countToAdd = FillCell(itemSo, countToAdd, Cells[cellIndex]);
 
             return countToAdd;
         }
 
-        public int TryAddToCell(ItemSO item, int cellIndex, int countToAdd)
+        public int TryAddToCell([NotNull] ItemSO item, int cellIndex, int countToAdd)
         {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            
             countToAdd = FillCell(item, countToAdd, Cells[cellIndex]);
 
             return countToAdd;
@@ -174,19 +176,6 @@ namespace Inventory
         private IEnumerable<InventoryCell> GetFreeCells()
         {
             return Cells.Where(t => t.Item == null).ToList();
-        }
-
-        private int FindCellWithSameItem(ItemSO itemSo)
-        {
-            for (var i = 0; i < Cells.Length; i++)
-            {
-                if (Cells[i].Item == itemSo)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
         }
     }
 }

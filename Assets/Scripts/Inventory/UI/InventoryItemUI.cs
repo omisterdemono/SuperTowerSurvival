@@ -9,6 +9,11 @@ namespace Inventory.UI
     {
         public bool IsGettingMoved { get; set; }
         private Image _image;
+
+        public Image Image => _image;
+
+        public TextMeshProUGUI Text => _text;
+
         private TextMeshProUGUI _text;
         public bool IsAssigned { get; set; } = false;
 
@@ -37,7 +42,7 @@ namespace Inventory.UI
                 return;
             }
             
-            _image.sprite = item.ItemImage;
+            _image.sprite = item.Sprite;
             _text.text = count.ToString();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Inventory.Model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,9 +8,30 @@ namespace Inventory.UI
 {
     public class MovingItemUI : MonoBehaviour
     {
-        public InventoryCellUI PreviousUICell { get; set; }
+        public ItemSO Item
+        {
+            get => _item;
+            set
+            {
+                _item = value;
+                _image.sprite = _item.Sprite;
+            }
+        }
+
+        public int TakenCountOfItems
+        {
+            get => _takenCountOfItems;
+            set
+            {
+                _takenCountOfItems = value;
+                _text.text = _takenCountOfItems.ToString();
+            }
+        }
+
         private Image _image;
         private TextMeshProUGUI _text;
+        private ItemSO _item;
+        private int _takenCountOfItems;
 
         private void Awake()
         {
@@ -17,28 +39,13 @@ namespace Inventory.UI
             _text = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        public void Init(InventoryCellUI inventoryCellUI)
+        public void Init(ItemSO item, int count, bool createPartial = false)
         {
-            PreviousUICell = inventoryCellUI;
-            
+            TakenCountOfItems = createPartial ? count / 2 : count;
+            Item = item;
+
             _image.raycastTarget = false;
-            (_image.sprite, _text.text) = inventoryCellUI.ItemUI.CloneForMoving();
-        }
-
-        public void Set(Sprite sprite, string countText)
-        {
-            _image.sprite = sprite;
-            _text.text = countText;
-        }
-        
-        public void SetSprite(Sprite sprite)
-        {
-            _image.sprite = sprite;
-        }
-
-        public void SetCount(int count)
-        {
-            _text.text = count.ToString();
+            (_image.sprite, _text.text) = (Item.Sprite, TakenCountOfItems.ToString());
         }
 
         void Update()

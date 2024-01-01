@@ -16,6 +16,8 @@ namespace Inventory.Tests
 
         public void AddItem(int index)
         {
+            _playerInventory.LastMoveDirection = new Vector3(1.0f, 1.0f);
+            
             _playerInventory.Inventory.TryAddItem(_items[index], _itemCount);
         }
         

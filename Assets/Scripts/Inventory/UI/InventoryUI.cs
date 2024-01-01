@@ -1,19 +1,15 @@
-using System;
-using Inventory.Model;
 using System.Collections.Generic;
-using TMPro;
+using Infrastructure.Config;
 using UnityEngine;
 
 namespace Inventory.UI
 {
     public class InventoryUI : MonoBehaviour
     {
-        [SerializeField] private int _rows;
-        [SerializeField] private int _columns;
         [SerializeField] private InventoryCellUI _inventoryCellPrefab;
         [SerializeField] private MovingItemUI _movingItemUIPrefab;
 
-        private List<InventoryCellUI> _cells = new();
+        private List<InventoryCellUI> _uiCells = new();
 
         private MovingItemUI _movingItemUI;
         private Inventory _inventory;
@@ -22,20 +18,22 @@ namespace Inventory.UI
         {
             GetComponentInParent<Canvas>();
 
-            for (int i = 0; i < _rows * _columns; i++)
+            for (int i = 0; i < ConfigConstants.CellsInInventoryCount; i++)
             {
                 var inventoryCell = Instantiate(_inventoryCellPrefab, transform);
                 inventoryCell.Index = i;
-                inventoryCell.OnLeftButtonPressed += OnLeftButtonPressed;
+                inventoryCell.ItemMove += OnItemMoveOrCombine;
+                inventoryCell.ItemDivide += OnItemDivideOrAddToStack;
 
-                _cells.Add(inventoryCell);
+                _uiCells.Add(inventoryCell);
             }
         }
 
-        public void OnLeftButtonPressed(InventoryCellUI currentInventoryUICell)
+        private void OnItemDivideOrAddToStack(InventoryCellUI currentInventoryUICell)
         {
             //skipping blank cells
-            if (_movingItemUI == null && !currentInventoryUICell.ItemUI.IsAssigned)
+            if ((_movingItemUI == null && currentInventoryUICell.InventoryCell.IsFree) ||
+                (_movingItemUI == null && !currentInventoryUICell.InventoryCell.IsFree && currentInventoryUICell.InventoryCell.Count < 2))
             {
                 return;
             }
@@ -43,69 +41,82 @@ namespace Inventory.UI
             //creating moving item
             if (_movingItemUI == null)
             {
-                _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, transform);
-                _movingItemUI.Init(currentInventoryUICell);
-                
-                //todo rework, so hiding will be inside item
-                currentInventoryUICell.ItemUI.gameObject.SetActive(false);
+                CreateMovingItem(currentInventoryUICell, true);
                 return;
             }
 
-            //same cell move
-            if (_movingItemUI.PreviousUICell == currentInventoryUICell)
+            //adding one item per click
+            if (currentInventoryUICell.InventoryCell.IsFree ||
+                (currentInventoryUICell.InventoryCell.Item == _movingItemUI.Item
+                && !currentInventoryUICell.InventoryCell.IsFull))
             {
-                _movingItemUI.PreviousUICell.ItemUI.gameObject.SetActive(true);
-                
-                Destroy(_movingItemUI.gameObject);
-                _movingItemUI = null;
+                AddItemsToCell(currentInventoryUICell, 1);
+            }
+        }
+
+        private void CreateMovingItem(InventoryCellUI currentInventoryUICell, bool createPartial = false)
+        {
+            _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, transform);
+            _movingItemUI.Init(currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count, createPartial);
+
+            _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, _movingItemUI.TakenCountOfItems);
+        }
+
+        private void OnItemMoveOrCombine(InventoryCellUI currentInventoryUICell)
+        {
+            //skipping blank cells
+            if (_movingItemUI == null && currentInventoryUICell.InventoryCell.IsFree)
+            {
                 return;
             }
-            
-            //combining stacks
-            if (_movingItemUI.PreviousUICell.InventoryCell.Item == currentInventoryUICell.InventoryCell.Item)
-            {
-                var countInPrevious = _movingItemUI.PreviousUICell.InventoryCell.Count;
-                var availableInCurrent = currentInventoryUICell.InventoryCell.AvailableCount;
 
-                if (availableInCurrent != 0)
-                {
-                    var left = _inventory.TryAddToCell(currentInventoryUICell.Index, countInPrevious);
-                    _inventory.TryRemoveFromCell(_movingItemUI.PreviousUICell.Index, availableInCurrent);
-                    
-                    _movingItemUI.SetCount(left);
-                    
-                    return;
-                }
+            if (_movingItemUI == null)
+            {
+                CreateMovingItem(currentInventoryUICell);
+                return;
             }
-            
-            //swapping items in moving and current
-            if (currentInventoryUICell.InventoryCell.Item != null)
-            {
-                _inventory.MoveItem(_movingItemUI.PreviousUICell.Index, currentInventoryUICell.Index);
 
-                var (sprite, text) = _movingItemUI.PreviousUICell.ItemUI.CloneForMoving();
-                _movingItemUI.Set(sprite, text);
+            if (currentInventoryUICell.InventoryCell.IsFree || _movingItemUI.Item == currentInventoryUICell.InventoryCell.Item)
+            {
+                AddItemsToCell(currentInventoryUICell, _movingItemUI.TakenCountOfItems);
             }
-            
-            //placing item in free cell
-            if (currentInventoryUICell.InventoryCell.IsFree)
+            else
             {
-                _movingItemUI.PreviousUICell.ItemUI.gameObject.SetActive(true);
-                _inventory.MoveItem(_movingItemUI.PreviousUICell.Index, currentInventoryUICell.Index);
+                SwapItemsInMovingAndCurrent(currentInventoryUICell);
+            }
+        }
 
+        private void SwapItemsInMovingAndCurrent(InventoryCellUI currentInventoryUICell)
+        {
+            var (item, count) = (_movingItemUI.Item, _movingItemUI.TakenCountOfItems);
+            _movingItemUI.Init(currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count);
+            (currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count) = (item, count);
+        }
+
+        private void AddItemsToCell(InventoryCellUI currentInventoryUICell, int countToAddToCurrent)
+        {
+            var left = _inventory.TryAddToCell(_movingItemUI.Item, currentInventoryUICell.Index,
+                countToAddToCurrent);
+
+            _movingItemUI.TakenCountOfItems -= countToAddToCurrent - left;
+            
+            if (_movingItemUI.TakenCountOfItems == 0)
+            {
                 Destroy(_movingItemUI.gameObject);
                 _movingItemUI = null;
             }
         }
 
-        public void AttachInventory(Inventory inventory)
+        public void AttachInventory(PlayerInventory playerInventory)
         {
-            _inventory = inventory;
-            for (var index = 0; index < inventory.Cells.Length; index++)
+            _inventory = playerInventory.Inventory;
+            for (var index = 0; index < _inventory.Cells.Length; index++)
             {
-                var cell = inventory.Cells[index];
-                cell.Modified += _cells[index].OnModified;
-                _cells[index].InventoryCell = cell;
+                var cell = _inventory.Cells[index];
+                cell.Modified += _uiCells[index].OnModified;
+                
+                _uiCells[index].InventoryCell = cell;
+                _uiCells[index].ItemDrop = playerInventory.OnItemDrop;
             }
         }
     }
