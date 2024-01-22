@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Inventory.Model
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "Inventory/Item")]
     public class ItemSO : ScriptableObject
     {
         [field: SerializeField]

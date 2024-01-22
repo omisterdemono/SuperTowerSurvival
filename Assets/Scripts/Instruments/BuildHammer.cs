@@ -3,6 +3,7 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Linq;
+using StructurePlacement;
 using UnityEngine;
 
 public enum BuildHammerState

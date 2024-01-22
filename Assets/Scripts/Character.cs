@@ -5,6 +5,7 @@ using System;
 using Assets.Scripts.Weapons;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Collections;
+using StructurePlacement;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(HealthComponent))]

@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Linq;
 using Infrastructure;
 using Infrastructure.Config;
 using Inventory.Models;
 using Inventory.UI;
+using Mirror;
 using UnityEngine;
 
 namespace Inventory
 {
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventory : NetworkBehaviour
     {
         [SerializeField] private ItemInWorld _itemPrefab;
+        [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private float _throwRadius;
         public Inventory Inventory { get; private set; }
         public Vector3 LastMoveDirection { get; set; }
@@ -34,12 +37,19 @@ namespace Inventory
             var direction = LastMoveDirection;
             direction.x += _throwRadius;
             direction.y += _throwRadius;
-            var itemInWorld = Instantiate(_itemPrefab, transform.position + direction, Quaternion.identity);
-            
-            itemInWorld.Item = inventoryCell.Item;
-            itemInWorld.Count = count;
-            
+            SpawnItem(inventoryCell.Item.Id, count, direction);
+
             Inventory.TryRemoveFromCell(inventoryCell, count);
+        }
+
+        [Command]
+        private void SpawnItem(string itemId, int count, Vector3 direction)
+        {
+            var itemInWorld = Instantiate(_itemPrefab, transform.position + direction, Quaternion.identity);
+
+             var item = _itemDatabase.Items.FirstOrDefault(i => i.Id == itemId) ?? throw new ArgumentNullException("itemId is incorrect");
+             itemInWorld.Item = item;
+             itemInWorld.Count = count;
         }
     }
 }
