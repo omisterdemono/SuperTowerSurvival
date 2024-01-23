@@ -18,6 +18,7 @@ namespace Inventory
         public Vector3 LastMoveDirection { get; set; }
 
         private InventoryUI _inventoryUI;
+        public bool IsInventoryShown { get; private set; } = true;
 
         private void Awake()
         {
@@ -25,6 +26,7 @@ namespace Inventory
             
             _inventoryUI = FindObjectOfType<GameInitializer>().InitializeInventoryUI();
             _inventoryUI.AttachInventory(this);
+            ChangeInventoryUIState();
         }
 
         public void OnItemDrop(InventoryCell inventoryCell, int count)
@@ -50,6 +52,21 @@ namespace Inventory
              var item = _itemDatabase.Items.FirstOrDefault(i => i.Id == itemId) ?? throw new ArgumentNullException("itemId is incorrect");
              itemInWorld.Item = item;
              itemInWorld.Count = count;
+        }
+
+        public void ChangeInventoryUIState()
+        {
+            IsInventoryShown = !IsInventoryShown;
+            _inventoryUI.gameObject.SetActive(IsInventoryShown);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (col.TryGetComponent<ItemInWorld>(out var item))
+            {
+                Inventory.TryAddItem(item.Item, item.Count);
+                item.GetPickedUp();
+            }
         }
     }
 }

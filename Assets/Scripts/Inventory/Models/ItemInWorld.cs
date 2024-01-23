@@ -1,10 +1,11 @@
 ﻿using System;
 using Inventory.Model;
+using Mirror;
 using UnityEngine;
 
 namespace Inventory.Models
 {
-    public class ItemInWorld : MonoBehaviour
+    public class ItemInWorld : NetworkBehaviour
     {
         public ItemSO Item
         {
@@ -24,6 +25,11 @@ namespace Inventory.Models
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        public void GetPickedUp()
+        {
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 }
