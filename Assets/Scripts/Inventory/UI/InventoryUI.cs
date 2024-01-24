@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Infrastructure.Config;
+using Inventory.Models;
 using UnityEngine;
 
 namespace Inventory.UI
@@ -13,6 +14,8 @@ namespace Inventory.UI
 
         private MovingItemUI _movingItemUI;
         private Inventory _inventory;
+        private PlayerInventory _playerInventory;
+        private Character _character;
 
         private void Awake()
         {
@@ -21,9 +24,11 @@ namespace Inventory.UI
             for (int i = 0; i < ConfigConstants.CellsInInventoryCount; i++)
             {
                 var inventoryCell = Instantiate(_inventoryCellPrefab, transform);
+
                 inventoryCell.Index = i;
                 inventoryCell.ItemMove += OnItemMoveOrCombine;
                 inventoryCell.ItemDivide += OnItemDivideOrAddToStack;
+                inventoryCell.ItemUse += OnItemUse;
 
                 _uiCells.Add(inventoryCell);
             }
@@ -33,7 +38,8 @@ namespace Inventory.UI
         {
             //skipping blank cells
             if ((_movingItemUI == null && currentInventoryUICell.InventoryCell.IsFree) ||
-                (_movingItemUI == null && !currentInventoryUICell.InventoryCell.IsFree && currentInventoryUICell.InventoryCell.Count < 2))
+                (_movingItemUI == null && !currentInventoryUICell.InventoryCell.IsFree &&
+                 currentInventoryUICell.InventoryCell.Count < 2))
             {
                 return;
             }
@@ -48,7 +54,7 @@ namespace Inventory.UI
             //adding one item per click
             if (currentInventoryUICell.InventoryCell.IsFree ||
                 (currentInventoryUICell.InventoryCell.Item == _movingItemUI.Item
-                && !currentInventoryUICell.InventoryCell.IsFull))
+                 && !currentInventoryUICell.InventoryCell.IsFull))
             {
                 AddItemsToCell(currentInventoryUICell, 1);
             }
@@ -57,7 +63,8 @@ namespace Inventory.UI
         private void CreateMovingItem(InventoryCellUI currentInventoryUICell, bool createPartial = false)
         {
             _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, transform);
-            _movingItemUI.Init(currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count, createPartial);
+            _movingItemUI.Init(currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count,
+                createPartial);
             _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, _movingItemUI.TakenCountOfItems);
         }
 
@@ -75,7 +82,8 @@ namespace Inventory.UI
                 return;
             }
 
-            if (currentInventoryUICell.InventoryCell.IsFree || _movingItemUI.Item == currentInventoryUICell.InventoryCell.Item)
+            if (currentInventoryUICell.InventoryCell.IsFree ||
+                _movingItemUI.Item == currentInventoryUICell.InventoryCell.Item)
             {
                 AddItemsToCell(currentInventoryUICell, _movingItemUI.TakenCountOfItems);
             }
@@ -83,6 +91,18 @@ namespace Inventory.UI
             {
                 SwapItemsInMovingAndCurrent(currentInventoryUICell);
             }
+        }
+
+        private void OnItemUse(InventoryCellUI currentInventoryUICell)
+        {
+            var usableItem = currentInventoryUICell.InventoryCell.Item as UsableItemSO;
+            if (usableItem == null)
+            {
+                return;
+            }
+
+            usableItem.PerformAction(_character);
+            _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1);
         }
 
         private void SwapItemsInMovingAndCurrent(InventoryCellUI currentInventoryUICell)
@@ -98,7 +118,7 @@ namespace Inventory.UI
                 countToAddToCurrent);
 
             _movingItemUI.TakenCountOfItems -= countToAddToCurrent - left;
-            
+
             if (_movingItemUI.TakenCountOfItems == 0)
             {
                 Destroy(_movingItemUI.gameObject);
@@ -108,12 +128,15 @@ namespace Inventory.UI
 
         public void AttachInventory(PlayerInventory playerInventory)
         {
+            _playerInventory = playerInventory;
+            _character = playerInventory.GetComponent<Character>();
             _inventory = playerInventory.Inventory;
+
             for (var index = 0; index < _inventory.Cells.Length; index++)
             {
                 var cell = _inventory.Cells[index];
                 cell.Modified += _uiCells[index].OnModified;
-                
+
                 _uiCells[index].InventoryCell = cell;
                 _uiCells[index].ItemDrop = playerInventory.OnItemDrop;
             }

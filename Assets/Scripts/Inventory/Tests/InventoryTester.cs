@@ -1,6 +1,8 @@
 ﻿using System;
-using Inventory.Model;
+using System.Linq;
+using Inventory.Models;
 using Inventory.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,19 +26,20 @@ namespace Inventory.Tests
         }
 
         [Header("Testing")]
-        [SerializeField] private ItemSO[] _items;
+        [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private int _itemCount;
+        [SerializeField] private TMP_InputField _tmpInput;
 
-        public void AddItem(int index)
+        public void AddItem()
         {
             PlayerInventory.LastMoveDirection = new Vector3(1.0f, 1.0f);
             
-            PlayerInventory.Inventory.TryAddItem(_items[index], _itemCount);
+            PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == _tmpInput.text), _itemCount);
         }
         
-        public void RemoveItem(int index)
+        public void RemoveItem()
         {
-            PlayerInventory.Inventory.TryRemoveItem(_items[index], _itemCount);
+            PlayerInventory.Inventory.TryRemoveItem(_itemDatabase.Items.First(i => i.Id == _tmpInput.text), _itemCount);
         }
     }
 }

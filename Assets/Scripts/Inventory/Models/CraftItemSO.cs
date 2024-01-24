@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace Inventory.Model
+namespace Inventory.Models
 {
     [CreateAssetMenu]
     public class CraftItemSO : ScriptableObject

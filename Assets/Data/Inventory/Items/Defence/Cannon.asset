@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 867fc6ad6564e114a971a2d2778ad6cb, type: 3}
-  m_Name: Sword 1
+  m_Name: Cannon
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: cannon
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Sword
-  <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: ca6a66f8e2ae9c24c8c6b39c49206a0d, type: 3}
+  <Name>k__BackingField: Cannon
+  <Description>k__BackingField: Fires bullets towards enemies
+  <Sprite>k__BackingField: {fileID: 1228936661, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
   <DefaultParametersList>k__BackingField: []
-  quantity: 0
-  modifiersData: []
-  <actionSFX>k__BackingField: {fileID: 0}
+  ActionSFX: {fileID: 0}

@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef06ac22842f02479f2c19ce77fd89f, type: 3}
-  m_Name: RegisterOfItems
+  m_Script: {fileID: 11500000, guid: c30d1d8ec5824f699a544f8a2f5470f3, type: 3}
+  m_Name: WeakHealPotionAction
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: c4780264ace502c4abe556db5d9bff91, type: 2}
-  - {fileID: 11400000, guid: d19c5f9d12c77f840956b86e4c550976, type: 2}
+  ActionName: heal
+  Amount: 15

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Inventory.Model
+namespace Inventory.Models
 {
     [CreateAssetMenu]
     public class CraftBookSO : ScriptableObject

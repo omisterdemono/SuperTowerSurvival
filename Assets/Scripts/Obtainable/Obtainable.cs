@@ -1,4 +1,4 @@
-using Inventory.Model;
+using Inventory.Models;
 using Mirror;
 using System;
 using UnityEngine;

@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5539c1d3a188e4a815e5a748ed56a3, type: 3}
-  m_Name: Multigun
+  m_Script: {fileID: 11500000, guid: 867fc6ad6564e114a971a2d2778ad6cb, type: 3}
+  m_Name: HealPotion
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: heal_potion
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Multigun
+  <Name>k__BackingField: Heal potion
   <Description>k__BackingField: 
-  <ItemImage>k__BackingField: {fileID: -733903081, guid: cd1be9dfa2a293549936d555cbb08d02, type: 3}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 8fb65ad78a4020a4fb8f2aa246ab6b12, type: 3}
   <DefaultParametersList>k__BackingField: []
-  quantity: 0
+  ItemAction: {fileID: 11400000, guid: a26c263afb26c964a8f9bbb9be7b35cc, type: 2}
+  ActionSFX: {fileID: 0}

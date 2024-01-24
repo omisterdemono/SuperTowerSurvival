@@ -1,7 +1,6 @@
 using System;
 using System.Net.Http.Headers;
 using System.Reflection.Emit;
-using Inventory.Model;
 using Inventory.Models;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
@@ -16,6 +15,7 @@ namespace Inventory.UI
         public InventoryCell InventoryCell { get; set; }
         public Action<InventoryCellUI> ItemMove;
         public Action<InventoryCellUI> ItemDivide;
+        public Action<InventoryCellUI> ItemUse;
         public Action<InventoryCell, int> ItemDrop;
 
         private bool _isHovered = false;
@@ -55,6 +55,7 @@ namespace Inventory.UI
             else if (eventData.button == PointerEventData.InputButton.Right)
             {
                 //using items
+                ItemUse?.Invoke(this);
             }
         }
 

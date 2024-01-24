@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Inventory;
-using Inventory.Model;
+using Inventory.Models;
 using Mirror;
 using TMPro;
 using UnityEngine;

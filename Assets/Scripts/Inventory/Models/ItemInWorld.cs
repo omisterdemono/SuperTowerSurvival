@@ -1,5 +1,5 @@
 ﻿using System;
-using Inventory.Model;
+using Inventory.Models;
 using Mirror;
 using UnityEngine;
 

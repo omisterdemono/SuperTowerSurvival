@@ -28,7 +28,7 @@ public class Character : NetworkBehaviour
     [SerializeField] private List<GameObject> _tools = new();
 
     [SerializeField] private int _buildHammerSlotIndex = 1;
-
+    
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
 
@@ -47,6 +47,8 @@ public class Character : NetworkBehaviour
     private Dictionary<int, KeyCode> _keyCodes;
 
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    public HealthComponent Health => _health;
 
     public bool IsAlive
     {
@@ -71,6 +73,7 @@ public class Character : NetworkBehaviour
         get => _isInvisible;
         set => _isInvisible = value;
     }
+
 
     void Awake()
     {

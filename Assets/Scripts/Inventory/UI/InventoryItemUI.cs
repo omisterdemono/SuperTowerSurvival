@@ -1,4 +1,4 @@
-using Inventory.Model;
+using Inventory.Models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
