@@ -1,4 +1,5 @@
 using Assets.Scripts.Weapons;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -39,20 +40,23 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
         _cooldownComponent.HandleCooldown();
     }
 
+    //todo fix
     public void Obtain()
     {
-        if (!_lastObtainable)
-        {
-            return;
-        }
+        throw new NotImplementedException();
 
-        _lastObtainable.GetObtained(this);
+        //if (!_lastObtainable)
+        //{
+        //    return;
+        //}
 
-        if (_lastObtainable)
-        {
-            _lastObtainable.LastInventory = GetComponentInParent<InventoryController>().inventoryData;
-        }
-        Durability -= 1.0f;
+        //_lastObtainable.GetObtained(this);
+
+        //if (_lastObtainable)
+        //{
+        //    _lastObtainable.LastInventory = GetComponentInParent<InventoryController>().inventoryData;
+        //}
+        //Durability -= 1.0f;
     }
 
     public void ChangeAnimationState()
