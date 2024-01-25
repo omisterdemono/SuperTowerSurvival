@@ -7,7 +7,7 @@ namespace Inventory.Models.ItemActions
     {
         
         public float Amount;
-        public override void PerformAction(Character character)
+        public override void PerformAction(Character character, ItemSO holderItem)
         {
             character.Health.Damage(Amount);
         }

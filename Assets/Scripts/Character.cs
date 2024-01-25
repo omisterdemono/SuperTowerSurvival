@@ -49,6 +49,7 @@ public class Character : NetworkBehaviour
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     public HealthComponent Health => _health;
+    public StructurePlacer StructurePlacer => _structurePlacer;
 
     public bool IsAlive
     {

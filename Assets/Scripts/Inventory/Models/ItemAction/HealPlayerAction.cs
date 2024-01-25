@@ -6,7 +6,7 @@ namespace Inventory.Models.ItemActions
     public class HealPlayerAction : ItemAction
     {
         public float Amount;
-        public override void PerformAction(Character character)
+        public override void PerformAction(Character character, ItemSO holderItem)
         {
             character.Health.Heal(Amount);
         }

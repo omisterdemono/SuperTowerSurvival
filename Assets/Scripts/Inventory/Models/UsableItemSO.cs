@@ -12,7 +12,7 @@ namespace Inventory.Models
 
         public void PerformAction(Character character)
         {
-            ItemAction.PerformAction(character);
+            ItemAction.PerformAction(character, this);
         }
     }
 }

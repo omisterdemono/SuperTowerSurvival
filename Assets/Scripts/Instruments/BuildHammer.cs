@@ -138,7 +138,7 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!(collision is BoxCollider2D))
+        if (collision is not BoxCollider2D)
         {
             return;
         }

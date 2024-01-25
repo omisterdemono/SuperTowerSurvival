@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 1397295181964670264}
   - component: {fileID: 2879571297199837190}
   - component: {fileID: 2683364530626092162}
+  - component: {fileID: 7509193973717743279}
   m_Layer: 0
   m_Name: Bomber with shovel
   m_TagString: Player
@@ -503,6 +504,25 @@ MonoBehaviour:
   _itemPrefab: {fileID: 3465623755143987325, guid: b1cd289d8e4576646801209f2f1d8179, type: 3}
   _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
   _throwRadius: 5
+--- !u!114 &7509193973717743279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b80ccf4fd7b4e4a8b477bbff28f567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _structures:
+  - {fileID: 3625508984780255458, guid: ea1c0455d7a5464428055a375d34e9df, type: 3}
+  _structuresTilemapIndex: 1
+  _placeRadius: 3
 --- !u!1001 &85643194113894449
 PrefabInstance:
   m_ObjectHideFlags: 0
