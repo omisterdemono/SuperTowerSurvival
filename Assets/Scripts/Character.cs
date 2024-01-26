@@ -19,6 +19,7 @@ public class Character : NetworkBehaviour
 
     [SerializeField][SyncVar] private bool _isAlive = true;
     [SerializeField][SyncVar] private bool _isInvisible = false;
+    private bool _canScrollTools = true;
 
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
@@ -43,9 +44,14 @@ public class Character : NetworkBehaviour
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     public bool IsAlive { get => _isAlive; set => _isAlive = value; }
+    public int EquipedSlot { get => _equipedSlot; }
+
+    public bool CanScrollTools { get => _canScrollTools; set => _canScrollTools = value; }
     public float RepairSpeedModifier { get => _repairSpeedModifier; set => _repairSpeedModifier = value; }
     public float BuildSpeedModifier { get => _buildSpeedModifier; set => _buildSpeedModifier = value; }
     public bool IsInvisible { get => _isInvisible; set => _isInvisible = value; }
+
+    public List<IEquipable> Equipables { get => _equipedTools; set => _equipedTools = value; }
 
     void Awake()
     {
@@ -156,7 +162,7 @@ public class Character : NetworkBehaviour
     private void HandleToolChanging()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollInput != 0)
+        if (scrollInput != 0 && _canScrollTools)
         {
             if (scrollInput > 0)
             {

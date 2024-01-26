@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements.Experimental;
@@ -75,11 +76,20 @@ public class ActiveSkill : NetworkBehaviour
             _skillButtonImageFill.fillAmount = 1 - 1/_cooldown * _passedTime;
         }
 
-        if (IsReady)
+        if (IsReady && CanUseSkill())
         {
             _skillButtonImage.color = new Color(1, 1, 1, 0.6f);
             UseSkill();
         }
+        else
+        {
+            IsReady = false;
+        }
+    }
+
+    protected virtual bool CanUseSkill()
+    {
+        return true;
     }
 
     public void UseSkill()
