@@ -15,12 +15,13 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private bool _needFlip;
 
+    public GameObject Projectile { get => _projectile; set => _projectile = value; }
     public bool NeedRotation { get; set; } = true;
 
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool CanPerform => _cooldownComponent.CanPerform;
-    public float CooldownSeconds => _cooldownSeconds;
+    public float CooldownSeconds { get => _cooldownSeconds; set => _cooldownSeconds = value; }
 
     public Vector3 MousePosition { get; set; }
 
