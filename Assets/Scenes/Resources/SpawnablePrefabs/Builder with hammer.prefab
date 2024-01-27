@@ -4926,10 +4926,10 @@ GameObject:
   - component: {fileID: 4752510678904067802}
   - component: {fileID: 3795478798612375592}
   - component: {fileID: 3825274362865788585}
+  - component: {fileID: 3959815473069890088}
   - component: {fileID: 2286087765912236488}
   - component: {fileID: 2472881815842148988}
   - component: {fileID: 8645461397614680018}
-  - component: {fileID: 5121590580820816139}
   - component: {fileID: 2657977773894173994}
   m_Layer: 0
   m_Name: Builder with hammer
@@ -5228,6 +5228,18 @@ MonoBehaviour:
   - {fileID: 2254891336561584228}
   - {fileID: 5205730055149723230}
   _buildHammerSlotIndex: 1
+--- !u!114 &3959815473069890088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71038eef53dfafa4eae60a9af8c99792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2286087765912236488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5280,35 +5292,8 @@ MonoBehaviour:
   - {fileID: 3689379919031479192, guid: b3cb4a1f77587d44db175a6505a07dac, type: 3}
   - {fileID: 3625508984780255458, guid: ea1c0455d7a5464428055a375d34e9df, type: 3}
   - {fileID: 3625508984780255458, guid: 9bfbbc7e7d0b37244b7afa2ebe1c27bb, type: 3}
-  _structureItems:
-  - {fileID: 11400000, guid: 3e86583b553b94043a76d69ab7cd9fe6, type: 2}
-  - {fileID: 11400000, guid: 7cbcd8249ba15974e8ecd4284f58932e, type: 2}
-  - {fileID: 11400000, guid: 9ea00956153ab1a4cbc46cafa1919f36, type: 2}
   _structuresTilemapIndex: 1
-  _buttonPrefab: {fileID: 2331052584847828899, guid: 8b4f6bc9744d0f8479ae81526767b029, type: 3}
   _placeRadius: 3
---- !u!114 &5121590580820816139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5008485775042280947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f07a5cd93561944586db9af85aa2011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  inventoryUI: {fileID: 0}
-  craftUI: {fileID: 0}
-  inventoryData: {fileID: 11400000, guid: e67b241776e75674aa42073b0437431d, type: 2}
-  book: {fileID: 11400000, guid: 87af28857ac9d88439036e047d4cbc4a, type: 2}
-  initialItems: []
-  ItemPrefab: {fileID: 0}
-  dropClip: {fileID: 0}
 --- !u!114 &2657977773894173994
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager instance { get; private set; }
     [SerializeField] private AudioClipsSO audioClipsSO;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         MeleeWeapon.OnMeleeHit += MeleeWeapon_OnMeleeHit;
@@ -35,5 +39,10 @@ public class SoundManager : MonoBehaviour
     {
 
         AudioSource.PlayClipAtPoint(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
+    }
+
+    public void PlayFootstepsSound(Vector3 position, float volume)
+    {
+        PlaySound(audioClipsSO.steps, position, volume);
     }
 }
