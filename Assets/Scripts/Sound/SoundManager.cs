@@ -16,6 +16,38 @@ public class SoundManager : MonoBehaviour
     {
         MeleeWeapon.OnMeleeHit += MeleeWeapon_OnMeleeHit;
         MeleeWeapon.OnMeleeMissed += MeleeWeapon_OnMeleeMissed;
+        Bow.OnBowReleased += Bow_OnBowRelease;
+        Projectile.OnProjectileHit += Projectile_OnProjectileHit;
+    }
+
+    private void Projectile_OnProjectileHit(object sender, System.EventArgs e)
+    {
+        Projectile projectile = (Projectile)sender;
+        string name = projectile.name;
+        var position = projectile.transform.position;
+
+        if(name == "Bullet(Clone)")
+        {
+            PlaySound(audioClipsSO.bulletHit, position);
+        }
+        else if (name == "CannonBullet(Clone)")
+        {
+            PlaySound(audioClipsSO.bulletHit, position, 0.3f);
+        }
+        else if (name == "Arrow(Clone)")
+        {
+            PlaySound(audioClipsSO.arrowHit, position);
+        }
+        else if (name == "EnemyArrow(Clone)")
+        {
+            PlaySound(audioClipsSO.arrowHit, position, 0.3f);
+        }
+    }
+
+    private void Bow_OnBowRelease(object sender, System.EventArgs e)
+    {
+        Bow bow = sender as Bow;
+        PlaySound(audioClipsSO.releaseBow, bow.transform.position);
     }
 
     private void MeleeWeapon_OnMeleeMissed(object sender, System.EventArgs e)

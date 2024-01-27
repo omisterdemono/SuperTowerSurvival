@@ -24,6 +24,8 @@ public class Projectile : NetworkBehaviour
     public float Speed { get => _speed; set => _speed = value; }
     public Vector2 Direction { get => _direction; set => _direction = value; }
 
+    public static event EventHandler OnProjectileHit;
+
     private void Start()
     {
         StartCoroutine(Fly());
@@ -49,6 +51,7 @@ public class Projectile : NetworkBehaviour
 
             if(component != null) 
             {
+                OnProjectileHit?.Invoke(this, EventArgs.Empty);
                 component.GetComponent<HealthComponent>().Damage(Damage);
                 DestroyProjectile();
                 return;
