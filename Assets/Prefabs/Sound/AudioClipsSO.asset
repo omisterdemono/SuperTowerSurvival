@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e599034eb8eeb3645892f5a1a725abf9, type: 3}
+  m_Name: AudioClipsSO
+  m_EditorClassIdentifier: 
+  steps:
+  - {fileID: 8300000, guid: e97fde54f49399d4bbadf5e1f045745b, type: 3}
+  - {fileID: 8300000, guid: a319bc588af95f24cb9e581000e1df78, type: 3}
+  - {fileID: 8300000, guid: 01d5e0967acba4a4fbf2b054597b3e25, type: 3}
+  - {fileID: 8300000, guid: bfb6f62970701a7449b5805d11873d45, type: 3}
+  - {fileID: 8300000, guid: 6501cd1aad00d724f83a3295171fb036, type: 3}
+  - {fileID: 8300000, guid: c097c322f62a22041a636d8355432ae5, type: 3}
+  - {fileID: 8300000, guid: 000e6ad9307ee804380668265d6ad42a, type: 3}
+  pickUp: []
+  dropDown: []
+  shootBullet: []
+  shootArrow: []
+  swingWeaponHit:
+  - {fileID: 8300000, guid: 6e7f377f8888bbd4f9d4d252350066a2, type: 3}
+  - {fileID: 8300000, guid: 9adc4dd2c802be441b151624ecbf0309, type: 3}
+  - {fileID: 8300000, guid: 42ba2fbd5670cf945a5917d5cd8b97be, type: 3}
+  - {fileID: 8300000, guid: 0909eff03be370d48a43fdd26a1f195a, type: 3}
+  swingWeaponMissed:
+  - {fileID: 8300000, guid: 0e2d8945ce743034e817cbdff1e455bf, type: 3}
+  - {fileID: 8300000, guid: 4853be6cfe81de74b82415dd69895745, type: 3}
+  - {fileID: 8300000, guid: f5f6639647a066d45b8a6e5bfed5f4c0, type: 3}
+  - {fileID: 8300000, guid: 87964478ef9b19743b761a2aaa26363d, type: 3}
