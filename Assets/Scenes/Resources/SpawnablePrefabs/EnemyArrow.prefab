@@ -217,5 +217,7 @@ MonoBehaviour:
   _desiredTargets:
   - Character
   - Structure
+  _owner: 0
   _timeToFlyInSeconds: 10
   _speed: 20
+  type: 4

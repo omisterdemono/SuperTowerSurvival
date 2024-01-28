@@ -11,11 +11,22 @@ using System.Collections;
 [RequireComponent(typeof(Collider2D))]
 public class Projectile : NetworkBehaviour
 {
+    public enum Type
+    {
+        RifleBullet,
+        ShotgunBullet,
+        CannonBullet,
+        Arrow,
+        EnemyArrow
+    }
+
     [SerializeField] private string[] _desiredTargets;
     [SerializeField] private Type _owner;
 
     [SerializeField] private float _timeToFlyInSeconds;
     [SerializeField][SyncVar] private float _speed;
+    
+    [SerializeField] public Type type;
 
     [SyncVar] private float _damage;
     [SyncVar] private Vector2 _direction;

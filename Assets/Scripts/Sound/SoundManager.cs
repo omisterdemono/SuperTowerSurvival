@@ -1,7 +1,9 @@
 using Mirror;
+using Mirror.Examples.Tanks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SoundManager : MonoBehaviour
 {
@@ -18,27 +20,48 @@ public class SoundManager : MonoBehaviour
         MeleeWeapon.OnMeleeMissed += MeleeWeapon_OnMeleeMissed;
         Bow.OnBowReleased += Bow_OnBowRelease;
         Projectile.OnProjectileHit += Projectile_OnProjectileHit;
+        FireWeapon.OnShoot += FireWeapon_OnShoot;
+    }
+
+    private void FireWeapon_OnShoot(object sender, System.EventArgs e)
+    {
+        FireWeapon weapon = (FireWeapon)sender;
+        var position = weapon.transform.position;
+        var type = weapon.type;
+        if (type == FireWeapon.Type.Shotgun)
+        {
+            PlaySound(audioClipsSO.shootShotgun, position, 0.7f);
+        }
+        else if (type == FireWeapon.Type.Rifle)
+        {
+            PlaySound(audioClipsSO.shootRifle, position, 0.7f);
+        }
     }
 
     private void Projectile_OnProjectileHit(object sender, System.EventArgs e)
     {
         Projectile projectile = (Projectile)sender;
         string name = projectile.name;
+        var type = projectile.type;
         var position = projectile.transform.position;
 
-        if(name == "Bullet(Clone)")
+        //if(name == "Bullet(Clone)")
+        if (type == Projectile.Type.RifleBullet || type == Projectile.Type.ShotgunBullet)
         {
             PlaySound(audioClipsSO.bulletHit, position);
         }
-        else if (name == "CannonBullet(Clone)")
+        //else if (name == "CannonBullet(Clone)")
+        else if (type == Projectile.Type.CannonBullet)
         {
             PlaySound(audioClipsSO.bulletHit, position, 0.3f);
         }
-        else if (name == "Arrow(Clone)")
+        //else if (name == "Arrow(Clone)")
+        else if (type == Projectile.Type.Arrow)
         {
             PlaySound(audioClipsSO.arrowHit, position);
         }
-        else if (name == "EnemyArrow(Clone)")
+        //else if (name == "EnemyArrow(Clone)")
+        else if (type == Projectile.Type.EnemyArrow)
         {
             PlaySound(audioClipsSO.arrowHit, position, 0.3f);
         }
