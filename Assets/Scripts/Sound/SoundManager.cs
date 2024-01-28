@@ -18,10 +18,27 @@ public class SoundManager : MonoBehaviour
     {
         MeleeWeapon.OnMeleeHit += MeleeWeapon_OnMeleeHit;
         MeleeWeapon.OnMeleeMissed += MeleeWeapon_OnMeleeMissed;
+
+        ChargeMeleeWeapon.OnMeleeSpin += ChargeMeleeWeapon_OnMeleeSpin;
+        ChargeMeleeWeapon.OnMeleeSwing += ChargeMeleeWeapon_OnMeleeSwing;
+
         Bow.OnBowReleased += Bow_OnBowRelease;
-        Projectile.OnProjectileHit += Projectile_OnProjectileHit;
         FireWeapon.OnShoot += FireWeapon_OnShoot;
+        Projectile.OnProjectileHit += Projectile_OnProjectileHit;
+
         HealthComponent.OnEntityHit += HealthComponent_OnEntityHit;
+    }
+
+    private void ChargeMeleeWeapon_OnMeleeSwing(object sender, System.EventArgs e)
+    {
+        ChargeMeleeWeapon chargedMelee = sender as ChargeMeleeWeapon;
+        PlaySound(audioClipsSO.chargedWeaponSwing, chargedMelee.transform.position);
+    }
+
+    private void ChargeMeleeWeapon_OnMeleeSpin(object sender, System.EventArgs e)
+    {
+        ChargeMeleeWeapon chargedMelee = sender as ChargeMeleeWeapon;
+        PlaySound(audioClipsSO.chargedWeaponSpin, chargedMelee.transform.position);
     }
 
     private void HealthComponent_OnEntityHit(object sender, System.EventArgs e)
@@ -95,13 +112,13 @@ public class SoundManager : MonoBehaviour
     private void MeleeWeapon_OnMeleeMissed(object sender, System.EventArgs e)
     {
         MeleeWeapon attackerWeapon = sender as MeleeWeapon;
-        PlaySound(audioClipsSO.swingWeaponMissed, attackerWeapon.transform.position);
+        PlaySound(audioClipsSO.meleeWeaponMissed, attackerWeapon.transform.position);
     }
 
     private void MeleeWeapon_OnMeleeHit(object sender, System.EventArgs e)
     {
         MeleeWeapon attackerWeapon = sender as MeleeWeapon;
-        PlaySound(audioClipsSO.swingWeaponHit, attackerWeapon.transform.position);
+        PlaySound(audioClipsSO.meleeWeaponHit, attackerWeapon.transform.position);
     }
 
     private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)

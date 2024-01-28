@@ -8,8 +8,11 @@ public class AudioClipsSO : ScriptableObject
     public AudioClip[] steps;
     public AudioClip[] shootRifle;
     public AudioClip[] shootShotgun;
-    public AudioClip[] swingWeaponHit;
-    public AudioClip[] swingWeaponMissed;
+    public AudioClip[] meleeWeaponHit;
+    public AudioClip[] meleeWeaponMissed;
+
+    public AudioClip[] chargedWeaponSwing;
+    public AudioClip[] chargedWeaponSpin;
     
     public AudioClip[] zombieHit;
     public AudioClip[] skeletonHit;
