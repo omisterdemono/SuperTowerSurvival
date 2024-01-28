@@ -5,10 +5,21 @@ using UnityEngine.UI;
 
 public class HealthComponent : NetworkBehaviour
 {
+    public enum Type
+    {
+        Player,
+        Zombie,
+        Skeleton,
+        Structure
+    }
+
     public Action OnCurrentHealthChanged;
     public Action OnDeath;
+    public static event EventHandler OnEntityHit;
+
 
     [SerializeField] private float _maxHealth;
+    [SerializeField] public Type type;
 
     [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
 
@@ -73,6 +84,7 @@ public class HealthComponent : NetworkBehaviour
             return;
         }
         CurrentHealth -= damageHP;
+        OnEntityHit?.Invoke(this, EventArgs.Empty);
     }
 
     [Command(requiresAuthority = false)]

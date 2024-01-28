@@ -299,6 +299,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 1000
+  type: 3
   _healthBar: {fileID: 8277652563029291252}
 --- !u!212 &3121487171003886539
 SpriteRenderer:
