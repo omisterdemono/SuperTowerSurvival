@@ -11,11 +11,22 @@ using System.Collections;
 [RequireComponent(typeof(Collider2D))]
 public class Projectile : NetworkBehaviour
 {
+    public enum Type
+    {
+        RifleBullet,
+        ShotgunBullet,
+        CannonBullet,
+        Arrow,
+        EnemyArrow
+    }
+
     [SerializeField] private string[] _desiredTargets;
     [SerializeField] private Type _owner;
 
     [SerializeField] private float _timeToFlyInSeconds;
     [SerializeField][SyncVar] private float _speed;
+    
+    [SerializeField] public Type type;
 
     [SyncVar] private float _damage;
     [SyncVar] private Vector2 _direction;
@@ -23,6 +34,8 @@ public class Projectile : NetworkBehaviour
     public float Damage { get => _damage; set => _damage = value; }
     public float Speed { get => _speed; set => _speed = value; }
     public Vector2 Direction { get => _direction; set => _direction = value; }
+
+    public static event EventHandler OnProjectileHit;
 
     private void Start()
     {
@@ -49,6 +62,7 @@ public class Projectile : NetworkBehaviour
 
             if(component != null) 
             {
+                OnProjectileHit?.Invoke(this, EventArgs.Empty);
                 component.GetComponent<HealthComponent>().Damage(Damage);
                 DestroyProjectile();
                 return;

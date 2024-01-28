@@ -13,6 +13,8 @@ public class WorldLight : NetworkBehaviour
     [SyncVar] public float dayLengthMinutes;
     [SyncVar] public bool isNight;
     public Action OnIsNightChanged;
+    public static event EventHandler OnNightChanged;
+
 
     [SyncVar] private float midday;
     [SyncVar] private float gameHour;
@@ -67,11 +69,15 @@ public class WorldLight : NetworkBehaviour
         if (currentTime > midday + 2 * gameHour && !isNight)
         {
             isNight = true;
+            //OnIsNightChanged?.Invoke();
+            OnNightChanged?.Invoke(this, EventArgs.Empty);
+
         }
         if (currentTime < midday + 2 * gameHour && isNight)
         {
             isNight = false;
             OnIsNightChanged?.Invoke();
+            OnNightChanged?.Invoke(this, EventArgs.Empty);
         }
 
     }

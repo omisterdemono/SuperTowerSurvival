@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e599034eb8eeb3645892f5a1a725abf9, type: 3}
+  m_Name: AudioClipsSO
+  m_EditorClassIdentifier: 
+  steps:
+  - {fileID: 8300000, guid: e97fde54f49399d4bbadf5e1f045745b, type: 3}
+  - {fileID: 8300000, guid: a319bc588af95f24cb9e581000e1df78, type: 3}
+  - {fileID: 8300000, guid: 01d5e0967acba4a4fbf2b054597b3e25, type: 3}
+  - {fileID: 8300000, guid: bfb6f62970701a7449b5805d11873d45, type: 3}
+  - {fileID: 8300000, guid: 6501cd1aad00d724f83a3295171fb036, type: 3}
+  - {fileID: 8300000, guid: c097c322f62a22041a636d8355432ae5, type: 3}
+  - {fileID: 8300000, guid: 000e6ad9307ee804380668265d6ad42a, type: 3}
+  shootRifle:
+  - {fileID: 8300000, guid: 71a2948eb5ce0024fa61962902e323da, type: 3}
+  - {fileID: 8300000, guid: f15ae467d94b6ad42bc8a738946ea508, type: 3}
+  - {fileID: 8300000, guid: 35defb9671ef05840a9744e64934d1b4, type: 3}
+  - {fileID: 8300000, guid: df26355bf3c42e948af0ca8eef50c6c7, type: 3}
+  shootShotgun:
+  - {fileID: 8300000, guid: 8f2587f259486404e86e561f020694d1, type: 3}
+  - {fileID: 8300000, guid: 95aa50a90c3a418488094e452498ffc5, type: 3}
+  - {fileID: 8300000, guid: b2c04c846c59d0f4cb93a5f0145a28a0, type: 3}
+  - {fileID: 8300000, guid: c302501aefedc424e9f678a08a467f48, type: 3}
+  meleeWeaponHit:
+  - {fileID: 8300000, guid: 6e7f377f8888bbd4f9d4d252350066a2, type: 3}
+  - {fileID: 8300000, guid: 9adc4dd2c802be441b151624ecbf0309, type: 3}
+  - {fileID: 8300000, guid: 42ba2fbd5670cf945a5917d5cd8b97be, type: 3}
+  - {fileID: 8300000, guid: 0909eff03be370d48a43fdd26a1f195a, type: 3}
+  meleeWeaponMissed:
+  - {fileID: 8300000, guid: 0e2d8945ce743034e817cbdff1e455bf, type: 3}
+  - {fileID: 8300000, guid: 4853be6cfe81de74b82415dd69895745, type: 3}
+  - {fileID: 8300000, guid: f5f6639647a066d45b8a6e5bfed5f4c0, type: 3}
+  - {fileID: 8300000, guid: 87964478ef9b19743b761a2aaa26363d, type: 3}
+  chargedWeaponSwing:
+  - {fileID: 8300000, guid: 0e2d8945ce743034e817cbdff1e455bf, type: 3}
+  - {fileID: 8300000, guid: 4853be6cfe81de74b82415dd69895745, type: 3}
+  - {fileID: 8300000, guid: f5f6639647a066d45b8a6e5bfed5f4c0, type: 3}
+  - {fileID: 8300000, guid: 87964478ef9b19743b761a2aaa26363d, type: 3}
+  chargedWeaponSpin:
+  - {fileID: 8300000, guid: faaf731ce8dad8e4fbd7b30ab4d219d2, type: 3}
+  zombieHit:
+  - {fileID: 8300000, guid: c67e5b2795ecdb34589d949cb6b150c8, type: 3}
+  - {fileID: 8300000, guid: 7c35133292ad0774887658ffb48dc337, type: 3}
+  - {fileID: 8300000, guid: 9a2c36934866ba94591b5a01034f3497, type: 3}
+  - {fileID: 8300000, guid: 20a783feec05a9446b0aafbbf41455dd, type: 3}
+  - {fileID: 8300000, guid: bbabfb213f32d2d4a99ab9049731ca3b, type: 3}
+  - {fileID: 8300000, guid: 17c2a2830c8965f4585a8efc6fa0339a, type: 3}
+  - {fileID: 8300000, guid: 4616344b059bf3c40a90d2d76b84184b, type: 3}
+  - {fileID: 8300000, guid: 3cbe96a5312e17e4f93fb14b96b535ae, type: 3}
+  skeletonHit:
+  - {fileID: 8300000, guid: 3184a0a171af2374d8d9c5d0347f87c7, type: 3}
+  - {fileID: 8300000, guid: 60c26d11a6ef8e34dbc1e2dcf67fdecd, type: 3}
+  - {fileID: 8300000, guid: a279e90e418686248a7cccc28c1ead68, type: 3}
+  - {fileID: 8300000, guid: 9b06e738026b1e748b05eb7ef678af3a, type: 3}
+  playerHit:
+  - {fileID: 8300000, guid: 9308ec67e8f8fa34298734c76b842dbd, type: 3}
+  - {fileID: 8300000, guid: 3650397595c14f5408c6a9a3116098e1, type: 3}
+  - {fileID: 8300000, guid: 45cdcd72b9636cc4d92e3af21187ca57, type: 3}
+  arrowHit: {fileID: 8300000, guid: 897f3f689ae6e6c4caf94c2081f2308e, type: 3}
+  bulletHit: {fileID: 8300000, guid: cae27eeab59b99648832daea34db8e30, type: 3}
+  releaseBow: {fileID: 8300000, guid: 89ff2aaa40fdafd47a130d5ca242c4ff, type: 3}
+  loadBow: {fileID: 8300000, guid: 18ca8af234d35f84b89ae5f053fd223f, type: 3}
+  pickUp: {fileID: 8300000, guid: d5c885cd988a1a14faf89908a708bf41, type: 3}
+  dropDown: {fileID: 0}
+  itemEquip: {fileID: 8300000, guid: 8fcdc25ea0da8594f8fcb828711e37a7, type: 3}

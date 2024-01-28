@@ -1,4 +1,5 @@
 using Assets.Scripts.Weapons;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public bool NeedRotation { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds => _cooldownSeconds;
+
+    public static event EventHandler OnMeleeHit;
+    public static event EventHandler OnMeleeMissed;
 
     public Vector3 MousePosition { get; set; }
 
@@ -55,9 +59,19 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     public void DealDamage()
     {
+        bool isHit = false;
         foreach (var enemyHealth in _targetsInRange)
         {
             enemyHealth.Damage(Damage);
+            if (!isHit)
+            {
+                isHit = true;
+                OnMeleeHit?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        if (!isHit)
+        {
+            OnMeleeMissed?.Invoke(this, EventArgs.Empty);
         }
     }
 
