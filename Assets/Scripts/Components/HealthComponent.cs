@@ -7,6 +7,7 @@ public class HealthComponent : NetworkBehaviour
 {
     public enum Type
     {
+        Default,
         Player,
         Zombie,
         Skeleton,

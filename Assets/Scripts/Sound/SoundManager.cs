@@ -48,7 +48,7 @@ public class SoundManager : MonoBehaviour
         var type = health.type;
         if (type == HealthComponent.Type.Player)
         {
-            PlaySound(audioClipsSO.playerHit, position);
+            PlaySound(audioClipsSO.playerHit, Camera.main.transform.position, 0.7f);
         }
         else if (type == HealthComponent.Type.Zombie)
         {

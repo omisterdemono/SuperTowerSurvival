@@ -25,4 +25,7 @@ public class AudioClipsSO : ScriptableObject
     public AudioClip pickUp;
     public AudioClip dropDown;
     public AudioClip itemEquip;
+
+    public AudioClip nightSound;
+    public AudioClip daySound;
 }
