@@ -21,13 +21,14 @@ namespace StructurePlacement
 
         [SyncVar] private int _currentStructureIndex = -1;
 
-        public ItemSO CurrentItem => _currentStructureItem;
+        public ItemSO TempItem => _tempStructureItem;
+        private Action _removeItemFromInventory;
 
         private PlayerInventory _playerInventory;
 
         private GameObject _tempStructure;
         private Structure _tempStructureComponent;
-        private ItemSO _currentStructureItem;
+        private StructureItemSO _tempStructureItem;
         private Vector3 _mousePosition;
 
         private Transform _structuresTilemap;
@@ -64,7 +65,7 @@ namespace StructurePlacement
 
         private void HandlePreviewStructurePosition()
         {
-            if (_currentStructureIndex == -1 && _tempStructure == null)
+            if (_currentStructureIndex == -1 && _tempStructure is null)
             {
                 return;
             }
@@ -73,9 +74,9 @@ namespace StructurePlacement
             CalculateStructurePosition(_tempStructure.transform);
             
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
-            var newState = _tempStructureComponent != null
+            var newState = _tempStructureComponent is not null
                            && _tempStructureComponent.CanBePlaced
-                           && _playerInventory.Inventory.ItemCount(_currentStructureItem) > 0; //.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
+                           && _playerInventory.Inventory.ItemCount(_tempStructureItem) > 0; //.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
             UpdateStructurePlaceState(newState);
         }
 
@@ -90,10 +91,10 @@ namespace StructurePlacement
             CmdUpdateCurrentStructure(-1);
             Destroy(_tempStructure);
             _tempStructure = null;
-            _currentStructureItem = null;
+            _tempStructureItem = null;
         }
 
-        public void SelectStructure(ItemSO item)
+        public void SelectStructure(ItemSO item, Action afterPlacement)
         {
             var structureItem = item as StructureItemSO;
 
@@ -122,6 +123,8 @@ namespace StructurePlacement
             CmdUpdateCurrentStructure(structureIndex);
             _tempStructure = Instantiate(structureItem.StructurePrefab, _structuresTilemap);
             _tempStructureComponent = _tempStructure.GetComponent<Structure>();
+            _tempStructureItem = structureItem;
+            _removeItemFromInventory = afterPlacement;
         }
 
 
@@ -157,7 +160,7 @@ namespace StructurePlacement
             var component = structure.GetComponent<Structure>();
             component.SpawnPosition = spawnPosition;
 
-            _playerInventory.Inventory.TryRemoveItem(_currentStructureItem, 1);
+            _removeItemFromInventory?.Invoke();
             InitStructureOnClients(component.netId);
         }
 

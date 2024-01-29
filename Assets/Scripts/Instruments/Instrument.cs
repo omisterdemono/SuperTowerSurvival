@@ -43,20 +43,15 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     //todo fix
     public void Obtain()
     {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
 
-        //if (!_lastObtainable)
-        //{
-        //    return;
-        //}
+        if (!_lastObtainable)
+        {
+            return;
+        }
 
-        //_lastObtainable.GetObtained(this);
-
-        //if (_lastObtainable)
-        //{
-        //    _lastObtainable.LastInventory = GetComponentInParent<InventoryController>().inventoryData;
-        //}
-        //Durability -= 1.0f;
+        _lastObtainable.GetObtained(this);
+        Durability -= 1.0f;
     }
 
     public void ChangeAnimationState()
@@ -67,6 +62,10 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision is BoxCollider2D)
+        {
+            
+        }
         
         if (!collision.TryGetComponent<Obtainable>(out var obtainable) || obtainable == _lastObtainable)
         {
@@ -81,6 +80,11 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision is BoxCollider2D)
+        {
+            
+        }
+        
         var obtainable = collision.GetComponent<Obtainable>();
 
         if (obtainable != _lastObtainable)

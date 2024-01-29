@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Inventory.Models.ItemActions
 {
@@ -6,9 +7,10 @@ namespace Inventory.Models.ItemActions
     public class HealPlayerAction : ItemAction
     {
         public float Amount;
-        public override void PerformAction(Character character, ItemSO holderItem)
+        public override void PerformAction(Character character, ItemSO holderItem, Action afterPerform)
         {
             character.Health.Heal(Amount);
+            afterPerform?.Invoke();
         }
     }
 }

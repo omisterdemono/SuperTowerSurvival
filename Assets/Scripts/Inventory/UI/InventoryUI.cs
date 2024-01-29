@@ -101,8 +101,7 @@ namespace Inventory.UI
                 return;
             }
 
-            usableItem.PerformAction(_character);
-            _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1);
+            usableItem.PerformAction(_character, () => _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1));
         }
 
         private void SwapItemsInMovingAndCurrent(InventoryCellUI currentInventoryUICell)

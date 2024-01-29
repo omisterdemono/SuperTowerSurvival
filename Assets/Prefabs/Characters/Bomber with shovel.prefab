@@ -501,8 +501,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _itemPrefab: {fileID: 3465623755143987325, guid: b1cd289d8e4576646801209f2f1d8179, type: 3}
-  _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
   _throwRadius: 5
 --- !u!114 &7509193973717743279
 MonoBehaviour:
