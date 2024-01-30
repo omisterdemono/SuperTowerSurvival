@@ -5326,6 +5326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5376382976197865511}
   - component: {fileID: 3984601701116588514}
+  - component: {fileID: 9143677606322338844}
   m_Layer: 0
   m_Name: Sight Light 2D
   m_TagString: Untagged
@@ -5415,7 +5416,7 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 2.5
+  m_PointLightInnerRadius: 1
   m_PointLightOuterRadius: 5
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
@@ -5427,6 +5428,18 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &9143677606322338844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004220370183695597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1074a09a2535241a6ea91a3fde2864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9084387294348873565
 GameObject:
   m_ObjectHideFlags: 0
