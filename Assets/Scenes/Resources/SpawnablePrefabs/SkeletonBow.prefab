@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1de64f06169549b4dacf1fc09b0608b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -633,6 +633,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 80
+  type: 3
   _healthBar: {fileID: 5372125901141219362}
 --- !u!114 &3974504449483328773
 MonoBehaviour:
@@ -693,6 +694,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 300
+  type: 0
   _healthBar: {fileID: 0}
 --- !u!114 &2597886586094886669
 MonoBehaviour:

@@ -16,6 +16,9 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private float _maxChargeSeconds;
     [SerializeField] private float _cooldownSeconds;
 
+    public static event EventHandler OnBowLoad;
+    public static event EventHandler OnBowReleased;
+
     private Animator _animator;
     private CooldownComponent _cooldownComponent;
     private ChargeComponent _chargeComponent;
@@ -64,6 +67,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
         projectileComponent.Direction = _firePosition.right;
 
         NetworkServer.Spawn(projectile);
+        OnBowReleased?.Invoke(this, EventArgs.Empty);
 
         ChangeChargeAnimationState();
         _chargeComponent.ResetCharge();

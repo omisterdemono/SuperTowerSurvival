@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8490897503447390553}
   - component: {fileID: 5132382929481478192}
   - component: {fileID: 608659643021943530}
+  - component: {fileID: 4142043445882866199}
   m_Layer: 0
   m_Name: Shooter with weapon
   m_TagString: Player
@@ -366,6 +367,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
+  type: 1
   _healthBar: {fileID: 0}
 --- !u!114 &5132382929481478192
 MonoBehaviour:
@@ -404,6 +406,18 @@ MonoBehaviour:
   - {fileID: 3625508984780255458, guid: 9bfbbc7e7d0b37244b7afa2ebe1c27bb, type: 3}
   _structuresTilemapIndex: 1
   _placeRadius: 3
+--- !u!114 &4142043445882866199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332376983714181301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71038eef53dfafa4eae60a9af8c99792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4489913884252574605
 GameObject:
   m_ObjectHideFlags: 0
