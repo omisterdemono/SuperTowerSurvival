@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: 
   SkillDescription: 
   Cooldown: 60
-  CastTime: 0.001
+  CastTime: 0
   SkillIcon: {fileID: 21300000, guid: 8005c67955540c14aae8b4558a428b5a, type: 3}
