@@ -6,7 +6,7 @@ public class Structure : NetworkBehaviour, IBuildable
     public bool IsBeingPlaced { get; private set; } = true;
     public bool NoObstaclesUnder { get; private set; } = true;
     public bool CanBePlaced { get; private set; } = true;
-    public bool IsBuilt { get; set; } = false;
+    public bool IsBeingBuilt { get; set; } = false;
     public Vector3 SpawnPosition { get => _spawnPosition; set => _spawnPosition = value; }
 
     [SyncVar] private Vector3 _spawnPosition;
@@ -49,7 +49,7 @@ public class Structure : NetworkBehaviour, IBuildable
     {
         if (_healthComponent.CurrentHealth >= _healthComponent.MaxHealth)
         {
-            IsBuilt = true;
+            IsBeingBuilt = true;
             _healthComponent.OnCurrentHealthChanged -= Build;
         }
 
@@ -60,7 +60,7 @@ public class Structure : NetworkBehaviour, IBuildable
 
     public void Update()
     {
-        if (!IsBuilt)
+        if (!IsBeingBuilt)
         {
             return;
         }

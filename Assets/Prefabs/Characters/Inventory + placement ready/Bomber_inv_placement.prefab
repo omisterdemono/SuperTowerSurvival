@@ -534,8 +534,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _structures:
-  - {fileID: 3625508984780255458, guid: ea1c0455d7a5464428055a375d34e9df, type: 3}
+  _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
   _structuresTilemapIndex: 1
   _placeRadius: 3
 --- !u!114 &1224873859539798001
