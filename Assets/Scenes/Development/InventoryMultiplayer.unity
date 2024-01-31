@@ -103208,6 +103208,10 @@ PrefabInstance:
       value: Tree 1
       objectReference: {fileID: 0}
     - target: {fileID: 4025250424965208966, guid: 09ca3a1105f604f498812d739324e914, type: 3}
+      propertyPath: type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4025250424965208966, guid: 09ca3a1105f604f498812d739324e914, type: 3}
       propertyPath: _maxHealth
       value: 500
       objectReference: {fileID: 0}
