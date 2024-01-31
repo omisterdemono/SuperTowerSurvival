@@ -103,7 +103,7 @@ public class ActiveSkill : NetworkBehaviour
         {
             if (_isReady)
             {
-                if (Input.GetMouseButtonDown(0) && !_isStarted)
+                if (Input.GetMouseButtonDown(0) && !_isStarted || _castTime==0)
                 {
                     if (_castTime != 0)
                     {
@@ -115,11 +115,11 @@ public class ActiveSkill : NetworkBehaviour
                         _passedTime = 0;
                     }
                 }
-                if (_movementComponent.MovementVector != Vector3.zero && _isStarted)
+                if (_movementComponent.MovementVector != Vector3.zero && _isStarted && _castTime != 0)
                 {
                     FinishCast();
                 }
-                else if (_castProgress == _castTime)
+                else if (_castProgress == _castTime || _castTime == 0)
                 {
                     FinishCastPositive();
                 }
