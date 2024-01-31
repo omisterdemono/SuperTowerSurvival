@@ -17,18 +17,29 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
 
     public GameObject Projectile { get => _projectile; set => _projectile = value; }
     public bool NeedRotation { get; set; } = true;
-
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds { get => _cooldownSeconds; set => _cooldownSeconds = value; }
-
+    public CooldownComponent CooldownComponent 
+    { 
+        get 
+        {
+            if (_cooldownComponent==null)
+            {
+                _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
+            }
+            return _cooldownComponent;
+        } 
+        set => _cooldownComponent = value; 
+    }
     public Vector3 MousePosition { get; set; }
 
     private CooldownComponent _cooldownComponent;
 
     private void Awake()
     {
+        if (_cooldownComponent != null) return;
         _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
     }
 
