@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 3531762540071747240}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7441947742660689460
 SpriteRenderer:
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
+  m_OverlapOperation: 1
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 1
-  m_PointLightOuterRadius: 5
+  m_PointLightOuterRadius: 6
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -348,3 +348,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1074a09a2535241a6ea91a3fde2864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dayLightInnerRadius: 0
+  _dayLightOuterRadius: 1
