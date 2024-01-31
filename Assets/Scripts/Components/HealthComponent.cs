@@ -22,7 +22,8 @@ public class HealthComponent : NetworkBehaviour
     [SerializeField] private float _maxHealth;
     [SerializeField] public Type type;
 
-    [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
+    [SyncVar(hook = nameof(CurrentHealthHook))]
+    private float _currentHealth;
 
     private void CurrentHealthHook(float oldValue, float newValue)
     {
@@ -37,21 +38,13 @@ public class HealthComponent : NetworkBehaviour
 
     public float MaxHealth
     {
-        get
-        {
-            return _maxHealth;
-        }
-        set
-        {
-            _maxHealth = value;
-        }
+        get { return _maxHealth; }
+        set { _maxHealth = value; }
     }
+
     public float CurrentHealth
     {
-        get
-        {
-            return _currentHealth;
-        }
+        get { return _currentHealth; }
         set
         {
             //_currentHealth = value;
@@ -61,6 +54,7 @@ public class HealthComponent : NetworkBehaviour
             {
                 _imageHP.fillAmount = _hpRatio;
             }
+
             OnCurrentHealthChanged?.Invoke();
         }
     }
@@ -72,6 +66,7 @@ public class HealthComponent : NetworkBehaviour
             CurrentHealth = MaxHealth;
             return;
         }
+
         CurrentHealth += healHP;
     }
 
@@ -84,6 +79,7 @@ public class HealthComponent : NetworkBehaviour
             OnDeath?.Invoke();
             return;
         }
+
         CurrentHealth -= damageHP;
         OnEntityHit?.Invoke(this, EventArgs.Empty);
     }
@@ -96,17 +92,13 @@ public class HealthComponent : NetworkBehaviour
     }
 
     [Server]
-    private void InitHealth() 
+    private void InitHealth()
     {
         ChangeHealth(MaxHealth);
     }
 
-    void Start()
+    private void Awake()
     {
-        //if (isLocalPlayer)
-        //{
-        //    _currentHealth = _maxHealth;
-        //}
         InitHealth();
 
         if (_healthBar != null)

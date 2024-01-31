@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Infrastructure;
+﻿using Infrastructure;
 using Infrastructure.Config;
 using Inventory.Models;
 using Inventory.UI;
@@ -11,13 +9,12 @@ namespace Inventory
 {
     public class PlayerInventory : NetworkBehaviour
     {
-        [SerializeField] private ItemInWorld _itemPrefab;
-        [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private float _throwRadius;
         public Inventory Inventory { get; private set; }
         public Vector3 LastMoveDirection { get; set; }
 
         private InventoryUI _inventoryUI;
+        private ItemNetworkSpawner _itemNetworkSpawner;
         public bool IsInventoryShown { get; private set; } = true;
 
         private void Awake()
@@ -27,6 +24,8 @@ namespace Inventory
             _inventoryUI = FindObjectOfType<GameInitializer>().InitializeInventoryUI();
             _inventoryUI.AttachInventory(this);
             ChangeInventoryUIState();
+
+            _itemNetworkSpawner = FindObjectOfType<ItemNetworkSpawner>();
         }
 
         public void OnItemDrop(InventoryCell inventoryCell, int count)
@@ -39,19 +38,9 @@ namespace Inventory
             var direction = LastMoveDirection;
             direction.x += _throwRadius;
             direction.y += _throwRadius;
-            SpawnItem(inventoryCell.Item.Id, count, direction);
+            _itemNetworkSpawner.SpawnItemCmd(inventoryCell.Item.Id, count, transform.position + direction);
 
             Inventory.TryRemoveFromCell(inventoryCell, count);
-        }
-
-        [Command]
-        private void SpawnItem(string itemId, int count, Vector3 direction)
-        {
-            var itemInWorld = Instantiate(_itemPrefab, transform.position + direction, Quaternion.identity);
-
-             var item = _itemDatabase.Items.FirstOrDefault(i => i.Id == itemId) ?? throw new ArgumentNullException("itemId is incorrect");
-             itemInWorld.Item = item;
-             itemInWorld.Count = count;
         }
 
         public void ChangeInventoryUIState()

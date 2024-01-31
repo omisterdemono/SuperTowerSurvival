@@ -27,13 +27,13 @@ public class DefenseStructure : Structure
         _cooldownComponent= new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
 
         Debug.Log("remove this line");
-        IsBuilt = true;
+        IsBeingBuilt = true;
     }
 
     public new void Update()
     {
         base.Update();
-        if (!IsBuilt)
+        if (!IsBeingBuilt)
         {
             return;
         }

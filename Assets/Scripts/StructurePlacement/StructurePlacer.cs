@@ -10,7 +10,7 @@ namespace StructurePlacement
     public class StructurePlacer : NetworkBehaviour
     {
         [Header("Infrastructure")] 
-        [SerializeField] private GameObject[] _structures;
+        [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private int _structuresTilemapIndex;
 
         [Header("Build properties")] [SerializeField]
@@ -19,15 +19,16 @@ namespace StructurePlacement
         [SyncVar] private bool _structureCanBePlaced;
         public bool StructureCanBePlaced => _structureCanBePlaced;
 
-        [SyncVar] private int _currentStructureIndex = -1;
+        [SyncVar] private string _currentStructureId = string.Empty;
 
-        public ItemSO CurrentItem => _currentStructureItem;
+        public ItemSO TempItem => _tempStructureItem;
+        private Action _removeItemFromInventory;
 
         private PlayerInventory _playerInventory;
 
         private GameObject _tempStructure;
         private Structure _tempStructureComponent;
-        private ItemSO _currentStructureItem;
+        private StructureItemSO _tempStructureItem;
         private Vector3 _mousePosition;
 
         private Transform _structuresTilemap;
@@ -64,7 +65,7 @@ namespace StructurePlacement
 
         private void HandlePreviewStructurePosition()
         {
-            if (_currentStructureIndex == -1 && _tempStructure == null)
+            if (_tempStructure is null)
             {
                 return;
             }
@@ -73,9 +74,9 @@ namespace StructurePlacement
             CalculateStructurePosition(_tempStructure.transform);
             
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
-            var newState = _tempStructureComponent != null
+            var newState = _tempStructureComponent is not null
                            && _tempStructureComponent.CanBePlaced
-                           && _playerInventory.Inventory.ItemCount(_currentStructureItem) > 0; //.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
+                           && _playerInventory.Inventory.ItemCount(_tempStructureItem) > 0; 
             UpdateStructurePlaceState(newState);
         }
 
@@ -87,48 +88,43 @@ namespace StructurePlacement
 
         public void CancelPlacement()
         {
-            CmdUpdateCurrentStructure(-1);
+            CmdUpdateCurrentStructure(string.Empty);
             Destroy(_tempStructure);
             _tempStructure = null;
-            _currentStructureItem = null;
+            _tempStructureItem = null;
         }
 
-        public void SelectStructure(ItemSO item)
+        public void SelectStructure(ItemSO item, Action afterPlacement)
         {
-            var structureItem = item as StructureItemSO;
-
-            if (structureItem == null)
+            if (item is not StructureItemSO structureItem)
             {
                 return;
             }
 
-            var structureIndex = structureItem.Index;
-            
-            if (structureIndex < 0 || structureIndex >= _structures.Length)
-            {
-                throw new IndexOutOfRangeException($"Incorrect structure index: structureIndex == {structureIndex}");
-            }
+            var structureId = structureItem.Id;
 
-            if (_currentStructureIndex != -1 && _currentStructureIndex == structureIndex)
+            if (_currentStructureId == structureId)
             {
                 return;
             }
 
-            if (_currentStructureIndex != -1)
+            if (_currentStructureId != string.Empty)
             {
                 Destroy(_tempStructure);
             }
 
-            CmdUpdateCurrentStructure(structureIndex);
+            CmdUpdateCurrentStructure(structureId);
             _tempStructure = Instantiate(structureItem.StructurePrefab, _structuresTilemap);
             _tempStructureComponent = _tempStructure.GetComponent<Structure>();
+            _tempStructureItem = structureItem;
+            _removeItemFromInventory = afterPlacement;
         }
 
 
         [Command(requiresAuthority = false)]
-        private void CmdUpdateCurrentStructure(int structureIndex)
+        private void CmdUpdateCurrentStructure(string structureId)
         {
-            _currentStructureIndex = structureIndex;
+            _currentStructureId = structureId;
         }
 
         private Vector3 CalculateStructurePosition(Transform structure)
@@ -144,12 +140,13 @@ namespace StructurePlacement
         [Command(requiresAuthority = false)]
         public void PlaceStructure(Vector3 mousePosition)
         {
-            if (_currentStructureIndex == -1)
+            if (_currentStructureId == string.Empty)
             {
                 return;
             }
 
-            var structure = Instantiate(_structures[_currentStructureIndex]);
+            var structureItem = _itemDatabase.Items.FirstOrDefault(i => i.Id == _currentStructureId) as StructureItemSO;
+            var structure = Instantiate(structureItem!.StructurePrefab);
             NetworkServer.Spawn(structure);
 
             structure.transform.position = mousePosition;
@@ -157,7 +154,7 @@ namespace StructurePlacement
             var component = structure.GetComponent<Structure>();
             component.SpawnPosition = spawnPosition;
 
-            _playerInventory.Inventory.TryRemoveItem(_currentStructureItem, 1);
+            _removeItemFromInventory?.Invoke();
             InitStructureOnClients(component.netId);
         }
 

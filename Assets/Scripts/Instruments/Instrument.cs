@@ -7,6 +7,7 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 {
     [SerializeField] private InstrumentAttributes _instrumentAttributes;
     [SerializeField] private float _cooldownSeconds;
+    [SerializeField] private float _obtainSeconds;
 
     public float Strength { get; set; }
     public float Durability { get; set; }
@@ -19,9 +20,9 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     public Vector3 MousePosition { get; set; }
 
-    private Obtainable _lastObtainable;
     private Animator _animator;
     private CooldownComponent _cooldownComponent;
+    private Collider2D _obtainColliderTrigger;
 
     private bool _isObtaining;
 
@@ -33,6 +34,9 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
         _animator = GetComponent<Animator>();
         _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
+
+        _obtainColliderTrigger = GetComponent<Collider2D>();
+        _obtainColliderTrigger.enabled = false;
     }
 
     private void Update()
@@ -41,22 +45,9 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     }
 
     //todo fix
-    public void Obtain()
+    public void StartObtain()
     {
-        throw new NotImplementedException();
-
-        //if (!_lastObtainable)
-        //{
-        //    return;
-        //}
-
-        //_lastObtainable.GetObtained(this);
-
-        //if (_lastObtainable)
-        //{
-        //    _lastObtainable.LastInventory = GetComponentInParent<InventoryController>().inventoryData;
-        //}
-        //Durability -= 1.0f;
+        _obtainColliderTrigger.enabled = true;
     }
 
     public void ChangeAnimationState()
@@ -67,31 +58,21 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if (!collision.TryGetComponent<Obtainable>(out var obtainable) || obtainable == _lastObtainable)
+        if (collision is not BoxCollider2D)
         {
             return;
         }
-
-        if (obtainable)
+        
+        if (collision.TryGetComponent<Obtainable>(out var obtainable))
         {
-            _lastObtainable = obtainable;
+            Obtain(obtainable);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void Obtain(Obtainable obtainable)
     {
-        var obtainable = collision.GetComponent<Obtainable>();
-
-        if (obtainable != _lastObtainable)
-        {
-            return;
-        }
-
-        if (obtainable)
-        {
-            _lastObtainable = null;
-        }
+        obtainable.GetObtained(this);
+        Durability -= 1.0f;
     }
 
     public void Interact()
@@ -107,8 +88,19 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private IEnumerator DelayedObtain()
     {
-        yield return new WaitForSeconds(_cooldownSeconds);
-        Obtain();
+        yield return new WaitForSeconds(_cooldownSeconds - _obtainSeconds);
+        StartObtain();
+        yield return new WaitForSeconds(_obtainSeconds);
+        FinishObtain();
+    }
+    
+    public void Obtain()
+    {
+    }
+
+    private void FinishObtain()
+    {
+        _obtainColliderTrigger.enabled = false;
     }
 
     public void Hold()
