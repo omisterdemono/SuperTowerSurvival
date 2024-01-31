@@ -62,6 +62,9 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
             if (component != null)
             {
+                var knockback = component.GetComponent<KnockbackComponent>();
+                Vector2 direction = component.transform.position - this.transform.position;
+                knockback?.PlayKnockback(direction.normalized, 10f, 0.05f);
                 component.GetComponent<HealthComponent>().Damage(Damage);
                 return;
             }

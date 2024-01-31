@@ -64,6 +64,8 @@ public class Projectile : NetworkBehaviour
             {
                 OnProjectileHit?.Invoke(this, EventArgs.Empty);
                 component.GetComponent<HealthComponent>().Damage(Damage);
+                var knockback = component.GetComponent<KnockbackComponent>();
+                knockback?.PlayKnockback(this.Direction, 5f, 0.15f);
                 DestroyProjectile();
                 return;
             }
