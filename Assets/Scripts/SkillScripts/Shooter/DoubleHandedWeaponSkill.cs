@@ -21,12 +21,22 @@ public class DoubleHandedWeaponSkill : ActiveSkill, ISkill
     {
         if (newValue)
         {
-            _mainWeapon.SetActive(false);
-            _doubleHandedWeapon.SetActive(true);
-            _character.CanScrollTools = false;
-            _character.Equipables[0] = _doubleHandedWeapon.GetComponent<FireWeapon>();
+            Buff();
             return;
         }
+        Debuff();
+    }
+
+    private void Buff()
+    {
+        _mainWeapon.SetActive(false);
+        _doubleHandedWeapon.SetActive(true);
+        _character.CanScrollTools = false;
+        _character.Equipables[0] = _doubleHandedWeapon.GetComponent<FireWeapon>();
+    }
+
+    private void Debuff()
+    {
         _mainWeapon.SetActive(true);
         _doubleHandedWeapon.SetActive(false);
         _character.CanScrollTools = true;
