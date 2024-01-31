@@ -2,6 +2,7 @@ using Assets.Scripts.Weapons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
@@ -67,6 +68,9 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
             {
                 isHit = true;
                 OnMeleeHit?.Invoke(this, EventArgs.Empty);
+                var knockback = enemyHealth.GetComponent<KnockbackComponent>();
+                Vector2 direction =  enemyHealth.transform.position - this.transform.position;
+                knockback?.PlayKnockback(direction.normalized, 15f, 0.3f);
             }
         }
         if (!isHit)

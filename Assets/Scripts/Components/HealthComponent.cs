@@ -16,6 +16,7 @@ public class HealthComponent : NetworkBehaviour
 
     public Action OnCurrentHealthChanged;
     public Action OnDeath;
+    public Action OnHit;
     public static event EventHandler OnEntityHit;
 
 
@@ -86,6 +87,7 @@ public class HealthComponent : NetworkBehaviour
         }
         CurrentHealth -= damageHP;
         OnEntityHit?.Invoke(this, EventArgs.Empty);
+        OnHit?.Invoke();
     }
 
     [Command(requiresAuthority = false)]
