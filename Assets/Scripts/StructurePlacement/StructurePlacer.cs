@@ -63,6 +63,7 @@ namespace StructurePlacement
             }
         }
 
+        //todo should be optimized in the future (item count maybe is expensive)
         private void HandlePreviewStructurePosition()
         {
             if (_tempStructure is null)

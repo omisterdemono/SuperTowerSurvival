@@ -235,6 +235,20 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "de.codesmile.editortools": {
+      "version": "file:D:/kosik/Downloads/de.codesmile.editortools-main/de.codesmile.editortools-main",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "de.codesmile.extensions": "1.0.0"
+      }
+    },
+    "de.codesmile.extensions": {
+      "version": "file:D:/kosik/Downloads/de.codesmile.extensions-main/de.codesmile.extensions-main",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

@@ -11,6 +11,7 @@ namespace Inventory
         public InventoryCell[] Cells { get; private set; }
         public bool IsEmpty => Cells.Any(c => c.Item == null);
         public bool IsFull => Cells.All(c => c.IsFull);
+        public Action InventoryChanged;
 
         public Inventory(int count)
         {
@@ -89,7 +90,7 @@ namespace Inventory
             return countToAdd;
         }
 
-        private static int FillCell(ItemSO item, int countToAdd, InventoryCell cell)
+        private int FillCell(ItemSO item, int countToAdd, InventoryCell cell)
         {
             if (cell.Item == null)
             {
@@ -106,8 +107,8 @@ namespace Inventory
                 cell.Count += countToAdd;
                 countToAdd = 0;
             }
-
             cell.Modified.Invoke(cell);
+            InventoryChanged?.Invoke();
             
             return countToAdd;
         }
@@ -115,19 +116,6 @@ namespace Inventory
         public int ItemCount(ItemSO item)
         {
             return Cells.Where(c => c.Item == item).Sum(i => i.Count);
-        }
-
-        public void MoveItem(int startIndex, int destinationIndex)
-        {
-            var startCell = Cells[startIndex];
-            var destinationCell = Cells[destinationIndex];
-            var (item, count) = (startCell.Item, startCell.Count);
-            
-            (startCell.Item, startCell.Count) = (destinationCell.Item, destinationCell.Count);
-            (destinationCell.Item, destinationCell.Count) = (item, count);
-            
-            startCell.Modified.Invoke(startCell);
-            destinationCell.Modified.Invoke(destinationCell);
         }
 
         public int TryRemoveItem(ItemSO item, int countToRemove)
@@ -161,7 +149,8 @@ namespace Inventory
                 countToRemove = 0;
             }
             cell.Modified.Invoke(cell);
-
+            InventoryChanged?.Invoke();
+            
             return countToRemove;
         }
 
