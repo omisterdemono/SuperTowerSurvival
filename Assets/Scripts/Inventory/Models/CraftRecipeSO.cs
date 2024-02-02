@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Inventory.Models
@@ -12,5 +11,6 @@ namespace Inventory.Models
         public List<int> ItemCounts;
         public ItemSO ResultItem;
         public int ResultItemCount;
+        public string Category;
     }
 }
