@@ -86,6 +86,7 @@ namespace Inventory.UI
             _inventory.InventoryChanged += OnInventoryChanged;
 
             _craftingSystem = playerInventory.CraftingSystem;
+            _recipePropertiesUI.ItemCrafted += _craftingSystem.CraftItem;
         }
 
         private void SetRecipeProperties(CraftRecipeSO recipe)
@@ -97,8 +98,8 @@ namespace Inventory.UI
 
             var (requiredItemsCounts, requiredItemsColors) = RequiredItemsCountsAndTextColors(recipe);
 
-            _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray());
-            _recipePropertiesUI.ItemCrafted += _craftingSystem.CraftItem;
+            _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(), 
+                _craftingSystem.ItemCanBeCrafted(recipe));
         }
 
         private (List<string>, List<Color>) RequiredItemsCountsAndTextColors(CraftRecipeSO recipe)
@@ -123,9 +124,15 @@ namespace Inventory.UI
 
         private void OnInventoryChanged()
         {
+            if (!_recipePropertiesUI.isActiveAndEnabled)
+            {
+                return;
+            }
+            
             var (requiredItemsCounts, requiredItemsColors) =
                 RequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
-            _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray());
+            _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(), 
+                _craftingSystem.ItemCanBeCrafted);
         }
     }
 }

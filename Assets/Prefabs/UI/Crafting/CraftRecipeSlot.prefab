@@ -258,3 +258,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemImage: {fileID: 4529184042293654316}
+  _setPropertiesButton: {fileID: 4810384226677404103}

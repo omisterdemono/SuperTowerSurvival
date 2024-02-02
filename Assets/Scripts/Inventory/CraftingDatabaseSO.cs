@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Inventory
 {
+    [CreateAssetMenu(menuName = "Inventory/Crafting/Database")]
     public class CraftingDatabaseSO : ScriptableObject
     {
         public Sprite[] CategoryIcons;

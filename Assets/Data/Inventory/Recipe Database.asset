@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d18ce448d3b43fb8621e84184b37d4b, type: 3}
+  m_Name: Recipe Database
+  m_EditorClassIdentifier: 
+  CategoryIcons:
+  - {fileID: 21300000, guid: 4d2f50841dea030419555cf676e19f30, type: 3}
+  - {fileID: 21300000, guid: 5dafb19577e189345b8151e85ad87797, type: 3}
+  CategoriesNames:
+  - Defence
+  - Resources
+  CraftRecipes:
+  - {fileID: 11400000, guid: 3dea64dafd2c73f4bb0dedcba9e2ce3f, type: 2}
+  - {fileID: 11400000, guid: a08beea93ff01934c8e6deead63d4002, type: 2}

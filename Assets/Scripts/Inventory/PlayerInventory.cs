@@ -22,7 +22,7 @@ namespace Inventory
         private void Awake()
         {
             Inventory = new Inventory(ConfigConstants.CellsInInventoryCount);
-            CraftingSystem = new CraftingSystem();
+            CraftingSystem = new CraftingSystem(Inventory);
 
             var gameInitializer = FindObjectOfType<GameInitializer>();
             _inventoryUI = gameInitializer.InitializeInventoryUI();

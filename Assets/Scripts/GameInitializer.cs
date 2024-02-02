@@ -14,7 +14,7 @@ namespace Infrastructure
             return Instantiate(_inventoryUIPrefab, canvas.transform);
         } 
         
-        public CraftingUI InitializeCraftingUI()
+        public CraftingUI InitializeCraftingUI() 
         {
             var canvas = FindObjectOfType<Canvas>();
             return Instantiate(_craftingUIPrefab, canvas.transform);

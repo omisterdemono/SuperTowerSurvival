@@ -115,7 +115,13 @@ namespace Inventory
 
         public int ItemCount(ItemSO item)
         {
-            return Cells.Where(c => c.Item == item).Sum(i => i.Count);
+            var cells = Cells.Where(c => c.Item == item);
+
+            if (!cells.Any())
+            {
+                return 0;
+            }
+            return cells.Sum(i => i.Count);
         }
 
         public int TryRemoveItem(ItemSO item, int countToRemove)

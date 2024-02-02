@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f4793b88ea6514498cb76bc48ef02fb, type: 3}
-  m_Name: WallRecipe
+  m_Name: DefenceGun
   m_EditorClassIdentifier: 
-  items:
+  Items:
   - {fileID: 11400000, guid: 4a83ffbd7e170f3439cf428f83319b05, type: 2}
-  quantityOfItems: 04000000
-  itemRes: {fileID: 11400000, guid: 3e86583b553b94043a76d69ab7cd9fe6, type: 2}
+  - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
+  ItemCounts: 0800000004000000
+  ResultItem: {fileID: 11400000, guid: 575e91b4172b4ba468bb56dfc92f5b40, type: 2}
+  ResultItemCount: 1
+  Category: Defence

@@ -8,14 +8,14 @@ namespace Inventory.UI
     {
         
         [SerializeField] private Image _itemImage;
-        private Button _setPropertiesButton;
+        private Button _switchCategoryButton;
         
         private int _categoryIndex;
 
         public Button SetPropertiesButton
         {
-            get => _setPropertiesButton;
-            set => _setPropertiesButton = value;
+            get => _switchCategoryButton;
+            set => _switchCategoryButton = value;
         }
 
         public Image ItemImage
@@ -26,14 +26,14 @@ namespace Inventory.UI
 
         private void Awake()
         {
-            _setPropertiesButton = GetComponent<Button>();
+            _switchCategoryButton = GetComponent<Button>();
         }
 
         public void Init(Sprite categorySprite, int index, Action<int> categorySwitch)
         {
             _itemImage.sprite = categorySprite;
             _categoryIndex = index;
-            _setPropertiesButton.onClick.AddListener(() => categorySwitch.Invoke(_categoryIndex));
+            _switchCategoryButton.onClick.AddListener(() => categorySwitch.Invoke(_categoryIndex));
         }
     }
 }
