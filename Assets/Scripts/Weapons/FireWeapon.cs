@@ -23,14 +23,25 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private bool _needFlip;
     [SerializeField] public Type type;
 
+    public GameObject Projectile { get => _projectile; set => _projectile = value; }
     public bool NeedRotation { get; set; } = true;
-
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     //public Type Type { get => type; set => type = value; }
     public bool CanPerform => _cooldownComponent.CanPerform;
-    public float CooldownSeconds => _cooldownSeconds;
-
+    public float CooldownSeconds { get => _cooldownSeconds; set => _cooldownSeconds = value; }
+    public CooldownComponent CooldownComponent 
+    { 
+        get 
+        {
+            if (_cooldownComponent==null)
+            {
+                _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
+            }
+            return _cooldownComponent;
+        } 
+        set => _cooldownComponent = value; 
+    }
     public Vector3 MousePosition { get; set; }
 
     public static event EventHandler OnShoot;
@@ -39,6 +50,7 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
 
     private void Awake()
     {
+        if (_cooldownComponent != null) return;
         _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
     }
 
