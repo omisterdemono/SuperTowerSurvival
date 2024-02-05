@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2200435535518075900}
   - component: {fileID: -5576025672415806377}
   - component: {fileID: 1397295181964670264}
+  - component: {fileID: -2950955192796268053}
   m_Layer: 0
   m_Name: Bomber
   m_TagString: Player
@@ -198,9 +199,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _isAlive: 1
+  _isInvisible: 0
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
+  _tools: []
+  _buildHammerSlotIndex: 1
 --- !u!114 &1127090800803803951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +221,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
+  _healthBar: {fileID: 0}
 --- !u!114 &5933435638300399278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,3 +348,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.96}
   m_EdgeRadius: 0
+--- !u!114 &-2950955192796268053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fe4663253620141a071ac5004a6efb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _itemPrefab: {fileID: 3465623755143987325, guid: b1cd289d8e4576646801209f2f1d8179, type: 3}
+  _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
+  _throwRadius: 5

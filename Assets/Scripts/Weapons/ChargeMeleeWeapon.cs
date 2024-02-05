@@ -25,6 +25,10 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     public float CooldownSeconds => _cooldownSeconds;
     public Vector3 MousePosition { get; set; }
 
+    public static event EventHandler OnMeleeSwing;
+    public static event EventHandler OnMeleeSpin;
+
+
     private CooldownComponent _cooldownComponent;
     private ChargeComponent _chargeComponent;
 
@@ -58,6 +62,9 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
             if (component != null)
             {
+                var knockback = component.GetComponent<KnockbackComponent>();
+                Vector2 direction = component.transform.position - this.transform.position;
+                knockback?.PlayKnockback(direction.normalized, 10f, 0.05f);
                 component.GetComponent<HealthComponent>().Damage(Damage);
                 return;
             }
@@ -109,10 +116,12 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
         if (_chargeComponent.ChargeProgress < 1.0f && _chargeComponent.CanShoot)
         {
             StartCoroutine(AttackRotate());
+            OnMeleeSwing?.Invoke(this, EventArgs.Empty);
             return;
         }
 
         StartCoroutine(DeathRotate());
+        OnMeleeSpin?.Invoke(this, EventArgs.Empty);
     }
 
     private IEnumerator AttackRotate()

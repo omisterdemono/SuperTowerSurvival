@@ -8,11 +8,14 @@ using UnityEngine.Rendering.Universal;
 [RequireComponent(typeof(Light2D))]
 public class WorldLight : NetworkBehaviour
 {
+    [SerializeField] private float dayBeginHourOffset = 6;
     [SyncVar] public float generalTime;
     [SyncVar] public float currentTime;
     [SyncVar] public float dayLengthMinutes;
     [SyncVar] public bool isNight;
     public Action OnIsNightChanged;
+    public static event EventHandler OnNightChanged;
+
 
     [SyncVar] private float midday;
     [SyncVar] private float gameHour;
@@ -31,6 +34,7 @@ public class WorldLight : NetworkBehaviour
         dayNumber = 1;
         generalTime = 0;
         isNight = false;
+        //currentTime = 6 * gameHour;
         //SetTime(0.5f);
     }
 
@@ -53,6 +57,7 @@ public class WorldLight : NetworkBehaviour
     {
         generalTime += 1 * Time.deltaTime;
         currentTime += 1 * Time.deltaTime;
+        //translateTime = ((currentTime - dayBeginHourOffset) / (midday * 2));
         translateTime = (currentTime / (midday * 2));
 
         if (translateTime >= 1)
@@ -65,13 +70,19 @@ public class WorldLight : NetworkBehaviour
         //displayTime = translateTime * 24f;
 
         if (currentTime > midday + 2 * gameHour && !isNight)
+        //if ((currentTime > 20 * gameHour || currentTime < 6 * gameHour) && !isNight)
         {
             isNight = true;
+            //OnIsNightChanged?.Invoke();
+            OnNightChanged?.Invoke(this, EventArgs.Empty);
+
         }
         if (currentTime < midday + 2 * gameHour && isNight)
+        //if ((currentTime > 6 * gameHour || currentTime < 20 * gameHour) && isNight)
         {
             isNight = false;
             OnIsNightChanged?.Invoke();
+            OnNightChanged?.Invoke(this, EventArgs.Empty);
         }
 
     }

@@ -9,16 +9,25 @@ using UnityEngine;
 /// </summary>
 public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
 {
+    public enum Type
+    {
+        Rifle,
+        Shotgun
+    }
+
+
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform[] _firePositions;
     [SerializeField] private float _damage;
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private bool _needFlip;
+    [SerializeField] public Type type;
 
     public GameObject Projectile { get => _projectile; set => _projectile = value; }
     public bool NeedRotation { get; set; } = true;
     public float Damage { get => _damage; set => _damage = value; }
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
+    //public Type Type { get => type; set => type = value; }
     public bool CanPerform => _cooldownComponent.CanPerform;
     public float CooldownSeconds { get => _cooldownSeconds; set => _cooldownSeconds = value; }
     public CooldownComponent CooldownComponent 
@@ -34,6 +43,8 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
         set => _cooldownComponent = value; 
     }
     public Vector3 MousePosition { get; set; }
+
+    public static event EventHandler OnShoot;
 
     private CooldownComponent _cooldownComponent;
 
@@ -68,6 +79,7 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
             bulletComponent.Direction = firePosition.right;
             bulletComponent.Damage = _damage;
             NetworkServer.Spawn(projectile);
+            OnShoot?.Invoke(this, EventArgs.Empty);
         }
     }
 

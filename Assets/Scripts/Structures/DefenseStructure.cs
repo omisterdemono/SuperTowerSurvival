@@ -59,7 +59,7 @@ public class DefenseStructure : Structure
 
     private Vector3 SelectClosestTarget()
     {
-        var closest = _targetsInRange.OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).First();
+        var closest = _targetsInRange?.OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).First();
         return closest.position;
     }
 

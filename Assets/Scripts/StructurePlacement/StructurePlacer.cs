@@ -1,188 +1,171 @@
-using Inventory.Model;
-using Mirror;
 using System;
 using System.Linq;
-using TMPro;
+using Inventory;
+using Inventory.Models;
+using Mirror;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class StructurePlacer : NetworkBehaviour
+namespace StructurePlacement
 {
-    [Header("Infrastructure")]
-    [SerializeField] private GameObject[] _structures;
-    [SerializeField] private ItemSO[] _structureItems;
-    [SerializeField] private int _structuresTilemapIndex;
-
-    [Header("UI")]
-    [SerializeField] private GameObject _buttonPrefab;
-    [SerializeField] private const string StructureHolderTagName = "StructuresHolder";
-    private bool _isMenuOpened = true;
-
-    [Header("Build properties")]
-    [SerializeField] private float _placeRadius;
-
-    [SyncVar] private bool _structureCanBePlaced;
-    public bool StructureCanBePlaced => _structureCanBePlaced;
-
-    [SyncVar] private int _currentStructureIndex = -1;
-
-    private InventoryController _inventoryController;
-
-    private GameObject _tempStructure;
-    private Structure _tempStructureComponent;
-    private Vector3 _mousePosition;
-
-    private Transform _structuresTilemap;
-    private Grid _grid;
-    private GameObject _structuresHolder;
-
-
-    private bool StructureInBuildRadius => Vector2.Distance(transform.position, _tempStructure.transform.position) <= _placeRadius;
-
-    private void Start()
+    public class StructurePlacer : NetworkBehaviour
     {
-        _grid = FindObjectOfType<Grid>();
-        _inventoryController = GetComponent<InventoryController>();
+        [Header("Infrastructure")] 
+        [SerializeField] private GameObject[] _structures;
+        [SerializeField] private int _structuresTilemapIndex;
 
-        _structuresTilemap = _grid.transform.GetChild(_structuresTilemapIndex);
+        [Header("Build properties")] [SerializeField]
+        private float _placeRadius;
 
-        if (isOwned)
+        [SyncVar] private bool _structureCanBePlaced;
+        public bool StructureCanBePlaced => _structureCanBePlaced;
+
+        [SyncVar] private int _currentStructureIndex = -1;
+
+        public ItemSO CurrentItem => _currentStructureItem;
+
+        private PlayerInventory _playerInventory;
+
+        private GameObject _tempStructure;
+        private Structure _tempStructureComponent;
+        private ItemSO _currentStructureItem;
+        private Vector3 _mousePosition;
+
+        private Transform _structuresTilemap;
+        private Grid _grid;
+        private GameObject _structuresHolder;
+
+        private bool StructureInBuildRadius =>
+            Vector2.Distance(transform.position, _tempStructure.transform.position) <= _placeRadius;
+
+        private void Start()
         {
-            InitUI();
-        }
-    }
+            _grid = FindObjectOfType<Grid>();
+            _playerInventory = GetComponent<PlayerInventory>();
 
-    void Update()
-    {
-        if (!isOwned)
-        {
-            return;
+            _structuresTilemap = _grid.transform.GetChild(_structuresTilemapIndex);
         }
 
-        _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if (_currentStructureIndex != -1 && _tempStructure != null)
+        void Update()
         {
+            if (!isOwned)
+            {
+                return;
+            }
+
+            _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            HandlePreviewStructurePosition();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                CancelPlacement();
+            }
+        }
+
+        private void HandlePreviewStructurePosition()
+        {
+            if (_currentStructureIndex == -1 && _tempStructure == null)
+            {
+                return;
+            }
+            
             _tempStructure.transform.position = _mousePosition;
             CalculateStructurePosition(_tempStructure.transform);
-
+            
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
-            var newState = _tempStructureComponent != null 
-                && _tempStructureComponent.CanBePlaced 
-                && _inventoryController.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
+            var newState = _tempStructureComponent != null
+                           && _tempStructureComponent.CanBePlaced
+                           && _playerInventory.Inventory.ItemCount(_currentStructureItem) > 0; //.inventoryData.GetQuantityOfItem(_structureItems[_currentStructureIndex]) > 0;
             UpdateStructurePlaceState(newState);
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        [Command(requiresAuthority = false)]
+        private void UpdateStructurePlaceState(bool newState)
         {
-            _isMenuOpened = !_isMenuOpened;
-            _structuresHolder.SetActive(_isMenuOpened);
+            _structureCanBePlaced = newState;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public void CancelPlacement()
         {
-            CancelPlacement();
-        }
-    }
-
-    [Command(requiresAuthority = false)]
-    private void UpdateStructurePlaceState(bool newState)
-    {
-        _structureCanBePlaced = newState;
-    }
-
-    private void InitUI()
-    {
-        _structuresHolder = GameObject.FindGameObjectWithTag(StructureHolderTagName);
-
-        for (int i = 0; i < _structures.Length; i++)
-        {
-            var objectOfButton = Instantiate(_buttonPrefab);
-            objectOfButton.transform.SetParent(_structuresHolder.transform);
-            objectOfButton.name = _structures[i].name;
-            
-            var tmpPro = objectOfButton.GetComponentInChildren<TextMeshProUGUI>();
-            tmpPro.text = _structures[i].name;
-
-            var button = objectOfButton.GetComponent<Button>();
-            var structureIndex = i;
-
-            button.onClick.AddListener(() =>  
-            { 
-                SelectStructure(structureIndex); 
-            });
-        }
-    }
-
-    public void CancelPlacement()
-    {
-        CmdUpdateCurrentStructure(-1);
-        Destroy(_tempStructure);
-        _tempStructure = null;
-    }
-
-    public void SelectStructure(int structureIndex)
-    {
-        if (structureIndex < 0 || structureIndex >= _structures.Length)
-        {
-            throw new IndexOutOfRangeException($"Incorrect structure index: structureIndex == {structureIndex}");
-        }
-
-        if (_currentStructureIndex != -1 && _currentStructureIndex == structureIndex)
-        {
-            return;
-        }
-
-        if (_currentStructureIndex != -1)
-        {
+            CmdUpdateCurrentStructure(-1);
             Destroy(_tempStructure);
+            _tempStructure = null;
+            _currentStructureItem = null;
         }
 
-        CmdUpdateCurrentStructure(structureIndex);
-        _tempStructure = Instantiate(_structures[structureIndex], _structuresTilemap);
-        _tempStructureComponent = _tempStructure.GetComponent<Structure>();
-    }
-
-
-    [Command(requiresAuthority = false)]
-    private void CmdUpdateCurrentStructure(int structureIndex)
-    {
-        _currentStructureIndex = structureIndex;
-    }
-
-    private Vector3 CalculateStructurePosition(Transform structure)
-    {
-        Vector3Int cellPosition = _grid.LocalToCell(structure.localPosition);
-        structure.localPosition = _grid.GetCellCenterLocal(cellPosition);
-
-        return structure.localPosition;
-    }
-
-    [Command(requiresAuthority = false)]
-    public void PlaceStructure(Vector3 mousePosition)
-    {
-        if (_currentStructureIndex == -1)
+        public void SelectStructure(ItemSO item)
         {
-            return;
+            var structureItem = item as StructureItemSO;
+
+            if (structureItem == null)
+            {
+                return;
+            }
+
+            var structureIndex = structureItem.Index;
+            
+            if (structureIndex < 0 || structureIndex >= _structures.Length)
+            {
+                throw new IndexOutOfRangeException($"Incorrect structure index: structureIndex == {structureIndex}");
+            }
+
+            if (_currentStructureIndex != -1 && _currentStructureIndex == structureIndex)
+            {
+                return;
+            }
+
+            if (_currentStructureIndex != -1)
+            {
+                Destroy(_tempStructure);
+            }
+
+            CmdUpdateCurrentStructure(structureIndex);
+            _tempStructure = Instantiate(structureItem.StructurePrefab, _structuresTilemap);
+            _tempStructureComponent = _tempStructure.GetComponent<Structure>();
         }
 
-        var structure = Instantiate(_structures[_currentStructureIndex]);
-        NetworkServer.Spawn(structure);
 
-        structure.transform.position = mousePosition;
-        var spawnPosition = CalculateStructurePosition(structure.transform);
-        var component = structure.GetComponent<Structure>();
-        component.SpawnPosition = spawnPosition;
+        [Command(requiresAuthority = false)]
+        private void CmdUpdateCurrentStructure(int structureIndex)
+        {
+            _currentStructureIndex = structureIndex;
+        }
 
-        _inventoryController.inventoryData.RemoveItem(_structureItems[_currentStructureIndex], 1);
+        private Vector3 CalculateStructurePosition(Transform structure)
+        {
+            var localPosition = structure.localPosition;
+            Vector3Int cellPosition = _grid.LocalToCell(localPosition);
+            localPosition = _grid.GetCellCenterLocal(cellPosition);
+            structure.localPosition = localPosition;
 
-        InitStructureOnClients(component.netId);
-    }
+            return localPosition;
+        }
 
-    [ClientRpc]
-    private void InitStructureOnClients(uint structureId)
-    {
-        var component = FindObjectsOfType<Structure>().Where(component => component.netId == structureId).First();
-        component.Init();
+        [Command(requiresAuthority = false)]
+        public void PlaceStructure(Vector3 mousePosition)
+        {
+            if (_currentStructureIndex == -1)
+            {
+                return;
+            }
+
+            var structure = Instantiate(_structures[_currentStructureIndex]);
+            NetworkServer.Spawn(structure);
+
+            structure.transform.position = mousePosition;
+            var spawnPosition = CalculateStructurePosition(structure.transform);
+            var component = structure.GetComponent<Structure>();
+            component.SpawnPosition = spawnPosition;
+
+            _playerInventory.Inventory.TryRemoveItem(_currentStructureItem, 1);
+            InitStructureOnClients(component.netId);
+        }
+
+        [ClientRpc]
+        private void InitStructureOnClients(uint structureId)
+        {
+            var component = FindObjectsOfType<Structure>().Where(component => component.netId == structureId).First();
+            component.Init();
+        }
     }
 }

@@ -484,6 +484,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
+  type: 1
   _healthBar: {fileID: 0}
 --- !u!114 &5132382929481478192
 MonoBehaviour:
@@ -520,14 +521,9 @@ MonoBehaviour:
   - {fileID: 3689379919031479192, guid: b3cb4a1f77587d44db175a6505a07dac, type: 3}
   - {fileID: 3625508984780255458, guid: ea1c0455d7a5464428055a375d34e9df, type: 3}
   - {fileID: 3625508984780255458, guid: 9bfbbc7e7d0b37244b7afa2ebe1c27bb, type: 3}
-  _structureItems:
-  - {fileID: 11400000, guid: 3e86583b553b94043a76d69ab7cd9fe6, type: 2}
-  - {fileID: 11400000, guid: 7cbcd8249ba15974e8ecd4284f58932e, type: 2}
-  - {fileID: 11400000, guid: 9ea00956153ab1a4cbc46cafa1919f36, type: 2}
   _structuresTilemapIndex: 1
-  _buttonPrefab: {fileID: 2331052584847828899, guid: 8b4f6bc9744d0f8479ae81526767b029, type: 3}
   _placeRadius: 3
---- !u!114 &1562322106533154602
+--- !u!114 &4142043445882866199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,7 +532,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1332376983714181301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f07a5cd93561944586db9af85aa2011, type: 3}
+  m_Script: {fileID: 11500000, guid: 71038eef53dfafa4eae60a9af8c99792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
@@ -549,49 +545,6 @@ MonoBehaviour:
   initialItems: []
   ItemPrefab: {fileID: 0}
   dropClip: {fileID: 0}
---- !u!114 &8850393932734266028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332376983714181301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d8352bf23be864393b8c485b767cba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _skillAttributes: {fileID: 11400000, guid: 045fd87cc4c92ae4d923e2dbbce43b01, type: 2}
-  _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
-  _mainWeapon: {fileID: 7887177004494385276}
-  _doubleHandedWeapon: {fileID: 7300532138647868885}
-  _buffDuration: 30
---- !u!114 &1476877737861481037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332376983714181301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c376803817e7d47bcdf29c884af426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _skillAttributes: {fileID: 11400000, guid: 2e4a6c95953a12649be7b721c1f53894, type: 2}
-  _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
-  _mainWeapon: {fileID: 7442368250495234006}
-  _doubleHandedWeapon: {fileID: 8029012689260923519}
-  _projectile: {fileID: 3363046323343731480, guid: 7c7ed3fa5beb30c479300d606854a7c3, type: 3}
-  _redProjectile: {fileID: 3363046323343731480, guid: 67352e9f7f1937c47ad01fb50954f19f, type: 3}
-  _damageModificator: 1.5
-  _buffDuration: 30
 --- !u!1 &4489913884252574605
 GameObject:
   m_ObjectHideFlags: 0

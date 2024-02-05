@@ -5,6 +5,8 @@ using System;
 using Assets.Scripts.Weapons;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Collections;
+using Inventory;
+using StructurePlacement;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(HealthComponent))]
@@ -27,14 +29,18 @@ public class Character : NetworkBehaviour
     [SerializeField] private List<GameObject> _tools = new();
 
     [SerializeField] private int _buildHammerSlotIndex = 1;
+    
+    [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
+    private int _equipedSlot = 0;
 
-    [SyncVar(hook = nameof(HandleEquipedSlotChanged))] private int _equipedSlot = 0;
-    [SyncVar(hook = nameof(HandleEquipableAnimation))] private bool _isPerforming;
+    [SyncVar(hook = nameof(HandleEquipableAnimation))]
+    private bool _isPerforming;
 
     private List<ActiveSkill> _activeSkills;
     private List<IEquipable> _equipedTools = new();
 
     private StructurePlacer _structurePlacer;
+    private PlayerInventory _playerInventory;
     private EquipSlot _equippedItemsSlot;
     private BuildHammer _buildHammer;
 
@@ -43,13 +49,35 @@ public class Character : NetworkBehaviour
 
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    public bool IsAlive { get => _isAlive; set => _isAlive = value; }
-    public int EquipedSlot { get => _equipedSlot; }
+    public HealthComponent Health => _health;
+    public StructurePlacer StructurePlacer => _structurePlacer;
 
+    public bool IsAlive
+    {
+        get => _isAlive;
+        set => _isAlive = value;
+    }
+
+    public float RepairSpeedModifier
+    {
+        get => _repairSpeedModifier;
+        set => _repairSpeedModifier = value;
+    }
+
+    public float BuildSpeedModifier
+    {
+        get => _buildSpeedModifier;
+        set => _buildSpeedModifier = value;
+    }
+
+    public bool IsInvisible
+    {
+        get => _isInvisible;
+        set => _isInvisible = value;
+    }
+
+    public int EquipedSlot { get => _equipedSlot; }
     public bool CanScrollTools { get => _canScrollTools; set => _canScrollTools = value; }
-    public float RepairSpeedModifier { get => _repairSpeedModifier; set => _repairSpeedModifier = value; }
-    public float BuildSpeedModifier { get => _buildSpeedModifier; set => _buildSpeedModifier = value; }
-    public bool IsInvisible { get => _isInvisible; set => _isInvisible = value; }
 
     public List<IEquipable> Equipables { get => _equipedTools; set => _equipedTools = value; }
 
@@ -63,6 +91,7 @@ public class Character : NetworkBehaviour
 
         //change to something more generic
         _equippedItemsSlot = GetComponentInChildren<EquipSlot>();
+        _playerInventory = GetComponent<PlayerInventory>();
         _buildHammer = GetComponentInChildren<BuildHammer>(true);
         _structurePlacer = GetComponent<StructurePlacer>();
 
@@ -123,6 +152,15 @@ public class Character : NetworkBehaviour
         HandleToolChanging();
         HandleEquippedTool();
         HandleBuildHammerState();
+        HandleInventoryState();
+    }
+
+    private void HandleInventoryState()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _playerInventory.ChangeInventoryUIState();
+        }
     }
 
     private void HandleBuildHammerState()
@@ -133,6 +171,7 @@ public class Character : NetworkBehaviour
             {
                 _structurePlacer.CancelPlacement();
             }
+
             ChangeBuildHammerStateOnServer();
 
             if (isLocalPlayer)
@@ -186,14 +225,14 @@ public class Character : NetworkBehaviour
 
         HandleEquippedItemRotation();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) 
+        if (Input.GetKeyDown(KeyCode.Mouse0)
             && _equipedTools[_equipedSlot].CanPerform
             && !EventSystem.current.IsPointerOverGameObject())
         {
             Cmd_InteractOnServer(_mousePosition);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) 
+        if (Input.GetKey(KeyCode.Mouse0)
             && _equipedTools[_equipedSlot].CanPerform
             && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -288,7 +327,6 @@ public class Character : NetworkBehaviour
 
     public void PowerUpSkill()
     {
-
     }
 
     public void PowerUpWeapon()
