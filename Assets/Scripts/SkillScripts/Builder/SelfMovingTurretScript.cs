@@ -9,8 +9,9 @@ using static UnityEngine.GraphicsBuffer;
 public class SelfMovingTurretScript : NetworkBehaviour
 {
     private SpriteRenderer _spriteRenderer;
-
-    private GameObject _followingTarget;
+    private HealthComponent _healthComponent;
+    [SyncVar] private uint _skill;
+    private Transform _followingTarget;
     private Vector3 _velocity = Vector3.zero;
 
     [SerializeField] private Sprite[] _rotationSprites;
@@ -22,8 +23,8 @@ public class SelfMovingTurretScript : NetworkBehaviour
 
     [SerializeField] private Transform _firePositionsHolder;
     [SerializeField] private Transform[] _firePositions;
-    [SerializeField] private float _damage;
-    [SerializeField] private float _cooldownSeconds;
+    [SerializeField][SyncVar] private float _damage;
+    [SerializeField][SyncVar] private float _cooldownSeconds;
 
     [SyncVar] private float _rotateAngle;
 
@@ -31,16 +32,32 @@ public class SelfMovingTurretScript : NetworkBehaviour
     private CooldownComponent _cooldownComponent;
     private int _rotateIndex;
 
-    public GameObject FollowingTarget { get => _followingTarget; set => _followingTarget = value; }
+    public Transform FollowingTarget { get => _followingTarget; set => _followingTarget = value; }
+    public uint Skill { get => _skill; set => _skill = value; }
+    public float Damage { get => _damage; set => _damage = value; }
+    public float CooldownSeconds { get => _cooldownSeconds; set => _cooldownSeconds = value; }
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _healthComponent = GetComponent<HealthComponent>();
+        _healthComponent.OnDeath += Death;
+    }
+
+    public void SetTarget(uint targetid)
+    {
         _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
+        _followingTarget = NetworkServer.spawned[targetid].GetComponent<Transform>();
+    }
+
+    private void Death()
+    {
+        NetworkServer.spawned[_skill].GetComponent<SelfMovingTurretSkill>().Turrets.Remove(gameObject);
     }
 
     private void Update()
     {
+        MoveToTargetInRange();
         RotateTowardsTarget();
         
         CountRotationIndex();
@@ -49,16 +66,19 @@ public class SelfMovingTurretScript : NetworkBehaviour
         FireBullet();
     }
 
+    [Server]
     private void MoveToTargetInRange()
     {
-        if (Vector3.Distance(transform.position, _followingTarget.transform.position) > _followRange)
+        if (_followingTarget == null)
+            return;
+        if (Vector3.Distance(transform.position, _followingTarget.position) > _followRange)
         {
-            Vector3 posToTargetPos = (_followingTarget.transform.position - transform.position).normalized;
-            transform.position = Vector3.SmoothDamp(transform.position, _followingTarget.transform.position - posToTargetPos * _followRange, ref _velocity, 0.5f);
+            Vector3 posToTargetPos = (_followingTarget.position - transform.position).normalized;
+            transform.position = Vector3.SmoothDamp(transform.position, _followingTarget.position - posToTargetPos * _followRange, ref _velocity, 0.5f);
         }
         if (_targetsInRange.Count == 0)
         {
-            var direction = (_followingTarget.transform.position - transform.position).normalized;
+            var direction = (_followingTarget.position - transform.position).normalized;
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             _rotateAngle = angle < 0 ? 360.0f + angle : angle;
         }
@@ -78,7 +98,7 @@ public class SelfMovingTurretScript : NetworkBehaviour
 
     private Vector3 SelectClosestTarget()
     {
-        var closest = _targetsInRange.OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).First();
+        var closest = _targetsInRange.OrderBy(t =>Vector3.Distance(transform.position, t.transform.position)).First();
         return closest.position;
     }
 
@@ -97,7 +117,7 @@ public class SelfMovingTurretScript : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out Enemy enemy) && !_targetsInRange.Contains(enemy.transform))
+        if (collision.TryGetComponent(out Enemy enemy) && !_targetsInRange.Contains(enemy.transform) && collision is BoxCollider2D)
         {
             _targetsInRange.Add(enemy.transform);
 
@@ -106,6 +126,13 @@ public class SelfMovingTurretScript : NetworkBehaviour
             {
                 _rotateIndex = 0;
             }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<Enemy>(out Enemy enemy) && _targetsInRange.Contains(enemy.transform))
+        {
+            _targetsInRange.Remove(enemy.transform);
         }
     }
 

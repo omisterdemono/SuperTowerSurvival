@@ -247,7 +247,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1592202166, guid: 72a5c7a984d77f54fb7405ec8d2495d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -358,8 +358,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _maxHealth: 0
-  _healthBar: {fileID: 0}
+  _maxHealth: 100
+  _healthBar: {fileID: 294935122825551504}
 --- !u!61 &168313754044351592
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -447,8 +447,8 @@ MonoBehaviour:
   _firePositionsHolder: {fileID: 1577210828158291024}
   _firePositions:
   - {fileID: 4147234609527749888}
-  _damage: 10
-  _cooldownSeconds: 0.3
+  _damage: 0
+  _cooldownSeconds: 0
 --- !u!1 &6634998220810988458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,7 +1348,7 @@ ParticleSystem:
     m_TextureColorAffectsParticles: 1
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
-    randomDirectionAmount: 0
+    randomDirectionAmount: 1
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
@@ -1471,7 +1471,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5398,7 +5398,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

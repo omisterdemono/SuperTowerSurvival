@@ -106,7 +106,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -4931,6 +4931,7 @@ GameObject:
   - component: {fileID: 8645461397614680018}
   - component: {fileID: 5121590580820816139}
   - component: {fileID: 2657977773894173994}
+  - component: {fileID: 1432979457284204321}
   m_Layer: 0
   m_Name: Builder with hammer
   m_TagString: Player
@@ -5329,6 +5330,27 @@ MonoBehaviour:
   buffDuration: 30
   repairModifier: 1.5
   buildModifier: 1.5
+--- !u!114 &1432979457284204321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8fcc67cc8c917b43adaa4b03aec3478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _skillAttributes: {fileID: 11400000, guid: e2e42172c81d81049ba827b55985b9f0, type: 2}
+  _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
+  _turretPrefab: {fileID: 4635112692247494738, guid: 5d5d060310076d14ba717035c0d5fe35, type: 3}
+  _damage: 10
+  _fireCooldown: 0.3
+  maxTurretsCount: 1
 --- !u!1 &9084387294348873565
 GameObject:
   m_ObjectHideFlags: 0
