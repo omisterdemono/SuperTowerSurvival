@@ -535,16 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71038eef53dfafa4eae60a9af8c99792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  inventoryUI: {fileID: 0}
-  craftUI: {fileID: 0}
-  inventoryData: {fileID: 11400000, guid: e67b241776e75674aa42073b0437431d, type: 2}
-  book: {fileID: 11400000, guid: 87af28857ac9d88439036e047d4cbc4a, type: 2}
-  initialItems: []
-  ItemPrefab: {fileID: 0}
-  dropClip: {fileID: 0}
 --- !u!1 &4489913884252574605
 GameObject:
   m_ObjectHideFlags: 0

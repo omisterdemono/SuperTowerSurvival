@@ -5441,14 +5441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1074a09a2535241a6ea91a3fde2864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  _skillAttributes: {fileID: 11400000, guid: 2fde371be4e730045804feca90553f36, type: 2}
-  _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
-  buffDuration: 30
-  repairModifier: 1.5
-  buildModifier: 1.5
+  _dayLightInnerRadius: 0
+  _dayLightOuterRadius: 0
 --- !u!1 &9084387294348873565
 GameObject:
   m_ObjectHideFlags: 0
