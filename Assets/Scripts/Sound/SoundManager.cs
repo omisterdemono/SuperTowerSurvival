@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : NetworkBehaviour
 {
     public static SoundManager instance { get; private set; }
     [SerializeField] private AudioClipsSO audioClipsSO;

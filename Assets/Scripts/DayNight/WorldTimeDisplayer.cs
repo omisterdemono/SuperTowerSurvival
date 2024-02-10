@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,7 @@ public class WorldTimeDisplayer : MonoBehaviour
     {
         _text = GetComponent<TMP_Text>();
         _worldLight = FindObjectOfType<WorldLight>();
+        //_worldLight = GetComponent<WorldLight>();
         childImage = this.GetComponentInChildren<Image>();
         WorldLight.OnNightChanged += WorldLight_OnNightChanged;
     }
