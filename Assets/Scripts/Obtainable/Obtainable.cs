@@ -1,8 +1,6 @@
 using Inventory.Models;
 using Mirror;
-using System;
 using Inventory;
-using UnityEditor.Searcher;
 using UnityEngine;
 
 public class Obtainable : NetworkBehaviour
