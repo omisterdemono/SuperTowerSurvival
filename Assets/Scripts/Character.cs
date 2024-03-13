@@ -17,7 +17,7 @@ public class Character : NetworkBehaviour
     private MovementComponent _movement;
     private HealthComponent _health;
     private Animator _animator;
-    private ItemHolderScript _itemHolder;
+    private ItemHolder _itemHolder;
 
     [SerializeField] [SyncVar] private bool _isAlive = true;
     [SerializeField] [SyncVar] private bool _isInvisible = false;
@@ -103,13 +103,12 @@ public class Character : NetworkBehaviour
         _activeSkills = new List<ActiveSkill>();
         _activeSkills.AddRange(GetComponents<ActiveSkill>());
         _keyCodes = new Dictionary<int, KeyCode>();
-        for (int i = 0; i < _activeSkills.Count; i++)
+        for (var i = 0; i < _activeSkills.Count; i++)
         {
-            _keyCodes.Add(i, (KeyCode)System.Enum.Parse(typeof(KeyCode), $"Alpha{i + 1}"));
+            _keyCodes.Add(i, Config.GameConfig.ActiveSkillsKeyCodes[i]);
         }
 
-        _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolderScript>();
-
+        _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolder>();
         _itemHolder.SetIcons(_tools);
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
@@ -241,7 +240,7 @@ public class Character : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdChangeTool(int equipedSlot, ItemHolderScript itemHolder)
+    private void CmdChangeTool(int equipedSlot, ItemHolder itemHolder)
     {
         _equipedSlot = equipedSlot;
     }

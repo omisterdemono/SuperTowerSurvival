@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemHolderScript : NetworkBehaviour
+public class ItemHolder : NetworkBehaviour
 {
     [SerializeField] private List<GameObject> _toolSlots = new List<GameObject> ();
     private int _equipedSlot = 0;

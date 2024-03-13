@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Infrastructure.Config;
+using Config;
 using Inventory.Models;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ namespace Inventory.UI
         {
             GetComponentInParent<Canvas>();
 
-            for (int i = 0; i < ConfigConstants.CellsInInventoryCount; i++)
+            for (int i = 0; i < GameConfig.InventoryCellsCount; i++)
             {
                 var inventoryCell = Instantiate(_inventoryCellPrefab, transform);
 

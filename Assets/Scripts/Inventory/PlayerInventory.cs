@@ -1,5 +1,5 @@
-﻿using Infrastructure;
-using Infrastructure.Config;
+﻿using Config;
+using Infrastructure;
 using Inventory.Models;
 using Inventory.UI;
 using Mirror;
@@ -21,7 +21,7 @@ namespace Inventory
 
         private void Awake()
         {
-            Inventory = new Inventory(ConfigConstants.CellsInInventoryCount);
+            Inventory = new Inventory(GameConfig.InventoryCellsCount);
             CraftingSystem = new CraftingSystem(Inventory);
 
             var gameInitializer = FindObjectOfType<GameInitializer>();
