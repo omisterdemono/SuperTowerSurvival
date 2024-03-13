@@ -485,6 +485,11 @@ MonoBehaviour:
   - {fileID: 6482214173650905196}
   - {fileID: 8737328713079823392}
   - {fileID: 6838423681899058805}
+  _toolIds:
+  - shovel
+  - build_hammer
+  - iron_pickaxe
+  - iron_axe
   _buildHammerSlotIndex: 1
 --- !u!114 &7017892851504214497
 MonoBehaviour:
@@ -502,6 +507,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 300
+  type: 0
   _healthBar: {fileID: 0}
 --- !u!114 &3411912328037982115
 MonoBehaviour:
@@ -553,7 +559,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _skillAttributes: {fileID: 11400000, guid: 306b448ddc223eb4c960fab33e505795, type: 2}
-  _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
   _minePrefab: {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
   _damage: 10
 --- !u!114 &7209853551525115248
@@ -572,7 +577,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _skillAttributes: {fileID: 11400000, guid: cb83d92780c508b40a95cf29241623e8, type: 2}
-  _skillButton: {fileID: 2741235383565010216, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
   _dynamitePrefab: {fileID: 4153535944577513394, guid: 36c23f8accca0f64d85168bc6d67bc35, type: 3}
   _damage: 10
 --- !u!114 &3379719656361482130
@@ -674,21 +678,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4556259820489150868}
     m_Modifications:
-    - target: {fileID: 426073064241239050, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5666207364228382042, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
-      propertyPath: _obtainSeconds
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 8838569770955771769, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_Name
-      value: Wooden Axe
-      objectReference: {fileID: 0}
-    - target: {fileID: 8838569770955771769, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: Axe
       objectReference: {fileID: 0}
     - target: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_RootOrder
@@ -815,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_Name
-      value: Mallet
+      value: BuildHammer
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_IsActive

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.UI;
+using Inventory;
 using Inventory.UI;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace Infrastructure
         [SerializeField] private CraftingUI _craftingUIPrefab;
         [SerializeField] private SkillButton _skillButton;
         [SerializeField] private HotbarInventoryCellUI _hotbarInventoryCell;
+        
+        
+        [SerializeField] private ItemDatabaseSO _itemDatabase;
 
         public InventoryUI InitializeInventoryUI()
         {
@@ -46,9 +50,9 @@ namespace Infrastructure
             return skillButtons;
         }
 
-        public void InitializeHotbar()
+        public void InitializeHotbar(List<string> tools = null)
         {
-            var hotbar = GameObject.FindGameObjectWithTag("ItemHolder");
+            var hotbar = FindObjectOfType<HotBar>();
 
             for (int i = 0; i < Config.GameConfig.HotbarKeyCodes.Count; i++)
             {
@@ -56,11 +60,17 @@ namespace Infrastructure
                 var keycode = Config.GameConfig.HotbarKeyCodes[i].ToString();
                 hotbarCell.ActivateButtonHintText.text = keycode.Last().ToString();
 
-                if (i == 0)
+                //todo remove this after testing
+                if (tools != null && i <= tools.Count - 1)
                 {
-                    hotbarCell.Select(true);
+                    var item = _itemDatabase.Items.First(item => item.Id == tools[i]);
+                    hotbarCell.ItemUI.SetItem(item, 1);
                 }
+                
+                hotbar.HotbarCells.Add(hotbarCell);
             }
+            
+            hotbar.SelectCell(0);
         }
     }
 }

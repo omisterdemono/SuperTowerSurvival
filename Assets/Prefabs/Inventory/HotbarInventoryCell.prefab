@@ -248,10 +248,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7818482274541220114}
     m_Modifications:
-    - target: {fileID: 644913610840244138, guid: 4355120b629ee9b4fa9de5751ae921a1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2754700254352130365, guid: 4355120b629ee9b4fa9de5751ae921a1, type: 3}
       propertyPath: m_Name
       value: InventoryItem

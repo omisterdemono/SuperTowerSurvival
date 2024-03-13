@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using System;
 using Assets.Scripts.Weapons;
-using Unity.Collections.LowLevel.Unsafe;
 using System.Collections;
 using Infrastructure;
 using Inventory;
@@ -18,7 +16,7 @@ public class Character : NetworkBehaviour
     private MovementComponent _movement;
     private HealthComponent _health;
     private Animator _animator;
-    private ItemHolder _itemHolder;
+    private HotBar _hotBar;
 
     [SerializeField] [SyncVar] private bool _isAlive = true;
     [SerializeField] [SyncVar] private bool _isInvisible = false;
@@ -26,10 +24,13 @@ public class Character : NetworkBehaviour
     [SerializeField] private float _repairSpeedModifier = 1;
     [SerializeField] private float _buildSpeedModifier = 1;
     [SerializeField] private float _weaponDamageModifier = 1;
+
+    //todo tools will be more generic in the future and these two list should be removed
     [SerializeField] private List<GameObject> _tools = new();
+    [SerializeField] private List<string> _toolIds = new();
 
     [SerializeField] private int _buildHammerSlotIndex = 1;
-    
+
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
 
@@ -101,22 +102,21 @@ public class Character : NetworkBehaviour
     private void Start()
     {
         if (!isOwned) return;
-        
+
         _activeSkills = new List<ActiveSkill>();
         _keyCodes = new Dictionary<int, KeyCode>();
-        
+
         _activeSkills.AddRange(GetComponents<ActiveSkill>());
         for (var i = 0; i < _activeSkills.Count; i++)
         {
             _keyCodes.Add(i, Config.GameConfig.ActiveSkillsKeyCodes[i]);
         }
-        
+
         var gameInitializer = FindObjectOfType<GameInitializer>();
         gameInitializer.InitializeSkillHolder(_activeSkills);
-        
-        gameInitializer.InitializeHotbar();
-        _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolder>();
-        _itemHolder.SetIcons(_tools);
+
+        gameInitializer.InitializeHotbar(_toolIds);
+        _hotBar = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<HotBar>();
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
     }
@@ -199,22 +199,35 @@ public class Character : NetworkBehaviour
         }
     }
 
+    public void SelectInstrumentById(string id)
+    {
+        var index = _toolIds.IndexOf(id);
+        CmdChangeTool(index);
+    }
+
     private void HandleToolChanging()
     {
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollInput != 0)
-        {
-            if (scrollInput > 0)
-            {
-                CmdChangeTool((_equipedSlot + 1) % 4, _itemHolder);
-            }
-            else if (scrollInput < 0)
-            {
-                CmdChangeTool((_equipedSlot - 1 + 4) % 4, _itemHolder);
-            }
+        var scrollInput = Input.GetAxis("Mouse ScrollWheel");
 
-            _equippedItemsSlot.ChangeRotatingChild(_equipedSlot);
+        switch (scrollInput)
+        {
+            case 0:
+                return;
+            case > 0:
+                CmdChangeTool((_equipedSlot + 1) % Config.GameConfig.HotbarCellsCount);
+                break;
+            case < 0:
+                CmdChangeTool((_equipedSlot - 1 + Config.GameConfig.HotbarCellsCount) %
+                              Config.GameConfig.HotbarCellsCount);
+                break;
         }
+
+        if (_equipedSlot >= _tools.Count)
+        {
+            return;
+        }
+
+        _equippedItemsSlot.ChangeRotatingChild(_equipedSlot);
     }
 
     private void HandleEquippedTool()
@@ -246,12 +259,6 @@ public class Character : NetworkBehaviour
         }
     }
 
-    [Command(requiresAuthority = false)]
-    private void CmdChangeTool(int equipedSlot, ItemHolder itemHolder)
-    {
-        _equipedSlot = equipedSlot;
-    }
-
     private void OnDeath()
     {
         IsAlive = false;
@@ -260,12 +267,17 @@ public class Character : NetworkBehaviour
 
     private void HandleEquipedSlotChanged(int oldValue, int newValue)
     {
-        _tools[oldValue].SetActive(false);
-        _tools[newValue].SetActive(true);
-        if (_itemHolder != null)
+        if (oldValue != -1 && oldValue < _tools.Count)
         {
-            _itemHolder.ChangeSlot(newValue);
+            _tools[oldValue].SetActive(false);
         }
+        
+        if (newValue != -1 && newValue < _tools.Count)
+        {
+            _tools[newValue].SetActive(true);
+        }
+
+        _hotBar.SelectCell(newValue);
     }
 
     private void HandleEquipableAnimation(bool oldValue, bool newValue)

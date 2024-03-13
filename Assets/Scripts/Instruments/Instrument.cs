@@ -2,10 +2,11 @@ using Assets.Scripts.Weapons;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Instrument : MonoBehaviour, IInstrument, IEquipable
 {
-    [SerializeField] private InstrumentAttributes _instrumentAttributes;
+    [FormerlySerializedAs("_instrumentAttributes")] [SerializeField] private InstrumentItemSO _instrumentItemSo;
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private float _obtainSeconds;
 
@@ -28,9 +29,9 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void Awake()
     {
-        Strength = _instrumentAttributes.Strength;
-        Durability = _instrumentAttributes.Durability;
-        InstrumentType = _instrumentAttributes.InstrumentType;
+        Strength = _instrumentItemSo.Strength;
+        Durability = _instrumentItemSo.Durability;
+        InstrumentType = _instrumentItemSo.InstrumentType;
 
         _animator = GetComponent<Animator>();
         _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };

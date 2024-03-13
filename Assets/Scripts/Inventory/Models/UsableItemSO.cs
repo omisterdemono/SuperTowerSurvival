@@ -10,7 +10,7 @@ namespace Inventory.Models
         public ItemAction ItemAction;
         public AudioClip ActionSFX;
 
-        public void PerformAction(Character character, Action afterPerform)
+        public virtual void PerformAction(Character character, Action afterPerform)
         {
             ItemAction.PerformAction(character, this, afterPerform);
         }

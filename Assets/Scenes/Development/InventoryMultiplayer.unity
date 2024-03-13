@@ -745,6 +745,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7029786596090816657, guid: f238912a0b65b2d478d5807470238db7, type: 3}
+      propertyPath: _itemDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
+    - target: {fileID: 7029786596090816657, guid: f238912a0b65b2d478d5807470238db7, type: 3}
       propertyPath: _hotbarInventoryCell
       value: 
       objectReference: {fileID: 2298005861701589153, guid: 85660f40527bc3c4780d6debe06de5c0, type: 3}

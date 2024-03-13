@@ -5,6 +5,7 @@ using System.Collections;
 using System.Linq;
 using StructurePlacement;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum BuildHammerState
 {
@@ -14,7 +15,7 @@ public enum BuildHammerState
 
 public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 {
-    [SerializeField] private InstrumentAttributes _instrumentAttributes;
+    [FormerlySerializedAs("_instrumentAttributes")] [SerializeField] private InstrumentItemSO _instrumentItemSo;
     [SerializeField] private float _cooldownSeconds;
 
     public InstrumentType InstrumentType { get; set; }
@@ -39,9 +40,9 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     private void Awake()
     {
-        Strength = _instrumentAttributes.Strength;
-        Durability = _instrumentAttributes.Durability;
-        InstrumentType = _instrumentAttributes.InstrumentType;
+        Strength = _instrumentItemSo.Strength;
+        Durability = _instrumentItemSo.Durability;
+        InstrumentType = _instrumentItemSo.InstrumentType;
 
         _animator = GetComponent<Animator>();
         _structurePlacer = GetComponentInParent<StructurePlacer>();

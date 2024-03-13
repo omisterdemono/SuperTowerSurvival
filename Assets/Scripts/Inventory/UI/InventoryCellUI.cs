@@ -72,7 +72,7 @@ namespace Inventory.UI
             _isHovered = false;
         }
 
-        public void Select(bool selectType)
+        public void SetSelect(bool selectType)
         {
             _selectedImage.SetActive(selectType);
         }
