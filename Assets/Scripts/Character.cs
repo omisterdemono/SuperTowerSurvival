@@ -209,14 +209,14 @@ public class Character : NetworkBehaviour
     private void HandleToolChanging()
     {
         var scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        var itemWasInstrument = true;
+        var itemWasUsable = true;
 
         for (var index = 0; index < Config.GameConfig.HotbarKeyCodes.Count; index++)
         {
             var code = Config.GameConfig.HotbarKeyCodes[index];
             if (Input.GetKeyDown(code))
             {
-                itemWasInstrument = _hotBar.ActivateCell(index, this);
+                itemWasUsable = _hotBar.ActivateCell(index, this);
             }
         }
 
@@ -224,16 +224,16 @@ public class Character : NetworkBehaviour
         {
             case > 0:
                 var slotNumberUp = (_hotBar.SelectedCell + 1) % Config.GameConfig.HotbarCellsCount;
-                itemWasInstrument = _hotBar.ActivateCell(slotNumberUp, this);
+                itemWasUsable = _hotBar.ActivateCell(slotNumberUp, this);
                 break;
             case < 0:
                 var slotNumberDown = (_hotBar.SelectedCell - 1 + Config.GameConfig.HotbarCellsCount)
                                      % Config.GameConfig.HotbarCellsCount;
-                itemWasInstrument = _hotBar.ActivateCell(slotNumberDown, this);
+                itemWasUsable = _hotBar.ActivateCell(slotNumberDown, this);
                 break;
         }
         
-        if (!itemWasInstrument)
+        if (!itemWasUsable)
         {
             CmdChangeTool(-1);
         }

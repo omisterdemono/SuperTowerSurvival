@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Inventory.Models;
 using Inventory.UI;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class HotBar : MonoBehaviour
 
     public bool ActivateCell(int id, Character character)
     {
-        var instrumentItem = HotbarCells[id].InventoryCell.Item as InstrumentItemSO;
+        var instrumentItem = HotbarCells[id].InventoryCell.Item as UsableItemSO;
         if (instrumentItem != null)
         {
             instrumentItem.PerformAction(character, () => { });
