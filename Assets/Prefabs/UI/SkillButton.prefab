@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7553655313261119196}
   - component: {fileID: 1659440180231935274}
   - component: {fileID: 978103309939654769}
+  - component: {fileID: 6247630254403735546}
   m_Layer: 5
-  m_Name: Skill
+  m_Name: SkillButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,6 +79,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2741235383565010216}
   m_CullTransparentMesh: 1
+--- !u!114 &6247630254403735546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2741235383565010216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a4edfbbbae404eaeed40a75b040ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activateButtonText: {fileID: 4009950421433866027}
+  _skillIcon: {fileID: 1659440180231935274}
+  _skillCooldown: {fileID: 1341165539837200240}
 --- !u!1 &5812969820291971366
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,3 +276,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8050462154899250102, guid: f4f83e966951ee64a95c5d72266635f8, type: 3}
   m_PrefabInstance: {fileID: 7882108626718247256}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4009950421433866027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6540586348094103155, guid: f4f83e966951ee64a95c5d72266635f8, type: 3}
+  m_PrefabInstance: {fileID: 7882108626718247256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -7,6 +7,6 @@ namespace Config
     {
         public static readonly int InventoryCellsCount = 18;
         public static readonly int HotbarCellsCount = 7;
-        public static readonly List<KeyCode> ActiveSkillsKeyCodes = new() { KeyCode.Q, KeyCode.E };
+        public static readonly List<KeyCode> ActiveSkillsKeyCodes = new() { KeyCode.Q, KeyCode.E, KeyCode.F, KeyCode.G };
     }
 }

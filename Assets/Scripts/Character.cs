@@ -5,6 +5,7 @@ using System;
 using Assets.Scripts.Weapons;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Collections;
+using Infrastructure;
 using Inventory;
 using StructurePlacement;
 using UnityEngine.EventSystems;
@@ -100,13 +101,18 @@ public class Character : NetworkBehaviour
     private void Start()
     {
         if (!isOwned) return;
+        
         _activeSkills = new List<ActiveSkill>();
-        _activeSkills.AddRange(GetComponents<ActiveSkill>());
         _keyCodes = new Dictionary<int, KeyCode>();
+        
+        _activeSkills.AddRange(GetComponents<ActiveSkill>());
         for (var i = 0; i < _activeSkills.Count; i++)
         {
             _keyCodes.Add(i, Config.GameConfig.ActiveSkillsKeyCodes[i]);
         }
+        
+        var gameInitializer = FindObjectOfType<GameInitializer>();
+        gameInitializer.InitializeSkillHolder(_activeSkills);
 
         _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolder>();
         _itemHolder.SetIcons(_tools);

@@ -10,10 +10,11 @@ public class ItemHolder : NetworkBehaviour
 
     public void SetIcons(List<GameObject> tools)
     {
-        for (int i = 0; i < _toolSlots.Count; i++)
-        {
-            _toolSlots[i].GetComponent<Image>().sprite = tools[i].GetComponentInChildren<SpriteRenderer>().sprite;
-        }
+        //todo to rewrite toolbar script
+        // for (int i = 0; i < _toolSlots.Count; i++)
+        // {
+        //     _toolSlots[i].GetComponent<Image>().sprite = tools[i].GetComponentInChildren<SpriteRenderer>().sprite;
+        // }
     }
     public void ChangeSlot(int slot)
     {
