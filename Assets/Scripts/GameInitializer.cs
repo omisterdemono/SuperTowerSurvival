@@ -11,22 +11,34 @@ namespace Infrastructure
     public class GameInitializer : MonoBehaviour
     {
         [SerializeField] private InventoryUI _inventoryUIPrefab;
+        [SerializeField] private EquipUI _equipUIPrefab;
         [SerializeField] private CraftingUI _craftingUIPrefab;
         [SerializeField] private SkillButton _skillButton;
         [SerializeField] private HotbarInventoryCellUI _hotbarInventoryCell;
-        
-        
+
+
         [SerializeField] private ItemDatabaseSO _itemDatabase;
 
         private void Awake()
         {
-            Cursor.visible = false;
+            // Cursor.visible = false;
         }
 
         public InventoryUI InitializeInventoryUI()
         {
-            var canvas = FindObjectOfType<Canvas>();
-            return Instantiate(_inventoryUIPrefab, canvas.transform);
+            // var parent = GameObject.FindWithTag("InventoryHolderUI");
+            // var inventoryUI = Instantiate(_inventoryUIPrefab, parent.transform, true);
+            // inventoryUI.transform.SetSiblingIndex(1);
+            
+            return FindObjectOfType<InventoryUI>();;
+        }
+
+        public EquipUI InitializeEquipUI()
+        {
+            // var parent = GameObject.FindWithTag("InventoryHolderUI");
+            // var equip = Instantiate(_equipUIPrefab, parent.transform, true);
+            // equip.transform.SetSiblingIndex(0);
+            return FindObjectOfType<EquipUI>();
         }
 
         public CraftingUI InitializeCraftingUI()
@@ -45,10 +57,10 @@ namespace Infrastructure
                 var activeSkill = activeSkills[i];
                 var skillButton = Instantiate(_skillButton, skillHolder.transform, true);
                 activeSkill.SkillButton = skillButton;
-                
+
                 skillButton.SkillIcon.sprite = activeSkill.SkillAttributes.SkillIcon;
                 skillButton.ActivateButtonText.text = Config.GameConfig.ActiveSkillsKeyCodes[i].ToString();
-                
+
                 skillButtons.Add(skillButton);
             }
 
@@ -67,7 +79,7 @@ namespace Infrastructure
 
                 hotbar.HotbarCells.Add(hotbarCell);
             }
-            
+
             hotbar.SelectCell(0);
             return hotbar;
         }

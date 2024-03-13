@@ -169,7 +169,7 @@ namespace Inventory
 
         private IEnumerable<InventoryCell> GetFreeCells()
         {
-            return Cells.Where(t => t.Item == null).ToList();
+            return Cells.Where(t => t.Item == null && !t.IsEquipSlot).ToList();
         }
     }
 }

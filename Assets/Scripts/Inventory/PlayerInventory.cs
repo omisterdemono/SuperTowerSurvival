@@ -18,14 +18,18 @@ namespace Inventory
         private InventoryUI _inventoryUI;
         private CraftingUI _craftingUI;
         private ItemNetworkSpawner _itemNetworkSpawner;
+
+        private GameObject _inventoryHolderUI;
         public bool IsInventoryShown { get; private set; } = true;
 
         private void Awake()
         {
-            Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount);
+            Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount + GameConfig.EquipCellsCount);
             CraftingSystem = new CraftingSystem(Inventory);
 
             Character = GetComponent<Character>();
+
+            _inventoryHolderUI = GameObject.FindWithTag("InventoryHolderUI");
 
             var gameInitializer = FindObjectOfType<GameInitializer>();
             _inventoryUI = gameInitializer.InitializeInventoryUI();
@@ -56,7 +60,7 @@ namespace Inventory
         public void ChangeInventoryUIState()
         {
             IsInventoryShown = !IsInventoryShown;
-            _inventoryUI.gameObject.SetActive(IsInventoryShown);
+            _inventoryHolderUI.gameObject.SetActive(IsInventoryShown);
         }
 
         private void OnTriggerEnter2D(Collider2D col)

@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 7414181993107622980}
   - component: {fileID: 7152021397418696509}
   - component: {fileID: 6849937471159207954}
-  - component: {fileID: 2103973124400558487}
   m_Layer: 5
-  m_Name: InventoryUI
+  m_Name: EquipUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -760, y: 400}
-  m_SizeDelta: {x: 625.7937, y: 352.3835}
+  m_AnchoredPosition: {x: -1173.1, y: 404}
+  m_SizeDelta: {x: 184, y: 338.4997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7414181993107622980
 MonoBehaviour:
@@ -53,17 +52,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 70
+    m_Left: 77
     m_Right: 60
-    m_Top: 68
+    m_Top: 81
     m_Bottom: 60
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 60, y: 60}
-  m_Spacing: {x: 25, y: 21}
-  m_Constraint: 1
-  m_ConstraintCount: 6
+  m_CellSize: {x: 30, y: 30}
+  m_Spacing: {x: 30, y: 47.8}
+  m_Constraint: 2
+  m_ConstraintCount: 3
 --- !u!222 &7152021397418696509
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +91,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f69271a3091b6d74fa5efd442c70d1c7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c46ece49096ddc4183ea951f9542488, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -102,17 +101,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2103973124400558487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4031502894281481374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a767c033f199cac4397df3e9d9c43645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventoryCellPrefab: {fileID: 3377799417376047652, guid: e0ec6a5174d89ea48b222b2afc251dc5, type: 3}
-  _movingItemUIPrefab: {fileID: 6947465310171095471, guid: c7292267209804b459841d80907cb42b, type: 3}

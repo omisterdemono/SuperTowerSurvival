@@ -16,17 +16,23 @@ namespace Inventory.UI
         private MovingItemUI _movingItemUI;
         private Inventory _inventory;
         private PlayerInventory _playerInventory;
-        private Character _character;
         private HotBar _hotBar;
 
         private void Awake()
         {
             GetComponentInParent<Canvas>();
-            
+
             var gameInitializer = FindObjectOfType<GameInitializer>();
             _hotBar = gameInitializer.InitializeHotbar();
             _uiCells.AddRange(_hotBar.HotbarCells);
 
+            var equipUI = gameInitializer.InitializeEquipUI();
+
+            for (int i = 0; i < GameConfig.EquipCellsCount; i++)
+            {
+                var inventoryCell = Instantiate(_inventoryCellPrefab, equipUI.transform);
+                _uiCells.Add(inventoryCell);
+            }
 
             for (int i = 0; i < GameConfig.InventoryCellsCount; i++)
             {
@@ -111,11 +117,21 @@ namespace Inventory.UI
                 return;
             }
 
-            usableItem.PerformAction(_playerInventory, () => _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1));
+            usableItem.PerformAction(_playerInventory,
+                () => _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1));
         }
 
         private void SwapItemsInMovingAndCurrent(InventoryCellUI currentInventoryUICell)
         {
+            if (currentInventoryUICell.InventoryCell.IsEquipSlot)
+            {
+                var armorItem = _movingItemUI.Item as ArmorItemSO;
+                if (armorItem == null || currentInventoryUICell.InventoryCell.ArmorType != armorItem.ArmorType)
+                {
+                    return;
+                }
+            }
+            
             var (item, count) = (_movingItemUI.Item, _movingItemUI.TakenCountOfItems);
             _movingItemUI.Init(currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count);
             (currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count) = (item, count);
@@ -123,6 +139,15 @@ namespace Inventory.UI
 
         private void AddItemsToCell(InventoryCellUI currentInventoryUICell, int countToAddToCurrent)
         {
+            if (currentInventoryUICell.InventoryCell.IsEquipSlot)
+            {
+                var armorItem = _movingItemUI.Item as ArmorItemSO;
+                if (armorItem == null || currentInventoryUICell.InventoryCell.ArmorType != armorItem.ArmorType)
+                {
+                    return;
+                }
+            }
+            
             var left = _inventory.TryAddToCell(_movingItemUI.Item, currentInventoryUICell.Index,
                 countToAddToCurrent);
 
@@ -139,7 +164,6 @@ namespace Inventory.UI
         {
             _playerInventory = playerInventory;
             _hotBar.PlayerInventory = playerInventory;
-            _character = playerInventory.GetComponent<Character>();
             _inventory = playerInventory.Inventory;
 
             for (var index = 0; index < _inventory.Cells.Length; index++)
@@ -149,6 +173,14 @@ namespace Inventory.UI
 
                 _uiCells[index].InventoryCell = cell;
                 _uiCells[index].ItemDrop = playerInventory.OnItemDrop;
+            }
+
+            //setting up equip slots
+            for (int i = 0; i < GameConfig.EquipCellsCount; i++)
+            {
+                var inventoryCell = _uiCells[GameConfig.HotbarCellsCount + i];
+                inventoryCell.InventoryCell.IsEquipSlot = true;
+                inventoryCell.InventoryCell.ArmorType = (ArmorType)(i + 1);
             }
         }
     }

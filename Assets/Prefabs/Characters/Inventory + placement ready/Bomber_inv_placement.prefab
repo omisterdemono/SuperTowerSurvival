@@ -507,7 +507,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 300
-  type: 0
+  type: 1
   _healthBar: {fileID: 0}
 --- !u!114 &3411912328037982115
 MonoBehaviour:

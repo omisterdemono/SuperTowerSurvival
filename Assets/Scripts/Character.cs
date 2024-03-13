@@ -161,7 +161,7 @@ public class Character : NetworkBehaviour
         if (Input.GetKeyDown(Config.GameConfig.OpenInventoryKeyCode))
         {
             _playerInventory.ChangeInventoryUIState();
-            Cursor.visible = !Cursor.visible;
+            // Cursor.visible = !Cursor.visible;
         }
     }
 

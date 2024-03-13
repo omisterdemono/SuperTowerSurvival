@@ -32,5 +32,8 @@ namespace Inventory.Models
         public Action<InventoryCell> Modified;
         private ItemSO _item;
         private int _count;
+        
+        public bool IsEquipSlot { get; set; }
+        public ArmorType ArmorType { get; set; } = ArmorType.None;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using System;
+using Infrastructure.UI;
 using UnityEngine.UI;
 
 public class HealthComponent : NetworkBehaviour
@@ -113,6 +114,12 @@ public class HealthComponent : NetworkBehaviour
         {
             _canvasGroupHB = _healthBar.GetComponentInChildren<CanvasGroup>();
             _imageHP = _canvasGroupHB.transform.GetChild(1).GetComponentInChildren<Image>();
+        }
+
+        if (type == Type.Player)
+        {
+            var healthbar = FindObjectOfType<PlayerHealthBarUI>();
+            _imageHP = healthbar.transform.GetChild(0).GetComponentInChildren<Image>();
         }
     }
 }
