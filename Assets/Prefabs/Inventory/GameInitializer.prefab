@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryUIPrefab: {fileID: 2103973124400558487, guid: 79edff09ee955a641bbc956eeda5a643, type: 3}
   _craftingUIPrefab: {fileID: 1141852347445324626, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+  _skillButton: {fileID: 6247630254403735546, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}

@@ -7,6 +7,7 @@ namespace Inventory.UI
 {
     public class InventoryCellUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        [SerializeField] private GameObject _selectedImage;
         public int Index { get; set; }
         public InventoryItemUI ItemUI { get; set; }
         public InventoryCell InventoryCell { get; set; }
@@ -69,6 +70,11 @@ namespace Inventory.UI
         public void OnPointerExit(PointerEventData eventData)
         {
             _isHovered = false;
+        }
+
+        public void Select(bool selectType)
+        {
+            _selectedImage.SetActive(selectType);
         }
     }
 }

@@ -10,8 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d72383cf0bb53443a52a5adb790c875, type: 3}
-  m_Name: BuildHammerAttributes
+  m_Name: BuildHammer
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: build_hammer
+  <IsStackable>k__BackingField: 0
+  <MaxStackSize>k__BackingField: 1
+  <Name>k__BackingField: Build Hammer
+  <Description>k__BackingField: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 484bf4ae5eff18a498168dc0ba73aa4d, type: 3}
+  <DefaultParametersList>k__BackingField: []
+  ItemAction: {fileID: 0}
+  ActionSFX: {fileID: 0}
   Strength: 10
   Durability: 200
   InstrumentType: 2

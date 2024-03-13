@@ -113,7 +113,8 @@ public class Character : NetworkBehaviour
         
         var gameInitializer = FindObjectOfType<GameInitializer>();
         gameInitializer.InitializeSkillHolder(_activeSkills);
-
+        
+        gameInitializer.InitializeHotbar();
         _itemHolder = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<ItemHolder>();
         _itemHolder.SetIcons(_tools);
 
