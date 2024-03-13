@@ -9,10 +9,16 @@ namespace Inventory.Models
     {
         public ItemAction ItemAction;
         public AudioClip ActionSFX;
+        public bool RemoveAfterUsing;
 
-        public virtual void PerformAction(Character character, Action afterPerform)
+        public virtual void PerformAction(PlayerInventory playerInventory, Action afterPerform)
         {
-            ItemAction.PerformAction(character, this, afterPerform);
+            ItemAction.PerformAction(playerInventory.Character, this, afterPerform);
+
+            if (RemoveAfterUsing)
+            {
+                playerInventory.Inventory.TryRemoveItem(this, 1);
+            }
         }
     }
 }

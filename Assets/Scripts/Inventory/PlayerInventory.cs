@@ -11,6 +11,7 @@ namespace Inventory
     {
         [SerializeField] private float _throwRadius;
         public Inventory Inventory { get; private set; }
+        public Character Character { get; private set; }
         public CraftingSystem CraftingSystem { get; private set; }
         public Vector3 LastMoveDirection { get; set; }
 
@@ -23,6 +24,8 @@ namespace Inventory
         {
             Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount);
             CraftingSystem = new CraftingSystem(Inventory);
+
+            Character = GetComponent<Character>();
 
             var gameInitializer = FindObjectOfType<GameInitializer>();
             _inventoryUI = gameInitializer.InitializeInventoryUI();

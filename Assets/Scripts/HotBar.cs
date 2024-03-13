@@ -1,12 +1,20 @@
 using System.Collections.Generic;
+using Inventory;
 using Inventory.Models;
 using Inventory.UI;
 using UnityEngine;
 
 public class HotBar : MonoBehaviour
 {
+    private PlayerInventory _playerInventory;
     public List<InventoryCellUI> HotbarCells { get; set; } = new();
     public int SelectedCell { get; private set; } = 0;
+
+    public PlayerInventory PlayerInventory
+    {
+        get => _playerInventory;
+        set => _playerInventory = value;
+    }
 
     public void SelectCell(int cellId)
     {
@@ -25,7 +33,7 @@ public class HotBar : MonoBehaviour
         var instrumentItem = HotbarCells[id].InventoryCell.Item as UsableItemSO;
         if (instrumentItem != null)
         {
-            instrumentItem.PerformAction(character, () => { });
+            instrumentItem.PerformAction(PlayerInventory, () => { });
         }
 
         SelectCell(id);

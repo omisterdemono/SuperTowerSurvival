@@ -7,10 +7,10 @@ namespace Inventory.Models.ItemActions
     public class DamagePlayerAction : ItemAction
     {
         public float Amount;
-        public override void PerformAction(Character character, ItemSO holderItem, Action afterPerform)
+
+        public override void PerformAction(Character character, ItemSO holderItem, Action afterPerform = null)
         {
             character.Health.Damage(Amount);
-            afterPerform?.Invoke();
         }
     }
 }

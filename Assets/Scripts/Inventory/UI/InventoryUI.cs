@@ -17,14 +17,15 @@ namespace Inventory.UI
         private Inventory _inventory;
         private PlayerInventory _playerInventory;
         private Character _character;
+        private HotBar _hotBar;
 
         private void Awake()
         {
             GetComponentInParent<Canvas>();
             
             var gameInitializer = FindObjectOfType<GameInitializer>();
-            var hotbar = gameInitializer.InitializeHotbar();
-            _uiCells.AddRange(hotbar.HotbarCells);
+            _hotBar = gameInitializer.InitializeHotbar();
+            _uiCells.AddRange(_hotBar.HotbarCells);
 
 
             for (int i = 0; i < GameConfig.InventoryCellsCount; i++)
@@ -110,7 +111,7 @@ namespace Inventory.UI
                 return;
             }
 
-            usableItem.PerformAction(_character, () => _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1));
+            usableItem.PerformAction(_playerInventory, () => _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1));
         }
 
         private void SwapItemsInMovingAndCurrent(InventoryCellUI currentInventoryUICell)
@@ -137,6 +138,7 @@ namespace Inventory.UI
         public void AttachInventory(PlayerInventory playerInventory)
         {
             _playerInventory = playerInventory;
+            _hotBar.PlayerInventory = playerInventory;
             _character = playerInventory.GetComponent<Character>();
             _inventory = playerInventory.Inventory;
 

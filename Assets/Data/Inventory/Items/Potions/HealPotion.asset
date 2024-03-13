@@ -21,3 +21,4 @@ MonoBehaviour:
   <DefaultParametersList>k__BackingField: []
   ItemAction: {fileID: 11400000, guid: a26c263afb26c964a8f9bbb9be7b35cc, type: 2}
   ActionSFX: {fileID: 0}
+  RemoveAfterUsing: 1
