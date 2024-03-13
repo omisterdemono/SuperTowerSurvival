@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Config;
+using Infrastructure;
 using Inventory.Models;
 using UnityEngine;
 
@@ -20,17 +21,25 @@ namespace Inventory.UI
         private void Awake()
         {
             GetComponentInParent<Canvas>();
+            
+            var gameInitializer = FindObjectOfType<GameInitializer>();
+            var hotbar = gameInitializer.InitializeHotbar();
+            _uiCells.AddRange(hotbar.HotbarCells);
+
 
             for (int i = 0; i < GameConfig.InventoryCellsCount; i++)
             {
                 var inventoryCell = Instantiate(_inventoryCellPrefab, transform);
+                _uiCells.Add(inventoryCell);
+            }
 
+            for (int i = 0; i < _uiCells.Count; i++)
+            {
+                var inventoryCell = _uiCells[i];
                 inventoryCell.Index = i;
                 inventoryCell.ItemMove += OnItemMoveOrCombine;
                 inventoryCell.ItemDivide += OnItemDivideOrAddToStack;
                 inventoryCell.ItemUse += OnItemUse;
-
-                _uiCells.Add(inventoryCell);
             }
         }
 

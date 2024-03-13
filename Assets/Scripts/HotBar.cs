@@ -5,17 +5,29 @@ using UnityEngine;
 public class HotBar : MonoBehaviour
 {
     public List<InventoryCellUI> HotbarCells { get; set; } = new();
-    private int _selectedCell = 0;
+    public int SelectedCell { get; private set; } = 0;
 
     public void SelectCell(int cellId)
     {
-        HotbarCells[_selectedCell].SetSelect(false);
+        HotbarCells[SelectedCell].SetSelect(false);
 
         if (cellId != -1)
         {
             HotbarCells[cellId].SetSelect(true);
         }
 
-        _selectedCell = cellId;
+        SelectedCell = cellId;
+    }
+
+    public bool ActivateCell(int id, Character character)
+    {
+        var instrumentItem = HotbarCells[id].InventoryCell.Item as InstrumentItemSO;
+        if (instrumentItem != null)
+        {
+            instrumentItem.PerformAction(character, () => { });
+        }
+
+        SelectCell(id);
+        return instrumentItem != null;
     }
 }

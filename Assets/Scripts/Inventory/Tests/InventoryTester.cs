@@ -32,7 +32,14 @@ namespace Inventory.Tests
 
         public void AddItem()
         {
-            PlayerInventory.LastMoveDirection = new Vector3(1.0f, 1.0f);
+            if (_tmpInput.text == "instruments")
+            {
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "shovel"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_axe"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_pickaxe"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "build_hammer"), 1);
+                return;
+            }
             
             PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == _tmpInput.text), _itemCount);
         }

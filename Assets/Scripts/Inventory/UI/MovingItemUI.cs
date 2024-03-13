@@ -28,16 +28,10 @@ namespace Inventory.UI
             }
         }
 
-        private Image _image;
-        private TextMeshProUGUI _text;
+        [SerializeField] private Image _image;
+        [SerializeField] private TextMeshProUGUI _text;
         private ItemSO _item;
         private int _takenCountOfItems;
-
-        private void Awake()
-        {
-            _image = GetComponentInChildren<Image>();
-            _text = GetComponentInChildren<TextMeshProUGUI>();
-        }
 
         public void Init(ItemSO item, int count, bool createPartial = false)
         {

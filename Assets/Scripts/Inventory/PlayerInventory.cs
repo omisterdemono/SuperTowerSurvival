@@ -21,7 +21,7 @@ namespace Inventory
 
         private void Awake()
         {
-            Inventory = new Inventory(GameConfig.InventoryCellsCount);
+            Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount);
             CraftingSystem = new CraftingSystem(Inventory);
 
             var gameInitializer = FindObjectOfType<GameInitializer>();

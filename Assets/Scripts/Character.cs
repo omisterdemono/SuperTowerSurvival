@@ -5,6 +5,7 @@ using Assets.Scripts.Weapons;
 using System.Collections;
 using Infrastructure;
 using Inventory;
+using Inventory.UI;
 using StructurePlacement;
 using UnityEngine.EventSystems;
 
@@ -115,8 +116,7 @@ public class Character : NetworkBehaviour
         var gameInitializer = FindObjectOfType<GameInitializer>();
         gameInitializer.InitializeSkillHolder(_activeSkills);
 
-        gameInitializer.InitializeHotbar(_toolIds);
-        _hotBar = GameObject.FindGameObjectWithTag("ItemHolder").GetComponent<HotBar>();
+        _hotBar = FindObjectOfType<HotBar>();
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
     }
@@ -158,9 +158,10 @@ public class Character : NetworkBehaviour
 
     private void HandleInventoryState()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(Config.GameConfig.OpenInventoryKeyCode))
         {
             _playerInventory.ChangeInventoryUIState();
+            Cursor.visible = !Cursor.visible;
         }
     }
 
@@ -208,21 +209,36 @@ public class Character : NetworkBehaviour
     private void HandleToolChanging()
     {
         var scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        var itemWasInstrument = true;
+
+        for (var index = 0; index < Config.GameConfig.HotbarKeyCodes.Count; index++)
+        {
+            var code = Config.GameConfig.HotbarKeyCodes[index];
+            if (Input.GetKeyDown(code))
+            {
+                itemWasInstrument = _hotBar.ActivateCell(index, this);
+            }
+        }
 
         switch (scrollInput)
         {
-            case 0:
-                return;
             case > 0:
-                CmdChangeTool((_equipedSlot + 1) % Config.GameConfig.HotbarCellsCount);
+                var slotNumberUp = (_hotBar.SelectedCell + 1) % Config.GameConfig.HotbarCellsCount;
+                itemWasInstrument = _hotBar.ActivateCell(slotNumberUp, this);
                 break;
             case < 0:
-                CmdChangeTool((_equipedSlot - 1 + Config.GameConfig.HotbarCellsCount) %
-                              Config.GameConfig.HotbarCellsCount);
+                var slotNumberDown = (_hotBar.SelectedCell - 1 + Config.GameConfig.HotbarCellsCount)
+                                     % Config.GameConfig.HotbarCellsCount;
+                itemWasInstrument = _hotBar.ActivateCell(slotNumberDown, this);
                 break;
         }
+        
+        if (!itemWasInstrument)
+        {
+            CmdChangeTool(-1);
+        }
 
-        if (_equipedSlot >= _tools.Count)
+        if (_equipedSlot >= _tools.Count || _equipedSlot == -1)
         {
             return;
         }
@@ -232,7 +248,7 @@ public class Character : NetworkBehaviour
 
     private void HandleEquippedTool()
     {
-        if (_equipedTools.Count == 0)
+        if (_equipedTools.Count == 0 || _equipedSlot < 0 || _equipedSlot >= _tools.Count)
         {
             return;
         }
@@ -267,17 +283,16 @@ public class Character : NetworkBehaviour
 
     private void HandleEquipedSlotChanged(int oldValue, int newValue)
     {
-        if (oldValue != -1 && oldValue < _tools.Count)
+        if ((oldValue != -1 && oldValue < _tools.Count) //so we do not leave boundaries of tools array available 
+            || (newValue == -1 && oldValue != -1)) //so we hide unused tool and have no troubles
         {
             _tools[oldValue].SetActive(false);
         }
-        
+
         if (newValue != -1 && newValue < _tools.Count)
         {
             _tools[newValue].SetActive(true);
         }
-
-        _hotBar.SelectCell(newValue);
     }
 
     private void HandleEquipableAnimation(bool oldValue, bool newValue)

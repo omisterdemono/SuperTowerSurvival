@@ -18,6 +18,11 @@ namespace Infrastructure
         
         [SerializeField] private ItemDatabaseSO _itemDatabase;
 
+        private void Awake()
+        {
+            Cursor.visible = false;
+        }
+
         public InventoryUI InitializeInventoryUI()
         {
             var canvas = FindObjectOfType<Canvas>();
@@ -50,27 +55,21 @@ namespace Infrastructure
             return skillButtons;
         }
 
-        public void InitializeHotbar(List<string> tools = null)
+        public HotBar InitializeHotbar()
         {
             var hotbar = FindObjectOfType<HotBar>();
 
-            for (int i = 0; i < Config.GameConfig.HotbarKeyCodes.Count; i++)
+            for (int i = 0; i < Config.GameConfig.HotbarCellsCount; i++)
             {
                 var hotbarCell = Instantiate(_hotbarInventoryCell, hotbar.transform);
                 var keycode = Config.GameConfig.HotbarKeyCodes[i].ToString();
                 hotbarCell.ActivateButtonHintText.text = keycode.Last().ToString();
 
-                //todo remove this after testing
-                if (tools != null && i <= tools.Count - 1)
-                {
-                    var item = _itemDatabase.Items.First(item => item.Id == tools[i]);
-                    hotbarCell.ItemUI.SetItem(item, 1);
-                }
-                
                 hotbar.HotbarCells.Add(hotbarCell);
             }
             
             hotbar.SelectCell(0);
+            return hotbar;
         }
     }
 }
