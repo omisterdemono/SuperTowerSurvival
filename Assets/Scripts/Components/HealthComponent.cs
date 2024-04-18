@@ -27,6 +27,11 @@ public class HealthComponent : NetworkBehaviour
 
     private void CurrentHealthHook(float oldValue, float newValue)
     {
+        _hpRatio = _currentHealth / _maxHealth;
+        if (_imageHP != null)
+        {
+            _imageHP.fillAmount = _hpRatio;
+        }
         OnCurrentHealthChanged?.Invoke();
     }
 
@@ -57,12 +62,6 @@ public class HealthComponent : NetworkBehaviour
         {
             //_currentHealth = value;
             ChangeHealth(value);
-            _hpRatio = _currentHealth / _maxHealth;
-            if (_imageHP != null)
-            {
-                _imageHP.fillAmount = _hpRatio;
-            }
-            OnCurrentHealthChanged?.Invoke();
         }
     }
 
@@ -90,7 +89,6 @@ public class HealthComponent : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    //[Server]
     public void ChangeHealth(float health)
     {
         _currentHealth = health;

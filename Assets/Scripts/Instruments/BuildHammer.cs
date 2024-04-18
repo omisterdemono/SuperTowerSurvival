@@ -90,6 +90,8 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     public void Obtain()
     {
+        HandleChangeMode();
+        
         switch (CurrentState)
         {
             case BuildHammerState.Repairing:
@@ -97,8 +99,6 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
                 break;
             case BuildHammerState.Building:
                 Place();
-                break;
-            default:
                 break;
         }
     }
@@ -124,17 +124,9 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
         _structurePlacer.PlaceStructure(MousePosition);
     }
 
-    public void ChangeMode()
+    public void HandleChangeMode()
     {
-        var highestState = Enum.GetValues(typeof(BuildHammerState)).Cast<BuildHammerState>().Max();
-
-        if (CurrentState == highestState)
-        {
-            CurrentState = 0;
-            return;
-        }
-
-        CurrentState++;
+        CurrentState = _structurePlacer.CurrentStructureId != string.Empty ? BuildHammerState.Building : BuildHammerState.Repairing;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

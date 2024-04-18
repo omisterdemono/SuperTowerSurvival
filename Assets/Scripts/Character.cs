@@ -152,7 +152,6 @@ public class Character : NetworkBehaviour
         HandleActiveSkills();
         HandleToolChanging();
         HandleEquippedTool();
-        HandleBuildHammerState();
         HandleInventoryState();
     }
 
@@ -163,30 +162,6 @@ public class Character : NetworkBehaviour
             _playerInventory.ChangeInventoryUIState();
             // Cursor.visible = !Cursor.visible;
         }
-    }
-
-    private void HandleBuildHammerState()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse2) && _equipedSlot == _buildHammerSlotIndex)
-        {
-            if (_buildHammer.CurrentState == BuildHammerState.Building)
-            {
-                _structurePlacer.CancelPlacement();
-            }
-
-            ChangeBuildHammerStateOnServer();
-
-            if (isLocalPlayer)
-            {
-                //_buildHammer.ChangeMode();
-            }
-        }
-    }
-
-    [Command(requiresAuthority = false)]
-    private void ChangeBuildHammerStateOnServer()
-    {
-        _buildHammer.ChangeMode();
     }
 
     private void HandleActiveSkills()

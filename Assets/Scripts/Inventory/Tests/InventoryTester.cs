@@ -31,8 +31,17 @@ namespace Inventory.Tests
         [SerializeField] private int _itemCount;
         [SerializeField] private TMP_InputField _tmpInput;
 
+
+        private void Start()
+        {
+
+        }
+
         public void AddItem()
         {
+
+
+            
             if (_tmpInput.text == "instruments")
             {
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "shovel"), 1);
@@ -41,7 +50,17 @@ namespace Inventory.Tests
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "build_hammer"), 1);
                 return;
             }
-            
+
+            if(_tmpInput.text == "")
+            {
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "shovel"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_axe"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_pickaxe"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "build_hammer"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "defence_gun"), 3);
+                return;
+            }
+
             PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == _tmpInput.text), _itemCount);
         }
         

@@ -37,7 +37,7 @@ public class Structure : NetworkBehaviour, IBuildable
         transform.localPosition = SpawnPosition;
 
         _healthComponent.OnCurrentHealthChanged += Build;
-        _healthComponent.ChangeHealth(1.0f);
+        _healthComponent.CurrentHealth = 1.0f;
     }
 
     private void OnDestroy()

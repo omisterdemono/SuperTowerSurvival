@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: defence_gun
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -102826,7 +102826,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797501343}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -103223,7 +103223,7 @@ MonoBehaviour:
   DualMode: 1
   NoDelay: 1
   Interval: 10
-  Timeout: 10000
+  Timeout: 100000
   RecvBufferSize: 7361536
   SendBufferSize: 7361536
   FastResend: 2
@@ -103279,7 +103279,7 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 8231169941632268351, guid: 088f548ef9d67364c9a16d0df898b18e, type: 3}
   - {fileID: 667864055236875934, guid: 09ca3a1105f604f498812d739324e914, type: 3}
-  - {fileID: 3625508984780255458, guid: ca1332938387ce14fbd680fc336d3209, type: 3}
+  - {fileID: 3625508984780255458, guid: ea1c0455d7a5464428055a375d34e9df, type: 3}
   - {fileID: 3625508984780255458, guid: 9bfbbc7e7d0b37244b7afa2ebe1c27bb, type: 3}
   - {fileID: 276288934442464151, guid: b1cd289d8e4576646801209f2f1d8179, type: 3}
   snapshotSettings:
@@ -103448,7 +103448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "defence_gun\u200B"
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

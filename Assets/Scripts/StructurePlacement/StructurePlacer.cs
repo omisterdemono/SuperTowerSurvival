@@ -18,6 +18,7 @@ namespace StructurePlacement
 
         [SyncVar] private bool _structureCanBePlaced;
         public bool StructureCanBePlaced => _structureCanBePlaced;
+        public string CurrentStructureId => _currentStructureId;
 
         [SyncVar] private string _currentStructureId = string.Empty;
 
@@ -90,9 +91,11 @@ namespace StructurePlacement
         public void CancelPlacement()
         {
             CmdUpdateCurrentStructure(string.Empty);
+            
             Destroy(_tempStructure);
             _tempStructure = null;
             _tempStructureItem = null;
+            _currentStructureId = string.Empty;
         }
 
         public void SelectStructure(ItemSO item, Action afterPlacement)
@@ -156,14 +159,20 @@ namespace StructurePlacement
             component.SpawnPosition = spawnPosition;
 
             _removeItemFromInventory?.Invoke();
-            InitStructureOnClients(component.netId);
+            InitStructureOnClients(component.netId, netId);
         }
 
         [ClientRpc]
-        private void InitStructureOnClients(uint structureId)
+        private void InitStructureOnClients(uint structureId, uint playerId)
         {
-            var component = FindObjectsOfType<Structure>().Where(component => component.netId == structureId).First();
-            component.Init();
+            var structures = FindObjectsOfType<Structure>();
+            var structureComponent = structures?.Where(component => component.netId == structureId).First();
+            structureComponent?.Init();
+            
+            if (playerId == netId)
+            {
+                _removeItemFromInventory?.Invoke();
+            }
         }
     }
 }

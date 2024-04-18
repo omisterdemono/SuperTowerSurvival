@@ -25,8 +25,6 @@ public class DefenseStructure : Structure
         base.Awake();
 
         _cooldownComponent= new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
-
-        Debug.Log("remove this line");
         IsBeingBuilt = true;
     }
 
@@ -63,9 +61,13 @@ public class DefenseStructure : Structure
         return closest.position;
     }
 
-    [Server]
     private void CountRotationIndex()
     {
+        if (!isServer)
+        {
+            return;
+        }
+        
         if (_targetsInRange.Count == 0)
         {
             return;
@@ -109,9 +111,13 @@ public class DefenseStructure : Structure
         }
     }
 
-    [Server]
     public void FireBullet()
     {
+        if (!isServer)
+        {
+            return;;
+        }
+        
         if (!_cooldownComponent.CanPerform || _targetsInRange.Count == 0)
         {
             return;
