@@ -82,7 +82,7 @@ public class RedBulletsSkill : ActiveSkill, ISkill
         Invoke(nameof(CmdStopUseSkill), _buffDuration);
     }
 
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }

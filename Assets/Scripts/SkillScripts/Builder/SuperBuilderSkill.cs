@@ -61,7 +61,7 @@ public class SuperBuilderSkill : ActiveSkill, ISkill
     }
 
 
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }

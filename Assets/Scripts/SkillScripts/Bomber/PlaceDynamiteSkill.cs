@@ -22,7 +22,7 @@ public class PlaceDynamiteSkill : ActiveSkill, ISkill
         mine.GetComponent<DynamiteScript>().Damage = _damage;
         NetworkServer.Spawn(mine, this.gameObject);
     }
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }
