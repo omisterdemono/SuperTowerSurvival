@@ -6,5 +6,5 @@ using UnityEngine;
 public interface ISkill
 {
     public void UseSkill();
-    public void PowerUpSkillPoint();
+    public void PowerUpSkillPoint(int points);
 }

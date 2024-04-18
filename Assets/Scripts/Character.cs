@@ -18,6 +18,7 @@ public class Character : NetworkBehaviour
     private HealthComponent _health;
     private Animator _animator;
     private ItemHolderScript _itemHolder;
+    private EffectComponent _effect;
 
     [SerializeField][SyncVar] private bool _isAlive = true;
     [SerializeField][SyncVar] private bool _isInvisible = false;
@@ -38,6 +39,7 @@ public class Character : NetworkBehaviour
 
     private List<ActiveSkill> _activeSkills;
     private List<IEquipable> _equipedTools = new();
+    private PassiveSkill _passiveSkill;
 
     private StructurePlacer _structurePlacer;
     private PlayerInventory _playerInventory;
@@ -48,6 +50,7 @@ public class Character : NetworkBehaviour
     private Dictionary<int, KeyCode> _keyCodes;
 
     private Vector3 _mousePosition => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    private PowerUpStruct _currentLevel;
 
     public HealthComponent Health => _health;
     public StructurePlacer StructurePlacer => _structurePlacer;
@@ -60,13 +63,45 @@ public class Character : NetworkBehaviour
 
     public float RepairSpeedModifier
     {
-        get => _repairSpeedModifier;
+        get
+        {
+            if (_effect)
+            {
+                float tmpRepairSpeed = _repairSpeedModifier;
+                foreach (var effect in _effect.Effects)
+                {
+                    if (effect.EffectType == EEffect.Repair)
+                    {
+                        tmpRepairSpeed = _effect.GetValue(tmpRepairSpeed, effect);
+                    }
+                }
+                return tmpRepairSpeed;
+            }
+
+            return _repairSpeedModifier;
+        }
         set => _repairSpeedModifier = value;
     }
 
     public float BuildSpeedModifier
     {
-        get => _buildSpeedModifier;
+        get
+        {
+            if(_effect)
+            {
+                float tmpBuildSpeed = _buildSpeedModifier;
+                foreach (var effect in _effect.Effects)
+                {
+                    if (effect.EffectType == EEffect.Build)
+                    {
+                        tmpBuildSpeed = _effect.GetValue(tmpBuildSpeed, effect);
+                    }
+                }
+                return tmpBuildSpeed;
+            }
+            
+            return _buildSpeedModifier;
+        }
         set => _buildSpeedModifier = value;
     }
 
@@ -86,6 +121,7 @@ public class Character : NetworkBehaviour
         _movement = GetComponent<MovementComponent>();
         _animator = GetComponent<Animator>();
         _health = GetComponent<HealthComponent>();
+        _effect = GetComponent<EffectComponent>();
 
         _health.OnDeath += OnDeath;
 
@@ -107,6 +143,7 @@ public class Character : NetworkBehaviour
         if (!isOwned) return;
         _activeSkills = new List<ActiveSkill>();
         _activeSkills.AddRange(GetComponents<ActiveSkill>());
+        _passiveSkill = GetComponent<PassiveSkill>();
         _keyCodes = new Dictionary<int, KeyCode>();
         for (int i = 0; i < _activeSkills.Count; i++)
         {
@@ -320,17 +357,39 @@ public class Character : NetworkBehaviour
         _equippedItemsSlot.Rotate(angle);
     }
 
-    public void PowerUpHealth()
+    public void PowerUp(PowerUpStruct powerUp)
     {
-        //todo power up health
+        PowerUpSkills(powerUp);
     }
 
-    public void PowerUpSkill()
+    public void PowerUpSkills(PowerUpStruct powerUp)
     {
+        (_activeSkills[0] as ISkill).PowerUpSkillPoint(powerUp.ActiveSkill1);
+        (_activeSkills[1] as ISkill).PowerUpSkillPoint(powerUp.ActiveSkill2);
+        _passiveSkill.PowerUp(powerUp.PassiveSkill);
+        PowerUpHealth(powerUp.Health);
+        PowerUpWeapon(powerUp.AttackDamage);
+        PowerUpSpeed(powerUp.Speed);
+        PowerUpBuild(powerUp.BuildSpeed);
     }
 
-    public void PowerUpWeapon()
+    public void PowerUpHealth(int points)
     {
-        //todo power up weapon
+        
+    }
+
+    public void PowerUpWeapon(int points)
+    {
+        
+    }
+
+    public void PowerUpSpeed(int points)
+    {
+
+    }
+
+    public void PowerUpBuild(int points)
+    {
+
     }
 }

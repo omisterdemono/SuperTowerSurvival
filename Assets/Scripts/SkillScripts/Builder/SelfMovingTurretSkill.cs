@@ -39,7 +39,7 @@ public class SelfMovingTurretSkill : ActiveSkill, ISkill
         return false;
     }
 
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }

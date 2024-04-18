@@ -32,7 +32,7 @@ public class ThrowPoisonousGasSkill : ActiveSkill, ISkill
         NetworkServer.Spawn(poisonousGas, this.gameObject);
     }
 
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }
