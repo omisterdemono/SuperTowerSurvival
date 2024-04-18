@@ -1,4 +1,5 @@
 using System;
+using Config;
 using Inventory.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,11 +28,11 @@ namespace Inventory.UI
         {
             if (_isHovered)
             {
-                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(GameConfig.DropItemKeyCode))
                 {
                     ItemDrop?.Invoke(InventoryCell, InventoryCell.Count);
                 }
-                else if (Input.GetKeyDown(KeyCode.Q))
+                else if (Input.GetKeyDown(GameConfig.DropItemKeyCode))
                 {
                     ItemDrop?.Invoke(InventoryCell, 1);
                 }

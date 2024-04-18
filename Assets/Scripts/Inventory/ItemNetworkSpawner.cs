@@ -15,9 +15,9 @@ namespace Inventory
         public void SpawnItemCmd(string itemId, int count, Vector3 position)
         {
             var itemInWorld = Instantiate(_itemPrefab, position, Quaternion.identity);
+            NetworkServer.Spawn(itemInWorld.gameObject, ownerConnection: null);
 
-            var item = _itemDatabase.Items.FirstOrDefault(i => i.Id == itemId) ?? throw new ArgumentNullException("itemId is incorrect");
-            itemInWorld.Item = item;
+            itemInWorld.ItemId = itemId;
             itemInWorld.Count = count;
         }
     }

@@ -12,5 +12,6 @@ namespace Config
         public static readonly List<KeyCode> HotbarKeyCodes = new() { KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7 };
         public static readonly KeyCode OpenInventoryKeyCode = KeyCode.I;
         public static readonly KeyCode OpenCraftingKeyCode = KeyCode.C;
+        public static readonly KeyCode DropItemKeyCode = KeyCode.G;
     }
 }

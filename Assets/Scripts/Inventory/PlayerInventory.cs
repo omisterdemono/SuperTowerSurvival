@@ -1,4 +1,5 @@
-﻿using Config;
+﻿using System;
+using Config;
 using Infrastructure;
 using Inventory.Models;
 using Inventory.UI;
@@ -22,9 +23,16 @@ namespace Inventory
         private GameObject _inventoryHolderUI;
         public bool IsInventoryShown { get; private set; } = true;
 
-        private void Awake()
+        private void Start()
         {
-            Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount + GameConfig.EquipCellsCount);
+            if (!isOwned) return;
+            InitInventoryAndUI();
+        }
+
+        private void InitInventoryAndUI()
+        {
+            Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount +
+                                      GameConfig.EquipCellsCount);
             CraftingSystem = new CraftingSystem(Inventory);
 
             Character = GetComponent<Character>();
@@ -48,7 +56,7 @@ namespace Inventory
             {
                 return;
             }
-            
+
             var direction = LastMoveDirection;
             direction.x += _throwRadius;
             direction.y += _throwRadius;
@@ -65,6 +73,7 @@ namespace Inventory
 
         private void OnTriggerEnter2D(Collider2D col)
         {
+            if (!isOwned) return;
             if (col.TryGetComponent<ItemInWorld>(out var item))
             {
                 Inventory.TryAddItem(item.Item, item.Count);

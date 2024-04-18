@@ -2,6 +2,7 @@
 using System.Linq;
 using Inventory.Models;
 using Inventory.UI;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,7 +19,7 @@ namespace Inventory.Tests
             {
                 if (_playerInventory == null)
                 {
-                    _playerInventory = FindObjectOfType<PlayerInventory>();
+                    _playerInventory = FindObjectsOfType<PlayerInventory>().First(x => x.isOwned);
                 }
                 return _playerInventory;
             }
