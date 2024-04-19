@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e8a5f1a527404c9fe67714bc696ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 200
   leftAttackTrigger: {fileID: 3945922319585289467}
   rightAttackTrigger: {fileID: 3597455132763505790}
   centralAttackTrigger: {fileID: 3875958942376960842}

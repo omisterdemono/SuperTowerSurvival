@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    [SerializeField] float damage = 200;
+
     public CustomTrigger leftAttackTrigger;
     public CustomTrigger rightAttackTrigger;
     public CustomTrigger centralAttackTrigger;
@@ -116,5 +119,29 @@ public class Boss : MonoBehaviour
             animator.SetBool("IsInSight", false);
             //Debug.Log("Player entered");
         }
+    }
+
+    private void MeleeHit(CustomTrigger triggerBox)
+    {
+        var players = triggerBox.colliderList.Where(c => c.CompareTag("Player"));
+        foreach (var player in players)
+        {
+            player.GetComponent<HealthComponent>().Damage(damage);
+        }
+    }
+
+    public void LeftMeleeHit()
+    {
+        MeleeHit(leftAttackTrigger);
+    }
+
+    public void RightMeleeHit()
+    {
+        MeleeHit(rightAttackTrigger);
+    }
+
+    public void CentralMeleeHit()
+    {
+        MeleeHit(centralAttackTrigger);
     }
 }
