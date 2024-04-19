@@ -15,9 +15,13 @@ public class Boss : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        leftAttackTrigger.EnteredTrigger += OnLeftAttackTriggerEntered;
-        rightAttackTrigger.EnteredTrigger += OnRightAttackTriggerEntered;
-        centralAttackTrigger.EnteredTrigger += OnCentralAttackTriggerEntered;
+        //leftAttackTrigger.EnteredTrigger += OnLeftAttackTriggerEntered;
+        //rightAttackTrigger.EnteredTrigger += OnRightAttackTriggerEntered;
+        //centralAttackTrigger.EnteredTrigger += OnCentralAttackTriggerEntered;
+        
+        leftAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
+        rightAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
+        centralAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
     }
 
 
@@ -32,32 +36,61 @@ public class Boss : MonoBehaviour
 
     }
 
+    private void SetTargetInMeleeRange(Collider2D collider)
+    {
+        var character = collider.GetComponent<Character>();
+        if (character != null)
+        {
+            animator.SetBool("IsTargetInMeleeRange", true);
+        }
+    }
+
+    private void SetMeleeBox(string boxName, bool state)
+    {
+        animator.SetBool("IsTargetInMeleeLeft", false);
+        animator.SetBool("IsTargetInMeleeRight", false);
+        animator.SetBool("IsTargetInMeleeCentral", false);
+        animator.SetBool("IsTargetInMeleeRange", true);
+        animator.SetBool(boxName, true);
+        //animator.SetBool("IsFinishedMelee", false);
+
+    }
+
     void OnLeftAttackTriggerEntered(Collider2D collider)
     {
         var character = collider.GetComponent<Character>();
         if (character != null)
         {
-            animator.SetTrigger("LeftAttack");
+            animator.SetBool("IsTargetInMeleeRange", true);
+            //SetMeleeBox("LeftAttack", true);
+            //animator.SetTrigger("LeftAttack");
         }
     }
 
     void OnRightAttackTriggerEntered(Collider2D collider)
     {
         var character = collider.GetComponent<Character>();
-        if (character != null)
+        if (character != null )
         {
-            animator.SetTrigger("RightAttack");
+            animator.SetBool("IsTargetInMeleeRange", true);
+
+            //SetMeleeBox("RightAttack", true);
+            //animator.SetTrigger("RightAttack");
         }
     }
 
     void OnCentralAttackTriggerEntered(Collider2D collider)
     {
         var character = collider.GetComponent<Character>();
-        if (character != null)
+        if (character != null )
         {
             //animator.SetTrigger("InSight");
             //animator.SetBool("IsInSight", true);
-            animator.SetTrigger("FrontAttack");
+            animator.SetBool("IsTargetInMeleeRange", true);
+
+            //SetMeleeBox("FrontAttack", true);
+            //animator.SetTrigger("FrontAttack");
+
             //Debug.Log("Player entered");
         }
 
