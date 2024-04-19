@@ -13,14 +13,26 @@ public class BossFinishedMeleeAttack : StateMachineBehaviour
         animator.SetBool("IsTargetInMeleeCentral", false);
 
         var triggers = animator.GetComponentsInChildren<CustomTrigger>();
-        foreach (var trigger in triggers)
+        var boss = animator.GetComponent<Boss>();
+        var allMeleeTriggers = boss.leftAttackTrigger.colliderList
+            .Concat(boss.rightAttackTrigger.colliderList)
+            .Concat(boss.centralAttackTrigger.colliderList)
+            .ToArray();
+
+        var player = allMeleeTriggers.FirstOrDefault(c => c.CompareTag("Player"));
+        if(player != null)
         {
-            if (trigger.colliderList.FirstOrDefault(c => c.CompareTag("Player")) != null)
-            {
-                animator.SetBool("IsTargetInMeleeRange", true);
-                return;
-            }
+            animator.SetBool("IsTargetInMeleeRange", true);
+            return;
         }
+        //foreach (var trigger in triggers)
+        //{
+        //    if (trigger.colliderList.FirstOrDefault(c => c.CompareTag("Player")) != null)
+        //    {
+        //        animator.SetBool("IsTargetInMeleeRange", true);
+        //        return;
+        //    }
+        //}
         animator.SetBool("IsTargetInMeleeRange", false);
     }
 
