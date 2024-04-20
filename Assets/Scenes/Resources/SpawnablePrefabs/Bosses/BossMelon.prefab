@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
 --- !u!114 &8854752326435337336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +357,7 @@ MonoBehaviour:
   rightAttackTrigger: {fileID: 3597455132763505790}
   centralAttackTrigger: {fileID: 3875958942376960842}
   sightTrigger: {fileID: 8854752326435337336}
+  rangeCooldownSec: 5
 --- !u!1 &2541358374071569672
 GameObject:
   m_ObjectHideFlags: 0

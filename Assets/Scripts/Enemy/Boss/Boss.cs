@@ -16,15 +16,17 @@ public class Boss : MonoBehaviour
     public CustomTrigger centralAttackTrigger;
     public CustomTrigger sightTrigger;
 
+    [SerializeField] private float rangeCooldownSec = 5;
+    private CooldownComponent rangeCooldownComponent;
 
     private Animator animator;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        //leftAttackTrigger.EnteredTrigger += OnLeftAttackTriggerEntered;
-        //rightAttackTrigger.EnteredTrigger += OnRightAttackTriggerEntered;
-        //centralAttackTrigger.EnteredTrigger += OnCentralAttackTriggerEntered;
+
+        rangeCooldownComponent = new CooldownComponent() { CooldownSeconds = rangeCooldownSec };
+        rangeCooldownComponent.OnCooldownFinished += RangeCooldownComponent_OnCooldownFinished;
 
         leftAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
         rightAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
@@ -34,7 +36,6 @@ public class Boss : MonoBehaviour
         sightTrigger.ExitedTrigger += OnSightTriggerExit;
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,12 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rangeCooldownComponent.HandleCooldown();
+    }
 
+    private void RangeCooldownComponent_OnCooldownFinished()
+    {
+        animator.SetBool("IsReady2Shoot", true);
     }
 
     private void SetTargetInMeleeRange(Collider2D collider)
@@ -54,79 +60,6 @@ public class Boss : MonoBehaviour
             animator.SetBool("IsTargetInMeleeRange", true);
         }
     }
-
-    //private void SetMeleeBox(string boxName, bool state)
-    //{
-    //    animator.SetBool("IsTargetInMeleeLeft", false);
-    //    animator.SetBool("IsTargetInMeleeRight", false);
-    //    animator.SetBool("IsTargetInMeleeCentral", false);
-    //    animator.SetBool("IsTargetInMeleeRange", true);
-    //    animator.SetBool(boxName, true);
-    //    //animator.SetBool("IsFinishedMelee", false);
-
-    //}
-
-    //void OnLeftAttackTriggerEntered(Collider2D collider)
-    //{
-    //    var character = collider.GetComponent<Character>();
-    //    if (character != null)
-    //    {
-    //        animator.SetBool("IsTargetInMeleeRange", true);
-    //        //SetMeleeBox("LeftAttack", true);
-    //        //animator.SetTrigger("LeftAttack");
-    //    }
-    //}
-
-    //void OnRightAttackTriggerEntered(Collider2D collider)
-    //{
-    //    var character = collider.GetComponent<Character>();
-    //    if (character != null )
-    //    {
-    //        animator.SetBool("IsTargetInMeleeRange", true);
-
-    //        //SetMeleeBox("RightAttack", true);
-    //        //animator.SetTrigger("RightAttack");
-    //    }
-    //}
-
-    //void OnCentralAttackTriggerEntered(Collider2D collider)
-    //{
-    //    var character = collider.GetComponent<Character>();
-    //    if (character != null )
-    //    {
-    //        //animator.SetTrigger("InSight");
-    //        //animator.SetBool("IsInSight", true);
-    //        animator.SetBool("IsTargetInMeleeRange", true);
-
-    //        //SetMeleeBox("FrontAttack", true);
-    //        //animator.SetTrigger("FrontAttack");
-
-    //        //Debug.Log("Player entered");
-    //    }
-
-    //}
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    var character = collision.GetComponent<Character>();
-    //    if (character != null)
-    //    {
-    //        //animator.SetTrigger("InSight");
-    //        animator.SetBool("IsInSight", true);
-    //        //Debug.Log("Player entered");
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    var character = collision.GetComponent<Character>();
-    //    if (character != null)
-    //    {
-    //        //animator.SetTrigger("OutSight");
-    //        animator.SetBool("IsInSight", false);
-    //        //Debug.Log("Player entered");
-    //    }
-    //}
 
     private void OnSightTriggerEnter(Collider2D collision)
     {
@@ -150,7 +83,7 @@ public class Boss : MonoBehaviour
     public void ShootProjectile()
     {
         var player = sightTrigger.colliderList.FirstOrDefault(c => c.CompareTag("Player"));
-        if (player != null)
+        if (player != null && rangeCooldownComponent.CanPerform)
         {
             var playerPosition = player.transform.position;
             var thisPosition = gameObject.transform.position;
@@ -159,6 +92,8 @@ public class Boss : MonoBehaviour
             bulletComponent.Direction = (playerPosition - thisPosition).normalized;
             bulletComponent.Damage = rangeDamage;
             NetworkServer.Spawn(projectile2Spawn);
+            rangeCooldownComponent.ResetCooldown();
+            animator.SetBool("IsReady2Shoot", false);
         }
     }
 
