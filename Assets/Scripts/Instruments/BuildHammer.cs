@@ -1,8 +1,5 @@
 using Assets.Scripts.Weapons;
-using Mirror;
-using System;
 using System.Collections;
-using System.Linq;
 using StructurePlacement;
 using UnityEngine;
 using UnityEngine.Serialization;

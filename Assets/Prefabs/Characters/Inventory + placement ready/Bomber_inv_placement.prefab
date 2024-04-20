@@ -603,6 +603,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4556259820489150868}
     m_Modifications:
+    - target: {fileID: 5666207364228382042, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
+      propertyPath: _cooldownSeconds
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8838569770955771769, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
       propertyPath: m_Name
       value: Pickaxe
@@ -678,6 +682,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4556259820489150868}
     m_Modifications:
+    - target: {fileID: 5666207364228382042, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
+      propertyPath: _cooldownSeconds
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8838569770955771769, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
       propertyPath: m_Name
       value: Axe
@@ -749,6 +757,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4556259820489150868}
     m_Modifications:
+    - target: {fileID: 62264064241543382, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
+      propertyPath: _cooldownSeconds
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_RootOrder
       value: -1

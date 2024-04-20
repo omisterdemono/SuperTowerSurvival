@@ -207,7 +207,7 @@ public class Character : NetworkBehaviour
                 itemWasUsable = _hotBar.ActivateCell(slotNumberDown, this);
                 break;
         }
-        
+
         if (!itemWasUsable)
         {
             CmdChangeTool(-1);
@@ -231,14 +231,12 @@ public class Character : NetworkBehaviour
         HandleEquippedItemRotation();
 
         if (Input.GetKeyDown(KeyCode.Mouse0)
-            && _equipedTools[_equipedSlot].CanPerform
             && !EventSystem.current.IsPointerOverGameObject())
         {
             Cmd_InteractOnServer(_mousePosition);
         }
-
+        
         if (Input.GetKey(KeyCode.Mouse0)
-            && _equipedTools[_equipedSlot].CanPerform
             && !EventSystem.current.IsPointerOverGameObject())
         {
             Cmd_HoldOnServer();
@@ -272,6 +270,7 @@ public class Character : NetworkBehaviour
 
     private void HandleEquipableAnimation(bool oldValue, bool newValue)
     {
+        Debug.Log($"[performing] now is {_isPerforming}");
         _equipedTools[_equipedSlot].ChangeAnimationState();
     }
 
@@ -284,26 +283,31 @@ public class Character : NetworkBehaviour
     [Command(requiresAuthority = false)]
     private void Cmd_InteractOnServer(Vector3 mousePosition)
     {
-        _isPerforming = true;
-        _equipedTools[_equipedSlot].Interact();
-        _equipedTools[_equipedSlot].MousePosition = mousePosition;
-
-        StartCoroutine(FinishAnimation());
+        if (_equipedTools[_equipedSlot].CanPerform)
+        {
+            Debug.Log("now is performing");
+            _isPerforming = true;
+            _equipedTools[_equipedSlot].Interact();
+            _equipedTools[_equipedSlot].MousePosition = mousePosition;
+            StartCoroutine(FinishAnimation());
+        }
     }
 
     private IEnumerator FinishAnimation()
     {
-        yield return new WaitForSeconds(_equipedTools[_equipedSlot].CooldownSeconds);
+        yield return new WaitForSeconds(_equipedTools[_equipedSlot].CooldownSeconds - 0.5f);
         _isPerforming = false;
     }
 
     [Command(requiresAuthority = false)]
     private void Cmd_HoldOnServer()
     {
-        _isPerforming = true;
-        _equipedTools[_equipedSlot].Hold();
-
-        StartCoroutine(FinishAnimation());
+        if (_equipedTools[_equipedSlot].CanPerform)     
+        {
+            _isPerforming = true;
+            _equipedTools[_equipedSlot].Hold();
+            StartCoroutine(FinishAnimation());
+        }
     }
 
     [Command(requiresAuthority = false)]
