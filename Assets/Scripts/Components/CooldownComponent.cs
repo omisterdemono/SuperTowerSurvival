@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CooldownComponent
 {
+    public event System.Action OnCooldownFinished;
     public float CooldownSeconds { get; set; }
 
     private float _timeToNextPerform;
@@ -23,6 +24,7 @@ public class CooldownComponent
         if (_timeToNextPerform < 0)
         {
             _timeToNextPerform = 0;
+            OnCooldownFinished?.Invoke();
             return;
         }
 

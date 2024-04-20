@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
 
         Bow.OnBowReleased += Bow_OnBowRelease;
         FireWeapon.OnShoot += FireWeapon_OnShoot;
-        Projectile.OnProjectileHit += Projectile_OnProjectileHit;
+        Projectile.OnAnyProjectileHit += Projectile_OnProjectileHit;
 
         HealthComponent.OnEntityHit += HealthComponent_OnEntityHit;
     }

@@ -35,7 +35,8 @@ public class Projectile : NetworkBehaviour
     public float Speed { get => _speed; set => _speed = value; }
     public Vector2 Direction { get => _direction; set => _direction = value; }
 
-    public static event EventHandler OnProjectileHit;
+    public static event EventHandler OnAnyProjectileHit;
+    public event Action<Collider2D> OnProjectileHit;
 
     private void Start()
     {
@@ -62,7 +63,8 @@ public class Projectile : NetworkBehaviour
 
             if(component != null) 
             {
-                OnProjectileHit?.Invoke(this, EventArgs.Empty);
+                OnAnyProjectileHit?.Invoke(this, EventArgs.Empty);
+                OnProjectileHit?.Invoke(collision);
                 component.GetComponent<HealthComponent>().Damage(Damage);
                 var knockback = component.GetComponent<KnockbackComponent>();
                 knockback?.PlayKnockback(this.Direction, 5f, 0.15f);
