@@ -15,6 +15,7 @@ public class Boss : MonoBehaviour
     [SerializeField] float rootSpawnChance = 0.1f;
     [SerializeField] private GameObject projectileTentacle;
     [SerializeField] float tenacleSpawnChance = 0.5f;
+    [SerializeField] private GameObject tentacle;
 
 
     public CustomTrigger leftAttackTrigger;
@@ -107,6 +108,8 @@ public class Boss : MonoBehaviour
             else if (choice >= rootSpawnChance && choice < rootSpawnChance + tenacleSpawnChance)
             {
                 projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, gameObject.transform.rotation);
+                projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
+                
             }
             else
             {
@@ -122,6 +125,15 @@ public class Boss : MonoBehaviour
             rangeCooldownComponent.ResetCooldown();
             animator.SetBool("IsReady2Shoot", false);
         }
+    }
+
+    [Server]
+    private void Boss_OnTentacleProjectileHit(Collider2D obj)
+    {
+        var pos = obj.transform.position;
+        GameObject tentacle = Instantiate(this.tentacle, pos, Quaternion.Euler(Vector3.zero));
+        NetworkServer.Spawn(tentacle);
+
     }
 
     private void MeleeHit(CustomTrigger triggerBox)
