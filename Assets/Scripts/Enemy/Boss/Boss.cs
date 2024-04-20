@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Boss : MonoBehaviour
+public class Boss : NetworkBehaviour
 {
     [SerializeField] float meleeDamage = 200;
     [SerializeField] float rangeDamage = 50;

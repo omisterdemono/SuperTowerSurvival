@@ -205,6 +205,8 @@ GameObject:
   - component: {fileID: 6668621654002986525}
   - component: {fileID: 3376065264080401033}
   - component: {fileID: 7406408492977685482}
+  - component: {fileID: 1654823067056949555}
+  - component: {fileID: 5008715584302519006}
   m_Layer: 0
   m_Name: BossMelon
   m_TagString: Untagged
@@ -356,13 +358,47 @@ MonoBehaviour:
   projectileRoot: {fileID: 8271526954206739466, guid: 2aa1d1fb83ee8b3418e7749083e5f822, type: 3}
   rootSpawnChance: 0.1
   projectileTentacle: {fileID: 8271526954206739466, guid: aad6534b37da2ea48bcb2f6e5a9832d9, type: 3}
-  tenacleSpawnChance: 0.9
+  tenacleSpawnChance: 0.5
   tentacle: {fileID: 4526961824030589399, guid: 96109de4a6c54e6489157389723f21b8, type: 3}
   leftAttackTrigger: {fileID: 3945922319585289467}
   rightAttackTrigger: {fileID: 3597455132763505790}
   centralAttackTrigger: {fileID: 3875958942376960842}
   sightTrigger: {fileID: 8854752326435337336}
   rangeCooldownSec: 5
+--- !u!114 &1654823067056949555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521217604565433379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 792745944
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &5008715584302519006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521217604565433379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 6668621654002986525}
 --- !u!1 &2541358374071569672
 GameObject:
   m_ObjectHideFlags: 0
