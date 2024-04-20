@@ -353,6 +353,10 @@ MonoBehaviour:
   meleeDamage: 200
   rangeDamage: 50
   projectile: {fileID: 8271526954206739466, guid: 05cdab5aa293d6f43ba2c0764f112aa7, type: 3}
+  projectileRoot: {fileID: 8271526954206739466, guid: 2aa1d1fb83ee8b3418e7749083e5f822, type: 3}
+  rootSpawnChance: 0.1
+  projectileTentacle: {fileID: 8271526954206739466, guid: aad6534b37da2ea48bcb2f6e5a9832d9, type: 3}
+  tenacleSpawnChance: 0.5
   leftAttackTrigger: {fileID: 3945922319585289467}
   rightAttackTrigger: {fileID: 3597455132763505790}
   centralAttackTrigger: {fileID: 3875958942376960842}

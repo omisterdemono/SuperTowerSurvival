@@ -9,7 +9,13 @@ public class Boss : MonoBehaviour
 {
     [SerializeField] float meleeDamage = 200;
     [SerializeField] float rangeDamage = 50;
+
     [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject projectileRoot;
+    [SerializeField] float rootSpawnChance = 0.1f;
+    [SerializeField] private GameObject projectileTentacle;
+    [SerializeField] float tenacleSpawnChance = 0.5f;
+
 
     public CustomTrigger leftAttackTrigger;
     public CustomTrigger rightAttackTrigger;
@@ -87,10 +93,31 @@ public class Boss : MonoBehaviour
         {
             var playerPosition = player.transform.position;
             var thisPosition = gameObject.transform.position;
-            GameObject projectile2Spawn = Instantiate(this.projectile, thisPosition, gameObject.transform.rotation);
+
+            Vector2 directionToPlayer = playerPosition - thisPosition;
+
+            Quaternion rotationToPlayer = Quaternion.LookRotation(directionToPlayer);
+
+            GameObject projectile2Spawn;
+            var choice = Random.Range(0.0f, 1.0f);
+            if (choice < rootSpawnChance)
+            {
+                projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, gameObject.transform.rotation);
+            }
+            else if (choice >= rootSpawnChance && choice < rootSpawnChance + tenacleSpawnChance)
+            {
+                projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, gameObject.transform.rotation);
+            }
+            else
+            {
+                projectile2Spawn = Instantiate(this.projectile, thisPosition, gameObject.transform.rotation);
+            }
+            //GameObject projectile2Spawn = Instantiate(this.projectile, thisPosition, rotationToPlayer);
+
             var bulletComponent = projectile2Spawn.GetComponent<Projectile>();
-            bulletComponent.Direction = (playerPosition - thisPosition).normalized;
+            bulletComponent.Direction = directionToPlayer.normalized;
             bulletComponent.Damage = rangeDamage;
+
             NetworkServer.Spawn(projectile2Spawn);
             rangeCooldownComponent.ResetCooldown();
             animator.SetBool("IsReady2Shoot", false);
