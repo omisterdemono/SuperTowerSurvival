@@ -1,6 +1,6 @@
 using Inventory.Models;
 using Mirror;
-using System;
+using Inventory;
 using UnityEngine;
 
 public class Obtainable : NetworkBehaviour
@@ -10,7 +10,6 @@ public class Obtainable : NetworkBehaviour
     [SerializeField] private InstrumentType _instrument;
     
     private HealthComponent _healthComponent;
-    //public InventorySO LastInventory { get; set; }
 
     private void Awake()
     {
@@ -34,16 +33,15 @@ public class Obtainable : NetworkBehaviour
         _healthComponent.OnDeath -= GetDestroyed;
     }
 
-    //todo implement
     private void GetDestroyed()
     {
-        throw new NotImplementedException();
+        var itemSpawner = FindObjectOfType<ItemNetworkSpawner>();
 
-        //for (int i = 0; i < _loot.Length; i++)
-        //{
-        //    LastInventory.AddItem(_loot[i], _quantity[i]);
-        //}
+        for (int i = 0; i < _loot.Length; i++)
+        {
+            itemSpawner.SpawnItemCmd(_loot[i].Id, _quantity[i], transform.position);
+        }
 
-        //NetworkServer.Destroy(this.gameObject);
+        NetworkServer.Destroy(this.gameObject);
     }
 }

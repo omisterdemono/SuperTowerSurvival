@@ -45,3 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventoryUIPrefab: {fileID: 2103973124400558487, guid: 79edff09ee955a641bbc956eeda5a643, type: 3}
+  _equipUIPrefab: {fileID: 4031502894281481374, guid: 15a94ca91fdce124980bade849c2031a, type: 3}
+  _craftingUIPrefab: {fileID: 1141852347445324626, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+  _skillButton: {fileID: 6247630254403735546, guid: 03f4f64adc5bf904b9cda471c94739e2, type: 3}
+  _hotbarInventoryCell: {fileID: 2298005861701589153, guid: 85660f40527bc3c4780d6debe06de5c0, type: 3}
+  _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}

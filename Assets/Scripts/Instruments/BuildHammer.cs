@@ -1,10 +1,8 @@
 using Assets.Scripts.Weapons;
-using Mirror;
-using System;
 using System.Collections;
-using System.Linq;
 using StructurePlacement;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum BuildHammerState
 {
@@ -14,7 +12,7 @@ public enum BuildHammerState
 
 public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 {
-    [SerializeField] private InstrumentAttributes _instrumentAttributes;
+    [FormerlySerializedAs("_instrumentAttributes")] [SerializeField] private InstrumentItemSO _instrumentItemSo;
     [SerializeField] private float _cooldownSeconds;
 
     public InstrumentType InstrumentType { get; set; }
@@ -39,9 +37,9 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     private void Awake()
     {
-        Strength = _instrumentAttributes.Strength;
-        Durability = _instrumentAttributes.Durability;
-        InstrumentType = _instrumentAttributes.InstrumentType;
+        Strength = _instrumentItemSo.Strength;
+        Durability = _instrumentItemSo.Durability;
+        InstrumentType = _instrumentItemSo.InstrumentType;
 
         _animator = GetComponent<Animator>();
         _structurePlacer = GetComponentInParent<StructurePlacer>();
@@ -89,6 +87,8 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     public void Obtain()
     {
+        HandleChangeMode();
+        
         switch (CurrentState)
         {
             case BuildHammerState.Repairing:
@@ -96,8 +96,6 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
                 break;
             case BuildHammerState.Building:
                 Place();
-                break;
-            default:
                 break;
         }
     }
@@ -123,17 +121,9 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
         _structurePlacer.PlaceStructure(MousePosition);
     }
 
-    public void ChangeMode()
+    public void HandleChangeMode()
     {
-        var highestState = Enum.GetValues(typeof(BuildHammerState)).Cast<BuildHammerState>().Max();
-
-        if (CurrentState == highestState)
-        {
-            CurrentState = 0;
-            return;
-        }
-
-        CurrentState++;
+        CurrentState = _structurePlacer.CurrentStructureId != string.Empty ? BuildHammerState.Building : BuildHammerState.Repairing;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

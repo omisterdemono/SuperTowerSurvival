@@ -1,8 +1,6 @@
 using System;
-using System.Net.Http.Headers;
-using System.Reflection.Emit;
+using Config;
 using Inventory.Models;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +8,7 @@ namespace Inventory.UI
 {
     public class InventoryCellUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        [SerializeField] private GameObject _selectedImage;
         public int Index { get; set; }
         public InventoryItemUI ItemUI { get; set; }
         public InventoryCell InventoryCell { get; set; }
@@ -29,11 +28,11 @@ namespace Inventory.UI
         {
             if (_isHovered)
             {
-                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(GameConfig.DropItemKeyCode))
                 {
                     ItemDrop?.Invoke(InventoryCell, InventoryCell.Count);
                 }
-                else if (Input.GetKeyDown(KeyCode.Q))
+                else if (Input.GetKeyDown(GameConfig.DropItemKeyCode))
                 {
                     ItemDrop?.Invoke(InventoryCell, 1);
                 }
@@ -72,6 +71,11 @@ namespace Inventory.UI
         public void OnPointerExit(PointerEventData eventData)
         {
             _isHovered = false;
+        }
+
+        public void SetSelect(bool selectType)
+        {
+            _selectedImage.SetActive(selectType);
         }
     }
 }

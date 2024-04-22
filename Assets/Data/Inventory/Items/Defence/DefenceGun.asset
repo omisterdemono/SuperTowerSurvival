@@ -18,8 +18,7 @@ MonoBehaviour:
   <Name>k__BackingField: defence gun
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: 1228936661, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
-  <DefaultParametersList>k__BackingField: []
   ItemAction: {fileID: 11400000, guid: 2b3d1aeff6485d34982cd51bfb68801a, type: 2}
   ActionSFX: {fileID: 0}
-  Index: 0
-  StructurePrefab: {fileID: 3625508984780255458, guid: ca1332938387ce14fbd680fc336d3209, type: 3}
+  RemoveAfterUsing: 0
+  StructurePrefab: {fileID: 3625508984780255458, guid: ea1c0455d7a5464428055a375d34e9df, type: 3}

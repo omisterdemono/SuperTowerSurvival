@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3171326265900828700}
   - component: {fileID: 6991898177875021811}
-  - component: {fileID: 864584891427247647}
   - component: {fileID: 3377799417376047652}
   - component: {fileID: 5871644225929718040}
   m_Layer: 5
@@ -49,36 +48,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7598247154987007548}
   m_CullTransparentMesh: 1
---- !u!114 &864584891427247647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7598247154987007548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &3377799417376047652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0eed1d55708e704a8df00668ceaa896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectedImage: {fileID: 4170703873335349511}
 --- !u!114 &5871644225929718040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +186,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4355120b629ee9b4fa9de5751ae921a1, type: 3}
+--- !u!1 &4170703873335349511 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 644913610840244138, guid: 4355120b629ee9b4fa9de5751ae921a1, type: 3}
+  m_PrefabInstance: {fileID: 3535994830331948717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7047911609488540952 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5826908962467294133, guid: 4355120b629ee9b4fa9de5751ae921a1, type: 3}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Inventory.Models;
 using Mirror;
 using UnityEngine;
@@ -7,29 +8,37 @@ namespace Inventory.Models
 {
     public class ItemInWorld : NetworkBehaviour
     {
-        public ItemSO Item
+        public ItemSO Item { get; private set; }
+
+        public int Count
         {
-            get => _item;
-            set
-            {
-                _item = value;
-                _spriteRenderer.sprite = _item.Sprite;
-            }
+            get => _count;
+            set => _count = value;
         }
 
-        public int Count { get; set; }
-
+        [SerializeField] private ItemDatabaseSO _itemDatabase;
+        
+        [SyncVar(hook = nameof(SetItem))] public string ItemId;
+        [SyncVar] private int _count;
+        
         private SpriteRenderer _spriteRenderer;
-        private ItemSO _item;
 
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        [Command(requiresAuthority = false)]
         public void GetPickedUp()
         {
-            NetworkServer.Destroy(this.gameObject);
+            NetworkServer.Destroy(gameObject);
+        }
+
+        private void SetItem(string oldItemId, string newItemId)
+        {
+            var item = _itemDatabase.Items.FirstOrDefault(i => i.Id == newItemId) ?? throw new ArgumentNullException("itemId is incorrect");
+            Item = item;
+            _spriteRenderer.sprite = Item.Sprite;
         }
     }
 }

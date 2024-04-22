@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
+using Config;
 using Infrastructure;
-using Infrastructure.Config;
 using Inventory.Models;
 using Inventory.UI;
 using Mirror;
@@ -11,22 +10,56 @@ namespace Inventory
 {
     public class PlayerInventory : NetworkBehaviour
     {
-        [SerializeField] private ItemInWorld _itemPrefab;
-        [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private float _throwRadius;
+        [SerializeField] private ItemSO[] _defaultItems;
         public Inventory Inventory { get; private set; }
+        public Character Character { get; private set; }
+        public CraftingSystem CraftingSystem { get; private set; }
         public Vector3 LastMoveDirection { get; set; }
 
         private InventoryUI _inventoryUI;
+        private CraftingUI _craftingUI;
+        private ItemNetworkSpawner _itemNetworkSpawner;
+
+        private GameObject _inventoryHolderUI;
         public bool IsInventoryShown { get; private set; } = true;
 
-        private void Awake()
+        private void Start()
         {
-            Inventory = new Inventory(ConfigConstants.CellsInInventoryCount);
-            
-            _inventoryUI = FindObjectOfType<GameInitializer>().InitializeInventoryUI();
+            if (!isOwned) return;
+            InitInventoryAndUI();
+        }
+
+        private void InitInventoryAndUI()
+        {
+            Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount +
+                                      GameConfig.EquipCellsCount);
+            CraftingSystem = new CraftingSystem(Inventory);
+
+            Character = GetComponent<Character>();
+
+            _inventoryHolderUI = GameObject.FindWithTag("InventoryHolderUI");
+
+            var gameInitializer = FindObjectOfType<GameInitializer>();
+            _inventoryUI = gameInitializer.InitializeInventoryUI();
             _inventoryUI.AttachInventory(this);
+
+            _craftingUI = gameInitializer.InitializeCraftingUI();
+            _craftingUI.AttachInventory(this);
+
             ChangeInventoryUIState();
+
+            _itemNetworkSpawner = FindObjectOfType<ItemNetworkSpawner>();
+
+            AddDefaultItems();
+        }
+
+        private void AddDefaultItems()
+        {
+            foreach (var defaultItem in _defaultItems)
+            {
+                Inventory.TryAddItem(defaultItem, 1);
+            }
         }
 
         public void OnItemDrop(InventoryCell inventoryCell, int count)
@@ -35,33 +68,24 @@ namespace Inventory
             {
                 return;
             }
-            
+
             var direction = LastMoveDirection;
             direction.x += _throwRadius;
             direction.y += _throwRadius;
-            SpawnItem(inventoryCell.Item.Id, count, direction);
+            _itemNetworkSpawner.SpawnItemCmd(inventoryCell.Item.Id, count, transform.position + direction);
 
             Inventory.TryRemoveFromCell(inventoryCell, count);
-        }
-
-        [Command]
-        private void SpawnItem(string itemId, int count, Vector3 direction)
-        {
-            var itemInWorld = Instantiate(_itemPrefab, transform.position + direction, Quaternion.identity);
-
-             var item = _itemDatabase.Items.FirstOrDefault(i => i.Id == itemId) ?? throw new ArgumentNullException("itemId is incorrect");
-             itemInWorld.Item = item;
-             itemInWorld.Count = count;
         }
 
         public void ChangeInventoryUIState()
         {
             IsInventoryShown = !IsInventoryShown;
-            _inventoryUI.gameObject.SetActive(IsInventoryShown);
+            _inventoryHolderUI.gameObject.SetActive(IsInventoryShown);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
+            if (!isOwned) return;
             if (col.TryGetComponent<ItemInWorld>(out var item))
             {
                 Inventory.TryAddItem(item.Item, item.Count);

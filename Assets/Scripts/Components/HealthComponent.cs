@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using System;
+using Infrastructure.UI;
 using UnityEngine.UI;
 
 public class HealthComponent : NetworkBehaviour
@@ -27,6 +28,11 @@ public class HealthComponent : NetworkBehaviour
 
     private void CurrentHealthHook(float oldValue, float newValue)
     {
+        _hpRatio = _currentHealth / _maxHealth;
+        if (_imageHP != null)
+        {
+            _imageHP.fillAmount = _hpRatio;
+        }
         OnCurrentHealthChanged?.Invoke();
     }
 
@@ -57,12 +63,6 @@ public class HealthComponent : NetworkBehaviour
         {
             //_currentHealth = value;
             ChangeHealth(value);
-            _hpRatio = _currentHealth / _maxHealth;
-            if (_imageHP != null)
-            {
-                _imageHP.fillAmount = _hpRatio;
-            }
-            OnCurrentHealthChanged?.Invoke();
         }
     }
 
@@ -91,7 +91,6 @@ public class HealthComponent : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    //[Server]
     public void ChangeHealth(float health)
     {
         _currentHealth = health;
@@ -115,6 +114,12 @@ public class HealthComponent : NetworkBehaviour
         {
             _canvasGroupHB = _healthBar.GetComponentInChildren<CanvasGroup>();
             _imageHP = _canvasGroupHB.transform.GetChild(1).GetComponentInChildren<Image>();
+        }
+
+        if (type == Type.Player)
+        {
+            var healthbar = FindObjectOfType<PlayerHealthBarUI>();
+            _imageHP = healthbar.transform.GetChild(0).GetComponentInChildren<Image>();
         }
     }
 }

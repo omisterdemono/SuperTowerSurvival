@@ -7,21 +7,19 @@ namespace Inventory.UI
 {
     public class InventoryItemUI : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Image _image;
+        
         public bool IsGettingMoved { get; set; }
-        private Image _image;
 
         public Image Image => _image;
 
         public TextMeshProUGUI Text => _text;
 
-        private TextMeshProUGUI _text;
         public bool IsAssigned { get; set; } = false;
 
         private void Awake()
         {
-            _image = GetComponentInChildren<Image>();
-            _text = GetComponentInChildren<TextMeshProUGUI>();
-
             HandleItemShow();
         }
 
@@ -43,7 +41,9 @@ namespace Inventory.UI
             }
             
             _image.sprite = item.Sprite;
-            _text.text = count.ToString();
+            
+            
+            _text.text = item.IsStackable ? count.ToString() : "";
         }
 
         public (Sprite, string) CloneForMoving()

@@ -1,6 +1,6 @@
 public interface IBuildable
 {
-    bool IsBuilt { get; set; }
+    bool IsBeingBuilt { get; set; }
     void Init();
     void Build();
 }

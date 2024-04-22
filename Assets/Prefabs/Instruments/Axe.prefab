@@ -103,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9169631142256663058
 Transform:
   m_ObjectHideFlags: 0
@@ -132,8 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5ed47adbf57cb46a43bcd7e18b3a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instrumentAttributes: {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
+  _instrumentItemSo: {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   _cooldownSeconds: 0.75
+  _obtainSeconds: 0.25
 --- !u!50 &8534466879669848232
 Rigidbody2D:
   serializedVersion: 4
@@ -168,7 +169,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8838569770955771769}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

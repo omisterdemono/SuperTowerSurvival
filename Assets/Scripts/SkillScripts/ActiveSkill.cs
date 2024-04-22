@@ -2,6 +2,7 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Infrastructure.UI;
 using TMPro;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
@@ -11,13 +12,20 @@ using UnityEngine.UIElements.Experimental;
 public class ActiveSkill : NetworkBehaviour
 {
     [SerializeField] protected SkillAttributes _skillAttributes;
-    private MovementComponent _movementComponent;
+    
+    public SkillButton SkillButton { get; set; }
 
-    public string SkillName { get => _name; set => _name = value; }
-    public bool IsReady { get => _isReady; set => _isReady = value; }
+    public bool IsReady
+    {
+        get => _isReady;
+        set => _isReady = value;
+    }
+
+    public SkillAttributes SkillAttributes => _skillAttributes;
+
+    private MovementComponent _movementComponent;
     protected ISkill Skill;
     
-    private string _name;
     private float _cooldown;
     private float _castTime;
 
@@ -28,41 +36,24 @@ public class ActiveSkill : NetworkBehaviour
     private bool _isReady;
     
     private GameObject _castBar;
-    private GameObject _skillHolder;
     private CanvasGroup _castBarCanvasGroup;
     private Image _castBarImageFill;
     private Text _castBarText;
-    private Image _skillButtonImageFill;
-    private Image _skillButtonImage;
-
-    [SerializeField] private GameObject _skillButton;
-
+    
     public void Start()
     {
-        _name = _skillAttributes.Name;
         _cooldown = _skillAttributes.Cooldown;
         _castTime = _skillAttributes.CastTime;
 
         _movementComponent = GetComponent<MovementComponent>();
         _passedTime = _cooldown;
-
         _castBar = GameObject.FindGameObjectWithTag("CastFill");
-        _skillHolder = GameObject.FindGameObjectWithTag("SkillHolder");
-
         
-
-        _skillButton.GetComponent<Image>().sprite = _skillAttributes.SkillIcon;
-
         if (isOwned)
         {
-            _skillButton = Instantiate(_skillButton);
-            _skillButton.gameObject.transform.SetParent(_skillHolder.transform);
-
             _castBarCanvasGroup = _castBar.GetComponent<CanvasGroup>();
             _castBarImageFill = _castBar.transform.GetChild(0).GetComponent<Image>();
             _castBarText = _castBar.GetComponentInChildren<Text>();
-            _skillButtonImageFill = _skillButton.transform.GetChild(0).GetComponent<Image>();
-            _skillButtonImage = _skillButton.GetComponent<Image>();
         }
     }
 
@@ -73,12 +64,12 @@ public class ActiveSkill : NetworkBehaviour
         if (_passedTime < _cooldown)
         {
             _passedTime += Time.deltaTime;
-            _skillButtonImageFill.fillAmount = 1 - 1/_cooldown * _passedTime;
+            SkillButton.SkillCooldown.fillAmount = 1 - 1 / _cooldown * _passedTime;
         }
 
         if (IsReady && CanUseSkill())
         {
-            _skillButtonImage.color = new Color(1, 1, 1, 0.6f);
+            SkillButton.SkillIcon.color = new Color(1, 1, 1, 0.6f);
             UseSkill();
         }
         else
@@ -97,7 +88,7 @@ public class ActiveSkill : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             _isReady = false;
-            _skillButtonImage.color = new Color(1, 1, 1, 1);
+            SkillButton.SkillIcon.color = new Color(1, 1, 1, 1);
         }
         if (_passedTime >= _cooldown || _isStarted)
         {
@@ -128,7 +119,7 @@ public class ActiveSkill : NetworkBehaviour
         else
         {
             _isReady = false;
-            _skillButtonImage.color = new Color(1, 1, 1, 1);
+            SkillButton.SkillIcon.color = new Color(1, 1, 1, 1);
         }
     }
 
@@ -160,7 +151,7 @@ public class ActiveSkill : NetworkBehaviour
         _isReady = false;
         _castBarCanvasGroup.alpha = 0;
         _isStarted = false;
-        _skillButtonImage.color = new Color(1, 1, 1, 1);
+        SkillButton.SkillIcon.color = new Color(1, 1, 1, 1);
     }
 
     public virtual void FinishCastPositive()

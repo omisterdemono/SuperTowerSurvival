@@ -28,20 +28,5 @@ namespace Inventory.Models
 
         [field: SerializeField]
         public Sprite Sprite { get; set; }
-
-        [field: SerializeField]
-        public List<ItemParameter> DefaultParametersList { get; set; }
-    }
-
-    [Serializable]
-    public struct ItemParameter : IEquatable<ItemParameter>
-    {
-        public ItemParameterSO itemParameter;
-        public float value;
-
-        public bool Equals(ItemParameter other)
-        {
-            return other.itemParameter == itemParameter;
-        }
     }
 }
