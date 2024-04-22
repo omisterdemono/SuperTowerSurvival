@@ -18,9 +18,10 @@ MonoBehaviour:
   <Name>k__BackingField: Shovel
   <Description>k__BackingField: 
   <Sprite>k__BackingField: {fileID: 21300000, guid: f8fa6e11263ffa9478a9cbbda914618e, type: 3}
-  <DefaultParametersList>k__BackingField: []
+  <CanBeDropped>k__BackingField: 0
   ItemAction: {fileID: 11400000, guid: d7dc6d663a0f412459e949383dbd8d95, type: 2}
   ActionSFX: {fileID: 0}
+  RemoveAfterUsing: 0
   Strength: 0
   Durability: 0
   InstrumentType: 0

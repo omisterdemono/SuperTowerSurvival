@@ -28,5 +28,7 @@ namespace Inventory.Models
 
         [field: SerializeField]
         public Sprite Sprite { get; set; }
+
+        [field: SerializeField] public bool CanBeDropped { get; set; } = true;
     }
 }

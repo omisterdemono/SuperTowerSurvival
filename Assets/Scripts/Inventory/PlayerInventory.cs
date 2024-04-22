@@ -64,7 +64,7 @@ namespace Inventory
 
         public void OnItemDrop(InventoryCell inventoryCell, int count)
         {
-            if (inventoryCell.IsFree)
+            if (inventoryCell.IsFree || !inventoryCell.Item.CanBeDropped)
             {
                 return;
             }
