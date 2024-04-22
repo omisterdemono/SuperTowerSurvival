@@ -11,7 +11,6 @@ namespace Infrastructure
     public class GameInitializer : MonoBehaviour
     {
         [SerializeField] private InventoryUI _inventoryUIPrefab;
-        [SerializeField] private EquipUI _equipUIPrefab;
         [SerializeField] private CraftingUI _craftingUIPrefab;
         [SerializeField] private SkillButton _skillButton;
         [SerializeField] private HotbarInventoryCellUI _hotbarInventoryCell;
