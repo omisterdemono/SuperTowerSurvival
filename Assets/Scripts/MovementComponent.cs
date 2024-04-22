@@ -6,6 +6,7 @@ using Mirror;
 
 public class MovementComponent : NetworkBehaviour
 {
+    private EffectComponent _effect;
     public float Speed 
     {
         set
@@ -14,6 +15,19 @@ public class MovementComponent : NetworkBehaviour
         }
         get
         {
+            if (_effect)
+            {
+                float tmpSpeed = _speed;
+                foreach (var effect in _effect.Effects)
+                {
+                    if (effect.EffectType == EEffect.Speed)
+                    {
+                        tmpSpeed = _effect.GetValue(tmpSpeed, effect);
+                    }
+                }
+                return tmpSpeed;
+            }
+
             return _speed;
         }
     }
@@ -33,9 +47,13 @@ public class MovementComponent : NetworkBehaviour
     [SerializeField] private float _speed = 3;
     private Vector3 _movementVector;
 
+    private void Awake()
+    {
+        _effect = GetComponent<EffectComponent>();
+    }
     public void Move()
     {
-        transform.position += _movementVector.normalized * _speed * Time.fixedDeltaTime;
+        transform.position += _movementVector.normalized * Speed * Time.fixedDeltaTime;
     }
 
     private void Update()

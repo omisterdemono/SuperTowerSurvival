@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
 
         Bow.OnBowReleased += Bow_OnBowRelease;
         FireWeapon.OnShoot += FireWeapon_OnShoot;
-        Projectile.OnProjectileHit += Projectile_OnProjectileHit;
+        Projectile.OnAnyProjectileHit += Projectile_OnProjectileHit;
 
         HealthComponent.OnEntityHit += HealthComponent_OnEntityHit;
     }
@@ -48,7 +48,8 @@ public class SoundManager : MonoBehaviour
         var type = health.type;
         if (type == HealthComponent.Type.Player)
         {
-            PlaySound(audioClipsSO.playerHit, Camera.main.transform.position, 0.7f);
+            //PlaySound(audioClipsSO.playerHit, Camera.main.transform.position, 0.7f);
+            PlaySound(audioClipsSO.playerHit, position, 0.7f);
         }
         else if (type == HealthComponent.Type.Zombie)
         {

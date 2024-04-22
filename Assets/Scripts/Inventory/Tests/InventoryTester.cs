@@ -57,7 +57,6 @@ namespace Inventory.Tests
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_axe"), 1);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_pickaxe"), 1);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "build_hammer"), 1);
-                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "defence_gun"), 3);
                 return;
             }
 

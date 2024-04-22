@@ -85,7 +85,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
         GetComponent<CircleCollider2D>().enabled = false;
     }
 
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }

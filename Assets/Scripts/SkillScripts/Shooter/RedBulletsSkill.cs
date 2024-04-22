@@ -1,18 +1,89 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
-public class RedBulletsSkill : MonoBehaviour
+public class RedBulletsSkill : ActiveSkill, ISkill
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    protected FireWeapon _mainWeapon;
+    [SerializeField]
+    protected FireWeapon _doubleHandedWeapon;
+    [SerializeField]
+    protected GameObject _projectile;
+    [SerializeField]
+    protected GameObject _redProjectile;
+    [SerializeField]
+    private float _damageModificator = 2f;
+    private float _normalCooldown;
+    [SerializeField]
+    private float _attackCooldownBuff = 0.15f;
+    [SerializeField]
+    private float _buffDuration = 30f;
+    [SyncVar(hook = nameof(OnUseSkill))]
+    private bool _isUseSkill = false;
+    private Character _character;
+
+    private new void Start()
     {
+        base.Start();
+        _character = GetComponent<Character>();
+        _normalCooldown = _mainWeapon.CooldownSeconds;
+    }
+
+    private void OnUseSkill(bool oldValue, bool newValue)
+    {
+        if (newValue)
+        {
+            Buff();
+            return;
+        }
+        Debuff();
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Buff()
     {
-        
+        _mainWeapon.Projectile = _redProjectile;
+        _mainWeapon.Damage *= _damageModificator;
+        _mainWeapon.CooldownComponent.CooldownSeconds = _attackCooldownBuff;
+        _doubleHandedWeapon.Projectile = _redProjectile;
+        _doubleHandedWeapon.Damage *= _damageModificator;
+        _doubleHandedWeapon.CooldownComponent.CooldownSeconds = _attackCooldownBuff;
+    }
+
+    private void Debuff()
+    {
+        _mainWeapon.Projectile = _projectile;
+        _mainWeapon.Damage /= _damageModificator;
+        _mainWeapon.CooldownComponent.CooldownSeconds = _normalCooldown;
+        _doubleHandedWeapon.Projectile = _projectile;
+        _doubleHandedWeapon.Damage /= _damageModificator;
+        _doubleHandedWeapon.CooldownComponent.CooldownSeconds = _normalCooldown;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUseSkill()
+    {
+        _isUseSkill = true;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdStopUseSkill()
+    {
+        _isUseSkill = false;
+    }
+
+    public override void FinishCastPositive()
+    {
+        base.FinishCastPositive();
+        CmdUseSkill();
+        Invoke(nameof(CmdStopUseSkill), _buffDuration);
+    }
+
+    public void PowerUpSkillPoint(int points)
+    {
+        throw new System.NotImplementedException();
     }
 }

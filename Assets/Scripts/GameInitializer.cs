@@ -26,25 +26,17 @@ namespace Infrastructure
 
         public InventoryUI InitializeInventoryUI()
         {
-            // var parent = GameObject.FindWithTag("InventoryHolderUI");
-            // var inventoryUI = Instantiate(_inventoryUIPrefab, parent.transform, true);
-            // inventoryUI.transform.SetSiblingIndex(1);
-            
             return FindObjectOfType<InventoryUI>();;
         }
 
         public EquipUI InitializeEquipUI()
         {
-            // var parent = GameObject.FindWithTag("InventoryHolderUI");
-            // var equip = Instantiate(_equipUIPrefab, parent.transform, true);
-            // equip.transform.SetSiblingIndex(0);
             return FindObjectOfType<EquipUI>();
         }
 
         public CraftingUI InitializeCraftingUI()
         {
-            var canvas = FindObjectOfType<Canvas>();
-            return Instantiate(_craftingUIPrefab, canvas.transform);
+            return FindObjectOfType<CraftingUI>();
         }
 
         public List<SkillButton> InitializeSkillHolder(List<ActiveSkill> activeSkills)

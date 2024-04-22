@@ -11,6 +11,7 @@ namespace Inventory
     public class PlayerInventory : NetworkBehaviour
     {
         [SerializeField] private float _throwRadius;
+        [SerializeField] private ItemSO[] _defaultItems;
         public Inventory Inventory { get; private set; }
         public Character Character { get; private set; }
         public CraftingSystem CraftingSystem { get; private set; }
@@ -42,12 +43,23 @@ namespace Inventory
             var gameInitializer = FindObjectOfType<GameInitializer>();
             _inventoryUI = gameInitializer.InitializeInventoryUI();
             _inventoryUI.AttachInventory(this);
-            ChangeInventoryUIState();
 
             _craftingUI = gameInitializer.InitializeCraftingUI();
             _craftingUI.AttachInventory(this);
 
+            ChangeInventoryUIState();
+
             _itemNetworkSpawner = FindObjectOfType<ItemNetworkSpawner>();
+
+            AddDefaultItems();
+        }
+
+        private void AddDefaultItems()
+        {
+            foreach (var defaultItem in _defaultItems)
+            {
+                Inventory.TryAddItem(defaultItem, 1);
+            }
         }
 
         public void OnItemDrop(InventoryCell inventoryCell, int count)

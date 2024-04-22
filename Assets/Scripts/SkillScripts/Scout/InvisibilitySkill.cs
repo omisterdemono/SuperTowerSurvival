@@ -12,7 +12,7 @@ public class InvisibilitySkill : ActiveSkill, ISkill
     {
         GetComponent<SpriteRenderer>().color = newColor;
     }
-    public void PowerUpSkillPoint()
+    public void PowerUpSkillPoint(int points)
     {
         throw new System.NotImplementedException();
     }

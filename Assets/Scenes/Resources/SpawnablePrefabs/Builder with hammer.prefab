@@ -106,7 +106,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -4931,6 +4931,7 @@ GameObject:
   - component: {fileID: 2472881815842148988}
   - component: {fileID: 8645461397614680018}
   - component: {fileID: 2657977773894173994}
+  - component: {fileID: 1432979457284204321}
   m_Layer: 0
   m_Name: Builder with hammer
   m_TagString: Player
@@ -5416,8 +5417,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 1
-  m_PointLightOuterRadius: 5
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 3
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -5440,6 +5441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1074a09a2535241a6ea91a3fde2864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dayLightInnerRadius: 0
+  _dayLightOuterRadius: 0
 --- !u!1 &9084387294348873565
 GameObject:
   m_ObjectHideFlags: 0
