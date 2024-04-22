@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodeSmile.Extensions;
 using Inventory.Models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Inventory.UI
 {
@@ -30,15 +30,15 @@ namespace Inventory.UI
             {
                 return;
             }
-            
-            _requiredItems.DestroyAllChildren();
+
+            DestroyAllChildren(_requiredItems);
             _requiredItemsUI.Clear();
             _craftButton.onClick.RemoveAllListeners();
 
             _itemName.text = recipe.ResultItem.Name;
             _itemDescription.text = recipe.ResultItem.Description;
             _recipeSo = recipe;
-            
+
             _craftButton.interactable = canBeCrafted;
 
             for (var i = 0; i < _recipeSo.Items.Count; i++)
@@ -51,10 +51,27 @@ namespace Inventory.UI
                 _requiredItemsUI.Add(requiredItem);
             }
 
-            _craftButton.onClick.AddListener(() =>
+            _craftButton.onClick.AddListener(() => { ItemCrafted.Invoke(_recipeSo); });
+        }
+
+        private void DestroyAllChildren(Transform transform)
+        {
+            for (var i = transform.childCount - 1; i >= 0; i--)
             {
-                ItemCrafted.Invoke(_recipeSo);
-            });
+                DestroyInAnyMode(transform.GetChild(i).gameObject);
+            }
+        }
+
+        public void DestroyInAnyMode(Object self)
+        {
+            if (Application.isPlaying == false)
+            {
+                DestroyImmediate(self);
+            }
+            else
+            {
+                Destroy(self);
+            }
         }
 
         public void UpdateRequiredItemsCounts(string[] requiredItemsCounts, Color[] requiredItemsColors,
