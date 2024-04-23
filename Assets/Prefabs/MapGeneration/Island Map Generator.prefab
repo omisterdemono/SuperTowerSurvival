@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1317363206008773233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7935811568222182555}
+  - component: {fileID: 5274887918461462098}
+  - component: {fileID: 8079053583108603730}
+  m_Layer: 0
+  m_Name: Island Map Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7935811568222182555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317363206008773233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5274887918461462098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317363206008773233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c870125ac5cfbb94b8246a9c323552a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawMode: 1
+  generationMode: 1
+  mapWidth: 500
+  mapHeight: 500
+  noiseScale: 200
+  octaves: 5
+  persistance: 0.4
+  lacunarity: 2.9
+  seed: 10616
+  offset: {x: 0, y: 0}
+  autoUpdate: 1
+  regions:
+  - {fileID: 11400000, guid: 36d92bfecc1e046429581b8e7a8e6847, type: 2}
+  - {fileID: 11400000, guid: af313d42e8e887f469cc8f6d7229d05d, type: 2}
+  - {fileID: 11400000, guid: 6808e5160da975f49bf34907bfec1776, type: 2}
+  - {fileID: 11400000, guid: 7842b5f1e6ebe26499542c12c0cb9684, type: 2}
+  - {fileID: 11400000, guid: 31a5371e03f175e4b9af15e554dc3e32, type: 2}
+  - {fileID: 11400000, guid: 672fad1d3b987584c9c60d6594ddea8e, type: 2}
+  - {fileID: 11400000, guid: 9a975aa4ca821d741b1f9e907fd11582, type: 2}
+  resources:
+  - {fileID: 11400000, guid: f2305caa08adc174a91ae13e161c7373, type: 2}
+  - {fileID: 11400000, guid: 9a975aa4ca821d741b1f9e907fd11582, type: 2}
+  nothing: {r: 1, g: 1, b: 1, a: 0}
+  islandRadius: 200
+  islandRadiusOffset: 50
+  waterHeight: 0.25
+--- !u!114 &8079053583108603730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317363206008773233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de88c500f94de214aac783c1261bbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapRender: {fileID: 0}
+  resourceRender: {fileID: 0}
