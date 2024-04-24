@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DefaultNamespace;
 using Infrastructure;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -36,6 +38,7 @@ public class MapGenerator : MonoBehaviour
     private float _islandRadius;
 
     [SerializeField] private float _islandRadiusOffset;
+    [SerializeField] private double _hsvOffset;
 
     [FormerlySerializedAs("_mapGenerator")] [Header("Resource settings")] [SerializeField]
     private MapGenerator _landMapGenerator;
@@ -46,11 +49,8 @@ public class MapGenerator : MonoBehaviour
     public float[,] NoiseMap { get; private set; }
 
     private float[,] _temperatureMap;
+    private float[] _randomColourValues = { 1, 0.99f, 0.98f, 0.97f, 0.96f, 0.95f, 0.94f };
     private MapDisplay _mapDisplay;
-
-    private void Awake()
-    {
-    }
 
     public void GenerateMap()
     {
@@ -64,6 +64,8 @@ public class MapGenerator : MonoBehaviour
                     lacunarity, offset);
                 CutIsland(NoiseMap);
 
+                System.Random random = new(seed);
+
                 for (int y = 0; y < _mapHeight; y++)
                 {
                     for (int x = 0; x < _mapWidth; x++)
@@ -74,8 +76,19 @@ public class MapGenerator : MonoBehaviour
                         {
                             if (currentHeight > _regions[i].MinHeight && currentHeight <= _regions[i].MaxHeight)
                             {
-                                landTilemap.SetTile(new Vector3Int(x - _mapWidth / 2, y - _mapHeight / 2),
-                                    _regions[i].Tile);
+                                var tilePosition = new Vector3Int(x - _mapWidth / 2, y - _mapHeight / 2);
+                                landTilemap.SetTile(tilePosition, _regions[i].Tile);
+
+                                if (i == 0 || i == 1)
+                                {
+                                    break;
+                                }
+
+                                var index = random.Next(0, _randomColourValues.Length - 1);
+                                var randomNumber = _randomColourValues[index];
+
+                                landTilemap.SetTileFlags(tilePosition, TileFlags.None);
+                                landTilemap.SetColor(tilePosition, new Color(randomNumber, randomNumber, randomNumber));
                                 break;
                             }
                         }

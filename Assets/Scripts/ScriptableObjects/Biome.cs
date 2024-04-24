@@ -12,6 +12,6 @@ namespace DefaultNamespace
         [FormerlySerializedAs("RequiredHeight")] public float MaxHeight;
         public float RequiredTemperature;
         public Color Color;
-        public TileBase Tile;
+        public Tile Tile;
     }
 }
