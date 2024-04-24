@@ -9,14 +9,13 @@ using UnityEngine.SceneManagement;
 public class NetworkManagerLobby : NetworkManager
 {
     [SerializeField] private int _minPlayers = 1;
-    [Scene][SerializeField] private string _menuScene = string.Empty;
+    [Scene] [SerializeField] private string _menuScene = string.Empty;
 
-    [Header("Room")]
-    [SerializeField] private NetworkRoomPlayerLobby _roomPlayerLobbyPrefab = null;
+    [Header("Room")] [SerializeField] private NetworkRoomPlayerLobby _roomPlayerLobbyPrefab = null;
 
-    [Header("Game")]
-    [SerializeField] private NetworkGamePlayer _gamePlayerPrefab = null;
+    [Header("Game")] [SerializeField] private NetworkGamePlayer _gamePlayerPrefab = null;
     [SerializeField] private GameObject playerSpawnSystem = null;
+    [SerializeField] private string _newSceneName = "Scene_Map_02";
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
@@ -54,7 +53,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
-        if (numPlayers>=maxConnections)
+        if (numPlayers >= maxConnections)
         {
             conn.Disconnect();
             return;
@@ -82,7 +81,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
-        if (conn.identity!=null)
+        if (conn.identity != null)
         {
             var player = conn.identity.GetComponent<NetworkRoomPlayerLobby>();
 
@@ -90,6 +89,7 @@ public class NetworkManagerLobby : NetworkManager
 
             NotifyPlayersOfReadyState();
         }
+
         base.OnServerDisconnect(conn);
     }
 
@@ -124,7 +124,7 @@ public class NetworkManagerLobby : NetworkManager
         {
             if (!IsReadyToStart()) return;
             _chosenCharacters.AddRange(RoomPlayers.Select(x => x.CurrentCharacter));
-            ServerChangeScene("Scene_Map_01");
+            ServerChangeScene(_newSceneName);
         }
     }
 
@@ -132,7 +132,7 @@ public class NetworkManagerLobby : NetworkManager
     {
         if (SceneManager.GetActiveScene().path == _menuScene && newSceneName.StartsWith("Scene_Map"))
         {
-            for (int i = RoomPlayers.Count-1; i >= 0; i--)
+            for (int i = RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = RoomPlayers[i].connectionToClient;
                 var gamePlayerIstance = Instantiate(_gamePlayerPrefab);
@@ -154,6 +154,7 @@ public class NetworkManagerLobby : NetworkManager
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().ChosenCharacters.AddRange(_chosenCharacters);
             NetworkServer.Spawn(playerSpawnSystemInstance);
+            Debug.Log("spawned player spawn system");
         }
     }
 
@@ -162,5 +163,6 @@ public class NetworkManagerLobby : NetworkManager
         base.OnServerReady(conn);
 
         OnServerReadied?.Invoke(conn);
+        Debug.Log("on server ready");
     }
 }
