@@ -5,9 +5,9 @@ using UnityEngine.Tilemaps;
 public class MapDisplay : MonoBehaviour
 {
     [SerializeField] private Renderer _mapRender;
-    [SerializeField] private Tilemap _landTilemap;
+    [FormerlySerializedAs("_landTilemap")] [SerializeField] private Tilemap _tilemap;
     
-    public Tilemap LandTilemap => _landTilemap;
+    public Tilemap Tilemap => _tilemap;
 
     public void DrawTexture(Texture2D mapTexture)
     {

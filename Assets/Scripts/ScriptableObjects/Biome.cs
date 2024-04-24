@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace DefaultNamespace
@@ -7,7 +8,8 @@ namespace DefaultNamespace
     public class Biome : ScriptableObject
     {
         public string Name;
-        public float RequiredHeight;
+        public float MinHeight;
+        [FormerlySerializedAs("RequiredHeight")] public float MaxHeight;
         public float RequiredTemperature;
         public Color Color;
         public TileBase Tile;
