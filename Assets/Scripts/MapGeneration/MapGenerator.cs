@@ -11,7 +11,6 @@ public class MapGenerator : MonoBehaviour
 {
     public enum GenerationMode
     {
-        Simple,
         Island,
         Resources
     };
@@ -31,20 +30,18 @@ public class MapGenerator : MonoBehaviour
 
     public bool AutoUpdate;
 
-    [FormerlySerializedAs("regions")] [SerializeField]
-    private Biome[] _regions;
+    [SerializeField] private Biome[] _regions;
 
-    [Header("Island settings")] [SerializeField]
-    private float _islandRadius;
-
+    [Header("Island settings")] 
+    [SerializeField] private float _islandRadius;
     [SerializeField] private float _islandRadiusOffset;
-    [SerializeField] private double _hsvOffset;
+    [SerializeField] private Tilemap _waterTilemap;
+    [FormerlySerializedAs("_landTilemap")] [SerializeField] private Tilemap _mainTilemap;
 
-    [FormerlySerializedAs("_mapGenerator")] [Header("Resource settings")] [SerializeField]
-    private MapGenerator _landMapGenerator;
+    [Header("Resource settings")] 
+    [SerializeField] private MapGenerator _landMapGenerator;
 
-    [FormerlySerializedAs("_obtainables")] [SerializeField]
-    private ObtainableProps[] _obtainablesData;
+    [SerializeField] private ObtainableProps[] _obtainablesData;
 
     public float[,] NoiseMap { get; private set; }
 
@@ -54,8 +51,7 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        var landTilemap = GetComponent<MapDisplay>().Tilemap;
-        landTilemap.ClearAllTiles();
+        _mainTilemap.ClearAllTiles();
 
         switch (_generationMode)
         {
@@ -77,18 +73,22 @@ public class MapGenerator : MonoBehaviour
                             if (currentHeight > _regions[i].MinHeight && currentHeight <= _regions[i].MaxHeight)
                             {
                                 var tilePosition = new Vector3Int(x - _mapWidth / 2, y - _mapHeight / 2);
-                                landTilemap.SetTile(tilePosition, _regions[i].Tile);
 
-                                if (i == 0 || i == 1)
+                                if (IsWaterTile(i))
                                 {
+                                    _waterTilemap.SetTile(tilePosition, _regions[i].Tile);
                                     break;
+                                }
+                                else
+                                {
+                                    _mainTilemap.SetTile(tilePosition, _regions[i].Tile);
                                 }
 
                                 var index = random.Next(0, _randomColourValues.Length - 1);
                                 var randomNumber = _randomColourValues[index];
 
-                                landTilemap.SetTileFlags(tilePosition, TileFlags.None);
-                                landTilemap.SetColor(tilePosition, new Color(randomNumber, randomNumber, randomNumber));
+                                _mainTilemap.SetTileFlags(tilePosition, TileFlags.None);
+                                _mainTilemap.SetColor(tilePosition, new Color(randomNumber, randomNumber, randomNumber));
                                 break;
                             }
                         }
@@ -130,7 +130,7 @@ public class MapGenerator : MonoBehaviour
                             {
                                 var obtainable = Instantiate(_obtainablesData[i].ObtainablePrefab,
                                     expectedPosition,
-                                    Quaternion.identity, landTilemap.transform);
+                                    Quaternion.identity, _mainTilemap.transform);
                                 _placedObtainables.Add(obtainable.transform);
                                 break;
                             }
@@ -140,6 +140,11 @@ public class MapGenerator : MonoBehaviour
 
                 break;
         }
+    }
+
+    private static bool IsWaterTile(int i)
+    {
+        return i == 0 || i == 1;
     }
 
     private void CutIsland(float[,] noiseMap)

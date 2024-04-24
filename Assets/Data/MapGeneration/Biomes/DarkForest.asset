@@ -17,4 +17,4 @@ MonoBehaviour:
   MaxHeight: 0.75
   RequiredTemperature: 0.4
   Color: {r: 0, g: 0.38823533, b: 0.007843138, a: 0}
-  Tile: {fileID: 11400000, guid: 127e38db31943ca42830114696e5a5e3, type: 2}
+  Tile: {fileID: 11400000, guid: 45448ce4f45785f4db5aa04f61d59e9e, type: 2}
