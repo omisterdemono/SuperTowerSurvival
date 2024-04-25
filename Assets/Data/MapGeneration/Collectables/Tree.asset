@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ddfaa54589244b5ba5adf41fbed7859, type: 3}
+  m_Name: Tree
+  m_EditorClassIdentifier: 
+  Name: Tree 1
+  MinHeight: 0.6
+  MaxHeight: 0.7
+  ObtainablePrefab: {fileID: 6860194334041426106, guid: c852976be9121814a8a23e1d47407ab8, type: 3}
+  TileForTest: {fileID: 11400000, guid: 66144c970372bcb4a9f5119ef17bba72, type: 2}
+  DistanceThreshold: 5
