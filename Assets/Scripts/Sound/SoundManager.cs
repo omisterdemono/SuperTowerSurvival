@@ -9,6 +9,19 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
     [SerializeField] private AudioClipsSO audioClipsSO;
+    [SerializeField] private float GeneralVolume = 1.0f;
+    [SerializeField] private float SfxVolume = 1.0f;
+    //[SerializeField] private float MusicVolumeOption = 1.0f;
+
+    //public void SetGeneralVolume(float value)
+    //{
+    //    GeneralVolume = value;
+    //}
+
+    //public void SetSfxlVolume(float value)
+    //{
+    //    SfxVolume = value;
+    //}
 
     private void Awake()
     {
@@ -27,6 +40,22 @@ public class SoundManager : MonoBehaviour
         Projectile.OnAnyProjectileHit += Projectile_OnProjectileHit;
 
         HealthComponent.OnEntityHit += HealthComponent_OnEntityHit;
+
+        SoundOptions.OnGeneralVolumeChange += SoundOptions_OnGeneralVolumeChange;
+        SoundOptions.OnSfxVolumeChange += SoundOptions_OnSfxVolumeChange; ;
+        SoundOptions.OnMusicVolumeChange += SoundOptions_OnMusicVolumeChange; ;
+    }
+    private void SoundOptions_OnGeneralVolumeChange(object sender, float e)
+    {
+        GeneralVolume = (float)e;
+    }
+    private void SoundOptions_OnSfxVolumeChange(object sender, float e)
+    {
+        SfxVolume = (float)e;
+    }
+    private void SoundOptions_OnMusicVolumeChange(object sender, float e)
+    {
+        //mus = (float)e;
     }
 
     private void ChargeMeleeWeapon_OnMeleeSwing(object sender, System.EventArgs e)
@@ -124,13 +153,13 @@ public class SoundManager : MonoBehaviour
 
     private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
     {
-        AudioSource.PlayClipAtPoint(audioClip, position, volume);
+        AudioSource.PlayClipAtPoint(audioClip, position, volume * GeneralVolume * SfxVolume);
     }
 
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
     {
 
-        AudioSource.PlayClipAtPoint(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
+        AudioSource.PlayClipAtPoint(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume * GeneralVolume * SfxVolume);
     }
 
     public void PlayFootstepsSound(Vector3 position, float volume)
