@@ -94,20 +94,14 @@ public class MapGenerator : NetworkBehaviour
                                     break;
                                 }
 
-                                PlaceTile(tilePosition, i);
+                                var index = random.Next(0, _randomColourValues.Length - 1);
+                                var randomNumber = _randomColourValues[index];
+                                PlaceTile(tilePosition, i, randomNumber);
 
                                 if (!_townHallIsPlaced && _regions[i].Name.Equals(_townHallSpawnBiome))
                                 {
                                     TryPlaceMainHall(tilePosition, x, y, i);
                                 }
-
-                                //todo fix colour
-                                // var index = random.Next(0, _randomColourValues.Length - 1);
-                                // var randomNumber = _randomColourValues[index];
-                                //
-                                // _mainTilemap.SetTileFlags(tilePosition, TileFlags.None);
-                                // _mainTilemap.SetColor(tilePosition,
-                                //     new Color(randomNumber, randomNumber, randomNumber));
                                 break;
                             }
                         }
@@ -166,21 +160,38 @@ public class MapGenerator : NetworkBehaviour
 
     private void TryPlaceMainHall(Vector3Int tilePosition, int x, int y, int i)
     {
+        if (x < _mainHallRequiredSpace || y <= _mainHallRequiredSpace)
+        {
+            return;
+        }
+        
         for (int j = x - _mainHallRequiredSpace; j < x + _mainHallRequiredSpace; j++)
         {
             for (int k = y - _mainHallRequiredSpace; k < y + _mainHallRequiredSpace; k++)
             {
-                if(NoiseMap[j,k] < _regions[i].MinHeight || NoiseMap[j,k] > _regions[i].MaxHeight)
+                if (NoiseMap[j, k] < _regions[i].MinHeight || NoiseMap[j, k] > _regions[i].MaxHeight)
                 {
                     return;
                 }
             }
         }
 
+        Debug.Log("base found on " + tilePosition);
+        for (int j = x - _mainHallRequiredSpace; j < x + _mainHallRequiredSpace; j++)
+        {
+            for (int k = y - _mainHallRequiredSpace; k < y + _mainHallRequiredSpace; k++)
+            {
+                var newTilePos = new Vector3Int(j - _mapWidth / 2, k - _mapHeight / 2, 0);
+                _mainTilemap.SetTileFlags(newTilePos, TileFlags.None);
+                _mainTilemap.SetColor(newTilePos, Color.red);
+            }
+        }
+
         PlaceBase(tilePosition);
-        
+
         var spawnPoints = GameObject.FindGameObjectWithTag("SpawnPoints").transform;
-        
+        spawnPoints.position = tilePosition;
+
         var characters = FindObjectsOfType<Character>();
         for (int j = 0; j < characters.Length; j++)
         {
@@ -216,9 +227,11 @@ public class MapGenerator : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void PlaceTile(Vector3Int tilePosition, int regionIndex)
+    private void PlaceTile(Vector3Int tilePosition, int regionIndex, float randomNumber)
     {
         _mainTilemap.SetTile(tilePosition, _regions[regionIndex].Tile);
+        _mainTilemap.SetTileFlags(tilePosition, TileFlags.None);
+        _mainTilemap.SetColor(tilePosition, new Color(randomNumber, randomNumber, randomNumber));
     }
 
     private bool IsWaterTile(int i)
