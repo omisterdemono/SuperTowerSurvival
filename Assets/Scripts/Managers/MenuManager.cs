@@ -4,11 +4,32 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] GameObject optionsMenu;
+    [SerializeField] private GameObject InGameMenu;
+    [SerializeField] private GameObject mainMenu;
+
+    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject soundOptionsMenu;
+    [SerializeField] private GameObject controllsOptionsMenu;
+    [SerializeField] private GameObject graphicsOptionsMenu;
+    
+    
+    //private GameObject mainMenu;
     // Start is called before the first frame update
     void Start()
     {
-        optionsMenu.SetActive(false);
+        InGameMenu.SetActive(false);
+        //mainMenu = InGameMenu.GetComponentInChildren<GameObject>();
+        //mainMenu = InGameMenu.GetComponentInChildren<GameObject>();
+    }
+
+    private void OpenHideMenu(bool toOpen)
+    {
+        InGameMenu.SetActive(toOpen);
+        mainMenu.SetActive(toOpen);
+        optionsMenu.SetActive(!toOpen);
+        soundOptionsMenu.SetActive(!toOpen);
+        controllsOptionsMenu.SetActive(!toOpen);
+        graphicsOptionsMenu.SetActive(!toOpen);
     }
 
     // Update is called once per frame
@@ -16,7 +37,8 @@ public class MenuManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            optionsMenu.SetActive(!optionsMenu.activeSelf);
+            //InGameMenu.SetActive(!InGameMenu.activeSelf);
+            this.OpenHideMenu(!InGameMenu.activeSelf);
         }
     }
 }
