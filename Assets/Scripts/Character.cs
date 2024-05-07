@@ -174,11 +174,11 @@ public class Character : NetworkBehaviour
     {
         Vector3 moveVector = Vector3.zero;
 
-        //float inputX = Input.GetAxisRaw("Horizontal");
-        //float inputY = Input.GetAxisRaw("Vertical");
-        
-        float inputX = UserInput.instance.MoveInput.x;
-        float inputY = UserInput.instance.MoveInput.y;
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+
+        //float inputX = UserInput.instance.MoveInput.x;
+        //float inputY = UserInput.instance.MoveInput.y;
 
         _animator.SetInteger("x", (int)inputX);
         _animator.SetInteger("y", (int)inputY);
