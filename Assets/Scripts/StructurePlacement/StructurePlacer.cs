@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Config;
 using Inventory;
 using Inventory.Models;
 using Mirror;
@@ -13,16 +14,16 @@ namespace StructurePlacement
         [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private int _structuresTilemapIndex;
 
-        [Header("Build properties")] [SerializeField]
-        private float _placeRadius;
+        [Header("Build properties")]
+        [SerializeField] private float _placeRadius;
 
-        [SyncVar] private bool _structureCanBePlaced;
         public bool StructureCanBePlaced => _structureCanBePlaced;
+        public ItemSO TempItem => _tempStructureItem;
         public string CurrentStructureId => _currentStructureId;
 
+        [SyncVar] private bool _structureCanBePlaced;
         [SyncVar] private string _currentStructureId = string.Empty;
 
-        public ItemSO TempItem => _tempStructureItem;
         private Action _removeItemFromInventory;
 
         private PlayerInventory _playerInventory;
@@ -58,7 +59,7 @@ namespace StructurePlacement
 
             HandlePreviewStructurePosition();
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(GameConfig.CancelPlacementKeyCode))
             {
                 CancelPlacement();
             }
@@ -158,7 +159,6 @@ namespace StructurePlacement
             var component = structure.GetComponent<Structure>();
             component.SpawnPosition = spawnPosition;
 
-            _removeItemFromInventory?.Invoke();
             InitStructureOnClients(component.netId, netId);
         }
 
@@ -171,7 +171,7 @@ namespace StructurePlacement
             
             if (playerId == netId)
             {
-                _removeItemFromInventory?.Invoke();
+                _playerInventory.Inventory.TryRemoveItem(TempItem, 1);
             }
         }
     }

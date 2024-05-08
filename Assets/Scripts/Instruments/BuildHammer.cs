@@ -34,7 +34,6 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
     public BuildHammerState CurrentState = BuildHammerState.Building;
     private bool _isObtaining;
 
-
     private void Awake()
     {
         Strength = _instrumentItemSo.Strength;

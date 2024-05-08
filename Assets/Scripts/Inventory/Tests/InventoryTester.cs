@@ -53,10 +53,10 @@ namespace Inventory.Tests
 
             if(_tmpInput.text == "")
             {
-                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "shovel"), 1);
-                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_axe"), 1);
-                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron_pickaxe"), 1);
-                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "build_hammer"), 1);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "wood_wall"), 8);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "defence_gun"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "heal_potion"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "damage_potion"), 4);
                 return;
             }
 

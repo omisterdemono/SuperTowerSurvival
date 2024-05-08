@@ -14,7 +14,7 @@ namespace Inventory.Models.ItemActions
             {
                 structurePlacer.CancelPlacement();
             }
-            else if (structurePlacer.TempItem == null)
+            else
             {
                 structurePlacer.SelectStructure(holderItem, afterPerform);
             }
