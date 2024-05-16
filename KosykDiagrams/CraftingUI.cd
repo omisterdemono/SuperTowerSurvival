@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Inventory.UI.CraftRecipeUI">
+    <Position X="10" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\CraftRecipeUI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_craftRecipeSo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.UI.CraftingUI">
+    <Position X="7" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BgAAAAAAAAAAAEAgAAAAABAALRhAAQCAQEEQAAAEAkA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\CraftingUI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_craftingDatabase" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.Models.CraftRecipeSO" Collapsed="true">
+    <Position X="7.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAACAAAEAAAAAAAAAAAAAAAAAAAAAQACAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\CraftRecipeSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.CraftingDatabaseSO" Collapsed="true">
+    <Position X="5.5" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\CraftingDatabaseSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.CraftCategoryUI">
+    <Position X="10" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABgAAgAAAAAAAIAAAAAAAAAAAEAAAACAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\CraftCategoryUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Inventory.Inventory" Collapsed="true">
+    <Position X="10" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABEAAEAAAAAAIIAAAIAAgAAAAEEAAAIAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.HotbarInventoryCellUI">
+    <Position X="9.5" Y="8.5" Width="2" />
+    <Members>
+      <Field Name="_activateButtonHintText" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\HotbarInventoryCellUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.InventoryCellUI">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAwQAAgAACAAAAAAAAAQQAAAoAAAAAAEACQAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\InventoryCellUI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Inventory.UI.InventoryItemUI">
+    <Position X="8.25" Y="0.75" Width="1.5" />
+    <Members>
+      <Field Name="_image" Hidden="true" />
+      <Field Name="_text" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAAAJAAAAAAAAAAAIAAAQBAIAAAACAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\InventoryItemUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.InventoryUI">
+    <Position X="11.75" Y="5" Width="2.5" />
+    <AssociationLine Name="_inventory" Type="Inventory.Inventory" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="5" />
+        <Point X="13" Y="4.872" />
+        <Point X="11.938" Y="4.872" />
+        <Point X="11.938" Y="0.656" />
+        <Point X="10.75" Y="0.656" />
+        <Point X="10.75" Y="0.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.807" Y="0.164" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_playerInventory" Type="Inventory.PlayerInventory" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="5" />
+        <Point X="13" Y="4.872" />
+        <Point X="11.938" Y="4.872" />
+        <Point X="11.938" Y="1.656" />
+        <Point X="10.688" Y="1.656" />
+        <Point X="10.688" Y="1.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.987" Y="0.206" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAQABAAAQAAAAAAIIABRAAACAAABAIAAACEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\InventoryUI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_inventory" />
+      <Field Name="_playerInventory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.UI.MovingItemUI">
+    <Position X="8" Y="3.75" Width="1.75" />
+    <Members>
+      <Field Name="_item" Hidden="true" />
+      <Field Name="_takenCountOfItems" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAEAAAAAAAAAAAAAEABAAQAAIAAACAAAEAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\MovingItemUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.RequiredItemUI">
+    <Position X="8.25" Y="6.75" Width="1.5" />
+    <Members>
+      <Field Name="_itemCountText" Hidden="true" />
+      <Field Name="_itemImage" Hidden="true" />
+      <Method Name="Awake" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgBgAAAAAIAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\RequiredItemUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.RecipePropertiesUI">
+    <Position X="12" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAICAAABAABAIAAAABAQAgAAAAAACAAACAACAAABACA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\RecipePropertiesUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.PlayerInventory" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAECIAAAAAQAAAQAAACEABAAAAAgBAAgAASEg=</HashCode>
+      <FileName>Assets\Scripts\Inventory\PlayerInventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

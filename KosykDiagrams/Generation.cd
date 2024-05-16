@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MapDisplay">
+    <Position X="11.25" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\Scripts\MapGeneration\MapDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MapGenerator">
+    <Position X="8.25" Y="2.25" Width="2.75" />
+    <NestedTypes>
+      <Enum Name="MapGenerator.GenerationMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\MapGeneration\MapGenerator.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AKCAECAAEEAAYAREAGEAAEBAJCAAxACIADACEAAQBCA=</HashCode>
+      <FileName>Assets\Scripts\MapGeneration\MapGenerator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_obtainablesData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Noise">
+    <Position X="11.25" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MapGeneration\Noise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultNamespace.Biome">
+    <Position X="11.25" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAEAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAEQA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\Biome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultNamespace.ObtainableProps">
+    <Position X="8.25" Y="11" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEgAAAAAAAAAAAAQAAAAAAAACAAAAAAAAUAA=</HashCode>
+      <FileName>Assets\Scripts\ScriptableObjects\ObtainableProps.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

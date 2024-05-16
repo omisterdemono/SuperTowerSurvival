@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MeleeWeapon" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="4.75" Width="2" />
+    <Members>
+      <Field Name="_animator" Hidden="true" />
+      <Field Name="_cooldownSeconds" Hidden="true" />
+      <Field Name="_damage" Hidden="true" />
+      <Field Name="_desiredTargets" Hidden="true" />
+      <Field Name="_isAttacking" Hidden="true" />
+      <Field Name="_needFlip" Hidden="true" />
+      <Field Name="_targetsInRange" Hidden="true" />
+    </Members>
+    <AssociationLine Name="_cooldownComponent" Type="CooldownComponent" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.063" Y="10.155" />
+        <Point X="14.063" Y="10.434" />
+        <Point X="15.208" Y="10.434" />
+        <Point X="15.208" Y="11.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.414" Y="1.343" Height="0.182" Width="2.14" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>SAQABATAQAAAECAAEAgAAAAAIMgAgAAAoBIAAQgCAkA=</HashCode>
+      <FileName>Assets\Scripts\Weapons\MeleeWeapon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cooldownComponent" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bow" BaseTypeListCollapsed="true">
+    <Position X="11" Y="4.75" Width="2.25" />
+    <Members>
+      <Field Name="_animator" Hidden="true" />
+      <Field Name="_chargeProgressSeconds" Hidden="true" />
+      <Field Name="_cooldownSeconds" Hidden="true" />
+      <Field Name="_damage" Hidden="true" />
+      <Field Name="_firePosition" Hidden="true" />
+      <Field Name="_isCharging" Hidden="true" />
+      <Field Name="_maxChargeSeconds" Hidden="true" />
+      <Field Name="_minProgressToShotSeconds" Hidden="true" />
+      <Field Name="_needFlip" Hidden="true" />
+      <Field Name="_projectile" Hidden="true" />
+    </Members>
+    <AssociationLine Name="_cooldownComponent" Type="CooldownComponent" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.125" Y="10.155" />
+        <Point X="12.125" Y="10.5" />
+        <Point X="13.25" Y="10.5" />
+        <Point X="13.25" Y="12.062" />
+        <Point X="13.75" Y="12.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.019" Y="-0.512" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_chargeComponent" Type="ChargeComponent">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.456" Y="0.067" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAQAQADAQAAAEDAAAIgAAAAAIMgAgkAAoQAAgCgiA0I=</HashCode>
+      <FileName>Assets\Scripts\Weapons\Bow.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cooldownComponent" />
+      <Field Name="_chargeComponent" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Projectile">
+    <Position X="9" Y="4.75" Width="1.75" />
+    <Members>
+      <Field Name="_damage" Hidden="true" />
+      <Field Name="_desiredTargets" Hidden="true" />
+      <Field Name="_direction" Hidden="true" />
+      <Field Name="_owner" Hidden="true" />
+      <Field Name="_speed" Hidden="true" />
+      <Field Name="_timeToFlyInSeconds" Hidden="true" />
+      <Field Name="type" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="Projectile.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Weapons\Projectile.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QAAAgATAAiAAAAAAgCAAAAABAEABAAAABAIJAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Weapons\Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FireWeapon" BaseTypeListCollapsed="true">
+    <Position X="11" Y="10.75" Width="2" />
+    <Members>
+      <Field Name="_cooldownComponent" Hidden="true" />
+      <Field Name="_cooldownSeconds" Hidden="true" />
+      <Field Name="_damage" Hidden="true" />
+      <Field Name="_firePositions" Hidden="true" />
+      <Field Name="_needFlip" Hidden="true" />
+      <Field Name="_projectile" Hidden="true" />
+      <Field Name="type" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="FireWeapon.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Weapons\FireWeapon.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <AssociationLine Name="CooldownComponent" Type="CooldownComponent" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13" Y="11" />
+        <Point X="13.167" Y="11" Type="JumpStart" />
+        <Point X="13.333" Y="11" Type="JumpEnd" />
+        <Point X="14.698" Y="11" />
+        <Point X="14.698" Y="11.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.242" Y="0.391" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>SAQAAADBQAAAECAAAAgAAAAAIMgBgQAAgQAAAAgCIkA=</HashCode>
+      <FileName>Assets\Scripts\Weapons\FireWeapon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CooldownComponent" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.371" />
+  </Class>
+  <Class Name="ChargeMeleeWeapon" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="9.25" Width="2" />
+    <Members>
+      <Field Name="_cooldownSeconds" Hidden="true" />
+      <Field Name="_countOfDeathRotates" Hidden="true" />
+      <Field Name="_damage" Hidden="true" />
+      <Field Name="_desiredTargets" Hidden="true" />
+      <Field Name="_hitCollider" Hidden="true" />
+      <Field Name="_isAttacking" Hidden="true" />
+      <Field Name="_maxChargeSeconds" Hidden="true" />
+      <Field Name="_minProgressTohitSeconds" Hidden="true" />
+      <Field Name="_oneDeathRotateSeconds" Hidden="true" />
+      <Field Name="_oneDeathRotateStep" Hidden="true" />
+      <Field Name="_rotationBeforeCharge" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>SQQAIAjAQAAAGIAJEIgAAAAAIMgggAAAgAIAAggiAEA=</HashCode>
+      <FileName>Assets\Scripts\Weapons\ChargeMeleeWeapon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_chargeComponent" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CooldownComponent" Collapsed="true">
+    <Position X="13.75" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUIgEAAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\CooldownComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChargeComponent" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAABAAABAAAAAAAAAAAAAAgCEAgBAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\ChargeComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IWeapon">
+    <Position X="13.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAgAAAAAAIgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Weapons\IWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

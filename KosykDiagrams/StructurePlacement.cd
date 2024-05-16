@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Inventory.Models.ItemSO" Collapsed="true">
+    <Position X="46.25" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAggAAAAAAAAAwAAAAAAAAQBAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildHammer" BaseTypeListCollapsed="true">
+    <Position X="41.25" Y="12.5" Width="2" />
+    <AssociationLine Name="_instrumentItemSo" Type="InstrumentItemSO">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.399" Y="0.467" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_cooldownComponent" Type="CooldownComponent">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.307" Y="0.085" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="CurrentState" Type="BuildHammerState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.055" Y="0.129" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAYAIACEQAAAECAAAIAAACAAIGhAgBAAoFAAABgCAEA=</HashCode>
+      <FileName>Assets\Scripts\Instruments\BuildHammer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_instrumentItemSo" />
+      <Field Name="_cooldownComponent" />
+      <Field Name="CurrentState" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="StructurePlacement.StructurePlacer">
+    <Position X="43.5" Y="12" Width="2.5" />
+    <AssociationLine Name="_itemDatabase" Type="Inventory.ItemDatabaseSO">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.426" Y="0.399" Height="0.182" Width="1.365" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="TempItem" Type="Inventory.Models.ItemSO">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.488" Y="0.46" Height="0.182" Width="1.463" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_playerInventory" Type="Inventory.PlayerInventory">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.055" Y="0.225" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_tempStructureItem" Type="Inventory.Models.StructureItemSO">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.748" Y="0.456" Height="0.182" Width="1.607" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAHgAAoAAAIgEAAoEAqgAAEAWAIEAaAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\StructurePlacement\StructurePlacer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_itemDatabase" />
+      <Field Name="_playerInventory" />
+      <Field Name="_tempStructureItem" />
+      <Property Name="TempItem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.PlayerInventory" Collapsed="true">
+    <Position X="44" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAECIAAAAAQAAAQAAACEABAAAAAgBAAgAASEg=</HashCode>
+      <FileName>Assets\Scripts\Inventory\PlayerInventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.ItemDatabaseSO" Collapsed="true">
+    <Position X="46.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\ItemDatabaseSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CooldownComponent" Collapsed="true">
+    <Position X="41.25" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUIgEAAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\CooldownComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.StructureItemSO" Collapsed="true">
+    <Position X="46.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\StructureItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InstrumentItemSO" Collapsed="true">
+    <Position X="43.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\InstrumentItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BuildHammerState">
+    <Position X="41.5" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Instruments\BuildHammer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

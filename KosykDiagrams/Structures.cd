@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Structure">
+    <Position X="10" Y="2.75" Width="2.75" />
+    <AssociationLine Name="_healthComponent" Type="HealthComponent">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.318" Y="0.517" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAYBCACgAAACAgICAAAAAAAAAEAQgAQIAAACAIAAAEQ=</HashCode>
+      <FileName>Assets\Scripts\Structures\Structure.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_healthComponent" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DefenseStructure">
+    <Position X="9.75" Y="8.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>SAQIAADBAAASACQAAAAAAAAAAEAAAQIAARAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Structures\DefenseStructure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthComponent" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAACgACAACACAEAAAAJUgAQBBAAFCAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\HealthComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IBuildable">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQgAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Structures\IBuildable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

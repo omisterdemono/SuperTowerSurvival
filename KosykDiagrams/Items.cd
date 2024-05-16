@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Inventory.Models.ArmorItemSO">
+    <Position X="24.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAgAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ArmorItemSO.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="ArmorType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.Models.ItemSO">
+    <Position X="22.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAggAAAAAAAAAwAAAAAAAAQBAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.UsableItemSO">
+    <Position X="22.5" Y="21.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAACAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\UsableItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.StructureItemSO">
+    <Position X="24.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\StructureItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InstrumentItemSO">
+    <Position X="22.75" Y="23.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\InstrumentItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.ItemActions.ItemAction">
+    <Position X="26.25" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemAction\ItemAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.ItemActions.DamagePlayerAction">
+    <Position X="24.5" Y="22.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemAction\DamagePlayerAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.ItemActions.HealPlayerAction">
+    <Position X="26.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemAction\HealPlayerAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.ItemActions.SelectInstrumentAction">
+    <Position X="26.5" Y="24.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemAction\SelectInstrumentAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.ItemActions.SelectStructureAction">
+    <Position X="24.5" Y="24.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemAction\SelectStructureAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Inventory.Models.ArmorType">
+    <Position X="22.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQIAAAAAAAAAAAAAAAAAAQAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ArmorItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ChargeComponent">
+    <Position X="38.75" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAABAAABAAAAAAAAAAAAAAgCEAgBAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\ChargeComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CooldownComponent">
+    <Position X="39" Y="10.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUIgEAAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\CooldownComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Instrument" BaseTypeListCollapsed="true">
+    <Position X="41.75" Y="8.25" Width="2.75" />
+    <AssociationLine Name="_cooldownComponent" Type="CooldownComponent" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="41.75" Y="10" />
+        <Point X="39.375" Y="10" />
+        <Point X="39.375" Y="10.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.676" Y="0.344" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="InstrumentType" Type="InstrumentType">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.992" Y="0.683" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAQAAAAEQAAAECAAAKEAAAAAIEhAgBAIoEAAABgCAEA=</HashCode>
+      <FileName>Assets\Scripts\Instruments\Instrument.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cooldownComponent" />
+      <Property Name="InstrumentType" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EquipSlot">
+    <Position X="44" Y="2.5" Width="2.25" />
+    <AssociationLine Name="_equipable" Type="Assets.Scripts.Weapons.IEquipable" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="45.125" Y="2.5" />
+        <Point X="45.125" Y="2.125" />
+        <Point X="43" Y="2.125" />
+        <Point X="43" Y="2.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.904" Y="0.393" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAIAAAAAAAAEAAAABAAAAAAAAQAAEA=</HashCode>
+      <FileName>Assets\Scripts\EquipSlot.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_equipable" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Character" Collapsed="true">
+    <Position X="43" Y="5.75" Width="1.5" />
+    <AssociationLine Name="_playerInventory" Type="Inventory.PlayerInventory" FixedToPoint="true">
+      <Path>
+        <Point X="43.375" Y="6.441" />
+        <Point X="43.375" Y="7" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.156" Y="0.055" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_equippedItemsSlot" Type="EquipSlot" FixedFromPoint="true">
+      <Path>
+        <Point X="44.159" Y="5.75" />
+        <Point X="44.159" Y="4.761" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.165" Y="0.726" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gYQALAABIiHBDkQwiWJh0asEIgAAggEKIigAIAiABEA=</HashCode>
+      <FileName>Assets\Scripts\Character.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_playerInventory" />
+      <Field Name="_equippedItemsSlot" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.PlayerInventory" Collapsed="true">
+    <Position X="42.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAECIAAAAAQAAAQAAACEABAAAAAgBAAgAASEg=</HashCode>
+      <FileName>Assets\Scripts\Inventory\PlayerInventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IInstrument">
+    <Position X="38.75" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAIAAAAAAAABAAAAAAEAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Instruments\IInstrument.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Assets.Scripts.Weapons.IEquipable">
+    <Position X="41.5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAEAAAAAAAAAAAIEgAgAAAgAAAAAgCAAA=</HashCode>
+      <FileName>Assets\Scripts\Weapons\IEquipable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="InstrumentType">
+    <Position X="45" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Instruments\InstrumentType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

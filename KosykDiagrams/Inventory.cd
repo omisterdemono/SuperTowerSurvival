@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Inventory.Models.CraftRecipeSO">
+    <Position X="19" Y="13.75" Width="1.5" />
+    <AssociationLine Name="ResultItem" Type="Inventory.Models.ItemSO" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19" Y="14.375" />
+        <Point X="18.25" Y="14.375" />
+        <Point X="18.25" Y="14.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.148" Y="0.204" Height="0.182" Width="1.555" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAACAAAEAAAAAAAAAAAAAAAAAAAAAQACAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\CraftRecipeSO.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="ResultItem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.Models.InventoryCell">
+    <Position X="22.75" Y="17.5" Width="1.5" />
+    <AssociationLine Name="_item" Type="Inventory.Models.ItemSO">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.669" Y="0.486" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAQAAAAAAAABBAAAQEABAgAAAIAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\InventoryCell.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_item" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.Models.ItemInWorld">
+    <Position X="18.75" Y="16" Width="1.5" />
+    <AssociationLine Name="Item" Type="Inventory.Models.ItemSO">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.65" Y="1.956" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAgAAAABAAAgAAAAAQEACAAAAAAAACAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemInWorld.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_itemDatabase" />
+      <Property Name="Item" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.CraftingDatabaseSO">
+    <Position X="18.5" Y="21" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\CraftingDatabaseSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Inventory">
+    <Position X="20.75" Y="13.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QABEAAEAAAAAAIIAAAIAAgAAAAEEAAAIAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.ItemDatabaseSO">
+    <Position X="18.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\ItemDatabaseSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.ItemNetworkSpawner">
+    <Position X="21" Y="22.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAACAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\ItemNetworkSpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.PlayerInventory">
+    <Position X="20.5" Y="17.75" Width="2" />
+    <AssociationLine Name="_inventoryUI" Type="Inventory.UI.InventoryUI" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.625" Y="21.809" />
+        <Point X="20.625" Y="22.875" />
+        <Point X="18.812" Y="22.875" />
+        <Point X="18.812" Y="23.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.048" Y="0.067" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_craftingUI" Type="Inventory.UI.CraftingUI">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.723" Y="0.3" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_itemNetworkSpawner" Type="Inventory.ItemNetworkSpawner" FixedToPoint="true">
+      <Path>
+        <Point X="21.875" Y="21.809" />
+        <Point X="21.875" Y="22.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.697" Y="0.091" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAECIAAAAAQAAAQAAACEABAAAAAgBAAgAASEg=</HashCode>
+      <FileName>Assets\Scripts\Inventory\PlayerInventory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_inventoryUI" />
+      <Field Name="_craftingUI" />
+      <Field Name="_itemNetworkSpawner" />
+      <Property Name="Inventory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.CraftingSystem">
+    <Position X="16.5" Y="18.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAABAAAAAAAAAAAAAAAAAAQACAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\CraftingSystem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_inventory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Inventory.UI.CraftingUI" Collapsed="true">
+    <Position X="22.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgAAAAAAAAAAAEAgAAAAABAALRhAAQCAQEEQAAAEAkA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\CraftingUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.UI.InventoryUI" Collapsed="true">
+    <Position X="18.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAQABAAAQAAAAAAIIABRAAACAAABAIAAACEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\UI\InventoryUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inventory.Models.ItemSO" Collapsed="true">
+    <Position X="17.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAQAAggAAAAAAAAAwAAAAAAAAQBAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\Models\ItemSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
