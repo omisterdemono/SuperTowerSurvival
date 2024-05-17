@@ -13,7 +13,9 @@ namespace Inventory
         public bool IsFull => Cells.All(c => c.IsFull);
         public Action InventoryChanged;
 
-        public Inventory(int count)
+        private ItemDatabaseSO _itemDatabase;
+
+        public Inventory(int count, ItemDatabaseSO itemDatabase)
         {
             Cells = new InventoryCell[count];
 
@@ -25,6 +27,8 @@ namespace Inventory
                     Count = 0
                 };
             }
+
+            _itemDatabase = itemDatabase;
         }
 
         /// <summary>
@@ -122,6 +126,13 @@ namespace Inventory
                 return 0;
             }
             return cells.Sum(i => i.Count);
+        }
+        
+        public int ItemCount(string itemId)
+        {
+            var itemSo = _itemDatabase.GetItemSOById(itemId);
+
+            return ItemCount(itemSo);
         }
 
         public int TryRemoveItem(ItemSO item, int countToRemove)

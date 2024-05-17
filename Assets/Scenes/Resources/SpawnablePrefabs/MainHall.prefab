@@ -385,6 +385,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  _placementChecker: {fileID: 0}
+  _notPlaceable: 1
 --- !u!61 &5731331213269229337
 BoxCollider2D:
   m_ObjectHideFlags: 0

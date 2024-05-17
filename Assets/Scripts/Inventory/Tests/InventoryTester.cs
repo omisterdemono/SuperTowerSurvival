@@ -21,27 +21,23 @@ namespace Inventory.Tests
                 {
                     _playerInventory = FindObjectsOfType<PlayerInventory>().First(x => x.isOwned);
                 }
+
                 return _playerInventory;
             }
             set => _playerInventory = value;
         }
 
-        [Header("Testing")]
-        [SerializeField] private ItemDatabaseSO _itemDatabase;
+        [Header("Testing")] [SerializeField] private ItemDatabaseSO _itemDatabase;
         [SerializeField] private int _itemCount;
         [SerializeField] private TMP_InputField _tmpInput;
 
 
         private void Start()
         {
-
         }
 
         public void AddItem()
         {
-
-
-            
             if (_tmpInput.text == "instruments")
             {
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "shovel"), 1);
@@ -51,7 +47,7 @@ namespace Inventory.Tests
                 return;
             }
 
-            if(_tmpInput.text == "")
+            if (_tmpInput.text == "")
             {
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "wood_wall"), 8);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "defence_gun"), 4);
@@ -62,7 +58,7 @@ namespace Inventory.Tests
 
             PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == _tmpInput.text), _itemCount);
         }
-        
+
         public void RemoveItem()
         {
             PlayerInventory.Inventory.TryRemoveItem(_itemDatabase.Items.First(i => i.Id == _tmpInput.text), _itemCount);
