@@ -1,6 +1,7 @@
 using Assets.Scripts.Weapons;
 using Mirror;
 using System;
+using Components;
 using UnityEngine;
 
 /// <summary>

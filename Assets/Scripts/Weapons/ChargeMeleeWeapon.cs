@@ -1,6 +1,7 @@
 using Assets.Scripts.Weapons;
 using System;
 using System.Collections;
+using Components;
 using TMPro;
 using UnityEngine;
 

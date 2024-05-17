@@ -1,3 +1,4 @@
+using Components;
 using Inventory.Models;
 using Mirror;
 using Inventory;

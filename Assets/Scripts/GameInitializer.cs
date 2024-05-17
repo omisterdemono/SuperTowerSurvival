@@ -2,25 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.UI;
-using Inventory;
 using Inventory.UI;
+using Mirror;
 using UnityEngine;
 
 namespace Infrastructure
 {
     public class GameInitializer : MonoBehaviour
     {
-        [SerializeField] private InventoryUI _inventoryUIPrefab;
-        [SerializeField] private CraftingUI _craftingUIPrefab;
+        [Header("UI")]
         [SerializeField] private SkillButton _skillButton;
         [SerializeField] private HotbarInventoryCellUI _hotbarInventoryCell;
+        [SerializeField] private Canvas _waitCanvas;
 
+        [Header("Map generation")] 
+        [SerializeField] private MapGenerator _landGenerator;
+        [SerializeField] private MapGenerator _resourceGenerator;
+        
+        [Header("Testing")]
+        [SerializeField] private bool _initNetworkManagerAutomatically;
 
-        [SerializeField] private ItemDatabaseSO _itemDatabase;
-
-        private void Awake()
+        private void Start()
         {
-            // Cursor.visible = false;
+            if (_initNetworkManagerAutomatically)
+            {
+                FindObjectOfType<NetworkManager>().StartHost();
+            }
         }
 
         public InventoryUI InitializeInventoryUI()
@@ -73,6 +80,17 @@ namespace Infrastructure
 
             hotbar.SelectCell(0);
             return hotbar;
+        }
+
+        public void GenerateMaps(int seed)
+        {
+            _landGenerator.GenerateMap(seed);
+            _resourceGenerator.GenerateMap(seed);
+        }
+
+        public void HideWaitingCanvas()
+        {
+            _waitCanvas.gameObject.SetActive(false);
         }
     }
 }

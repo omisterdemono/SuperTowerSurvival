@@ -20,6 +20,8 @@ TagManager:
   - Fog
   - CastBarText
   - InventoryHolderUI
+  - SpawnPoints
+  - HitBox
   layers:
   - Default
   - TransparentFX
