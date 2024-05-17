@@ -1,6 +1,9 @@
 using Assets.Scripts.Weapons;
 using System.Collections;
+using Components;
+using Inventory.Models;
 using StructurePlacement;
+using Structures;
 using UnityEngine;
 using UnityEngine.Serialization;
 

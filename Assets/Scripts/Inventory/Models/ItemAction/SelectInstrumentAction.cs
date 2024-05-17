@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Inventory.Models.ItemActions
+namespace Inventory.Models.ItemAction
 {
     [CreateAssetMenu(menuName = "Actions/Select instrument")]
     public class SelectInstrumentAction : ItemAction

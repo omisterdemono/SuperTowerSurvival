@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Components;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable

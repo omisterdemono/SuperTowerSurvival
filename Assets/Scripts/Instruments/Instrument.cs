@@ -1,6 +1,8 @@
 using Assets.Scripts.Weapons;
 using System;
 using System.Collections;
+using Components;
+using Inventory.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
 

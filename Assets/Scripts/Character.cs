@@ -3,6 +3,7 @@ using UnityEngine;
 using Mirror;
 using Assets.Scripts.Weapons;
 using System.Collections;
+using Components;
 using Infrastructure;
 using Inventory;
 using Inventory.UI;

@@ -1,5 +1,4 @@
 using System;
-using Inventory.Models.ItemActions;
 using UnityEngine;
 
 namespace Inventory.Models
@@ -7,7 +6,7 @@ namespace Inventory.Models
     [CreateAssetMenu(menuName = "Inventory/UsableItem")]
     public class UsableItemSO : ItemSO
     {
-        public ItemAction ItemAction;
+        public ItemAction.ItemAction ItemAction;
         public AudioClip ActionSFX;
         public bool RemoveAfterUsing;
 

@@ -4,6 +4,7 @@ using Config;
 using Inventory;
 using Inventory.Models;
 using Mirror;
+using Structures;
 using UnityEngine;
 
 namespace StructurePlacement
