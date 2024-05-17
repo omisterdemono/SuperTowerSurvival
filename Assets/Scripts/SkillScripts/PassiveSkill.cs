@@ -25,7 +25,7 @@ public class PassiveSkill : NetworkBehaviour
             return;
 
         EffectComponent effectComponent = collision.GetComponentInParent<EffectComponent>();
-        if (effectComponent && collision!= _mainCollider && !_mainCollider.IsTouching(collision) && collision.name == "mainCollider")
+        if (effectComponent && collision!= _mainCollider && !_mainCollider.IsTouching(collision) && collision.tag == "HitBox")
         {
             effectComponent.ApplyEffect(_effect);
         }
@@ -37,7 +37,7 @@ public class PassiveSkill : NetworkBehaviour
             return;
 
         EffectComponent effectComponent = collision.GetComponentInParent<EffectComponent>();
-        if (effectComponent && !_passiveAura.IsTouching(collision) && collision.name == "mainCollider")
+        if (effectComponent && !_passiveAura.IsTouching(collision) && collision.tag == "HitBox")
         {
             effectComponent.RemoveEffect(_effect);
         }

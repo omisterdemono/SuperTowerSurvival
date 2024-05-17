@@ -1,17 +1,19 @@
-using System;
 using UnityEngine;
 
-public class RotationSpritesLoader : MonoBehaviour
+namespace Structures
 {
-    [SerializeField] private Sprite[] _rotationSprites;
-    [SerializeField] private int[] _defenceItemsIndexes;
-    void Start()
+    public class RotationSpritesLoader : MonoBehaviour
     {
-        //Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/SpriteAnimations/DefenseGun/DefenseGun");
-    }
+        [SerializeField] private Sprite[] _rotationSprites;
+        [SerializeField] private int[] _defenceItemsIndexes;
+        void Start()
+        {
+            //Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/SpriteAnimations/DefenseGun/DefenseGun");
+        }
 
-    void Update()
-    {
+        void Update()
+        {
         
+        }
     }
 }

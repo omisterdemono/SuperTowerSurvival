@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8801364958382031128}
   m_Layer: 0
   m_Name: mainCollider
-  m_TagString: Untagged
+  m_TagString: HitBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8231169941632268351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efd894cf8ac91d34c810df7cc7359672, type: 3}
   m_Name: 

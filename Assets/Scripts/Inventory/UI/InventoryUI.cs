@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Config;
 using Infrastructure;
@@ -117,8 +118,13 @@ namespace Inventory.UI
                 return;
             }
 
-            usableItem.PerformAction(_playerInventory,
-                () => _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1));
+            usableItem.PerformAction(_playerInventory, () => RemoveItem(currentInventoryUICell));
+        }
+
+        private void RemoveItem(InventoryCellUI currentInventoryUICell)
+        {
+            _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, 1);
+            Debug.Log("Removed");
         }
 
         private void SwapItemsInMovingAndCurrent(InventoryCellUI currentInventoryUICell)

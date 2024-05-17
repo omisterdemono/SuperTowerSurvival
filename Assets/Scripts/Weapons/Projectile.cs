@@ -2,6 +2,7 @@ using Mirror;
 using System;
 using UnityEngine;
 using System.Collections;
+using Components;
 
 /// <summary>
 /// This class is responsible for attacking enemy entities,
