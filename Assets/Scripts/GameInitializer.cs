@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.UI;
 using Inventory.UI;
+using Mirror;
 using UnityEngine;
 
 namespace Infrastructure
@@ -17,6 +18,17 @@ namespace Infrastructure
         [Header("Map generation")] 
         [SerializeField] private MapGenerator _landGenerator;
         [SerializeField] private MapGenerator _resourceGenerator;
+        
+        [Header("Testing")]
+        [SerializeField] private bool _initNetworkManagerAutomatically;
+
+        private void Start()
+        {
+            if (_initNetworkManagerAutomatically)
+            {
+                FindObjectOfType<NetworkManager>().StartHost();
+            }
+        }
 
         public InventoryUI InitializeInventoryUI()
         {

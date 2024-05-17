@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public class CooldownComponent
+namespace Components
 {
-    public event System.Action OnCooldownFinished;
-    public float CooldownSeconds { get; set; }
-
-    private float _timeToNextPerform;
-
-    public bool CanPerform => _timeToNextPerform == 0;
-
-    public void ResetCooldown()
+    public class CooldownComponent
     {
-        _timeToNextPerform = CooldownSeconds;
-    }
+        public event System.Action OnCooldownFinished;
+        public float CooldownSeconds { get; set; }
 
-    public void HandleCooldown()
-    {
-        if (_timeToNextPerform == 0)
+        private float _timeToNextPerform;
+
+        public bool CanPerform => _timeToNextPerform == 0;
+
+        public void ResetCooldown()
         {
-            return;
+            _timeToNextPerform = CooldownSeconds;
         }
 
-        if (_timeToNextPerform < 0)
+        public void HandleCooldown()
         {
-            _timeToNextPerform = 0;
-            OnCooldownFinished?.Invoke();
-            return;
-        }
+            if (_timeToNextPerform == 0)
+            {
+                return;
+            }
 
-        _timeToNextPerform -= Time.deltaTime;
+            if (_timeToNextPerform < 0)
+            {
+                _timeToNextPerform = 0;
+                OnCooldownFinished?.Invoke();
+                return;
+            }
+
+            _timeToNextPerform -= Time.deltaTime;
+        }
     }
 }

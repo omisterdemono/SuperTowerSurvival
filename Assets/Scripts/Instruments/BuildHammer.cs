@@ -1,6 +1,9 @@
 using Assets.Scripts.Weapons;
 using System.Collections;
+using Components;
+using Inventory.Models;
 using StructurePlacement;
+using Structures;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -33,7 +36,6 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
     private HealthComponent _currentStructureToRepair;
     public BuildHammerState CurrentState = BuildHammerState.Building;
     private bool _isObtaining;
-
 
     private void Awake()
     {

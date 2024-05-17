@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Inventory.Models.ItemActions
+namespace Inventory.Models.ItemAction
 {
     [CreateAssetMenu(menuName = "Actions/Select structure")]
     public class SelectStructureAction : ItemAction
@@ -14,7 +14,7 @@ namespace Inventory.Models.ItemActions
             {
                 structurePlacer.CancelPlacement();
             }
-            else if (structurePlacer.TempItem == null)
+            else
             {
                 structurePlacer.SelectStructure(holderItem, afterPerform);
             }

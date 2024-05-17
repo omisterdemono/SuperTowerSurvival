@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Inventory.Models.ItemActions
+namespace Inventory.Models.ItemAction
 {
     public abstract class ItemAction : ScriptableObject
     {

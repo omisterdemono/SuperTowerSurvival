@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Components;
 using UnityEngine;
 
 public class MineScript : NetworkBehaviour
