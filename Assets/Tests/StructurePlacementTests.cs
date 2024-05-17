@@ -17,19 +17,43 @@ namespace SuperTowerSurvival.Tests
         [SetUp]
         public void SetUpTests()
         {
-            // _testScene = SceneManager.GetActiveScene();
             SceneManager.LoadSceneAsync("IntegrationTestingMultiplayer");
         }
     
         [TearDown]
         public void TearDownTests()
         {
-            // SceneManager.SetActiveScene(_testScene);
             SceneManager.UnloadSceneAsync("IntegrationTestingMultiplayer");
         }
 
         [UnityTest]
-        public IEnumerator Always_PlaceTest()
+        public IEnumerator Always_01_PlaceTest()
+        {
+            yield return new WaitForSeconds(1.0f);
+            
+            var inventoryTester = GameObject.FindObjectOfType<InventoryTester>();
+            var character = GameObject.FindObjectOfType<Character>();
+            var playerInventory = character.GetComponent<PlayerInventory>();
+            var structurePlacer = character.GetComponent<StructurePlacer>();
+        
+            inventoryTester.AddItem();
+            character.SelectInstrumentById("build_hammer");
+
+            var defenceGunItem = playerInventory.ItemDatabase.GetItemSOById("defence_gun");
+            structurePlacer.SelectStructure(defenceGunItem, null);
+        
+            Assert.IsTrue(structurePlacer.CurrentStructureId.Equals("defence_gun"));
+
+            structurePlacer.PlaceStructure(new Vector3(2.5f, 0.5f, 0));
+            var placedStructure = Object.FindObjectOfType<DefenceStructure>();
+        
+            Assert.IsNotNull(placedStructure);
+            
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator Never_02_PlaceTest()
         {
             yield return new WaitForSeconds(1.0f);
         
@@ -43,14 +67,36 @@ namespace SuperTowerSurvival.Tests
 
             var defenceGunItem = playerInventory.ItemDatabase.GetItemSOById("defence_gun");
             structurePlacer.SelectStructure(defenceGunItem, null);
-        
-            Assert.IsTrue(structurePlacer.CurrentStructureId.Equals("defence_gun"));
-        
-            structurePlacer.PlaceStructure(new Vector3(2.5f, 0.5f, 0));
-            var placedStructure = Object.FindObjectOfType<DefenceStructure>();
-        
-            Assert.IsNotNull(placedStructure);
+
+            structurePlacer.TempStructure.transform.position = new Vector3(5f, 0.5f, 0);
             
+            Assert.IsFalse(structurePlacer.StructureCanBePlaced);
+            yield return null;
+        }
+        
+        [UnityTest]
+        public IEnumerator Never_03_PlaceOnOtherStructureTest()
+        {
+            yield return new WaitForSeconds(1.0f);
+        
+            var inventoryTester = GameObject.FindObjectOfType<InventoryTester>();
+            var character = GameObject.FindObjectOfType<Character>();
+            var playerInventory = character.GetComponent<PlayerInventory>();
+            var structurePlacer = character.GetComponent<StructurePlacer>();
+        
+            inventoryTester.AddItem();
+            character.SelectInstrumentById("build_hammer");
+
+            var defenceGunItem = playerInventory.ItemDatabase.GetItemSOById("defence_gun");
+            structurePlacer.SelectStructure(defenceGunItem, null);
+            
+            structurePlacer.PlaceStructure(new Vector3(2.5f, 0.5f, 0));
+            
+            yield return new WaitForSeconds(0.1f);
+
+            structurePlacer.TempStructure.transform.position = new Vector3(2.5f, 0.5f, 0);
+            
+            Assert.IsFalse(structurePlacer.StructureCanBePlaced);
             yield return null;
         }
     }

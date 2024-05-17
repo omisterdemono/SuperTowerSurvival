@@ -39,7 +39,9 @@ namespace StructurePlacement
         private GameObject _structuresHolder;
 
         private bool StructureInBuildRadius =>
-            Vector2.Distance(transform.position, _tempStructure.transform.position) <= _placeRadius;
+            Vector2.Distance(transform.position, TempStructure.transform.position) <= _placeRadius;
+
+        public GameObject TempStructure => _tempStructure;
 
         private void Start()
         {
@@ -69,13 +71,13 @@ namespace StructurePlacement
         //todo should be optimized in the future (item count maybe is expensive)
         private void HandlePreviewStructurePosition()
         {
-            if (_tempStructure is null)
+            if (TempStructure is null)
             {
                 return;
             }
             
-            _tempStructure.transform.position = _mousePosition;
-            CalculateStructurePosition(_tempStructure.transform);
+            TempStructure.transform.position = _mousePosition;
+            CalculateStructurePosition(TempStructure.transform);
             
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
             var newState = _tempStructureComponent is not null
@@ -94,7 +96,7 @@ namespace StructurePlacement
         {
             CmdUpdateCurrentStructure(string.Empty);
             
-            Destroy(_tempStructure);
+            Destroy(TempStructure);
             _tempStructure = null;
             _tempStructureItem = null;
             _currentStructureId = string.Empty;
@@ -116,12 +118,12 @@ namespace StructurePlacement
 
             if (_currentStructureId != string.Empty)
             {
-                Destroy(_tempStructure);
+                Destroy(TempStructure);
             }
 
             CmdUpdateCurrentStructure(structureId);
             _tempStructure = Instantiate(structureItem.StructurePrefab, _structuresTilemap);
-            _tempStructureComponent = _tempStructure.GetComponent<Structure>();
+            _tempStructureComponent = TempStructure.GetComponent<Structure>();
             _tempStructureItem = structureItem;
             _removeItemFromInventory = afterPlacement;
         }
