@@ -21,6 +21,7 @@ TagManager:
   - CastBarText
   - InventoryHolderUI
   - SpawnPoints
+  - HitBox
   layers:
   - Default
   - TransparentFX
