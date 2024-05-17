@@ -53,25 +53,5 @@ namespace SuperTowerSurvival.Tests
             
             yield return null;
         }
-
-        // [UnityTest]
-        // public IEnumerator Always_StructureSelectTest()
-        // {
-        //     yield return new WaitForSeconds(1.0f);
-        //     
-        //     var inventoryTester = GameObject.FindObjectOfType<InventoryTester>();
-        //     var character = GameObject.FindObjectOfType<Character>();
-        //     var playerInventory = character.GetComponent<PlayerInventory>();
-        //     var structurePlacer = character.GetComponent<StructurePlacer>();
-        //     
-        //     inventoryTester.AddItem();
-        //
-        //     var defenceGunItem = playerInventory.ItemDatabase.GetItemSOById("defence_gun");
-        //     structurePlacer.SelectStructure(defenceGunItem, null);
-        //
-        //     Assert.IsTrue(structurePlacer.CurrentStructureId.Equals("defence_gun"));
-        //     
-        //     yield return null;
-        // }
     }
 }
