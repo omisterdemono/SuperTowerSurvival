@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Boss">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DAQgAAAwACAAACAAgAAIAAABAIAAVgAAABChUBAQAmA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Boss\Boss.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="centralAttackTrigger" />
+      <Field Name="leftAttackTrigger" />
+      <Field Name="rangeCooldownComponent" />
+      <Field Name="rightAttackTrigger" />
+      <Field Name="sightTrigger" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AttackManager">
+    <Position X="15.5" Y="0.75" Width="1.5" />
+    <AssociationLine Name="_enemy" Type="Enemy" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.125" Y="0.75" />
+        <Point X="16.125" Y="0.375" />
+        <Point X="10" Y="0.375" />
+        <Point X="10" Y="1.312" />
+        <Point X="9.083" Y="1.312" Type="JumpStart" />
+        <Point X="8.792" Y="1.312" Type="JumpEnd" />
+        <Point X="8" Y="1.312" />
+        <Point X="8" Y="1.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAABACAAhAAACAAASAEAQCABAAAAAAAAAAAAABY=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Attack Manager\AttackManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_strategy" />
+      <Field Name="_enemy" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MeleeAttacker" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAIAAAAABAACIAAgACAAAIAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Attack Manager\MeleeAttacker.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RangeAttacker" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAIAAAAAAAACIAAAAKAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Attack Manager\RangeAttacker.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BossFinishedMeleeAttack">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Boss\Behaviours\BossFinishedMeleeAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossMeleePrepare2Attack">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAIAAABAYAAAAAQABAAAIAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Boss\Behaviours\BossMeleePrepare2Attack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CustomTrigger">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAIAAAAAAAAEAABAAAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Boss\CustomTrigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tentacle">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <AssociationLine Name="damageTrigger" Type="CustomTrigger" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.75" Y="7.897" />
+        <Point X="1.062" Y="7.897" />
+        <Point X="1.062" Y="6.271" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.571" Y="0.946" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BISAQAgACCAAgAAAEIAAAAAEAIAAAAAAAAAAAAigAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Boss\Tentacle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="attackCooldownComponent" />
+      <Field Name="damageTrigger" />
+      <Field Name="time2LiveCooldownComponent" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Enemy">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIBAACBQiYBgQggAQAAUAAAQGAAAiAJoAkIAIAIAMA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_attackManager" />
+      <Field Name="_attackType" />
+      <Field Name="_enemyAttacker" />
+      <Field Name="_pathFinder" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_favouriteTargets" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EnemyPathFinder">
+    <Position X="9.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAQEAAACYDIAAAIAEECAACACABAkEAAAEAACAQAkI=</HashCode>
+      <FileName>Assets\Scripts\Enemy\EnemyPathFinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KnockbackComponent">
+    <Position X="11.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAAAAQAAAIAAAAAAACAAAAAAAQAg=</HashCode>
+      <FileName>Assets\Scripts\Enemy\KnockbackComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpawnerComponent">
+    <Position X="12.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAAAACAAAICAEAMAEAAAAAAgEAAAAAQAIAASAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\SpawnerComponent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_worldLight" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Wave">
+    <Position X="10.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEIAAEAAAAACBAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Wave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WavesManager">
+    <Position X="7.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQDgAAAACAAAAAAAAAIAAAAAAAAAAAASgAAAACAEEE=</HashCode>
+      <FileName>Assets\Scripts\Enemy\WavesManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_worldCycle" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_waves" />
+      <Field Name="_spawners" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="LightSwitch">
+    <Position X="16.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAABABAAAIAAAgBAEAgAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DayNight\Light Switch.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_worldLight" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="WorldLight">
+    <Position X="14.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQgAEAAICAAAAAAQCQAggCAAAEAAADAQBCQAAgAAEg=</HashCode>
+      <FileName>Assets\Scripts\DayNight\World Light.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorldTimeDisplayer">
+    <Position X="19" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAECAAAAAAAAAAAAAAAEAgBAAIAAAAAAQAAEA=</HashCode>
+      <FileName>Assets\Scripts\DayNight\WorldTimeDisplayer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_worldLight" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CooldownComponent" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUIgEAAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Components\CooldownComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IEnemyAttacker">
+    <Position X="13.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Attack Manager\IEnemyAttacker.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AttackType">
+    <Position X="13.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAIAASAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Attack Manager\AttackType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TargetPriorities">
+    <Position X="4.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAwAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\TargetPriorities.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

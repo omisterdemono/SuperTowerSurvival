@@ -72,3 +72,5 @@ MonoBehaviour:
   pickUp: {fileID: 8300000, guid: d5c885cd988a1a14faf89908a708bf41, type: 3}
   dropDown: {fileID: 0}
   itemEquip: {fileID: 8300000, guid: 8fcdc25ea0da8594f8fcb828711e37a7, type: 3}
+  nightSound: {fileID: 8300000, guid: 85a010aaae4c006468af49b4ded108b8, type: 3}
+  daySound: {fileID: 8300000, guid: 789290782b9dd9442b3cee4e3f9f06b9, type: 3}
