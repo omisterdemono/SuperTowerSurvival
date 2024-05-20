@@ -1,5 +1,4 @@
-﻿using System;
-using Config;
+﻿using Config;
 using Infrastructure;
 using Inventory.Models;
 using Inventory.UI;
