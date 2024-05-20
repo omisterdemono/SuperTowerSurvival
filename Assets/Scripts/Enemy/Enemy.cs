@@ -35,6 +35,7 @@ public class Enemy : NetworkBehaviour
 
     public int damage = 10;
     public float cooldown = 1;
+    public Transform Target => _target;
 
     private void Start()
     {
