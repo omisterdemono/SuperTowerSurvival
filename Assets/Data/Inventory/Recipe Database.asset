@@ -15,9 +15,18 @@ MonoBehaviour:
   CategoryIcons:
   - {fileID: 21300000, guid: 4d2f50841dea030419555cf676e19f30, type: 3}
   - {fileID: 21300000, guid: 5dafb19577e189345b8151e85ad87797, type: 3}
+  - {fileID: 21300000, guid: 8fb65ad78a4020a4fb8f2aa246ab6b12, type: 3}
+  - {fileID: 21300000, guid: 6bc85ca2ec15e314381daa9030db83e6, type: 3}
   CategoriesNames:
   - Defence
   - Resources
+  - Health
+  - Structures
   CraftRecipes:
+  - {fileID: 11400000, guid: f6571bd3d32a2254a86a8c59f78e5255, type: 2}
+  - {fileID: 11400000, guid: 8505004b7463068498bfb34b21602181, type: 2}
   - {fileID: 11400000, guid: 3dea64dafd2c73f4bb0dedcba9e2ce3f, type: 2}
+  - {fileID: 11400000, guid: 2cc4496742b71f04484ec37607753b2e, type: 2}
+  - {fileID: 11400000, guid: c6e562d6d199a4342adc4f6315c7ea18, type: 2}
+  - {fileID: 11400000, guid: 75895eb950ab15f4583256421de23ea9, type: 2}
   - {fileID: 11400000, guid: a08beea93ff01934c8e6deead63d4002, type: 2}

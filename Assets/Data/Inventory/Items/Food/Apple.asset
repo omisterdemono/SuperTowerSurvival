@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 867fc6ad6564e114a971a2d2778ad6cb, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: apple
+  <IsStackable>k__BackingField: 1
+  <MaxStackSize>k__BackingField: 10
+  <Name>k__BackingField: Apple
+  <Description>k__BackingField: Could be eaten to heal 5 hp.
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 946e68fb312cdcf4485234314624022e, type: 3}
+  <CanBeDropped>k__BackingField: 1
+  ItemAction: {fileID: 11400000, guid: de6f4a36e113aaa469a5292993f46ce3, type: 2}
+  ActionSFX: {fileID: 0}
+  RemoveAfterUsing: 1

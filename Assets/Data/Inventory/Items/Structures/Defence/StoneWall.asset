@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fcfa4eb2f714ae8aae1cb432ced6a9c, type: 3}
-  m_Name: WoodWall
+  m_Name: StoneWall
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: wood_wall
+  <Id>k__BackingField: stone_wall
   <IsStackable>k__BackingField: 1
   <MaxStackSize>k__BackingField: 8
-  <Name>k__BackingField: Wood wall
-  <Description>k__BackingField: Decent def (100 hp), but could be better.
-  <Sprite>k__BackingField: {fileID: 21300000, guid: 050a881446c134940a01521a04d44fe5, type: 3}
+  <Name>k__BackingField: Stone wall
+  <Description>k__BackingField: Much better (cause has 250 hp) than wood wall.
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 48ac56b51d5d5fd4c8bbd254fad75567, type: 3}
   <CanBeDropped>k__BackingField: 1
   ItemAction: {fileID: 11400000, guid: 2b3d1aeff6485d34982cd51bfb68801a, type: 2}
   ActionSFX: {fileID: 0}
   RemoveAfterUsing: 0
-  StructurePrefab: {fileID: 3689379919031479192, guid: 4740b2c5f2e550d45addfd3648b53c8f, type: 3}
+  StructurePrefab: {fileID: 3689379919031479192, guid: f48d8065e4870b448a3f1cd7aa8f3336, type: 3}

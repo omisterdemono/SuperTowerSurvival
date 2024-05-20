@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f4793b88ea6514498cb76bc48ef02fb, type: 3}
-  m_Name: Gold
+  m_Name: TorchRecipe
   m_EditorClassIdentifier: 
   Items:
-  - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
-  ItemCounts: 02000000
-  ResultItem: {fileID: 11400000, guid: 45ee621c834199947835aebcf7c33236, type: 2}
+  - {fileID: 11400000, guid: 3de8657f65935ac489b1433b1947a98c, type: 2}
+  - {fileID: 11400000, guid: a045d9f49da5e4d43adb915cd7262c7a, type: 2}
+  ItemCounts: 0200000001000000
+  ResultItem: {fileID: 11400000, guid: 0e84fc6705fa6ef49ab5bc84f2de2c72, type: 2}
   ResultItemCount: 1
-  Category: Resources
+  Category: Structures
