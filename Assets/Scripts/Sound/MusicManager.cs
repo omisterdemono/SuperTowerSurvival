@@ -14,6 +14,7 @@ public class MusicManager : MonoBehaviour
         SoundOptions.OnMusicVolumeChange += SoundOptions_OnMusicVolumeChange;
         SoundOptions.OnGeneralVolumeChange += SoundOptions_OnGeneralVolumeChange; ;
         musicSource = GetComponent<AudioSource>();
+        setBGMusicVolume();
     }
 
     private void SoundOptions_OnGeneralVolumeChange(object sender, float e)
