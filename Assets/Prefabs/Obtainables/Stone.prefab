@@ -108,7 +108,8 @@ MonoBehaviour:
   _loot:
   - {fileID: 11400000, guid: 72ad3ee0388eaef4e8e0f6fbc14d4bbd, type: 2}
   - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
-  _quantity: 0500000001000000
+  - {fileID: 11400000, guid: a045d9f49da5e4d43adb915cd7262c7a, type: 2}
+  _quantity: 050000000100000002000000
   _instrument: 0
 --- !u!114 &6889792636589908369
 MonoBehaviour:

@@ -1,4 +1,5 @@
-﻿using Config;
+﻿using Components;
+using Config;
 using Infrastructure;
 using Inventory.Models;
 using Inventory.UI;
@@ -9,13 +10,14 @@ namespace Inventory
 {
     public class PlayerInventory : NetworkBehaviour
     {
-        [SerializeField] private float _throwRadius;
+        [SerializeField] private float _throwRadius = 1.5f;
+        [SerializeField] private CustomTrigger _pickupTrigger;
         [SerializeField] private ItemSO[] _defaultItems;
         [SerializeField] private ItemDatabaseSO _itemDatabase;
         public Inventory Inventory { get; private set; }
         public Character Character { get; private set; }
         public CraftingSystem CraftingSystem { get; private set; }
-        public Vector3 LastMoveDirection { get; set; }
+        public Vector3 DropDirection { get; set; }
 
         private InventoryUI _inventoryUI;
         private CraftingUI _craftingUI;
@@ -30,6 +32,9 @@ namespace Inventory
         {
             if (!isOwned) return;
             InitInventoryAndUI();
+
+            DropDirection = new Vector3(0, -1, 0);
+            _pickupTrigger.EnteredTrigger += TryPickUpItem;
         }
 
         private void InitInventoryAndUI()
@@ -71,9 +76,9 @@ namespace Inventory
                 return;
             }
 
-            var direction = LastMoveDirection;
-            direction.x += _throwRadius;
-            direction.y += _throwRadius;
+            var direction = DropDirection;
+            direction.x *= _throwRadius;
+            direction.y *= _throwRadius;
             _itemNetworkSpawner.SpawnItemCmd(inventoryCell.Item.Id, count, transform.position + direction);
 
             Inventory.TryRemoveFromCell(inventoryCell, count);
@@ -85,7 +90,7 @@ namespace Inventory
             _inventoryHolderUI.gameObject.SetActive(IsInventoryShown);
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void TryPickUpItem(Collider2D col)
         {
             if (!isOwned) return;
             if (col.TryGetComponent<ItemInWorld>(out var item))

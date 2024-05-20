@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4793b88ea6514498cb76bc48ef02fb, type: 3}
+  m_Name: HealPotionRecipe
+  m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 11400000, guid: 1a25f33230fe3f44fb57fc1914abd17b, type: 2}
+  - {fileID: 11400000, guid: 5ed92b9fd48cf0e498d03efcd2eff0d3, type: 2}
+  ItemCounts: 0100000003000000
+  ResultItem: {fileID: 11400000, guid: 955847fd11d48ff44ae2ae91234c0379, type: 2}
+  ResultItemCount: 1
+  Category: Health

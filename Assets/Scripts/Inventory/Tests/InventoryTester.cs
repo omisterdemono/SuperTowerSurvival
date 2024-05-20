@@ -50,9 +50,17 @@ namespace Inventory.Tests
             if (_tmpInput.text == "")
             {
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "wood_wall"), 8);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "stone_wall"), 8);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "defence_gun"), 4);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "heal_potion"), 4);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "damage_potion"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "torch"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "coal"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "stick"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "iron"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "gold"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "wood"), 16);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "rotten_heart"), 8);
                 return;
             }
 

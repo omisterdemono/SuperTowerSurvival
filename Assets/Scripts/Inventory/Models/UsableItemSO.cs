@@ -10,7 +10,7 @@ namespace Inventory.Models
         public AudioClip ActionSFX;
         public bool RemoveAfterUsing;
 
-        public virtual void PerformAction(PlayerInventory playerInventory, Action afterPerform)
+        public void PerformAction(PlayerInventory playerInventory, Action afterPerform)
         {
             ItemAction.PerformAction(playerInventory.Character, this, afterPerform);
 
