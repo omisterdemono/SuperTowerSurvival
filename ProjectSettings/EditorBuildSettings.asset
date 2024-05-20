@@ -32,4 +32,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Development/IntegrationTestingMultiplayer.unity
     guid: 69ffa5a884d7ac243a9defdf26bfc402
+  - enabled: 1
+    path: Assets/Scenes/Development/EnemyTests/IT_cannonChoose.unity
+    guid: 4859542cafa5fbc45b0c200e9349a9f2
+  - enabled: 1
+    path: Assets/Scenes/Development/EnemyTests/IT_wallAvoid.unity
+    guid: 0a85b7aa7c7ab1f44a40141f373c6b45
+  - enabled: 1
+    path: Assets/Scenes/Development/EnemyTests/IT_wallBreak.unity
+    guid: 3babaf0fdc078e44891a1bb830c0394d
+  - enabled: 1
+    path: Assets/Scenes/Development/EnemyTests/IT_globalLight.unity
+    guid: e3a858f6f55237c42b1ce9882253555f
   m_configObjects: {}
