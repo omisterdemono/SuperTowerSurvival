@@ -9,6 +9,7 @@ using Inventory;
 using Inventory.UI;
 using StructurePlacement;
 using UnityEngine.EventSystems;
+using System;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
@@ -175,14 +176,14 @@ public class Character : NetworkBehaviour
     {
         Vector3 moveVector = Vector3.zero;
 
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
+        //float inputX = Input.GetAxisRaw("Horizontal");
+        //float inputY = Input.GetAxisRaw("Vertical");
 
-        //float inputX = UserInput.instance.MoveInput.x;
-        //float inputY = UserInput.instance.MoveInput.y;
+        float inputX = UserInput.instance.MoveInput.x;
+        float inputY = UserInput.instance.MoveInput.y;
 
-        _animator.SetInteger("x", (int)inputX);
-        _animator.SetInteger("y", (int)inputY);
+        _animator.SetInteger("x", (int)Math.Round(inputX));
+        _animator.SetInteger("y", (int)Math.Round(inputY));
 
         moveVector.x = inputX;
         moveVector.y = inputY;
