@@ -53,6 +53,7 @@ namespace Inventory.Tests
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "defence_gun"), 4);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "heal_potion"), 4);
                 PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "damage_potion"), 4);
+                PlayerInventory.Inventory.TryAddItem(_itemDatabase.Items.First(i => i.Id == "torch"), 4);
                 return;
             }
 

@@ -2,13 +2,15 @@ using System;
 using Components;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Structures
 {
     public class Structure : NetworkBehaviour, IBuildable
     {
         [SerializeField] private CustomTrigger _placementChecker;
-        [SerializeField] private bool _notPlaceable;
+        [FormerlySerializedAs("_notPlaceable")] [SerializeField] private bool _isShadowStructure;
+        [SerializeField] private bool _isInstantlyPlaced;
         public bool IsBeingPlaced { get; private set; } = true;
         public bool NoObstaclesUnder { get; private set; } = true;
         public bool CanBePlaced { get; private set; } = true;
@@ -40,7 +42,7 @@ namespace Structures
         {
             _isSpriteRendererNull = _spriteRenderer == null;
 
-            if (!_notPlaceable)
+            if (!_isShadowStructure)
             {
                 _placementChecker.EnteredTrigger += SetNoObstaclesUnder;
                 _placementChecker.ExitedTrigger += SetObstaclesUnder;
@@ -50,12 +52,14 @@ namespace Structures
         public void Init()
         {
             IsBeingPlaced = false;
-            _spriteRenderer.sortingOrder -= 1;
-
             transform.localPosition = SpawnPosition;
 
-            _healthComponent.OnCurrentHealthChanged += Build;
-            _healthComponent.CurrentHealth = 1.0f;
+            if (!IsInstantlyPlaced)
+            {
+                _spriteRenderer.sortingOrder -= 1;
+                _healthComponent.OnCurrentHealthChanged += Build;
+                _healthComponent.CurrentHealth = 1.0f;
+            }
         }
 
         private void OnDestroy()
@@ -75,6 +79,8 @@ namespace Structures
         }
 
         private float BuildAlpha => _healthComponent.CurrentHealth / _healthComponent.MaxHealth + _minimalAlpha;
+
+        public bool IsInstantlyPlaced => _isInstantlyPlaced;
 
         public void Update()
         {

@@ -11,12 +11,13 @@ namespace StructurePlacement
 {
     public class StructurePlacer : NetworkBehaviour
     {
-        [Header("Infrastructure")] 
-        [SerializeField] private ItemDatabaseSO _itemDatabase;
+        [Header("Infrastructure")] [SerializeField]
+        private ItemDatabaseSO _itemDatabase;
+
         [SerializeField] private int _structuresTilemapIndex;
 
-        [Header("Build properties")]
-        [SerializeField] private float _placeRadius;
+        [Header("Build properties")] [SerializeField]
+        private float _placeRadius;
 
         public bool StructureCanBePlaced => _structureCanBePlaced;
         public ItemSO TempItem => _tempStructureItem;
@@ -75,14 +76,14 @@ namespace StructurePlacement
             {
                 return;
             }
-            
+
             TempStructure.transform.position = _mousePosition;
             CalculateStructurePosition(TempStructure.transform);
-            
+
             _tempStructureComponent.ChangePlacementState(StructureInBuildRadius);
             var newState = _tempStructureComponent is not null
                            && _tempStructureComponent.CanBePlaced
-                           && _playerInventory.Inventory.ItemCount(_tempStructureItem) > 0; 
+                           && _playerInventory.Inventory.ItemCount(_tempStructureItem) > 0;
             UpdateStructurePlaceState(newState);
         }
 
@@ -95,7 +96,7 @@ namespace StructurePlacement
         public void CancelPlacement()
         {
             CmdUpdateCurrentStructure(string.Empty);
-            
+
             Destroy(TempStructure);
             _tempStructure = null;
             _tempStructureItem = null;
@@ -170,8 +171,14 @@ namespace StructurePlacement
         {
             var structures = FindObjectsOfType<Structure>();
             var structureComponent = structures?.Where(component => component.netId == structureId).First();
-            structureComponent?.Init();
-            
+
+            if (structureComponent == null)
+            {
+                throw new NullReferenceException($"Structure was not found by given id {structureId}");
+            }
+
+            structureComponent.Init();
+
             if (playerId == netId)
             {
                 _playerInventory.Inventory.TryRemoveItem(TempItem, 1);
