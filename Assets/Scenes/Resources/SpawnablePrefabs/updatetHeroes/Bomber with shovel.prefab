@@ -117,8 +117,9 @@ GameObject:
   - component: {fileID: 701752795320908209}
   - component: {fileID: 8390147904329493722}
   - component: {fileID: 6806954477370812916}
+  - component: {fileID: 8290929135580398131}
   m_Layer: 0
-  m_Name: FogRemover
+  m_Name: FogRemoverAndPickuper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,6 +214,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8290929135580398131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933251825604261497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83153b5558bbe747a0752e77d6c7c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderList: []
 --- !u!1 &7117588999129643068
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,12 +827,14 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _throwRadius: 0
+  _throwRadius: 1.5
+  _pickupTrigger: {fileID: 8290929135580398131}
   _defaultItems:
   - {fileID: 11400000, guid: 77854706f09f7634c9ed9156a3958fe5, type: 2}
   - {fileID: 11400000, guid: 073a53729ae00d747aea31df0cf3fab7, type: 2}
   - {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   - {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
+  _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
 --- !u!1 &9021642269249279494
 GameObject:
   m_ObjectHideFlags: 0
