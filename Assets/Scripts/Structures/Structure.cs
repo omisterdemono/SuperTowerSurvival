@@ -8,6 +8,7 @@ namespace Structures
     public class Structure : NetworkBehaviour, IBuildable
     {
         [SerializeField] private CustomTrigger _placementChecker;
+        [SerializeField] private bool _notPlaceable;
         public bool IsBeingPlaced { get; private set; } = true;
         public bool NoObstaclesUnder { get; private set; } = true;
         public bool CanBePlaced { get; private set; } = true;
@@ -38,8 +39,12 @@ namespace Structures
         public void Start()
         {
             _isSpriteRendererNull = _spriteRenderer == null;
-            _placementChecker.EnteredTrigger += SetNoObstaclesUnder;
-            _placementChecker.ExitedTrigger += SetObstaclesUnder;
+
+            if (!_notPlaceable)
+            {
+                _placementChecker.EnteredTrigger += SetNoObstaclesUnder;
+                _placementChecker.ExitedTrigger += SetObstaclesUnder;
+            }
         }
 
         public void Init()

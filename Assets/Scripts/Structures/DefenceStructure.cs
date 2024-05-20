@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Structures
 {
-    public class DefenseStructure : Structure
+    public class DefenceStructure : Structure
     {
         [SerializeField] private Sprite[] _rotationSprites;
         [SerializeField] private GameObject _projectile;

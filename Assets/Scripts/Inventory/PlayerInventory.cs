@@ -1,5 +1,4 @@
-﻿using System;
-using Config;
+﻿using Config;
 using Infrastructure;
 using Inventory.Models;
 using Inventory.UI;
@@ -12,6 +11,7 @@ namespace Inventory
     {
         [SerializeField] private float _throwRadius;
         [SerializeField] private ItemSO[] _defaultItems;
+        [SerializeField] private ItemDatabaseSO _itemDatabase;
         public Inventory Inventory { get; private set; }
         public Character Character { get; private set; }
         public CraftingSystem CraftingSystem { get; private set; }
@@ -24,6 +24,8 @@ namespace Inventory
         private GameObject _inventoryHolderUI;
         public bool IsInventoryShown { get; private set; } = true;
 
+        public ItemDatabaseSO ItemDatabase => _itemDatabase;
+
         private void Start()
         {
             if (!isOwned) return;
@@ -33,7 +35,7 @@ namespace Inventory
         private void InitInventoryAndUI()
         {
             Inventory = new Inventory(GameConfig.InventoryCellsCount + GameConfig.HotbarCellsCount +
-                                      GameConfig.EquipCellsCount);
+                                      GameConfig.EquipCellsCount, _itemDatabase);
             CraftingSystem = new CraftingSystem(Inventory);
 
             Character = GetComponent<Character>();
