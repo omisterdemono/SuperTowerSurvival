@@ -346,7 +346,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!95 &2561748996401635978
 Animator:
@@ -608,8 +608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody2d: {fileID: 1793852495050316847}
   health: {fileID: 3354782871004226544}
-  strength: 16
-  delay: 0.15
   OnBegin:
     m_PersistentCalls:
       m_Calls:
