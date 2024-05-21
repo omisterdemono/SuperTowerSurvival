@@ -11,14 +11,12 @@ public class WavesManager : MonoBehaviour
     [SerializeField] private float multiplyKoef = 1.2f;
 
     private WorldLight _worldCycle;
-    //private List<SpawnerComponent> _spawners;
     private List<SpawnManager> _spawners;
     private List<Wave> _waves;
 
     private void Awake()
     {
         _worldCycle = GetComponent<WorldLight>();
-        //_spawners = FindObjectsOfType<SpawnerComponent>().ToList();
         _spawners = FindObjectsOfType<SpawnManager>().ToList();
     }
 
@@ -29,6 +27,7 @@ public class WavesManager : MonoBehaviour
         firstWave.SetParams(1, initEnemiesNumber);
         _waves.Add(firstWave);
         GenerateWaves();
+        UpdateSpawnersParams();
         _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
     }
 
@@ -57,7 +56,7 @@ public class WavesManager : MonoBehaviour
     {
         int currentDay = _worldCycle.GetDay();
         Wave currentWave = _waves.FirstOrDefault(w => w.waveID == currentDay);
-        if (currentDay > _waves.Last().waveID)
+        if (currentDay > _waves.Last()?.waveID)
         {
             currentWave = _waves.Last();
         }
