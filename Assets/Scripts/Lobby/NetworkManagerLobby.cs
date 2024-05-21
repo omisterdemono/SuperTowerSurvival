@@ -41,13 +41,13 @@ public class NetworkManagerLobby : NetworkManager
     public override void OnClientConnect()
     {
         base.OnClientConnect();
-
         OnClientConnected?.Invoke();
     }
 
     public override void OnClientDisconnect()
     {
         base.OnClientDisconnect();
+        SceneManager.LoadScene(offlineScene);
         OnClientDisconnected?.Invoke();
     }
 

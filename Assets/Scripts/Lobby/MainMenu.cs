@@ -9,6 +9,11 @@ public class MainMenu : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject _landingPagePanel = null;
 
+    private void Start()
+    {
+        _networkManager = FindObjectOfType<NetworkManagerLobby>();
+    }
+
     public void HostLobby()
     {
         _networkManager.StartHost();
