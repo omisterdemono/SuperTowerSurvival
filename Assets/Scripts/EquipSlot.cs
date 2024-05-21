@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 
@@ -18,13 +19,8 @@ public class EquipSlot : MonoBehaviour
         _equipable = _childToFlip.GetComponent<IEquipable>();
     }
 
-    public void Rotate(float angle)
+    private void Update()
     {
-        if (_equipable.NeedRotation)
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        }
-
         if (_equipable.NeedFlip)
         {
             var condition = !(transform.eulerAngles.z <= 90.0f || transform.eulerAngles.z >= 270.0f);
@@ -33,6 +29,14 @@ public class EquipSlot : MonoBehaviour
                 transform.localScale = new Vector3(1, transform.localScale.y * -1.0f, 1);
                 _wasFlipped = !_wasFlipped;
             }
+        }
+    }
+
+    public void Rotate(float angle)
+    {
+        if (_equipable.NeedRotation)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
     }
 }

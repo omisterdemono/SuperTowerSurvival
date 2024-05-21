@@ -5023,6 +5023,7 @@ GameObject:
   - component: {fileID: -8715674332171051384}
   - component: {fileID: 2657977773894173994}
   - component: {fileID: 3806185160902290498}
+  - component: {fileID: 8296696247048605384}
   m_Layer: 0
   m_Name: Builder with hammer
   m_TagString: Player
@@ -5374,6 +5375,38 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   - {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
   _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
+--- !u!114 &8296696247048605384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 2151341916728146494}
+  clientAuthority: 0
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  timelineOffset: 0
 --- !u!1 &5579761783236283674
 GameObject:
   m_ObjectHideFlags: 0

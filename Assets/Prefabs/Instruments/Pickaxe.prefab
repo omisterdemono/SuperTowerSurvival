@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426834889201372704}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0.007, y: 0.198, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9169631142256663058}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!212 &1680304236076800328
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9169631142256663058
 Transform:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _instrumentItemSo: {fileID: 11400000, guid: 073a53729ae00d747aea31df0cf3fab7, type: 2}
-  _cooldownSeconds: 0.75
+  _cooldownSeconds: 1.24
   _obtainSeconds: 0
 --- !u!50 &8534466879669848232
 Rigidbody2D:
@@ -194,7 +194,7 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.25, y: 0.45}
+  m_Offset: {x: 0.43, y: 0.08}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.1, y: 0.1}
@@ -206,10 +206,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.1604756, y: 0.15969887}
-      - {x: -0.0822805, y: 0.27199}
-      - {x: 0.2706111, y: 0.27166325}
-      - {x: 0.27085146, y: -0.08042507}
+    - - {x: 0.17415911, y: 0.10952616}
+      - {x: 0.04622683, y: 0.35264635}
+      - {x: 0.108303666, y: 0.3949945}
+      - {x: 0.31242967, y: 0.2201343}
+      - {x: 0.29165435, y: 0.010865331}
+      - {x: 0.15053356, y: -0.12750168}
+      - {x: 0.04475242, y: -0.117752746}
   m_UseDelaunayMesh: 0
 --- !u!95 &2280960787423432606
 Animator:

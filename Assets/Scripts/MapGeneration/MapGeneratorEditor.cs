@@ -17,6 +17,11 @@ public class MapGeneratorEditor : Editor
             }
         }
 
+        if (GUILayout.Button("Define tile"))
+        {
+            mapGen.DefineTile();
+        }
+        
         if (GUILayout.Button("Generate"))
         {
             mapGen.GenerateMap(0);
