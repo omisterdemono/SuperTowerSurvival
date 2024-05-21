@@ -23,6 +23,12 @@ public class Character : NetworkBehaviour
     private HotBar _hotBar;
     private EffectComponent _effect;
 
+    [Header("Fog Of War")]
+    public FogOfWar fogOfWar;
+    [Range(0, 20)]
+    public float sightDistance;
+    public float checkInterval;
+
     [SerializeField][SyncVar] private bool _isAlive = true;
     [SerializeField][SyncVar] private bool _isInvisible = false;
     private bool _canScrollTools = true;
@@ -136,11 +142,14 @@ public class Character : NetworkBehaviour
         _playerInventory = GetComponent<PlayerInventory>();
         _buildHammer = GetComponentInChildren<BuildHammer>(true);
         _structurePlacer = GetComponent<StructurePlacer>();
+
+        fogOfWar = FindFirstObjectByType<FogOfWar>();
     }
 
     private void Start()
     {
         InitTools();
+        StartCoroutine(CheckFogOfWar(checkInterval));
 
         if (!isOwned) return;
 
@@ -192,6 +201,15 @@ public class Character : NetworkBehaviour
         if (!isOwned || !_isAlive) return;
 
         HandleMove();
+    }
+
+    private IEnumerator CheckFogOfWar(float checkInterval)
+    {
+        while (true)
+        {
+            fogOfWar.MakeHole(transform.position, sightDistance);
+            yield return new WaitForSeconds(checkInterval);
+        }
     }
 
     private void HandleMove()

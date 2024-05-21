@@ -5233,6 +5233,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  fogOfWar: {fileID: 0}
+  sightDistance: 20
+  checkInterval: 1
   _isAlive: 1
   _isInvisible: 0
   _repairSpeedModifier: 1

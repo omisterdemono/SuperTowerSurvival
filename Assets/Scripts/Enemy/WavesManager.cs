@@ -6,18 +6,18 @@ using UnityEngine;
 
 public class WavesManager : MonoBehaviour
 {
-    [SerializeField] private int wavesNumber;
-    [SerializeField] private int initEnemiesNumber = 10;
+    [SerializeField] private int wavesNumber = 15;
+    [SerializeField] private int initEnemiesNumber = 3;
     [SerializeField] private float multiplyKoef = 1.2f;
 
     private WorldLight _worldCycle;
-    private List<SpawnerComponent> _spawners;
-    private List<Wave> _waves; 
+    private List<SpawnManager> _spawners;
+    private List<Wave> _waves;
 
     private void Awake()
     {
         _worldCycle = GetComponent<WorldLight>();
-        _spawners = FindObjectsOfType<SpawnerComponent>().ToList();
+        _spawners = FindObjectsOfType<SpawnManager>().ToList();
     }
 
     void Start()
@@ -27,6 +27,7 @@ public class WavesManager : MonoBehaviour
         firstWave.SetParams(1, initEnemiesNumber);
         _waves.Add(firstWave);
         GenerateWaves();
+        UpdateSpawnersParams();
         _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
     }
 
@@ -37,10 +38,7 @@ public class WavesManager : MonoBehaviour
 
     void Update()
     {
-        //if (!_worldCycle.isNight)
-        //{
-        //    UpdateSpawnersParams();
-        //}
+
     }
 
     private void GenerateWaves()
@@ -48,7 +46,7 @@ public class WavesManager : MonoBehaviour
         for (int id = 1; id < wavesNumber; id++)
         {
             var nextWave = new Wave();
-            //nextWave.SetParamsWithKoef(_waves[id - 1], multiplyKoef);
+            //nextWave.SetParamsWithAdd(_waves[id - 1], 2);
             nextWave.SetParamsWithAdd(_waves[id - 1], 2);
             _waves.Add(nextWave);
         }
@@ -58,7 +56,11 @@ public class WavesManager : MonoBehaviour
     {
         int currentDay = _worldCycle.GetDay();
         Wave currentWave = _waves.FirstOrDefault(w => w.waveID == currentDay);
-        foreach(var spawner in _spawners)
+        if (currentDay > _waves.Last()?.waveID)
+        {
+            currentWave = _waves.Last();
+        }
+        foreach (var spawner in _spawners)
         {
             spawner.UpdateSpawnerParams(currentWave.enemiesPerSpawner);
         }
