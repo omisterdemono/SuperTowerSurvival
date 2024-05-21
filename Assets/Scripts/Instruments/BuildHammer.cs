@@ -15,13 +15,19 @@ public enum BuildHammerState
 
 public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 {
-    [FormerlySerializedAs("_instrumentAttributes")] [SerializeField] private InstrumentItemSO _instrumentItemSo;
     [SerializeField] private float _cooldownSeconds;
-
+    [SerializeField] private ItemSO _item;
     public InstrumentType InstrumentType { get; set; }
 
     public float Strength { get; set; }
     public float Durability { get; set; }
+
+    public ItemSO Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     public bool NeedFlip { get; set; } = true;
     public bool NeedRotation { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
@@ -39,9 +45,10 @@ public class BuildHammer : MonoBehaviour, IInstrument, IEquipable
 
     private void Awake()
     {
-        Strength = _instrumentItemSo.Strength;
-        Durability = _instrumentItemSo.Durability;
-        InstrumentType = _instrumentItemSo.InstrumentType;
+        var instrumentItem = _item as InstrumentItemSO;
+        Strength = instrumentItem.Strength;
+        Durability = instrumentItem.Durability;
+        InstrumentType = instrumentItem.InstrumentType;
 
         _animator = GetComponent<Animator>();
         _structurePlacer = GetComponentInParent<StructurePlacer>();

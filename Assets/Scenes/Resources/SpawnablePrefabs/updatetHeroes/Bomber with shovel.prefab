@@ -621,11 +621,6 @@ MonoBehaviour:
   _repairSpeedModifier: 1
   _buildSpeedModifier: 1
   _weaponDamageModifier: 1
-  _tools:
-  - {fileID: 3773840873483915123}
-  - {fileID: 6482214173650905196}
-  - {fileID: 8737328713079823392}
-  - {fileID: 6838423681899058805}
   _toolIds:
   - shovel
   - build_hammer
@@ -963,11 +958,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
---- !u!1 &8737328713079823392 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8838569770955771769, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
-  m_PrefabInstance: {fileID: 281987679114138457}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8982641371537197387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9169631142256663058, guid: 3611726ed0f069a42aab93f8ae1fe05c, type: 3}
@@ -1039,11 +1029,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9169631142256663058, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
   m_PrefabInstance: {fileID: 2616061950121302284}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6838423681899058805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8838569770955771769, guid: d563be6e95b1d2b41886060d1d6155af, type: 3}
-  m_PrefabInstance: {fileID: 2616061950121302284}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6309024024389813844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1105,11 +1090,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
---- !u!1 &6482214173650905196 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
-  m_PrefabInstance: {fileID: 6309024024389813844}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6637331556500552967 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
@@ -1175,6 +1155,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5283820900120437926, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
+      propertyPath: _item
+      value: 
+      objectReference: {fileID: 11400000, guid: 77854706f09f7634c9ed9156a3958fe5, type: 2}
     - target: {fileID: 5283820900120437926, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
       propertyPath: _damage
       value: 7

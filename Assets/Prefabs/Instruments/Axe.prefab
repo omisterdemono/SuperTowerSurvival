@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5ed47adbf57cb46a43bcd7e18b3a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instrumentItemSo: {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
+  _item: {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   _cooldownSeconds: 1.24
   _obtainSeconds: 0.25
 --- !u!50 &8534466879669848232

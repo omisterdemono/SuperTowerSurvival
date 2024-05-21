@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Inventory.Models;
+using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
     public interface IEquipable
     {
+        ItemSO Item { get; set; }
         bool NeedFlip { get; set; }
         bool NeedRotation { get; set; }
         void Interact();

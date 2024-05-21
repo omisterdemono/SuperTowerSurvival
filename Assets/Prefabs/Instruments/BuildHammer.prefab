@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd00669aeb582a54d89172db92a06022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instrumentItemSo: {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
   _cooldownSeconds: 1.24
+  _item: {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
   CurrentState: 1
 --- !u!95 &8710973469679265569
 Animator:

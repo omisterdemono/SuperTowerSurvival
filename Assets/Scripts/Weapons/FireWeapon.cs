@@ -2,6 +2,7 @@ using Assets.Scripts.Weapons;
 using Mirror;
 using System;
 using Components;
+using Inventory.Models;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +28,13 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
     public GameObject Projectile { get => _projectile; set => _projectile = value; }
     public bool NeedRotation { get; set; } = true;
     public float Damage { get => _damage; set => _damage = value; }
+
+    public ItemSO Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     //public Type Type { get => type; set => type = value; }
     public bool CanPerform => _cooldownComponent.CanPerform;
@@ -48,6 +56,7 @@ public class FireWeapon : MonoBehaviour, IWeapon, IEquipable
     public static event EventHandler OnShoot;
 
     private CooldownComponent _cooldownComponent;
+    [SerializeField] private ItemSO _item;
 
     private void Awake()
     {
