@@ -42,6 +42,7 @@ public class EndGameScript : NetworkBehaviour
 
     private IEnumerator LostGame()
     {
+        NetworkServer.Destroy(FindObjectOfType<PlayerSpawnSystem>().gameObject);
         //show end screen
         yield return new WaitForSeconds(2);
         Debug.Log("end game");
