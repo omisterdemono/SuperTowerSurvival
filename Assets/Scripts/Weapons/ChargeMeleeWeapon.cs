@@ -65,6 +65,12 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //todo normal hitboxes should be used in the future
+        if (collision is not BoxCollider2D)
+        {
+            return;
+        }
+        
         //hitting all desired targets
         foreach (var target in _desiredTargets)
         {

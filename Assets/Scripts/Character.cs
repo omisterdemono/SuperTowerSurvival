@@ -23,14 +23,12 @@ public class Character : NetworkBehaviour
     private HotBar _hotBar;
     private EffectComponent _effect;
 
-    [Header("Fog Of War")]
-    public FogOfWar fogOfWar;
-    [Range(0, 20)]
-    public float sightDistance;
+    [Header("Fog Of War")] public FogOfWar fogOfWar;
+    [Range(0, 20)] public float sightDistance;
     public float checkInterval;
 
-    [SerializeField][SyncVar] private bool _isAlive = true;
-    [SerializeField][SyncVar] private bool _isInvisible = false;
+    [SerializeField] [SyncVar] private bool _isAlive = true;
+    [SerializeField] [SyncVar] private bool _isInvisible = false;
     private bool _canScrollTools = true;
 
     [SerializeField] private float _repairSpeedModifier = 1;
@@ -41,7 +39,7 @@ public class Character : NetworkBehaviour
     [SerializeField] private List<string> _toolIds = new();
 
     [SerializeField] private int _buildHammerSlotIndex = 1;
-    
+
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
 
@@ -87,6 +85,7 @@ public class Character : NetworkBehaviour
                         tmpRepairSpeed = _effect.GetValue(tmpRepairSpeed, effect);
                     }
                 }
+
                 return tmpRepairSpeed;
             }
 
@@ -99,7 +98,7 @@ public class Character : NetworkBehaviour
     {
         get
         {
-            if(_effect)
+            if (_effect)
             {
                 float tmpBuildSpeed = _buildSpeedModifier;
                 foreach (var effect in _effect.Effects)
@@ -109,9 +108,10 @@ public class Character : NetworkBehaviour
                         tmpBuildSpeed = _effect.GetValue(tmpBuildSpeed, effect);
                     }
                 }
+
                 return tmpBuildSpeed;
             }
-            
+
             return _buildSpeedModifier;
         }
         set => _buildSpeedModifier = value;
@@ -123,10 +123,22 @@ public class Character : NetworkBehaviour
         set => _isInvisible = value;
     }
 
-    public int EquipedSlot { get => _equipedSlot; }
-    public bool CanScrollTools { get => _canScrollTools; set => _canScrollTools = value; }
+    public int EquipedSlot
+    {
+        get => _equipedSlot;
+    }
 
-    public List<IEquipable> Equipables { get => _equipedTools; set => _equipedTools = value; }
+    public bool CanScrollTools
+    {
+        get => _canScrollTools;
+        set => _canScrollTools = value;
+    }
+
+    public List<IEquipable> Equipables
+    {
+        get => _equipedTools;
+        set => _equipedTools = value;
+    }
 
     void Awake()
     {
@@ -149,7 +161,15 @@ public class Character : NetworkBehaviour
     private void Start()
     {
         InitTools();
-        StartCoroutine(CheckFogOfWar(checkInterval));
+
+        if (fogOfWar != null)
+        {
+            StartCoroutine(CheckFogOfWar(checkInterval));
+        }
+        else
+        {
+            Debug.LogWarning("Fog of war is not placed on scene.");
+        }
 
         if (!isOwned) return;
 
@@ -157,7 +177,7 @@ public class Character : NetworkBehaviour
         _activeSkills.AddRange(GetComponents<ActiveSkill>());
         _passiveSkill = GetComponent<PassiveSkill>();
         _keyCodes = new Dictionary<int, KeyCode>();
-        
+
         for (var i = 0; i < _activeSkills.Count; i++)
         {
             _keyCodes.Add(i, Config.GameConfig.ActiveSkillsKeyCodes[i]);
@@ -326,7 +346,7 @@ public class Character : NetworkBehaviour
         {
             Cmd_InteractOnServer(_mousePosition);
         }
-        
+
         if (Input.GetKey(KeyCode.Mouse0)
             && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -377,7 +397,7 @@ public class Character : NetworkBehaviour
         {
             return;
         }
-        
+
         _isPerforming = true;
         _equipedTools[_equipedSlot].Interact();
         _equipedTools[_equipedSlot].MousePosition = mousePosition;
@@ -397,7 +417,7 @@ public class Character : NetworkBehaviour
         {
             return;
         }
-        
+
         _isPerforming = true;
         _equipedTools[_equipedSlot].Hold();
         StartCoroutine(FinishAnimation());
@@ -419,7 +439,7 @@ public class Character : NetworkBehaviour
 
         _equippedItemsSlot.Rotate(angle);
     }
-    
+
     public void PowerUp(PowerUpStruct powerUp)
     {
         PowerUpSkills(powerUp);
@@ -442,16 +462,13 @@ public class Character : NetworkBehaviour
 
     public void PowerUpWeapon(int points)
     {
-        
     }
 
     public void PowerUpSpeed(int points)
     {
-
     }
 
     public void PowerUpBuild(int points)
     {
-
     }
 }

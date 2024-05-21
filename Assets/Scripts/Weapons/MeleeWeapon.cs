@@ -107,6 +107,11 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision is not BoxCollider2D)
+        {
+            return;
+        }
+        
         //saving for attack
         foreach (var target in _desiredTargets)
         {
@@ -122,6 +127,11 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision is not BoxCollider2D)
+        {
+            return;
+        }
+        
         //removing from attack
         foreach (var target in _desiredTargets)
         {
