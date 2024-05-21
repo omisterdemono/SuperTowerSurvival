@@ -74,6 +74,7 @@ public class WorldLight : NetworkBehaviour
         {
             isNight = true;
             //OnIsNightChanged?.Invoke();
+            OnIsNightChanged?.Invoke();
             OnNightChanged?.Invoke(this, EventArgs.Empty);
 
         }
