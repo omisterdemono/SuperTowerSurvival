@@ -15,6 +15,8 @@ public class ActiveSkill : NetworkBehaviour
     
     public SkillButton SkillButton { get; set; }
 
+    protected float Level = 0;
+
     public bool IsReady
     {
         get => _isReady;

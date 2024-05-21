@@ -63,6 +63,11 @@ public class SuperBuilderSkill : ActiveSkill, ISkill
 
     public void PowerUpSkillPoint(int points)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < points; i++)
+        {
+            buildModifier *= (1.1f - Level / 100);
+            repairModifier *= (1.1f - Level / 100);
+            Level++;
+        }
     }
 }
