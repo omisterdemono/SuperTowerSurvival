@@ -84,6 +84,11 @@ public class RedBulletsSkill : ActiveSkill, ISkill
 
     public void PowerUpSkillPoint(int points)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < points; i++)
+        {
+            _buffDuration *= (1.1f - Level / 100);
+            _damageModificator *= (1.1f - Level / 100);
+            Level++;
+        }
     }
 }

@@ -26,6 +26,10 @@ public class PlaceMineSkill : ActiveSkill, ISkill
 
     public void PowerUpSkillPoint(int points)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < points; i++)
+        {
+            _damage *= (1.1f - Level / 100);
+            Level++;
+        }
     }
 }

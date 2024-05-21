@@ -88,6 +88,11 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 
     public void PowerUpSkillPoint(int points)
     {
-        throw new System.NotImplementedException();
+        for (int i = 0; i < points; i++)
+        {
+            _healModifier *= (1.1f - Level / 100);
+            _selfHealModifier *= (1.1f - Level / 100);
+            Level++;
+        }
     }
 }
