@@ -310,6 +310,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _placementChecker: {fileID: 3570083701540773133}
+  _isShadowStructure: 0
+  _isInstantlyPlaced: 0
   _rotationSprites:
   - {fileID: 1228936661, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
   - {fileID: -2072776286, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
@@ -710,7 +712,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1228936661, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

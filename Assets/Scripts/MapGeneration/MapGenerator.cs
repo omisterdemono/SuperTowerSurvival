@@ -8,6 +8,7 @@ using Mirror;
 using Unity.Mathematics;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using MathF = System.MathF;
 
 public class MapGenerator : NetworkBehaviour
 {
@@ -49,6 +50,8 @@ public class MapGenerator : NetworkBehaviour
     private MapGenerator _landMapGenerator;
 
     [SerializeField] private ObtainableProps[] _obtainablesData;
+    
+    [SerializeField] private Transform _testPos;
 
     public float[,] NoiseMap { get; private set; }
 
@@ -156,6 +159,28 @@ public class MapGenerator : NetworkBehaviour
 
                 break;
         }
+    }
+
+    public (int, int) WorldCoordsToNoiseArray(Vector2 worldPosition)
+    {
+        var x = MathF.Truncate(worldPosition.x) + 250.0f;
+        var y = -1.0f * (Math.Round(worldPosition.y / 10.0) * 10.0) + 250.0f;
+        return ((int)x, (int)y);
+    }
+
+    public string TileNameOnCoords(Vector2 world)
+    {
+        var (x, y) = WorldCoordsToNoiseArray(world);
+        var height = NoiseMap[x, y];
+        for (int i = 0; i < _regions.Length; i++)
+        {
+            if (height > _regions[i].MinHeight && height <= _regions[i].MaxHeight)
+            {
+                return _regions[i].Name;
+            }
+        }
+
+        return null;
     }
 
     private void TryPlaceMainHall(Vector3Int tilePosition, int x, int y, int i)
@@ -306,5 +331,10 @@ public class MapGenerator : NetworkBehaviour
     public void ClearMap()
     {
         FindObjectOfType<MapDisplay>().Tilemap.ClearAllTiles();
+    }
+
+    public void DefineTile()
+    {
+        TileNameOnCoords(_testPos.position);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Components;
+using Inventory.Models;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
@@ -14,6 +15,13 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private float _cooldownSeconds;
 
     public float Damage { get => _damage; set => _damage = value; }
+
+    public ItemSO Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool NeedRotation { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
@@ -29,6 +37,7 @@ public class MeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     private CooldownComponent _cooldownComponent;
 
     private bool _isAttacking;
+    [SerializeField] private ItemSO _item;
 
     private void Awake()
     {

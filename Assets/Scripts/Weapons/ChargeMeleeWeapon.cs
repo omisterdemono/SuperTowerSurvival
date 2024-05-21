@@ -2,6 +2,7 @@ using Assets.Scripts.Weapons;
 using System;
 using System.Collections;
 using Components;
+using Inventory.Models;
 using TMPro;
 using UnityEngine;
 
@@ -20,6 +21,13 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private float _oneDeathRotateSeconds;
 
     public float Damage { get => _damage; set => _damage = value; }
+
+    public ItemSO Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     public bool NeedFlip { get; set; }
     public bool NeedRotation { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
@@ -36,6 +44,7 @@ public class ChargeMeleeWeapon : MonoBehaviour, IWeapon, IEquipable
     private Collider2D _hitCollider;
     private Vector3 _rotationBeforeCharge;
     private bool _isAttacking;
+    [SerializeField] private ItemSO _item;
 
     private void Awake()
     {

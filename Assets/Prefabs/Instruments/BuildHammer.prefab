@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &833920256649837395
 Transform:
   m_ObjectHideFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 6175998349414627956}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &190057826729732585
 Rigidbody2D:
@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd00669aeb582a54d89172db92a06022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instrumentItemSo: {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
-  _cooldownSeconds: 0.75
+  _cooldownSeconds: 1.24
+  _item: {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
   CurrentState: 1
 --- !u!95 &8710973469679265569
 Animator:
@@ -131,7 +131,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.29366755, y: 0.25614327}
+  m_Offset: {x: 0.38, y: -0.05}
   serializedVersion: 2
   m_Radius: 0.20143801
 --- !u!1 &8378305574078462527
@@ -158,14 +158,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8378305574078462527}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -0.038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 833920256649837395}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!212 &4582948889604422837
 SpriteRenderer:
   m_ObjectHideFlags: 0

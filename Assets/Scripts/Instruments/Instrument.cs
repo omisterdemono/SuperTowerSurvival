@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 public class Instrument : MonoBehaviour, IInstrument, IEquipable
 {
-    [FormerlySerializedAs("_instrumentAttributes")] [SerializeField] private InstrumentItemSO _instrumentItemSo;
+    [SerializeField] private ItemSO _item;
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private float _obtainSeconds;
 
@@ -16,6 +16,13 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
     public float Durability { get; set; }
     public InstrumentType InstrumentType { get; set; }
     public bool NeedRotation { get; set; } = true;
+
+    public ItemSO Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     public bool NeedFlip { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
 
@@ -31,9 +38,10 @@ public class Instrument : MonoBehaviour, IInstrument, IEquipable
 
     private void Awake()
     {
-        Strength = _instrumentItemSo.Strength;
-        Durability = _instrumentItemSo.Durability;
-        InstrumentType = _instrumentItemSo.InstrumentType;
+        var instrumentItem = _item as InstrumentItemSO;
+        Strength = instrumentItem.Strength;
+        Durability = instrumentItem.Durability;
+        InstrumentType = instrumentItem.InstrumentType;
 
         _animator = GetComponent<Animator>();
         _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };

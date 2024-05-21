@@ -10,6 +10,7 @@ using Inventory.UI;
 using StructurePlacement;
 using UnityEngine.EventSystems;
 using System;
+using System.Linq;
 
 [RequireComponent(typeof(HealthComponent))]
 [RequireComponent(typeof(MovementComponent))]
@@ -37,7 +38,6 @@ public class Character : NetworkBehaviour
     [SerializeField] private float _weaponDamageModifier = 1;
 
     //todo tools will be more generic in the future and these two list should be removed
-    [SerializeField] private List<GameObject> _tools = new();
     [SerializeField] private List<string> _toolIds = new();
 
     [SerializeField] private int _buildHammerSlotIndex = 1;
@@ -48,6 +48,7 @@ public class Character : NetworkBehaviour
     [SyncVar(hook = nameof(HandleEquipableAnimation))]
     private bool _isPerforming;
 
+    private List<GameObject> _tools = new();
     private List<ActiveSkill> _activeSkills;
     private List<IEquipable> _equipedTools = new();
     private PassiveSkill _passiveSkill;
@@ -143,16 +144,13 @@ public class Character : NetworkBehaviour
         _structurePlacer = GetComponent<StructurePlacer>();
 
         fogOfWar = FindFirstObjectByType<FogOfWar>();
-        //change to something more generic
-        foreach (var tool in _tools)
-        {
-            _equipedTools.Add(tool.GetComponent<IEquipable>());
-        }
     }
 
     private void Start()
     {
+        InitTools();
         StartCoroutine(CheckFogOfWar(checkInterval));
+
         if (!isOwned) return;
 
         _activeSkills = new List<ActiveSkill>();
@@ -171,6 +169,31 @@ public class Character : NetworkBehaviour
         _hotBar = FindObjectOfType<HotBar>();
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
+    }
+
+    private void InitTools()
+    {
+        var toolsAndStuff = new List<GameObject>();
+
+        for (int i = 0; i < _equippedItemsSlot.gameObject.transform.childCount; i++)
+        {
+            toolsAndStuff.Add(_equippedItemsSlot.gameObject.transform.GetChild(i).gameObject);
+        }
+
+        var equipAbles = toolsAndStuff.Select(t => t.GetComponent<IEquipable>()).ToList();
+
+        foreach (var toolId in _toolIds)
+        {
+            for (int i = 0; i < equipAbles.Count; i++)
+            {
+                if (equipAbles[i].Item.Id == toolId)
+                {
+                    _equipedTools.Add(equipAbles[i]);
+                    _tools.Add(toolsAndStuff[i]);
+                    break;
+                }
+            }
+        }
     }
 
     void FixedUpdate()

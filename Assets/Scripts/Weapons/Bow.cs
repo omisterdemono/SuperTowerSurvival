@@ -2,6 +2,7 @@ using Assets.Scripts.Weapons;
 using Mirror;
 using System;
 using Components;
+using Inventory.Models;
 using UnityEngine;
 
 public class Bow : MonoBehaviour, IWeapon, IEquipable
@@ -10,6 +11,7 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     [SerializeField] private GameObject _projectile;
     [SerializeField] private Transform _firePosition;
     [SerializeField] private bool _needFlip;
+    [SerializeField] private ItemSO _item;
 
     [Header("Shoot parameters")]
     [SerializeField] private float _damage = 1.0f;
@@ -25,6 +27,13 @@ public class Bow : MonoBehaviour, IWeapon, IEquipable
     private ChargeComponent _chargeComponent;
 
     public float Damage { get => _damage; set => _damage = value; }
+
+    public ItemSO Item
+    {
+        get => _item;
+        set => _item = value;
+    }
+
     public bool NeedFlip { get => _needFlip; set => _needFlip = value; }
     public bool NeedRotation { get; set; } = true;
     public bool CanPerform => _cooldownComponent.CanPerform;
