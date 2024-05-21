@@ -11,17 +11,13 @@ public class EndGameScript : NetworkBehaviour
     private HealthComponent healthComponent;
     private bool gameIsDone = false;
 
-    private void Awake()
-    {
-        healthComponent = GetComponent<HealthComponent>();
-    }
-
     private void Start()
     {
-        healthComponent.OnDeath += End;
+        healthComponent = GameObject.FindGameObjectWithTag("MainHall").GetComponent<HealthComponent>();
+        healthComponent.OnDeath += EndGame;
     }
 
-    private void End()
+    public void EndGame()
     {
         StartCoroutine(LostGame());
     }
@@ -39,7 +35,7 @@ public class EndGameScript : NetworkBehaviour
                     return;
                 }
             }
-            End();
+            EndGame();
             gameIsDone = true;
         }
     }
@@ -47,11 +43,11 @@ public class EndGameScript : NetworkBehaviour
     private IEnumerator LostGame()
     {
         //show end screen
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(2);
         Debug.Log("end game");
-        NetworkServer.Shutdown();
-        FindObjectOfType<NetworkManagerLobby>().StopServer();
-        NetworkServer.DisconnectAll();
-        SceneManager.LoadScene("Lobby");
+        // NetworkServer.Shutdown();
+        // NetworkServer.DisconnectAll();
+        // SceneManager.LoadScene("Lobby");
+        FindObjectOfType<NetworkManagerLobby>().StopHost();
     }
 }
