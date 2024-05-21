@@ -8,13 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class EndGameScript : NetworkBehaviour
 {
+    [SerializeField] Canvas gameOverScreen;
+
     private HealthComponent healthComponent;
     private bool gameIsDone = false;
+    private List<Canvas> _canvases;
+     
 
     private void Start()
     {
         healthComponent = GameObject.FindGameObjectWithTag("MainHall").GetComponent<HealthComponent>();
         healthComponent.OnDeath += EndGame;
+        _canvases = FindObjectsOfType<Canvas>().ToList();
     }
 
     public void EndGame()
@@ -44,7 +49,12 @@ public class EndGameScript : NetworkBehaviour
     {
         NetworkServer.Destroy(FindObjectOfType<PlayerSpawnSystem>().gameObject);
         //show end screen
-        yield return new WaitForSeconds(2);
+        foreach (var canvas in _canvases)
+        {
+            canvas.gameObject.SetActive(false);
+        }
+        gameOverScreen.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5);
         Debug.Log("end game");
         // NetworkServer.Shutdown();
         // NetworkServer.DisconnectAll();
