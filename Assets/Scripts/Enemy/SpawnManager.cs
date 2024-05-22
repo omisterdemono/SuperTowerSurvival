@@ -27,6 +27,7 @@ public class SpawnManager : NetworkBehaviour
         }
         _worldLight = FindObjectOfType<WorldLight>();
         players = FindObjectsOfType<Character>().ToList();
+        Debug.Log("[Game init] Spawn Manager Start");
     }
 
     public void UpdateSpawnerParams(int newMaxSpawnedNumber)

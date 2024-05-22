@@ -346,7 +346,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2504293194035536128}
-  - {fileID: 1172620679218696241}
+  - {fileID: 5997891661158581503}
   - {fileID: 7453698153157061891}
   - {fileID: 9189507673493553662}
   m_Father: {fileID: 6995681850121546350}
@@ -632,6 +632,7 @@ GameObject:
   - component: {fileID: 8645461448655958194}
   - component: {fileID: 5844357179793485772}
   - component: {fileID: 4247236134488922027}
+  - component: {fileID: 7764515950922598952}
   m_Layer: 0
   m_Name: Bomber with shovel
   m_TagString: Player
@@ -1111,6 +1112,51 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   - {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
   _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
+--- !u!61 &7764515950922598952
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8713007426571498387}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 0.96}
+  m_EdgeRadius: 0
 --- !u!1001 &55910692688894956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1425,7 +1471,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
---- !u!4 &1172620679218696241 stripped
+--- !u!4 &5997891661158581503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 833920256649837395, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
   m_PrefabInstance: {fileID: 6390155688831565740}

@@ -34,6 +34,8 @@ public class WorldLight : NetworkBehaviour
         dayNumber = 1;
         generalTime = 0;
         isNight = false;
+        
+        Debug.Log("[Game init] World light Start");
         //currentTime = 6 * gameHour;
         //SetTime(0.5f);
     }
@@ -41,6 +43,7 @@ public class WorldLight : NetworkBehaviour
     void Awake()
     {
         _light = GetComponent<Light2D>();
+        Debug.Log("[Game init] World light Awake");
     }
 
     void Update()

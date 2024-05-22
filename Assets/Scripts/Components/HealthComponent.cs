@@ -98,9 +98,13 @@ namespace Components
             _currentHealth = health;
         }
 
-        [Server]
         private void InitHealth() 
         {
+            if (!isServer)
+            {
+                return;
+            }
+            
             ChangeHealth(MaxHealth);
         }
 
@@ -123,6 +127,8 @@ namespace Components
                 var healthbar = FindObjectOfType<PlayerHealthBarUI>();
                 _imageHP = healthbar.transform.GetChild(0).GetComponentInChildren<Image>();
             }
+            
+            Debug.Log($"[Game init] {gameObject.name} Health Component Start");
         }
     }
 }

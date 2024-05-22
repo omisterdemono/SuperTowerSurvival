@@ -18,6 +18,7 @@ public class WavesManager : MonoBehaviour
     {
         _worldCycle = GetComponent<WorldLight>();
         _spawners = FindObjectsOfType<SpawnManager>().ToList();
+        Debug.Log("[Game init] Waves Manager Awake");
     }
 
     void Start()
@@ -29,6 +30,8 @@ public class WavesManager : MonoBehaviour
         GenerateWaves();
         UpdateSpawnersParams();
         _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
+        
+        Debug.Log("[Game init] Waves Manager Start");
     }
 
     public void OnDestroy()
@@ -56,6 +59,12 @@ public class WavesManager : MonoBehaviour
     {
         int currentDay = _worldCycle.GetDay();
         Wave currentWave = _waves.FirstOrDefault(w => w.waveID == currentDay);
+
+        if (currentDay == 0)
+        {
+            return;
+        }
+        
         if (currentDay > _waves.Last()?.waveID)
         {
             currentWave = _waves.Last();

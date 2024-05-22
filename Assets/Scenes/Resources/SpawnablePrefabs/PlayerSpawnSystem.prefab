@@ -66,7 +66,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerPrefabs:
-  - {fileID: 8231169941632268351, guid: 074613c97e09a9a42a33d19f89bfd088, type: 3}
+  - {fileID: 8713007426571498387, guid: 074613c97e09a9a42a33d19f89bfd088, type: 3}
   - {fileID: 5008485775042280947, guid: 55a03a5f48750584396853b1ec73f824, type: 3}
   - {fileID: 45124646799115585, guid: 88f6118c797c2cf439e1756c65cf9e5c, type: 3}
   - {fileID: 4184418881177675161, guid: b87b48622f8aacf479d05a3cd887c569, type: 3}
