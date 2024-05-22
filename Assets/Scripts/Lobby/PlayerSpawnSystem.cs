@@ -19,6 +19,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     private void Awake()
     {
+        return;
         SavePlayersChoice();
         FindSpawnPoints();
         Debug.Log("[Game init] PlayerSpawnSystem Start");

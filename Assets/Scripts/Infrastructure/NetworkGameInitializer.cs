@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using UnityEngine;
 
 namespace Infrastructure
@@ -14,7 +15,14 @@ namespace Infrastructure
 
         private void Awake()
         {
-            if (!isServer)
+            // NetworkManagerLobby.OnServerReadied += Init;
+
+            Init();
+        }
+
+        public void Init()
+        {
+            if (!NetworkServer.active)
             {
                 return;
             }

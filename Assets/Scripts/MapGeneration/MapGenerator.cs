@@ -62,7 +62,7 @@ public class MapGenerator : NetworkBehaviour
 
     public void GenerateMap(int seedFromPlayer)
     {
-        if (!isServer)
+        if (!NetworkServer.active)
         {
             return;
         }
