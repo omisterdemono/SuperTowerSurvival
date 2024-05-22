@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -30,6 +28,8 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private TogglePowerUpPoints BuildSpeed;
     private PowerUpStruct _powerUp;
     private int _powerUpPoints;
+    private WorldLight _light;
+    private CanvasGroup _canvasGroup;
 
     public int PowerUpPoints
     {
@@ -40,7 +40,8 @@ public class PowerUp : MonoBehaviour
         set
         {
             _powerUpPoints = value;
-            powerUpPointsText.text = "Power Up Points: " + _powerUpPoints;
+            //powerUpPointsText.text = "Power Up Points: " + _powerUpPoints;
+            powerUpPointsText.text = _powerUpPoints.ToString();
             if (_powerUpPoints == 0)
             {
                 _applyButton.interactable = true;
@@ -52,9 +53,26 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    private void ApplyPoints()
+    private void SetVisibility(bool visible)
     {
-        Character character = FindObjectsOfType<Character>().First(c => c.isOwned);
+        if (visible)
+        {
+            _canvasGroup.alpha = 1;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+        }
+        else
+        {
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+        }
+    }
+
+    public void ApplyPoints()
+    {
+        SetVisibility(false);
+        Character character = FindObjectsOfType<Character>().FirstOrDefault(c => c.isOwned);
         _powerUp.ActiveSkill1 = ActiveSkill1.Points;
         _powerUp.ActiveSkill2 = ActiveSkill2.Points;
         _powerUp.PassiveSkill = PassiveSkill.Points;
@@ -62,20 +80,30 @@ public class PowerUp : MonoBehaviour
         _powerUp.Speed = Speed.Points;
         _powerUp.AttackDamage = AttackDamage.Points;
         _powerUp.BuildSpeed = BuildSpeed.Points;
-        character.PowerUp(_powerUp);
+        character?.PowerUp(_powerUp);
     }
 
     private void Start()
     {
-        //zaglushka
         PowerUpPoints = 5;
-        powerUpPointsText.text = "Power Up Points: " + _powerUpPoints;
+        powerUpPointsText.text = _powerUpPoints.ToString();
+        _light = FindObjectOfType<WorldLight>();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        WorldLight.OnNightChanged += WorldLight_OnNightChanged;
     }
 
-    private void OnNewDay()
+    private void WorldLight_OnNightChanged(object sender, System.EventArgs e)
     {
-        //zaglushka
-        PowerUpPoints = 5;
-        powerUpPointsText.text = "Power Up Points: " + _powerUpPoints;
+        if(_light == null)
+        {
+            _light = FindObjectOfType<WorldLight>();
+        }
+
+        if (!_light.isNight)
+        {
+            SetVisibility(true);
+            PowerUpPoints = _light.GetDay();
+            powerUpPointsText.text = _powerUpPoints.ToString();
+        }
     }
 }

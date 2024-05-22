@@ -11,16 +11,22 @@ public class WorldTimeDisplayer : MonoBehaviour
     private WorldLight _worldLight;
     private TMP_Text _text;
     private Image childImage;
-    private void Awake()
+    private void Start()
     {
         _text = GetComponent<TMP_Text>();
-        _worldLight = FindObjectOfType<WorldLight>();
         childImage = this.GetComponentInChildren<Image>();
+        _worldLight = FindObjectOfType<WorldLight>();
         WorldLight.OnNightChanged += WorldLight_OnNightChanged;
     }
 
     private void WorldLight_OnNightChanged(object sender, System.EventArgs e)
     {
+        if (_worldLight == null)
+        {
+            _worldLight = FindObjectOfType<WorldLight>();
+            return;
+        }
+        
         if (_worldLight.isNight)
         {
             childImage.sprite = _imageMoon;
@@ -31,13 +37,14 @@ public class WorldTimeDisplayer : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Update()
     {
+        if (_worldLight == null)
+        {
+            _worldLight = FindObjectOfType<WorldLight>();
+            return;
+        }
         
-    }
-
-    void Update()
-    {
         _text.SetText($"Day {_worldLight.GetDay()}\n{_worldLight.GetHour()}:{_worldLight.GetMinute()}");
     }
 }

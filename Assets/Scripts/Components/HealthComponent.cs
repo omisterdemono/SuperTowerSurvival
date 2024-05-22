@@ -118,7 +118,7 @@ namespace Components
                 _imageHP = _canvasGroupHB.transform.GetChild(1).GetComponentInChildren<Image>();
             }
 
-            if (type == Type.Player)
+            if (type == Type.Player && isOwned)
             {
                 var healthbar = FindObjectOfType<PlayerHealthBarUI>();
                 _imageHP = healthbar.transform.GetChild(0).GetComponentInChildren<Image>();
