@@ -15,6 +15,7 @@ public class WorldTimeDisplayer : MonoBehaviour
     {
         _text = GetComponent<TMP_Text>();
         childImage = this.GetComponentInChildren<Image>();
+        _worldLight = FindObjectOfType<WorldLight>();
         WorldLight.OnNightChanged += WorldLight_OnNightChanged;
     }
 
@@ -23,6 +24,7 @@ public class WorldTimeDisplayer : MonoBehaviour
         if (_worldLight == null)
         {
             _worldLight = FindObjectOfType<WorldLight>();
+            return;
         }
         
         if (_worldLight.isNight)
@@ -40,6 +42,7 @@ public class WorldTimeDisplayer : MonoBehaviour
         if (_worldLight == null)
         {
             _worldLight = FindObjectOfType<WorldLight>();
+            return;
         }
         
         _text.SetText($"Day {_worldLight.GetDay()}\n{_worldLight.GetHour()}:{_worldLight.GetMinute()}");

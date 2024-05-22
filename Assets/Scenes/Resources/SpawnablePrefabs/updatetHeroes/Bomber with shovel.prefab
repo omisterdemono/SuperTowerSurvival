@@ -910,7 +910,7 @@ MonoBehaviour:
   syncInterval: 0
   _skillAttributes: {fileID: 11400000, guid: 306b448ddc223eb4c960fab33e505795, type: 2}
   _minePrefab: {fileID: 8921416833980400527, guid: e95cbd021d7b1ce47a20e49782f0118d, type: 3}
-  _damage: 10
+  _damage: 100
 --- !u!114 &7209853551525115248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +928,7 @@ MonoBehaviour:
   syncInterval: 0
   _skillAttributes: {fileID: 11400000, guid: cb83d92780c508b40a95cf29241623e8, type: 2}
   _dynamitePrefab: {fileID: 4153535944577513394, guid: 36c23f8accca0f64d85168bc6d67bc35, type: 3}
-  _damage: 10
+  _damage: 100
 --- !u!114 &-3318275797629523246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8231169941632268351}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efd894cf8ac91d34c810df7cc7359672, type: 3}
   m_Name: 

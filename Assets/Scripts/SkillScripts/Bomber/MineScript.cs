@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class MineScript : NetworkBehaviour
 {
+    [SerializeField] private float _explodeRadius = 1f;
+    [SerializeField] private GameObject _explosionPrefab;
 
     [SyncVar] private float _damage;
     private bool _explode = false;
-    private float _explodeRadius = 1f;
-    [SerializeField] private GameObject _explosionPrefab;
 
     public float Damage { set => _damage = value; }
 
