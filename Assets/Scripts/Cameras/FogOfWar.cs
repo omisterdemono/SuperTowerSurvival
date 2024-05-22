@@ -23,6 +23,8 @@ public class FogOfWar : MonoBehaviour
                 fogOfWarTexture.SetPixel(i, j, Color.clear);
             }
         }
+        
+        Debug.Log("[Game init] FogOfWar Awake");
     }
 
     private Vector2Int WorldToPixel(Vector2 position)

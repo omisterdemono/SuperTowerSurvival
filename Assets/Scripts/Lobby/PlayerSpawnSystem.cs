@@ -8,14 +8,31 @@ using UnityEngine;
 
 public class PlayerSpawnSystem : NetworkBehaviour
 {
-    [SerializeField] private List<GameObject> playerPrefabs = new List<GameObject>();
+    [SerializeField] private List<GameObject> playerPrefabs;
 
     [SyncVar]
-    public List<int> ChosenCharacters = new List<int>();
+    public List<int> ChosenCharacters = new();
 
-    private static List<Transform> spawnPoints = new List<Transform>();
+    private static List<Transform> spawnPoints;
 
     private int nextIndex = 0;
+
+    private void Awake()
+    {
+        SavePlayersChoice();
+        FindSpawnPoints();
+        Debug.Log("[Game init] PlayerSpawnSystem Start");
+    }
+
+    private void FindSpawnPoints()
+    {
+        spawnPoints = FindObjectsOfType<PlayerSpawnPoint>().Select(sp => sp.transform).ToList();
+    }
+
+    private void SavePlayersChoice()
+    {
+        ChosenCharacters.AddRange(FindObjectOfType<NetworkManagerLobby>().ChosenCharacters);
+    }
 
     public static void AddSpawnPoint(Transform transform)
     {
@@ -27,15 +44,11 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
     public static void RemoveSpawnPoint(Transform transform) => spawnPoints.Remove(transform);
 
-    public override void OnStartServer() => NetworkManagerLobby.OnServerReadied += SpawnPlayer;
-
-    [ServerCallback]
-
-    private void OnDestroy() => NetworkManagerLobby.OnServerReadied -= SpawnPlayer;
-
     [Server]
     public void SpawnPlayer(NetworkConnection conn)
     {
+        var server = isServer;
+        
         Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIndex);
 
         if (spawnPoint == null)
@@ -46,25 +59,6 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
         GameObject playerIstance = Instantiate(playerPrefabs[ChosenCharacters[nextIndex]], spawnPoints[nextIndex].position, Quaternion.identity);
         NetworkServer.Spawn(playerIstance, conn);
-
-        if (nextIndex == ChosenCharacters.Count - 1)
-        {
-            //last player spawned
-            System.Random random = new();
-            var gameInit = FindObjectOfType<GameInitializer>();
-            var seed = random.Next(0, 10000);
-            gameInit.GenerateMaps(seed);
-            FinishWaiting();
-            
-            Debug.Log("generated maps with seed " + seed);
-        }
-        
         nextIndex++;
-    }
-
-    [ClientRpc]
-    public void FinishWaiting()
-    {
-        FindObjectOfType<GameInitializer>().HideWaitingCanvas();
     }
 }

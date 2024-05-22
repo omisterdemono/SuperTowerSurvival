@@ -11,10 +11,10 @@ public class NetworkManagerLobby : NetworkManager
     [SerializeField] private int _minPlayers = 1;
     [Scene] [SerializeField] private string _menuScene = string.Empty;
 
-    [Header("Room")] [SerializeField] private NetworkRoomPlayerLobby _roomPlayerLobbyPrefab = null;
+    [Header("Room")] [SerializeField] private NetworkRoomPlayerLobby _roomPlayerLobbyPrefab;
 
-    [Header("Game")] [SerializeField] private NetworkGamePlayer _gamePlayerPrefab = null;
-    [SerializeField] private GameObject playerSpawnSystem = null;
+    [Header("Game")] [SerializeField] private NetworkGamePlayer _gamePlayerPrefab;
+    [SerializeField] private PlayerSpawnSystem playerSpawnSystem;
     [SerializeField] private string _newSceneName = "Scene_Map_02";
 
     public static event Action OnClientConnected;
@@ -26,7 +26,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
-    private List<int> _chosenCharacters = new List<int>();
+    public List<int> ChosenCharacters = new List<int>();
 
     public override void OnStartClient()
     {
@@ -123,13 +123,15 @@ public class NetworkManagerLobby : NetworkManager
         if (SceneManager.GetActiveScene().path == _menuScene)
         {
             if (!IsReadyToStart()) return;
-            _chosenCharacters.AddRange(RoomPlayers.Select(x => x.CurrentCharacter));
+            ChosenCharacters.AddRange(RoomPlayers.Select(x => x.CurrentCharacter));
             ServerChangeScene(_newSceneName);
         }
     }
 
     public override void ServerChangeScene(string newSceneName)
     {
+        Debug.Log($"[Network Manager Lobby] Changing scene {newSceneName}");
+        
         if (SceneManager.GetActiveScene().path == _menuScene && newSceneName.StartsWith("Scene_Map"))
         {
             for (int i = RoomPlayers.Count - 1; i >= 0; i--)
@@ -145,16 +147,21 @@ public class NetworkManagerLobby : NetworkManager
         }
 
         base.ServerChangeScene(newSceneName);
+        Debug.Log($"[Network Manager Lobby] Changed scene to {newSceneName}");
     }
 
     public override void OnServerSceneChanged(string sceneName)
     {
         if (sceneName.StartsWith("Scene_Map"))
         {
-            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
-            playerSpawnSystemInstance.GetComponent<PlayerSpawnSystem>().ChosenCharacters.AddRange(_chosenCharacters);
-            NetworkServer.Spawn(playerSpawnSystemInstance);
-            Debug.Log("spawned player spawn system");
+            //player spawn system should be placed by its own on online scene
+            //generator works, moves the points
+            //then player spawn system gets notified and takes ChosenCharacters and positions of points to spawn and does its job
+            
+            // var playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+            // playerSpawnSystemInstance.ChosenCharacters.AddRange(ChosenCharacters);
+            // NetworkServer.Spawn(playerSpawnSystemInstance.gameObject);
+            // Debug.Log("[Network Manager Lobby] Spawned player spawn system");
         }
     }
 
@@ -163,6 +170,6 @@ public class NetworkManagerLobby : NetworkManager
         base.OnServerReady(conn);
 
         OnServerReadied?.Invoke(conn);
-        Debug.Log("on server ready");
+        Debug.Log("[Network Manager Lobby] On server ready");
     }
 }

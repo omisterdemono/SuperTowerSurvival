@@ -47,7 +47,7 @@ public class EndGameScript : NetworkBehaviour
 
     private IEnumerator LostGame()
     {
-        NetworkServer.Destroy(FindObjectOfType<PlayerSpawnSystem>().gameObject);
+        // NetworkServer.Destroy(FindObjectOfType<PlayerSpawnSystem>().gameObject);
         //show end screen
         foreach (var canvas in _canvases)
         {
@@ -56,9 +56,6 @@ public class EndGameScript : NetworkBehaviour
         gameOverScreen.gameObject.SetActive(true);
         yield return new WaitForSeconds(5);
         Debug.Log("end game");
-        // NetworkServer.Shutdown();
-        // NetworkServer.DisconnectAll();
-        // SceneManager.LoadScene("Lobby");
         FindObjectOfType<NetworkManagerLobby>().StopHost();
     }
 }

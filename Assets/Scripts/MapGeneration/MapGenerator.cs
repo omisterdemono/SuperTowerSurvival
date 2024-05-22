@@ -212,17 +212,17 @@ public class MapGenerator : NetworkBehaviour
             }
         }
 
+        //maybe base should be instantiated as prefab
         PlaceBase(tilePosition);
-
         var spawnPoints = GameObject.FindGameObjectWithTag("SpawnPoints").transform;
         spawnPoints.position = tilePosition;
 
-        var characters = FindObjectsOfType<Character>();
-        for (int j = 0; j < characters.Length; j++)
-        {
-            var child = spawnPoints.GetChild(j);
-            MovePlayer(characters[j].netId, child.position);
-        }
+        // var characters = FindObjectsOfType<Character>();
+        // for (int j = 0; j < characters.Length; j++)
+        // {
+        //     var child = spawnPoints.GetChild(j);
+        //     MovePlayer(characters[j].netId, child.position);
+        // }
 
         _townHallIsPlaced = true;
     }

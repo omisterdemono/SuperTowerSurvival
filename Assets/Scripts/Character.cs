@@ -156,6 +156,8 @@ public class Character : NetworkBehaviour
         _structurePlacer = GetComponent<StructurePlacer>();
 
         fogOfWar = FindFirstObjectByType<FogOfWar>();
+        
+        Debug.Log("[Game init] Character Awake");
     }
 
     private void Start()
@@ -189,6 +191,8 @@ public class Character : NetworkBehaviour
         _hotBar = FindObjectOfType<HotBar>();
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Target = transform;
+        
+        Debug.Log("[Game init] Character Start");
     }
 
     private void InitTools()

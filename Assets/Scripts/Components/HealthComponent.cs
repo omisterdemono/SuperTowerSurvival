@@ -128,7 +128,7 @@ namespace Components
                 _imageHP = healthbar.transform.GetChild(0).GetComponentInChildren<Image>();
             }
             
-            Debug.Log($"[Game init] {gameObject.name} Health Component Start");
+            // Debug.Log($"[Game init] {gameObject.name} Health Component Start");
         }
     }
 }
