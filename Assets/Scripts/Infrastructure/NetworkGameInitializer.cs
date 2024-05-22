@@ -14,7 +14,7 @@ namespace Infrastructure
 
         private void Awake()
         {
-            if (!NetworkServer.active)
+            if (!isServer)
             {
                 return;
             }
