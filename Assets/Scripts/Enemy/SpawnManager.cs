@@ -88,7 +88,7 @@ public class SpawnManager : NetworkBehaviour
         }
         if (!isBossExisting)
         {
-            SpawnBoss();
+            //SpawnBoss();
         }
     }
 
