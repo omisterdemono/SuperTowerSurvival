@@ -30,6 +30,7 @@ public class PoisonousGasScript : NetworkBehaviour
     {
         _throwFrom = transform.position;
         _colliders = new List<Collider2D>();
+        _throwTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Invoke("DestroyGas", _workTime);
         InvokeRepeating("DealDamage", 1, DamageRate);
     }
