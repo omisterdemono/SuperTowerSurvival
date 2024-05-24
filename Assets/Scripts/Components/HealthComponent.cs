@@ -70,6 +70,7 @@ namespace Components
             CurrentHealth += healHP;
         }
 
+        [ClientRpc]
         public void Damage(float damageHP)
         {
             if (CurrentHealth <= damageHP)
