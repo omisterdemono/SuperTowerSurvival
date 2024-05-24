@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 7406408492977685482}
   - component: {fileID: 1654823067056949555}
   - component: {fileID: 5008715584302519006}
+  - component: {fileID: 5527345257647467939}
   m_Layer: 0
   m_Name: BossMelon
   m_TagString: Untagged
@@ -352,6 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e8a5f1a527404c9fe67714bc696ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   meleeDamage: 200
   rangeDamage: 50
   projectile: {fileID: 8271526954206739466, guid: 05cdab5aa293d6f43ba2c0764f112aa7, type: 3}
@@ -399,6 +403,24 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 0
   animator: {fileID: 6668621654002986525}
+--- !u!114 &5527345257647467939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2521217604565433379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d8fc757fb6c1245a64f7c9f4c7776f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _maxHealth: 0
+  _entityType: 0
+  _healthBar: {fileID: 0}
 --- !u!1 &2541358374071569672
 GameObject:
   m_ObjectHideFlags: 0
