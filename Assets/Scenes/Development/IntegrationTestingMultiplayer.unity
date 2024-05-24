@@ -103369,7 +103369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &749084628
 Transform:
   m_ObjectHideFlags: 0
@@ -105284,9 +105284,9 @@ MonoBehaviour:
     dynamicAdjustmentTolerance: 1
     deliveryTimeEmaDuration: 2
   timeInterpolationGui: 0
-  _choosenCharacter: 0
+  _choosenCharacter: 4
   _characters:
-  - {fileID: 8231169941632268351, guid: 074613c97e09a9a42a33d19f89bfd088, type: 3}
+  - {fileID: 8713007426571498387, guid: 074613c97e09a9a42a33d19f89bfd088, type: 3}
   - {fileID: 5008485775042280947, guid: 55a03a5f48750584396853b1ec73f824, type: 3}
   - {fileID: 45124646799115585, guid: 88f6118c797c2cf439e1756c65cf9e5c, type: 3}
   - {fileID: 4184418881177675161, guid: b87b48622f8aacf479d05a3cd887c569, type: 3}
@@ -105847,6 +105847,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5026494113210376046, guid: ceec3d8c641c4b2489847096ce2f240b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2eca831ce038dc141b0fc75699e20a9e, type: 2}
     - target: {fileID: 7807330514531075716, guid: ceec3d8c641c4b2489847096ce2f240b, type: 3}
       propertyPath: m_Name
       value: MainHall
@@ -107824,7 +107828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2847321233189462981, guid: 5eb12325badb26348ac042290fd50ff4, type: 3}
       propertyPath: _initNetworkManagerAutomatically
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9033296498290315009, guid: 5eb12325badb26348ac042290fd50ff4, type: 3}
       propertyPath: m_Name

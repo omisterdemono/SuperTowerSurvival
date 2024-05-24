@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 6954222432845900360}
   - component: {fileID: 4218986764370916205}
   - component: {fileID: 3473707551630871927}
+  - component: {fileID: 1318003067226405540}
   m_Layer: 0
   m_Name: Healer with shotgun
   m_TagString: Player
@@ -423,6 +424,51 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   - {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}
   _itemDatabase: {fileID: 11400000, guid: 56b257e598e5375428c34e7075176a53, type: 2}
+--- !u!61 &1318003067226405540
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45124646799115585}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.026842415}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.96}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5326303, y: 0.9063151}
+  m_EdgeRadius: 0
 --- !u!1 &726078559144157508
 GameObject:
   m_ObjectHideFlags: 0
@@ -5882,6 +5928,10 @@ PrefabInstance:
     - target: {fileID: 2999557769609847020, guid: 7fffdccae07ef8444adaff556b370af8, type: 3}
       propertyPath: _type
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999557769609847020, guid: 7fffdccae07ef8444adaff556b370af8, type: 3}
+      propertyPath: _damage
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2999557769609847020, guid: 7fffdccae07ef8444adaff556b370af8, type: 3}
       propertyPath: _projectile

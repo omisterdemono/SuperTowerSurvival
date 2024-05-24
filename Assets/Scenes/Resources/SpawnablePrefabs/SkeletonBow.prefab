@@ -102,6 +102,7 @@ MonoBehaviour:
   _projectile: {fileID: 8271526954206739466, guid: b8e6e92426ba15549b8344e30c0098f9, type: 3}
   _firePosition: {fileID: 7583105338666370036}
   _needFlip: 0
+  _item: {fileID: 0}
   _damage: 15
   _minProgressToShotSeconds: 1
   _maxChargeSeconds: 3
@@ -633,7 +634,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _maxHealth: 80
+  _maxHealth: 50
   type: 3
   _healthBar: {fileID: 5372125901141219362}
 --- !u!114 &3974504449483328773

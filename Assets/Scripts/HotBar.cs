@@ -30,13 +30,13 @@ public class HotBar : MonoBehaviour
 
     public bool ActivateCell(int id, Character character)
     {
-        var instrumentItem = HotbarCells[id].InventoryCell.Item as UsableItemSO;
-        if (instrumentItem != null)
+        var usableItem = HotbarCells[id].InventoryCell.Item as UsableItemSO;
+        if (usableItem != null)
         {
-            instrumentItem.PerformAction(PlayerInventory, () => { });
+            usableItem.PerformAction(PlayerInventory, () => { });
         }
 
         SelectCell(id);
-        return instrumentItem != null;
+        return usableItem != null;
     }
 }
