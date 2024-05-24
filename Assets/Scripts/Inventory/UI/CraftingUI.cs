@@ -78,6 +78,11 @@ namespace Inventory.UI
                     var recipeUI = Instantiate(_recipeSlotPrefab, _categoriesContent[index].transform);
                     recipeUI.Init(recipe, SetRecipeProperties);
                 }
+
+                if (index == 0)
+                {
+                    SetRecipeProperties(categoryRecipes[0]);
+                }
             }
         }
 
@@ -101,7 +106,7 @@ namespace Inventory.UI
 
             var (requiredItemsCounts, requiredItemsColors) = RequiredItemsCountsAndTextColors(recipe);
 
-            _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(), 
+            _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted(recipe));
         }
 
@@ -131,10 +136,10 @@ namespace Inventory.UI
             {
                 return;
             }
-            
+
             var (requiredItemsCounts, requiredItemsColors) =
                 RequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
-            _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(), 
+            _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted);
         }
     }

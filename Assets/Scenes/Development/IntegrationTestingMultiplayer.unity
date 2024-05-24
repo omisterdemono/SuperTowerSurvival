@@ -107773,6 +107773,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3842398472
       objectReference: {fileID: 0}
+    - target: {fileID: 2886730800107645310, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3203770516457965637, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
       propertyPath: m_text
       value: Required items
