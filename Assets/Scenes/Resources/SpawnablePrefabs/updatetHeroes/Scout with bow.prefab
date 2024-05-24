@@ -1116,7 +1116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_Name
-      value: Mallet
+      value: BuildHammer
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_IsActive

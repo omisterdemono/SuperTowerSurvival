@@ -79,7 +79,8 @@ namespace Inventory.UI
 
         private void CreateMovingItem(InventoryCellUI currentInventoryUICell, bool createPartial = false)
         {
-            _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, transform);
+            var canvas = GameObject.FindGameObjectWithTag("ModernCanvas").transform;
+            _movingItemUI = Instantiate(_movingItemUIPrefab, Input.mousePosition, Quaternion.identity, canvas);
             _movingItemUI.Init(currentInventoryUICell.InventoryCell.Item, currentInventoryUICell.InventoryCell.Count,
                 createPartial);
             _inventory.TryRemoveFromCell(currentInventoryUICell.InventoryCell, _movingItemUI.TakenCountOfItems);

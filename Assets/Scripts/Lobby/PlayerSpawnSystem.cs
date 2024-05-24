@@ -50,6 +50,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
         if (nextIndex == ChosenCharacters.Count - 1)
         {
             //last player spawned
+            StartWaiting();
             System.Random random = new();
             var gameInit = FindObjectOfType<GameInitializer>();
             var seed = random.Next(0, 10000);
@@ -60,6 +61,12 @@ public class PlayerSpawnSystem : NetworkBehaviour
         }
         
         nextIndex++;
+    }
+    
+    [ClientRpc]
+    public void StartWaiting()
+    {
+        FindObjectOfType<GameInitializer>().ShowWaitingCanvas();
     }
 
     [ClientRpc]
