@@ -30,8 +30,7 @@ namespace Components
 
         [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
 
-        [SerializeField] private GameObject _healthBar;
-        private HealthBarUI _healthBarUI;
+        [SerializeField] private HealthBarUI _healthBar;
 
         [SyncVar] private float _hpRatio;
         private CanvasGroup _canvasGroupHB;
@@ -88,9 +87,9 @@ namespace Components
         private void CurrentHealthHook(float oldValue, float newValue)
         {
             _hpRatio = _currentHealth / _maxHealth;
-            if (_healthBarUI != null)
+            if (_healthBar != null)
             {
-                _healthBarUI.SetHealthInPercent(_hpRatio);
+                _healthBar.SetHealthInPercent(_hpRatio);
             }
             OnCurrentHealthChanged?.Invoke();
         }
@@ -113,7 +112,12 @@ namespace Components
 
             if (_entityType == EntityType.Player && isOwned)
             {
-                _healthBarUI = FindObjectOfType<PlayerHealthbarUI>();
+                _healthBar = FindObjectOfType<PlayerHealthbarUI>();
+            }
+
+            if (_healthBar == null)
+            {
+                _healthBar = GetComponentInChildren<HealthBarUI>();
             }
         }
     }
