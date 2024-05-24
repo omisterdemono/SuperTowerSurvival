@@ -27,6 +27,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private TogglePowerUpPoints AttackDamage;
     [SerializeField] private TogglePowerUpPoints BuildSpeed;
     private PowerUpStruct _powerUp;
+    private PowerUpStruct _powerUpPointsOnNewDay;
     private int _powerUpPoints;
     private WorldLight _light;
     private CanvasGroup _canvasGroup;
@@ -40,7 +41,6 @@ public class PowerUp : MonoBehaviour
         set
         {
             _powerUpPoints = value;
-            //powerUpPointsText.text = "Power Up Points: " + _powerUpPoints;
             powerUpPointsText.text = _powerUpPoints.ToString();
             if (_powerUpPoints == 0)
             {
@@ -73,14 +73,23 @@ public class PowerUp : MonoBehaviour
     {
         SetVisibility(false);
         Character character = FindObjectsOfType<Character>().FirstOrDefault(c => c.isOwned);
-        _powerUp.ActiveSkill1 = ActiveSkill1.Points;
-        _powerUp.ActiveSkill2 = ActiveSkill2.Points;
-        _powerUp.PassiveSkill = PassiveSkill.Points;
-        _powerUp.Health = Health.Points;
-        _powerUp.Speed = Speed.Points;
-        _powerUp.AttackDamage = AttackDamage.Points;
-        _powerUp.BuildSpeed = BuildSpeed.Points;
+
+        _powerUp.ActiveSkill1 = ActiveSkill1.Points - _powerUpPointsOnNewDay.ActiveSkill1;
+        _powerUp.ActiveSkill2 = ActiveSkill2.Points - _powerUpPointsOnNewDay.ActiveSkill2;
+        _powerUp.PassiveSkill = PassiveSkill.Points - _powerUpPointsOnNewDay.PassiveSkill;
+        _powerUp.Health = Health.Points - _powerUpPointsOnNewDay.Health;
+        _powerUp.Speed = Speed.Points - _powerUpPointsOnNewDay.Speed;
+        _powerUp.AttackDamage = AttackDamage.Points - _powerUpPointsOnNewDay.AttackDamage;
+        _powerUp.BuildSpeed = BuildSpeed.Points - _powerUpPointsOnNewDay.BuildSpeed;
+
         character?.PowerUp(_powerUp);
+    }
+
+    private void setNewPoints()
+    {
+        
+
+        
     }
 
     private void Start()
@@ -102,8 +111,16 @@ public class PowerUp : MonoBehaviour
         if (!_light.isNight)
         {
             SetVisibility(true);
-            PowerUpPoints = _light.GetDay();
-            powerUpPointsText.text = _powerUpPoints.ToString();
+            PowerUpPoints += _light.GetDay();
+
+            _powerUpPointsOnNewDay.ActiveSkill1 = ActiveSkill1.Points;
+            _powerUpPointsOnNewDay.ActiveSkill2 = ActiveSkill2.Points;
+            _powerUpPointsOnNewDay.PassiveSkill = PassiveSkill.Points;
+            _powerUpPointsOnNewDay.Health = Health.Points;
+            _powerUpPointsOnNewDay.Speed = Speed.Points;
+            _powerUpPointsOnNewDay.AttackDamage = AttackDamage.Points;
+            _powerUpPointsOnNewDay.BuildSpeed = BuildSpeed.Points;
+            //powerUpPointsText.text = _powerUpPoints.ToString();
         }
     }
 }

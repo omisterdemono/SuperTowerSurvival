@@ -461,7 +461,7 @@ RectTransform:
   m_Children:
   - {fileID: 482708404692730170}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -562,7 +562,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &5217083293257871395
 GameObject:
@@ -1678,6 +1678,10 @@ PrefabInstance:
       propertyPath: powerUpUI
       value: 
       objectReference: {fileID: 163043335106706497}
+    - target: {fileID: 6893646494727110580, guid: 6f39e6a8c7a1abf4fa7146401c2f35d2, type: 3}
+      propertyPath: m_text
+      value: Skill 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6925949675954843711, guid: 6f39e6a8c7a1abf4fa7146401c2f35d2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

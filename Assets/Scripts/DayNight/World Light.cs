@@ -52,7 +52,7 @@ public class WorldLight : NetworkBehaviour
         ClientUpload();
     }
 
-    [Server]
+    [ClientRpc]
     void ServerCalculation()
     {
         generalTime += 1 * Time.deltaTime;
