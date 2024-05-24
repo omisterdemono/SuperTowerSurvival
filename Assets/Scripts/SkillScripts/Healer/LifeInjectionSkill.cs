@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LifeInjectionSkill : ActiveSkill, ISkill
 {
-    private List<Collider2D> _playerColliders;
+    private List<Character> _playerColliders;
     private Collider2D _playerCollider;
     [SerializeField] private float _healModifier = 0.3f;
     [SerializeField] private float _selfHealModifier = 0.5f;
@@ -17,7 +17,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
     private new void Start()
     {
         base.Start();
-        _playerColliders = new List<Collider2D>();
+        _playerColliders = new List<Character>();
         _particleSystem = GetComponentInChildren<ParticleSystem>();
         _playerCollider = GetComponent<CircleCollider2D>();
     }
@@ -42,14 +42,14 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && collision is BoxCollider2D)
-            _playerColliders.Add(collision);
+        if (collision.CompareTag("HitBox") && collision is BoxCollider2D && collision.GetComponentInParent<Character>())
+            _playerColliders.Add(collision.GetComponentInParent<Character>());
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && collision is BoxCollider2D)
-            _playerColliders.Remove(collision);
+        if (collision.CompareTag("HitBox") && collision is BoxCollider2D && collision.GetComponentInParent<Character>())
+            _playerColliders.Remove(collision.GetComponentInParent<Character>());
     }
 
     public override void StartCast()
@@ -79,7 +79,7 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
     {
         foreach (var players in _playerColliders)
         {
-            players.GetComponent<Character>().IsAlive = true;
+            players.IsAlive = true;
             players.GetComponent<Animator>().SetBool("IsAlive", true);
             players.GetComponent<HealthComponent>().Heal(players.GetComponent<HealthComponent>().MaxHealth * _healModifier);
         }
