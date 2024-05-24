@@ -53,7 +53,6 @@ public class Projectile : NetworkBehaviour
     {
         if (collision is not BoxCollider2D)
         {
-            Debug.Log("Is not Box Collider 2D");
             return;
         }
 

@@ -37,7 +37,7 @@ public class PassiveSkill : NetworkBehaviour
             return;
 
         EffectComponent effectComponent = collision.GetComponentInParent<EffectComponent>();
-        if (effectComponent && !_passiveAura.IsTouching(collision) && collision.tag == "HitBox")
+        if (effectComponent && !_passiveAura.IsTouching(collision) && collision.CompareTag("HitBox"))
         {
             effectComponent.RemoveEffect(_effect);
         }
