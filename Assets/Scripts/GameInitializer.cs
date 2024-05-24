@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Infrastructure.UI;
 using Inventory.UI;
 using Mirror;
+using UIScripts;
 using UnityEngine;
 using Random = System.Random;
 
@@ -11,17 +13,16 @@ namespace Infrastructure
 {
     public class GameInitializer : MonoBehaviour
     {
-        [Header("UI")]
-        [SerializeField] private SkillButton _skillButton;
+        [Header("UI")] [SerializeField] private SkillButton _skillButton;
         [SerializeField] private HotbarInventoryCellUI _hotbarInventoryCell;
         [SerializeField] private Canvas _waitCanvas;
 
-        [Header("Map generation")] 
-        [SerializeField] private MapGenerator _landGenerator;
+        [Header("Map generation")] [SerializeField]
+        private MapGenerator _landGenerator;
+
         [SerializeField] private MapGenerator _resourceGenerator;
-        
-        [Header("Testing")]
-        [SerializeField] private bool _initNetworkManagerAutomatically;
+
+        [Header("Testing")] [SerializeField] private bool _initNetworkManagerAutomatically;
         [SerializeField] private bool _generateMap;
 
         private void Start()
@@ -40,7 +41,8 @@ namespace Infrastructure
 
         public InventoryUI InitializeInventoryUI()
         {
-            return FindObjectOfType<InventoryUI>();;
+            return FindObjectOfType<InventoryUI>();
+            ;
         }
 
         public EquipUI InitializeEquipUI()
@@ -90,15 +92,15 @@ namespace Infrastructure
             return hotbar;
         }
 
-        public void GenerateMaps(int seed)
+        public IEnumerator GenerateMaps(int seed)
         {
-            _landGenerator.GenerateMap(seed);
-            _resourceGenerator.GenerateMap(seed);
+            yield return StartCoroutine(_landGenerator.GenerateMap(seed));
+            yield return StartCoroutine(_resourceGenerator.GenerateMap(seed));
         }
 
         public void HideWaitingCanvas()
         {
-            _waitCanvas.gameObject.SetActive(false);
+            FindObjectOfType<LoadingScreen>().gameObject.SetActive(false);
         }
     }
 }

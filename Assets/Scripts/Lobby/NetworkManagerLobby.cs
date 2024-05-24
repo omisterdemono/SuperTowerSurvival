@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Infrastructure;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -167,6 +168,20 @@ public class NetworkManagerLobby : NetworkManager
             fill.fillAmount = loadingSceneAsync.progress;
             yield return null;
         }
+        Debug.Log("map loaded");
+        
+        System.Random random = new();
+        var gameInit = FindObjectOfType<GameInitializer>();
+        var seed = random.Next(0, 10000);
+        yield return StartCoroutine(gameInit.GenerateMaps(seed));
+        FinishWaiting();
+            
+        Debug.Log("generated maps with seed " + seed);
+    }
+    
+    public void FinishWaiting()
+    {
+        FindObjectOfType<GameInitializer>().HideWaitingCanvas();
     }
 
     public override void OnServerSceneChanged(string sceneName)

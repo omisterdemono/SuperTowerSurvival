@@ -46,25 +46,7 @@ public class PlayerSpawnSystem : NetworkBehaviour
 
         GameObject playerIstance = Instantiate(playerPrefabs[ChosenCharacters[nextIndex]], spawnPoints[nextIndex].position, Quaternion.identity);
         NetworkServer.Spawn(playerIstance, conn);
-
-        if (nextIndex == ChosenCharacters.Count - 1)
-        {
-            //last player spawned
-            System.Random random = new();
-            var gameInit = FindObjectOfType<GameInitializer>();
-            var seed = random.Next(0, 10000);
-            gameInit.GenerateMaps(seed);
-            FinishWaiting();
-            
-            Debug.Log("generated maps with seed " + seed);
-        }
         
         nextIndex++;
-    }
-
-    [ClientRpc]
-    public void FinishWaiting()
-    {
-        FindObjectOfType<GameInitializer>().HideWaitingCanvas();
     }
 }

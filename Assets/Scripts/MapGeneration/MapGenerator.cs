@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DefaultNamespace;
 using Infrastructure;
 using Mirror;
+using UIScripts;
 using Unity.Mathematics;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -53,6 +55,8 @@ public class MapGenerator : NetworkBehaviour
     [SerializeField] private ObtainableProps[] _obtainablesData;
 
     [SerializeField] private Transform _testPos;
+    
+    private LoadingScreen _loadingScreen;
 
     public float[,] NoiseMap { get; private set; }
 
@@ -61,31 +65,43 @@ public class MapGenerator : NetworkBehaviour
     private MapDisplay _mapDisplay;
     private bool _townHallIsPlaced;
 
-    public void GenerateMap(int seedFromPlayer)
+    public IEnumerator GenerateMap(int seedFromPlayer)
     {
         if (!isServer)
         {
-            return;
+            yield return null;
         }
 
+        _loadingScreen = FindObjectOfType<LoadingScreen>();
+        
         _mainTilemap.ClearAllTiles();
 
         switch (_generationMode)
         {
             case GenerationMode.Island:
+                _loadingScreen.SetText("Map generation");
+                Debug.Log("Map generator started");
+                
                 NoiseMap = Noise.GenerateNoiseMap(_mapWidth, _mapHeight, seedFromPlayer, _noiseScale, _octaves,
                     persistance,
                     lacunarity, offset);
                 TryPlaceMainHall();
                 CutIsland(NoiseMap);
                 PlaceTiles(seedFromPlayer);
+                
+                Debug.Log("Map generator finished");
                 break;
             case GenerationMode.Resources:
+                _loadingScreen.SetText("Resource generation");
+                Debug.Log("Resource generator started");
+                
                 NoiseMap = Noise.GenerateNoiseMap(_mapWidth, _mapHeight, seedFromPlayer, _noiseScale, _octaves,
                     persistance,
                     lacunarity, offset);
                 _landMapGenerator = FindObjectsOfType<MapGenerator>().First(o => o.name.Equals("Island Map Generator"));
                 PlaceObtainables();
+                
+                Debug.Log("Resource generator started");
                 break;
         }
     }
@@ -125,6 +141,7 @@ public class MapGenerator : NetworkBehaviour
 
                         NetworkServer.Spawn(obtainable.gameObject);
                         _placedObtainables.Add(obtainable.transform);
+                        _loadingScreen.SetProgressInPercent((x + y) / (_mapHeight * _mapWidth));
                         break;
                     }
                 }
@@ -157,6 +174,7 @@ public class MapGenerator : NetworkBehaviour
                         var index = random.Next(0, _randomColourValues.Length - 1);
                         var randomNumber = _randomColourValues[index];
                         PlaceTile(tilePosition, i, randomNumber);
+                        _loadingScreen.SetProgressInPercent((x + y) / (_mapHeight * _mapWidth));
                         break;
                     }
                 }
@@ -212,6 +230,7 @@ public class MapGenerator : NetworkBehaviour
             yOffset *= -1;
             yOffset += 1;
         }
+
         Debug.Log($"base found on x:{initialX} y:{initialY}");
 
         Vector3Int initialPos = new Vector3Int(initialX, initialY, 0);
