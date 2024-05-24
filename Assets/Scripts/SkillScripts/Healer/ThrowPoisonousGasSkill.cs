@@ -27,7 +27,6 @@ public class ThrowPoisonousGasSkill : ActiveSkill, ISkill
         poisonousGasScript.DamageRate = _damageRate;
         poisonousGasScript.WorkTime = _time;
         poisonousGasScript.SlowDownModifier = _slowDownModifier;
-        poisonousGasScript.ThrowTo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         NetworkServer.Spawn(poisonousGas, this.gameObject);
     }
