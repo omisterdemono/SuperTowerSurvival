@@ -78,12 +78,9 @@ namespace Inventory.UI
                     var recipeUI = Instantiate(_recipeSlotPrefab, _categoriesContent[index].transform);
                     recipeUI.Init(recipe, SetRecipeProperties);
                 }
-
-                if (index == 0)
-                {
-                    SetRecipeProperties(categoryRecipes[0]);
-                }
             }
+            
+            _recipePropertiesUI.gameObject.SetActive(false);
         }
 
         public void AttachInventory(PlayerInventory playerInventory)
@@ -97,20 +94,18 @@ namespace Inventory.UI
 
         private void SetRecipeProperties(CraftRecipeSO recipe)
         {
-            _recipePropertiesUI.gameObject.SetActive(true);
-
             if (_recipePropertiesUI.gameObject.activeSelf == false)
             {
                 _recipePropertiesUI.gameObject.SetActive(true);
             }
 
-            var (requiredItemsCounts, requiredItemsColors) = RequiredItemsCountsAndTextColors(recipe);
+            var (requiredItemsCounts, requiredItemsColors) = GetRequiredItemsCountsAndTextColors(recipe);
 
             _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted(recipe));
         }
 
-        private (List<string>, List<Color>) RequiredItemsCountsAndTextColors(CraftRecipeSO recipe)
+        private (List<string>, List<Color>) GetRequiredItemsCountsAndTextColors(CraftRecipeSO recipe)
         {
             var requiredItemsCounts = new List<string>();
             var requiredItemsColors = new List<Color>();
@@ -138,7 +133,7 @@ namespace Inventory.UI
             }
 
             var (requiredItemsCounts, requiredItemsColors) =
-                RequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
+                GetRequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
             _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted);
         }
