@@ -58,6 +58,7 @@ namespace Inventory.UI
 
         private void SwitchCategory(int index)
         {
+            _recipePropertiesUI.gameObject.SetActive(false);
             for (int i = 0; i < _categoriesSlots.Count; i++)
             {
                 _categoriesContent[i].SetActive(i == index);
@@ -78,6 +79,8 @@ namespace Inventory.UI
                     recipeUI.Init(recipe, SetRecipeProperties);
                 }
             }
+            
+            _recipePropertiesUI.gameObject.SetActive(false);
         }
 
         public void AttachInventory(PlayerInventory playerInventory)
@@ -96,13 +99,13 @@ namespace Inventory.UI
                 _recipePropertiesUI.gameObject.SetActive(true);
             }
 
-            var (requiredItemsCounts, requiredItemsColors) = RequiredItemsCountsAndTextColors(recipe);
+            var (requiredItemsCounts, requiredItemsColors) = GetRequiredItemsCountsAndTextColors(recipe);
 
-            _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(), 
+            _recipePropertiesUI.Init(recipe, requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted(recipe));
         }
 
-        private (List<string>, List<Color>) RequiredItemsCountsAndTextColors(CraftRecipeSO recipe)
+        private (List<string>, List<Color>) GetRequiredItemsCountsAndTextColors(CraftRecipeSO recipe)
         {
             var requiredItemsCounts = new List<string>();
             var requiredItemsColors = new List<Color>();
@@ -128,10 +131,10 @@ namespace Inventory.UI
             {
                 return;
             }
-            
+
             var (requiredItemsCounts, requiredItemsColors) =
-                RequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
-            _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(), 
+                GetRequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
+            _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted);
         }
     }
