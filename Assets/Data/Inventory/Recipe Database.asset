@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Recipe Database
   m_EditorClassIdentifier: 
   CategoryIcons:
-  - {fileID: 21300000, guid: 4d2f50841dea030419555cf676e19f30, type: 3}
+  - {fileID: 1228936661, guid: 75c5a065477a59243bb38deb7b8b62ed, type: 3}
   - {fileID: 21300000, guid: 5dafb19577e189345b8151e85ad87797, type: 3}
   - {fileID: 21300000, guid: 8fb65ad78a4020a4fb8f2aa246ab6b12, type: 3}
   - {fileID: 21300000, guid: 6bc85ca2ec15e314381daa9030db83e6, type: 3}
