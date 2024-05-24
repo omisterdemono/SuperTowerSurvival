@@ -98,7 +98,12 @@ namespace Infrastructure
 
         public void HideWaitingCanvas()
         {
-            _waitCanvas.gameObject.SetActive(false);
+            GameObject.FindGameObjectWithTag("LoadingScreen").gameObject.SetActive(false);
+        }
+
+        public void ShowWaitingCanvas()
+        {
+            GameObject.FindGameObjectWithTag("LoadingScreen").gameObject.SetActive(true);
         }
     }
 }
