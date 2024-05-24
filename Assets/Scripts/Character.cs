@@ -458,17 +458,33 @@ public class Character : NetworkBehaviour
 
     public void PowerUpHealth(int points)
     {
+        for (int i = 0; i < points; i++)
+        {
+            _health.MaxHealth += 10;
+        }
     }
 
     public void PowerUpWeapon(int points)
     {
+        for (int i = 0; i < points; i++)
+        {
+            _weaponDamageModifier *= 1.02f;
+        }
     }
 
     public void PowerUpSpeed(int points)
     {
+        for (int i = 0; i < points; i++)
+        {
+            _movement.Speed *= 1.02f;
+        }
     }
 
     public void PowerUpBuild(int points)
     {
+        for (int i = 0; i < points; i++)
+        {
+            _buildSpeedModifier *= 1.02f;
+        }
     }
 }
