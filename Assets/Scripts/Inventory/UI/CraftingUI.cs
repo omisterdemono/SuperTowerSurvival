@@ -58,6 +58,7 @@ namespace Inventory.UI
 
         private void SwitchCategory(int index)
         {
+            _recipePropertiesUI.gameObject.SetActive(false);
             for (int i = 0; i < _categoriesSlots.Count; i++)
             {
                 _categoriesContent[i].SetActive(i == index);
@@ -91,6 +92,8 @@ namespace Inventory.UI
 
         private void SetRecipeProperties(CraftRecipeSO recipe)
         {
+            _recipePropertiesUI.gameObject.SetActive(true);
+
             if (_recipePropertiesUI.gameObject.activeSelf == false)
             {
                 _recipePropertiesUI.gameObject.SetActive(true);

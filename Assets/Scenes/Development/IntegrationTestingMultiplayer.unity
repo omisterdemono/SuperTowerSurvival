@@ -103369,7 +103369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &749084628
 Transform:
   m_ObjectHideFlags: 0
@@ -107757,9 +107757,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -75.714
       objectReference: {fileID: 0}
+    - target: {fileID: 1847540420889005823, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: _lackRequiredItemsColor.b
+      value: 0.05882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847540420889005823, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: _lackRequiredItemsColor.g
+      value: 0.05882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847540420889005823, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: _lackRequiredItemsColor.r
+      value: 0.7254902
+      objectReference: {fileID: 0}
     - target: {fileID: 2679020076946032478, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
       propertyPath: sceneId
       value: 3842398472
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203770516457965637, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: m_text
+      value: Required items
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193689586718889761, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -660
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193689586718889761, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448526553024946157, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: 7856400735667429812, guid: 304ace3035041b544a0a641e6ca8e28d, type: 3}
       propertyPath: sceneId
@@ -107828,7 +107856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2847321233189462981, guid: 5eb12325badb26348ac042290fd50ff4, type: 3}
       propertyPath: _initNetworkManagerAutomatically
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9033296498290315009, guid: 5eb12325badb26348ac042290fd50ff4, type: 3}
       propertyPath: m_Name
