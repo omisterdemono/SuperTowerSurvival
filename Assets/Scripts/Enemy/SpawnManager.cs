@@ -136,7 +136,7 @@ public class SpawnManager : NetworkBehaviour
         _actualSpawnedNumber++;
         //GameObject newEnemy = Instantiate(type, new Vector3(posX, posY), Quaternion.identity);
         GameObject newEnemy = Instantiate(type, GetSpawnPosition(), Quaternion.identity);
-
+        Debug.Log($"[!] newEnemy - {newEnemy}");
         _timeToNextSpawn = _cooldownSeconds;
         NetworkServer.Spawn(newEnemy);
     }

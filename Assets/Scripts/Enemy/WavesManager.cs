@@ -27,17 +27,20 @@ public class WavesManager : MonoBehaviour
         firstWave.SetParams(1, initEnemiesNumber);
         _waves.Add(firstWave);
         GenerateWaves();
-        while (_worldCycle == null)
-        {
-            _worldCycle = GetComponent<WorldLight>();
-        }
+            //Debug.Log($"[!] worldCycle before cycle {_worldCycle}");
+            //while (_worldCycle == null)
+            //{
+            //    _worldCycle = GetComponent<WorldLight>();
+            //}
+            //Debug.Log($"[!] _worldCycle after cycle {_worldCycle}");
         _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
-        UpdateSpawnersParams();
+        //UpdateSpawnersParams();
     }
 
     public void OnDestroy()
     {
-        _worldCycle.OnIsNightChanged -= UpdateSpawnersParams;
+        //Debug.Log($"[!] _worldCycle ENDstate {_worldCycle}");
+        //_worldCycle.OnIsNightChanged -= UpdateSpawnersParams;
     }
 
     void Update()
@@ -68,11 +71,12 @@ public class WavesManager : MonoBehaviour
         {
             currentWave = _waves.Last();
         }
-
-        while (_spawners == null)
-        {
-            _spawners = FindObjectsOfType<SpawnManager>().ToList();
-        }
+            //Debug.Log($"[!] spawners before cycle {_spawners}");
+            //while (_spawners == null)
+            //{
+            //    _spawners = FindObjectsOfType<SpawnManager>().ToList();
+            //}
+            //Debug.Log($"[!] spawners after cycle {_spawners}");
         foreach (var spawner in _spawners)
         {
             spawner.UpdateSpawnerParams(currentWave.enemiesPerSpawner);
