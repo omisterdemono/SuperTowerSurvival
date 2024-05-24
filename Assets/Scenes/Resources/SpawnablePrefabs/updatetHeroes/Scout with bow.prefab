@@ -390,7 +390,6 @@ MonoBehaviour:
   - build_hammer
   - iron_pickaxe
   - iron_axe
-  _buildHammerSlotIndex: 1
 --- !u!114 &-9221005935386559535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +406,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
-  type: 1
+  _entityType: 1
   _healthBar: {fileID: 0}
 --- !u!114 &-8318668041036116551
 MonoBehaviour:
@@ -489,7 +488,7 @@ MonoBehaviour:
   _throwRadius: 1.5
   _pickupTrigger: {fileID: 6939760462328797127}
   _defaultItems:
-  - {fileID: 11400000, guid: 59d4342d0d03b5645969dac7de4cfb47, type: 2}
+  - {fileID: 11400000, guid: 534b27c549f7c184c959b03b64c33a4a, type: 2}
   - {fileID: 11400000, guid: 073a53729ae00d747aea31df0cf3fab7, type: 2}
   - {fileID: 11400000, guid: 6b0b23aa013d08640bc91e738abff250, type: 2}
   - {fileID: 11400000, guid: ae4cedc83bf7e6f41928b139525dce6a, type: 2}

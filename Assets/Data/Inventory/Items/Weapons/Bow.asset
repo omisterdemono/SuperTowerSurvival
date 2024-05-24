@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d72383cf0bb53443a52a5adb790c875, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: rifle
+  <Id>k__BackingField: bow
   <IsStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Rifle
+  <Name>k__BackingField: Bow
   <Description>k__BackingField: 
-  <Sprite>k__BackingField: {fileID: 21300000, guid: e55847815d286aa489d74624e1729dfb, type: 3}
+  <Sprite>k__BackingField: {fileID: -1972509457, guid: 0195a7a9638984540b225f741eed9339, type: 3}
   <CanBeDropped>k__BackingField: 0
   ItemAction: {fileID: 11400000, guid: d7dc6d663a0f412459e949383dbd8d95, type: 2}
   ActionSFX: {fileID: 0}
