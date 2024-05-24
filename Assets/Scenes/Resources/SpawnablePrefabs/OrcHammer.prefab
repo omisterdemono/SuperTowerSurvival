@@ -201,6 +201,7 @@ MonoBehaviour:
   _damage: 5
   _needFlip: 1
   _cooldownSeconds: 0.8333333
+  _item: {fileID: 0}
 --- !u!61 &1554295862574232063
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -433,7 +434,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _maxHealth: 400
+  _maxHealth: 100
   type: 2
   _healthBar: {fileID: 7775161693985467286}
 --- !u!114 &955783698807349197

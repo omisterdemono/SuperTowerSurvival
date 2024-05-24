@@ -1300,7 +1300,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 77854706f09f7634c9ed9156a3958fe5, type: 2}
     - target: {fileID: 5283820900120437926, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
       propertyPath: _damage
-      value: 7
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6729883625000520483, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
       propertyPath: m_Name
