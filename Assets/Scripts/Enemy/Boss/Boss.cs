@@ -28,6 +28,7 @@ public class Boss : NetworkBehaviour
     [SerializeField] private float rangeCooldownSec = 5;
     private CooldownComponent rangeCooldownComponent;
     private HealthComponent healthComponent;
+    private SpawnManager _spawnManager;
 
     private Animator animator;
 
@@ -37,6 +38,8 @@ public class Boss : NetworkBehaviour
 
         rangeCooldownComponent = new CooldownComponent() { CooldownSeconds = rangeCooldownSec };
         healthComponent = GetComponent<HealthComponent>();
+        _spawnManager = FindObjectOfType<SpawnManager>();
+        
         //healthComponent.ChangeHealth(1000);
         
         healthComponent.OnDeath += PlayBossDeath;
@@ -71,6 +74,7 @@ public class Boss : NetworkBehaviour
     private void Cmd_Die(Vector3 position)
     {
         GameObject explosion = Instantiate(_deathEffect, position, Quaternion.identity);
+        _spawnManager.isBossExisting = false;
         NetworkServer.Spawn(explosion);
         NetworkServer.Destroy(this.gameObject);
     }
