@@ -45,7 +45,7 @@ public class WorldLight : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer)
+        if (isServer)
         {
             ServerCalculation();
         }

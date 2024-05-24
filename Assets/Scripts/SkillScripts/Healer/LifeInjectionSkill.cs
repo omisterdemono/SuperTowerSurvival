@@ -42,13 +42,13 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("HitBox") && collision is BoxCollider2D && collision.GetComponentInParent<Character>())
+        if (collision.GetComponentInParent<Character>() && collision.CompareTag("HitBox") && collision is BoxCollider2D)
             _playerColliders.Add(collision.GetComponentInParent<Character>());
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("HitBox") && collision is BoxCollider2D && collision.GetComponentInParent<Character>())
+        if (collision.GetComponentInParent<Character>() && collision.CompareTag("HitBox") && collision is BoxCollider2D)
             _playerColliders.Remove(collision.GetComponentInParent<Character>());
     }
 
