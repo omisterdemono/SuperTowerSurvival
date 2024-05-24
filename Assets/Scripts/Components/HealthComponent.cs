@@ -73,6 +73,8 @@ namespace Components
         [ClientRpc]
         public void Damage(float damageHP)
         {
+            if (!isServer)
+                return;
             if (CurrentHealth <= damageHP)
             {
                 CurrentHealth = 0;

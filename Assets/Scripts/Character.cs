@@ -357,6 +357,7 @@ public class Character : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
     private void OnDeath()
     {
         IsAlive = false;
