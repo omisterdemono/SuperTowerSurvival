@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4025250424965208966}
   - component: {fileID: 4502363474407865590}
   - component: {fileID: 8897313311578346724}
+  - component: {fileID: 4640816780674667005}
   m_Layer: 7
   m_Name: Stone
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7441947742660689460
 SpriteRenderer:
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6860194334041426106
 MonoBehaviour:
@@ -107,7 +108,8 @@ MonoBehaviour:
   _loot:
   - {fileID: 11400000, guid: 72ad3ee0388eaef4e8e0f6fbc14d4bbd, type: 2}
   - {fileID: 11400000, guid: da6d18c9db0691a48b51f88f873f0422, type: 2}
-  _quantity: 0500000001000000
+  - {fileID: 11400000, guid: a045d9f49da5e4d43adb915cd7262c7a, type: 2}
+  _quantity: 050000000100000002000000
   _instrument: 0
 --- !u!114 &6889792636589908369
 MonoBehaviour:
@@ -122,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 933157504
+  _assetId: 2789650488
   serverOnly: 0
   visible: 0
   hasSpawned: 0
@@ -224,3 +226,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.91, y: 2.239014}
   m_EdgeRadius: 0
+--- !u!50 &4640816780674667005
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667864055236875934}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

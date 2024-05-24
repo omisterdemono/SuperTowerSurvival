@@ -37,9 +37,7 @@ public class Character : NetworkBehaviour
 
     //todo tools will be more generic in the future and these two list should be removed
     [SerializeField] private List<string> _toolIds = new();
-
-    [SerializeField] private int _buildHammerSlotIndex = 1;
-
+    
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
 
@@ -447,9 +445,9 @@ public class Character : NetworkBehaviour
 
     public void PowerUpSkills(PowerUpStruct powerUp)
     {
-        (_activeSkills[0] as ISkill).PowerUpSkillPoint(powerUp.ActiveSkill1);
-        (_activeSkills[1] as ISkill).PowerUpSkillPoint(powerUp.ActiveSkill2);
-        _passiveSkill.PowerUp(powerUp.PassiveSkill);
+        (_activeSkills[0] as ISkill)?.PowerUpSkillPoint(powerUp.ActiveSkill1);
+        (_activeSkills[1] as ISkill)?.PowerUpSkillPoint(powerUp.ActiveSkill2);
+        _passiveSkill?.PowerUp(powerUp.PassiveSkill);
         PowerUpHealth(powerUp.Health);
         PowerUpWeapon(powerUp.AttackDamage);
         PowerUpSpeed(powerUp.Speed);
