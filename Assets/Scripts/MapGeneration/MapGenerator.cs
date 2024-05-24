@@ -63,10 +63,10 @@ public class MapGenerator : NetworkBehaviour
 
     public void GenerateMap(int seedFromPlayer)
     {
-        // if (!isServer)
-        // {
-        //     return;
-        // }
+        if (!isServer)
+        {
+            return;
+        }
 
         _mainTilemap.ClearAllTiles();
 
