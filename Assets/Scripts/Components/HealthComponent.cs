@@ -1,14 +1,16 @@
 using System;
 using Infrastructure.UI;
 using Mirror;
+using UIScripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Components
 {
     public class HealthComponent : NetworkBehaviour
     {
-        public enum Type
+        public enum EntityType
         {
             Default,
             Player,
@@ -24,21 +26,12 @@ namespace Components
 
 
         [SerializeField] private float _maxHealth;
-        [SerializeField] public Type type;
+        [FormerlySerializedAs("_type")] [FormerlySerializedAs("type")] [SerializeField] public EntityType _entityType;
 
         [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
 
-        private void CurrentHealthHook(float oldValue, float newValue)
-        {
-            _hpRatio = _currentHealth / _maxHealth;
-            if (_imageHP != null)
-            {
-                _imageHP.fillAmount = _hpRatio;
-            }
-            OnCurrentHealthChanged?.Invoke();
-        }
-
         [SerializeField] private GameObject _healthBar;
+        private HealthBarUI _healthBarUI;
 
         [SyncVar] private float _hpRatio;
         private CanvasGroup _canvasGroupHB;
@@ -91,6 +84,16 @@ namespace Components
             OnEntityHit?.Invoke(this, EventArgs.Empty);
             OnHit?.Invoke();
         }
+        
+        private void CurrentHealthHook(float oldValue, float newValue)
+        {
+            _hpRatio = _currentHealth / _maxHealth;
+            if (_healthBarUI != null)
+            {
+                _healthBarUI.SetHealthInPercent(_hpRatio);
+            }
+            OnCurrentHealthChanged?.Invoke();
+        }
 
         [Command(requiresAuthority = false)]
         public void ChangeHealth(float health)
@@ -104,24 +107,13 @@ namespace Components
             ChangeHealth(MaxHealth);
         }
 
-        void Start()
+        private void Start()
         {
-            //if (isLocalPlayer)
-            //{
-            //    _currentHealth = _maxHealth;
-            //}
             InitHealth();
 
-            if (_healthBar != null)
+            if (_entityType == EntityType.Player && isOwned)
             {
-                _canvasGroupHB = _healthBar.GetComponentInChildren<CanvasGroup>();
-                _imageHP = _canvasGroupHB.transform.GetChild(1).GetComponentInChildren<Image>();
-            }
-
-            if (type == Type.Player && isOwned)
-            {
-                var healthbar = FindObjectOfType<PlayerHealthBarUI>();
-                _imageHP = healthbar.transform.GetChild(0).GetComponentInChildren<Image>();
+                _healthBarUI = FindObjectOfType<PlayerHealthbarUI>();
             }
         }
     }

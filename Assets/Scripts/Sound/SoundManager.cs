@@ -75,21 +75,21 @@ public class SoundManager : MonoBehaviour
     {
         HealthComponent health = (HealthComponent)sender;
         var position = health.transform.position;
-        var type = health.type;
-        if (type == HealthComponent.Type.Player)
+        var type = health._entityType;
+        if (type == HealthComponent.EntityType.Player)
         {
             //PlaySound(audioClipsSO.playerHit, Camera.main.transform.position, 0.7f);
             PlaySound(audioClipsSO.playerHit, position, 0.7f);
         }
-        else if (type == HealthComponent.Type.Zombie)
+        else if (type == HealthComponent.EntityType.Zombie)
         {
             PlaySound(audioClipsSO.zombieHit, position, 0.7f);
         }
-        else if (type == HealthComponent.Type.Skeleton)
+        else if (type == HealthComponent.EntityType.Skeleton)
         {
             PlaySound(audioClipsSO.skeletonHit, position, 0.7f);
         }
-        else if (type == HealthComponent.Type.Structure)
+        else if (type == HealthComponent.EntityType.Structure)
         {
             //PlaySound(audioClipsSO.structureHit, position, 0.7f);
         }
