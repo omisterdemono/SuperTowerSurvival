@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ddfaa54589244b5ba5adf41fbed7859, type: 3}
-  m_Name: Tree
+  m_Name: TreeSpawnProps
   m_EditorClassIdentifier: 
   Name: Tree 1
   MinHeight: 0.6
   MaxHeight: 0.7
-  ObtainablePrefab: {fileID: 6860194334041426106, guid: c852976be9121814a8a23e1d47407ab8, type: 3}
+  ObtainablePrefab: {fileID: 6860194334041426106, guid: 36f32321bb5d351449c6184fc444c508, type: 3}
   TileForTest: {fileID: 11400000, guid: 66144c970372bcb4a9f5119ef17bba72, type: 2}
   DistanceThreshold: 5

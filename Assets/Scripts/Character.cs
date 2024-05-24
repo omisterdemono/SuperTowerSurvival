@@ -37,9 +37,7 @@ public class Character : NetworkBehaviour
 
     //todo tools will be more generic in the future and these two list should be removed
     [SerializeField] private List<string> _toolIds = new();
-
-    [SerializeField] private int _buildHammerSlotIndex = 1;
-
+    
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
 

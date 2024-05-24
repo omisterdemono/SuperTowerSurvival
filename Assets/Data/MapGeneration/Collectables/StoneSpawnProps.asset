@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ddfaa54589244b5ba5adf41fbed7859, type: 3}
-  m_Name: Stone
+  m_Name: StoneSpawnProps
   m_EditorClassIdentifier: 
   Name: Stone
   MinHeight: 0.75
   MaxHeight: 1
-  ObtainablePrefab: {fileID: 6860194334041426106, guid: 3070604ba89dc8042be3b4ab7df15e64, type: 3}
+  ObtainablePrefab: {fileID: 6860194334041426106, guid: b2bbfe608eb038f4291fcfd9c1dfc6f5, type: 3}
   TileForTest: {fileID: 11400000, guid: 9eea1fbf93f2aea4aa24f7d77bfe6b2f, type: 2}
   DistanceThreshold: 5
