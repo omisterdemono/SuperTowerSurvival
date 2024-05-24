@@ -88,7 +88,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &6860194334041426106
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 50
-  type: 0
+  _entityType: 0
   _healthBar: {fileID: 0}
 --- !u!61 &6810683371858705482
 BoxCollider2D:
@@ -178,7 +178,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01901409, y: -1.4072441}
+  m_Offset: {x: -0.01901409, y: -0.21}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -189,7 +189,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9236608, y: 1.8446534}
+  m_Size: {x: 0.9236608, y: 1.69}
   m_EdgeRadius: 0
 --- !u!70 &4737026514459488176
 CapsuleCollider2D:
@@ -223,9 +223,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0029919147, y: -1.4178586}
-  m_Size: {x: 0.9314375, y: 1.830133}
-  m_Direction: 0
+  m_Offset: {x: 0.0029918908, y: -0.7039054}
+  m_Size: {x: 0.9314376, y: 0.7101312}
+  m_Direction: 1
 --- !u!50 &6704618844119183777
 Rigidbody2D:
   serializedVersion: 4

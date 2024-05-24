@@ -9,6 +9,7 @@ using Unity.Mathematics;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using MathF = System.MathF;
+using Random = System.Random;
 
 public class MapGenerator : NetworkBehaviour
 {
@@ -50,7 +51,7 @@ public class MapGenerator : NetworkBehaviour
     private MapGenerator _landMapGenerator;
 
     [SerializeField] private ObtainableProps[] _obtainablesData;
-    
+
     [SerializeField] private Transform _testPos;
 
     public float[,] NoiseMap { get; private set; }
@@ -62,10 +63,10 @@ public class MapGenerator : NetworkBehaviour
 
     public void GenerateMap(int seedFromPlayer)
     {
-        if (!isServer)
-        {
-            return;
-        }
+        // if (!isServer)
+        // {
+        //     return;
+        // }
 
         _mainTilemap.ClearAllTiles();
 
@@ -75,89 +76,91 @@ public class MapGenerator : NetworkBehaviour
                 NoiseMap = Noise.GenerateNoiseMap(_mapWidth, _mapHeight, seedFromPlayer, _noiseScale, _octaves,
                     persistance,
                     lacunarity, offset);
+                TryPlaceMainHall();
                 CutIsland(NoiseMap);
-
-                System.Random random = new(seedFromPlayer);
-
-                for (int y = 0; y < _mapHeight; y++)
-                {
-                    for (int x = 0; x < _mapWidth; x++)
-                    {
-                        float currentHeight = NoiseMap[x, y];
-
-                        for (int i = 0; i < _regions.Length; i++)
-                        {
-                            if (currentHeight > _regions[i].MinHeight && currentHeight <= _regions[i].MaxHeight)
-                            {
-                                var tilePosition = new Vector3Int(x - _mapWidth / 2, y - _mapHeight / 2);
-
-                                if (IsWaterTile(i))
-                                {
-                                    PlaceWaterTile(tilePosition, i);
-                                    break;
-                                }
-
-                                var index = random.Next(0, _randomColourValues.Length - 1);
-                                var randomNumber = _randomColourValues[index];
-                                PlaceTile(tilePosition, i, randomNumber);
-
-                                if (!_townHallIsPlaced && _regions[i].Name.Equals(_townHallSpawnBiome))
-                                {
-                                    TryPlaceMainHall(tilePosition, x, y, i);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-
+                PlaceTiles(seedFromPlayer);
                 break;
             case GenerationMode.Resources:
                 NoiseMap = Noise.GenerateNoiseMap(_mapWidth, _mapHeight, seedFromPlayer, _noiseScale, _octaves,
                     persistance,
                     lacunarity, offset);
                 _landMapGenerator = FindObjectsOfType<MapGenerator>().First(o => o.name.Equals("Island Map Generator"));
+                PlaceObtainables();
+                break;
+        }
+    }
 
-                var _placedObtainables = new List<Transform>();
+    private void PlaceObtainables()
+    {
+        var _placedObtainables = new List<Transform>();
 
-                for (int y = 0; y < _mapHeight; y++)
+        for (int y = 0; y < _mapHeight; y++)
+        {
+            for (int x = 0; x < _mapWidth; x++)
+            {
+                float heightOnLand = _landMapGenerator.NoiseMap[x, y];
+
+                for (int i = 0; i < _obtainablesData.Length; i++)
                 {
-                    for (int x = 0; x < _mapWidth; x++)
+                    if (!(heightOnLand >= _obtainablesData[i].MinHeight) ||
+                        !(heightOnLand <= _obtainablesData[i].MaxHeight))
                     {
-                        float heightOnLand = _landMapGenerator.NoiseMap[x, y];
+                        continue;
+                    }
 
-                        for (int i = 0; i < _obtainablesData.Length; i++)
-                        {
-                            if (!(heightOnLand >= _obtainablesData[i].MinHeight) ||
-                                !(heightOnLand <= _obtainablesData[i].MaxHeight))
-                            {
-                                continue;
-                            }
+                    float heightForResource = NoiseMap[x, y];
+                    if (!(heightForResource >= _obtainablesData[i].MinHeight) ||
+                        !(heightForResource <= _obtainablesData[i].MaxHeight))
+                    {
+                        continue;
+                    }
 
-                            float heightForResource = NoiseMap[x, y];
-                            if (!(heightForResource >= _obtainablesData[i].MinHeight) ||
-                                !(heightForResource <= _obtainablesData[i].MaxHeight))
-                            {
-                                continue;
-                            }
+                    var expectedPosition = new Vector3(x - _mapWidth / 2, y - _mapHeight / 2, 0);
+                    var (closest, distanceToClosest) = _placedObtainables.Closest(expectedPosition);
+                    if (closest is null || distanceToClosest >= _obtainablesData[i].DistanceThreshold)
+                    {
+                        var obtainable = Instantiate(_obtainablesData[i].ObtainablePrefab,
+                            expectedPosition,
+                            Quaternion.identity, _mainTilemap.transform);
 
-                            var expectedPosition = new Vector3(x - _mapWidth / 2, y - _mapHeight / 2, 0);
-                            var (closest, distanceToClosest) = _placedObtainables.Closest(expectedPosition);
-                            if (closest is null || distanceToClosest >= _obtainablesData[i].DistanceThreshold)
-                            {
-                                var obtainable = Instantiate(_obtainablesData[i].ObtainablePrefab,
-                                    expectedPosition,
-                                    Quaternion.identity, _mainTilemap.transform);
-
-                                NetworkServer.Spawn(obtainable.gameObject);
-                                _placedObtainables.Add(obtainable.transform);
-                                break;
-                            }
-                        }
+                        NetworkServer.Spawn(obtainable.gameObject);
+                        _placedObtainables.Add(obtainable.transform);
+                        break;
                     }
                 }
+            }
+        }
+    }
 
-                break;
+    private void PlaceTiles(int seedFromPlayer)
+    {
+        Random random = new(seedFromPlayer);
+
+        for (int y = 0; y < _mapHeight; y++)
+        {
+            for (int x = 0; x < _mapWidth; x++)
+            {
+                float currentHeight = NoiseMap[x, y];
+
+                for (int i = 0; i < _regions.Length; i++)
+                {
+                    if (currentHeight > _regions[i].MinHeight && currentHeight <= _regions[i].MaxHeight)
+                    {
+                        var tilePosition = new Vector3Int(x - _mapWidth / 2, y - _mapHeight / 2);
+
+                        if (IsWaterTile(i))
+                        {
+                            PlaceWaterTile(tilePosition, i);
+                            break;
+                        }
+
+                        var index = random.Next(0, _randomColourValues.Length - 1);
+                        var randomNumber = _randomColourValues[index];
+                        PlaceTile(tilePosition, i, randomNumber);
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -165,6 +168,13 @@ public class MapGenerator : NetworkBehaviour
     {
         var x = MathF.Truncate(worldPosition.x) + 250.0f;
         var y = -1.0f * (Math.Round(worldPosition.y / 10.0) * 10.0) + 250.0f;
+        return ((int)x, (int)y);
+    }
+
+    public (int, int) WorldCoordsToNoiseArray(int worldX, int worldY)
+    {
+        var x = MathF.Truncate(worldX) + _mapWidth / 2.0f;
+        var y = -1.0f * (Math.Round(worldY / 10.0) * 10.0) + _mapHeight / 2.0f;
         return ((int)x, (int)y);
     }
 
@@ -183,39 +193,32 @@ public class MapGenerator : NetworkBehaviour
         return null;
     }
 
-    private void TryPlaceMainHall(Vector3Int tilePosition, int x, int y, int i)
+    private void TryPlaceMainHall()
     {
-        if (x < _mainHallRequiredSpace || y <= _mainHallRequiredSpace)
-        {
-            return;
-        }
-        
-        for (int j = x - _mainHallRequiredSpace; j < x + _mainHallRequiredSpace; j++)
-        {
-            for (int k = y - _mainHallRequiredSpace; k < y + _mainHallRequiredSpace; k++)
-            {
-                if (NoiseMap[j, k] < _regions[i].MinHeight || NoiseMap[j, k] > _regions[i].MaxHeight)
-                {
-                    return;
-                }
-            }
-        }
+        int initialX = 0, initialY = 0;
+        int x = 0, y = 0;
+        int yOffset = 0;
 
-        Debug.Log("base found on " + tilePosition);
-        for (int j = x - _mainHallRequiredSpace; j < x + _mainHallRequiredSpace; j++)
+        for (int i = 0; i < _mapHeight; i++)
         {
-            for (int k = y - _mainHallRequiredSpace; k < y + _mainHallRequiredSpace; k++)
-            {
-                var newTilePos = new Vector3Int(j - _mapWidth / 2, k - _mapHeight / 2, 0);
-                _mainTilemap.SetTileFlags(newTilePos, TileFlags.None);
-                _mainTilemap.SetColor(newTilePos, Color.red);
-            }
-        }
+            (x, y) = WorldCoordsToNoiseArray(initialX, initialY);
+            initialY += yOffset;
 
-        PlaceBase(tilePosition);
+            if (AreaIsSuitable(x, y, i))
+            {
+                break;
+            }
+
+            yOffset *= -1;
+            yOffset += 1;
+        }
+        Debug.Log($"base found on x:{initialX} y:{initialY}");
+
+        Vector3Int initialPos = new Vector3Int(initialX, initialY, 0);
+        PlaceBase(initialPos);
 
         var spawnPoints = GameObject.FindGameObjectWithTag("SpawnPoints").transform;
-        spawnPoints.position = tilePosition;
+        spawnPoints.position = initialPos;
 
         var characters = FindObjectsOfType<Character>();
         for (int j = 0; j < characters.Length; j++)
@@ -225,6 +228,22 @@ public class MapGenerator : NetworkBehaviour
         }
 
         _townHallIsPlaced = true;
+    }
+
+    private bool AreaIsSuitable(int x, int y, int i)
+    {
+        for (int j = x - _mainHallRequiredSpace; j < x + _mainHallRequiredSpace; j++)
+        {
+            for (int k = y - _mainHallRequiredSpace; k < y + _mainHallRequiredSpace; k++)
+            {
+                if (NoiseMap[j, k] < _regions[i].MinHeight || NoiseMap[j, k] > _regions[i].MaxHeight)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     [ClientRpc]

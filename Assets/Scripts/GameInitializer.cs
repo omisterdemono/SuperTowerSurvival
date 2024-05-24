@@ -5,6 +5,7 @@ using Infrastructure.UI;
 using Inventory.UI;
 using Mirror;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Infrastructure
 {
@@ -21,12 +22,19 @@ namespace Infrastructure
         
         [Header("Testing")]
         [SerializeField] private bool _initNetworkManagerAutomatically;
+        [SerializeField] private bool _generateMap;
 
         private void Start()
         {
             if (_initNetworkManagerAutomatically)
             {
                 FindObjectOfType<NetworkManager>().StartHost();
+            }
+
+            if (_generateMap)
+            {
+                var random = new Random();
+                GenerateMaps(random.Next(0, 10000));
             }
         }
 
