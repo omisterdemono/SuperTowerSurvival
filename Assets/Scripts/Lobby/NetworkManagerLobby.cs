@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NetworkManagerLobby : NetworkManager
 {
@@ -144,7 +145,28 @@ public class NetworkManagerLobby : NetworkManager
             }
         }
 
+        
         base.ServerChangeScene(newSceneName);
+        StartCoroutine(LoadSceneAsync());
+    }
+
+    //public override void OnClientSceneChanged()
+    //{
+    //    base.OnClientSceneChanged();
+    //    StartCoroutine(LoadSceneAsync());
+    //}
+
+    IEnumerator LoadSceneAsync()
+    {
+        GameObject loadingScreen = GameObject.FindWithTag("LoadingScreen");
+        loadingScreen.GetComponent<CanvasGroup>().alpha = 1;
+        Image fill = loadingScreen.transform.GetChild(1).GetComponent<Image>();
+
+        while (!loadingSceneAsync.isDone)
+        {
+            fill.fillAmount = loadingSceneAsync.progress;
+            yield return null;
+        }
     }
 
     public override void OnServerSceneChanged(string sceneName)

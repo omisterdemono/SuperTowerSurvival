@@ -22,6 +22,7 @@ TagManager:
   - InventoryHolderUI
   - SpawnPoints
   - HitBox
+  - LoadingScreen
   layers:
   - Default
   - TransparentFX
