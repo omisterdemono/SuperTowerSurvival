@@ -107828,7 +107828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2847321233189462981, guid: 5eb12325badb26348ac042290fd50ff4, type: 3}
       propertyPath: _initNetworkManagerAutomatically
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9033296498290315009, guid: 5eb12325badb26348ac042290fd50ff4, type: 3}
       propertyPath: m_Name
