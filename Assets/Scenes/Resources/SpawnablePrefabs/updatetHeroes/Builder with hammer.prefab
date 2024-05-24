@@ -5247,7 +5247,6 @@ MonoBehaviour:
   - build_hammer
   - iron_pickaxe
   - iron_axe
-  _buildHammerSlotIndex: 1
 --- !u!114 &3959815473069890088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5276,7 +5275,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
-  type: 1
+  _entityType: 1
   _healthBar: {fileID: 0}
 --- !u!114 &2472881815842148988
 MonoBehaviour:
@@ -5854,7 +5853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_Name
-      value: Mallet
+      value: BuildHammer
       objectReference: {fileID: 0}
     - target: {fileID: 1043520777177001528, guid: 45107c5b643f101408a96fc6adb8a742, type: 3}
       propertyPath: m_IsActive

@@ -145,9 +145,8 @@ public class NetworkManagerLobby : NetworkManager
             }
         }
 
-        
         base.ServerChangeScene(newSceneName);
-        StartCoroutine(LoadSceneAsync());
+        // StartCoroutine(LoadSceneAsync());
     }
 
     //public override void OnClientSceneChanged()
