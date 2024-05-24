@@ -1301,6 +1301,14 @@ PrefabInstance:
       propertyPath: _damage
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 5283820900120437926, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
+      propertyPath: _desiredTargets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5283820900120437926, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
+      propertyPath: _desiredTargets.Array.data[1]
+      value: Boss
+      objectReference: {fileID: 0}
     - target: {fileID: 6729883625000520483, guid: 17850f8ae521b3542ad89095d405ab3c, type: 3}
       propertyPath: m_Name
       value: Shovel

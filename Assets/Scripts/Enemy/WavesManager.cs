@@ -16,19 +16,23 @@ public class WavesManager : MonoBehaviour
 
     private void Awake()
     {
-        _worldCycle = GetComponent<WorldLight>();
-        _spawners = FindObjectsOfType<SpawnManager>().ToList();
     }
 
     void Start()
     {
+        _worldCycle = GetComponent<WorldLight>();
+        _spawners = FindObjectsOfType<SpawnManager>().ToList();
         _waves = new List<Wave>();
         var firstWave = new Wave();
         firstWave.SetParams(1, initEnemiesNumber);
         _waves.Add(firstWave);
         GenerateWaves();
-        UpdateSpawnersParams();
+        while (_worldCycle == null)
+        {
+            _worldCycle = GetComponent<WorldLight>();
+        }
         _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
+        UpdateSpawnersParams();
     }
 
     public void OnDestroy()
@@ -55,10 +59,19 @@ public class WavesManager : MonoBehaviour
     private void UpdateSpawnersParams()
     {
         int currentDay = _worldCycle.GetDay();
+        //if(_waves == null)
+        //{
+        //    _wa
+        //}
         Wave currentWave = _waves.FirstOrDefault(w => w.waveID == currentDay);
         if (currentDay > _waves.Last()?.waveID)
         {
             currentWave = _waves.Last();
+        }
+
+        while (_spawners == null)
+        {
+            _spawners = FindObjectsOfType<SpawnManager>().ToList();
         }
         foreach (var spawner in _spawners)
         {

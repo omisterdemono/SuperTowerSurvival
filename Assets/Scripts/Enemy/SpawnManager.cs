@@ -11,6 +11,7 @@ public class SpawnManager : NetworkBehaviour
     [SerializeField] private int _maxSpawnedNumber = 5;
     [SerializeField] private float _cooldownSeconds;
     [SerializeField] private List<GameObject> _enemyTypesPrefabs = new List<GameObject>();
+    [SerializeField] private GameObject _bossPrefab;
     [SerializeField] private List<float> _enemyTypesPrefabsWeights = new List<float>();
 
     [SyncVar] public int _actualSpawnedNumber = 0;
@@ -18,9 +19,12 @@ public class SpawnManager : NetworkBehaviour
     private float _timeToNextSpawn = 0;
     private WorldLight _worldLight;
     private List<Character> players;
+    //bool isBossExisting;
+    public bool isBossExisting;
 
     void Start()
     {
+        isBossExisting = false;
         if (_enemyTypesPrefabs.Count() != _enemyTypesPrefabsWeights.Count())
         {
             throw new System.Exception("Invalid key-value");
@@ -82,12 +86,17 @@ public class SpawnManager : NetworkBehaviour
         {
             SpawnEnemy();
         }
+        if (!isBossExisting)
+        {
+            //SpawnBoss();
+        }
     }
 
     private Vector3 GetRandomPlayerPosition() => players[Random.Range(0, players.Count)].transform.position;
 
     private Vector3 GetSpawnPosition()
     {
+        
         var playerPos = GetRandomPlayerPosition();
         
         while (true)
@@ -118,17 +127,6 @@ public class SpawnManager : NetworkBehaviour
             return;
         }
 
-        //float distance = Random.value * _spawnInnerRadius;
-
-        //float radius = Random.Range(_spawnInnerRadius, _spawnOuterRadius);
-
-        //float angle = Random.value * 2 * Mathf.PI;
-
-        //var playerPos = GetRandomPlayerPosition();
-
-        //float posX = playerPos.x + radius * Mathf.Cos(angle);
-        //float posY = playerPos.y + radius * Mathf.Sin(angle);
-
         GameObject type = ChoseType();
         if (type == null)
         {
@@ -141,5 +139,15 @@ public class SpawnManager : NetworkBehaviour
 
         _timeToNextSpawn = _cooldownSeconds;
         NetworkServer.Spawn(newEnemy);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void SpawnBoss()
+    {
+        var pos = GetSpawnPosition();
+        GameObject newBoss = Instantiate(_bossPrefab, GetSpawnPosition(), Quaternion.identity);
+
+        NetworkServer.Spawn(newBoss);
+        isBossExisting = true;
     }
 }

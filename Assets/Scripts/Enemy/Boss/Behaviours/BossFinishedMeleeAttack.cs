@@ -20,7 +20,7 @@ public class BossFinishedMeleeAttack : StateMachineBehaviour
             .Concat(boss.centralAttackTrigger.colliderList)
             .ToArray();
 
-        var player = allMeleeTriggers.FirstOrDefault(c => c.CompareTag("Player"));
+        var player = allMeleeTriggers.FirstOrDefault(c => c != null && c.CompareTag("Player"));
         if(player != null)
         {
             animator.SetBool("IsTargetInMeleeRange", true);
