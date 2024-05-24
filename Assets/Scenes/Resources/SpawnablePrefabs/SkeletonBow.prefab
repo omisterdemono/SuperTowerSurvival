@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 2357381566981236089}
   - component: {fileID: 3389864274991680658}
   - component: {fileID: 2571129974951369181}
+  - component: {fileID: 442085239019059978}
   m_Layer: 0
   m_Name: SkeletonBow
   m_TagString: Untagged
@@ -380,7 +381,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 50
-  _type: 3
+  _entityType: 3
   _healthBar: {fileID: 5372125901141219362}
 --- !u!114 &3974504449483328773
 MonoBehaviour:
@@ -441,7 +442,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 300
-  _type: 0
+  _entityType: 0
   _healthBar: {fileID: 0}
 --- !u!114 &-3578876117818167043
 MonoBehaviour:
@@ -728,6 +729,40 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5240811, y: 0.9003791}
   m_EdgeRadius: 0
+--- !u!114 &442085239019059978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5528914298825596530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 9215416178426177181}
+  clientAuthority: 0
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  onlySyncOnChangeCorrectionMultiplier: 2
+  sendIntervalMultiplier: 3
+  rotationSensitivity: 0.01
+  compressRotation: 0
+  positionPrecision: 0.01
+  scalePrecision: 0.01
+  timelineOffset: 0
 --- !u!1001 &7859814957129120188
 PrefabInstance:
   m_ObjectHideFlags: 0

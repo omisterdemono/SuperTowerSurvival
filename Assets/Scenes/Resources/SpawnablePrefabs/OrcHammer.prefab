@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 1793852495050316847}
   - component: {fileID: 1844554762395884569}
   - component: {fileID: 5480905220218197512}
+  - component: {fileID: 5971031011098109443}
   - component: {fileID: -93062701825654887}
   - component: {fileID: 7437558884832244864}
   - component: {fileID: 3046937729584280386}
@@ -344,7 +345,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   _maxHealth: 100
-  _type: 2
+  _entityType: 2
   _healthBar: {fileID: 46908622291876627}
 --- !u!114 &955783698807349197
 MonoBehaviour:
@@ -583,6 +584,40 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 0.2}
   m_Direction: 1
+--- !u!114 &5971031011098109443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852208132793593498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 885132383997846719}
+  clientAuthority: 0
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  onlySyncOnChangeCorrectionMultiplier: 2
+  sendIntervalMultiplier: 3
+  rotationSensitivity: 0.01
+  compressRotation: 0
+  positionPrecision: 0.01
+  scalePrecision: 0.01
+  timelineOffset: 0
 --- !u!114 &-93062701825654887
 MonoBehaviour:
   m_ObjectHideFlags: 0
