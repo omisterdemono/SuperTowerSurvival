@@ -5955,6 +5955,14 @@ PrefabInstance:
       propertyPath: _damage
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1072380133376733208, guid: c0a0135318951084fb6ef781207b1b74, type: 3}
+      propertyPath: _desiredTargets.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072380133376733208, guid: c0a0135318951084fb6ef781207b1b74, type: 3}
+      propertyPath: _desiredTargets.Array.data[1]
+      value: Boss
+      objectReference: {fileID: 0}
     - target: {fileID: 4091603159028485794, guid: c0a0135318951084fb6ef781207b1b74, type: 3}
       propertyPath: m_RootOrder
       value: 0
