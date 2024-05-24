@@ -1,4 +1,5 @@
-﻿using Inventory.Models;
+﻿using System.Collections.Generic;
+using Inventory.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,6 @@ namespace Inventory
         public Sprite[] CategoryIcons;
         [FormerlySerializedAs("Categories")] [FormerlySerializedAs("CategoryNames")] public string[] CategoriesNames;
         
-        public CraftRecipeSO[] CraftRecipes;
+        public List<CraftRecipeSO> CraftRecipes = new();
     }
 }

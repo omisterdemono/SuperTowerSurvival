@@ -8,7 +8,7 @@ namespace Inventory
     [CreateAssetMenu(menuName = "Inventory/Database")]
     public class ItemDatabaseSO : ScriptableObject
     {
-        public List<ItemSO> Items;
+        public List<ItemSO> Items = new();
         
         public ItemSO GetItemSOById(string itemId)
         {
