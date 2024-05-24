@@ -17,7 +17,8 @@ public class Boss : NetworkBehaviour
     [SerializeField] private GameObject projectileTentacle;
     [SerializeField] float tenacleSpawnChance = 0.5f;
     [SerializeField] private GameObject tentacle;
-
+    [SerializeField] private GameObject _deathEffect;
+    [SerializeField] private GameObject _bossHealthBar;
 
     public CustomTrigger leftAttackTrigger;
     public CustomTrigger rightAttackTrigger;
@@ -26,6 +27,7 @@ public class Boss : NetworkBehaviour
 
     [SerializeField] private float rangeCooldownSec = 5;
     private CooldownComponent rangeCooldownComponent;
+    private HealthComponent healthComponent;
 
     private Animator animator;
 
@@ -34,6 +36,11 @@ public class Boss : NetworkBehaviour
         animator = GetComponent<Animator>();
 
         rangeCooldownComponent = new CooldownComponent() { CooldownSeconds = rangeCooldownSec };
+        healthComponent = GetComponent<HealthComponent>();
+        //healthComponent.ChangeHealth(1000);
+        
+        healthComponent.OnDeath += PlayBossDeath;
+        
         rangeCooldownComponent.OnCooldownFinished += RangeCooldownComponent_OnCooldownFinished;
 
         leftAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
@@ -55,6 +62,19 @@ public class Boss : NetworkBehaviour
         rangeCooldownComponent.HandleCooldown();
     }
 
+    private void PlayBossDeath()
+    {
+        Cmd_Die(transform.position);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void Cmd_Die(Vector3 position)
+    {
+        GameObject explosion = Instantiate(_deathEffect, position, Quaternion.identity);
+        NetworkServer.Spawn(explosion);
+        NetworkServer.Destroy(this.gameObject);
+    }
+
     private void RangeCooldownComponent_OnCooldownFinished()
     {
         animator.SetBool("IsReady2Shoot", true);
@@ -74,6 +94,7 @@ public class Boss : NetworkBehaviour
         var character = collision.GetComponent<Character>();
         if (character != null)
         {
+            _bossHealthBar.SetActive(true);
             animator.SetBool("IsInSight", true);
         }
     }
@@ -83,6 +104,7 @@ public class Boss : NetworkBehaviour
         var character = collision.GetComponent<Character>();
         if (character != null)
         {
+            _bossHealthBar.SetActive(false);
             animator.SetBool("IsInSight", false);
         }
     }

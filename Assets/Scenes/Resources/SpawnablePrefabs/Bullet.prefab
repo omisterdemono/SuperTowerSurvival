@@ -184,5 +184,8 @@ MonoBehaviour:
   syncInterval: 0
   _desiredTargets:
   - Enemy
+  - Boss
+  _owner: 0
   _timeToFlyInSeconds: 5
   _speed: 15
+  type: 0

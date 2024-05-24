@@ -19,10 +19,10 @@ public class BossMeleePrepare2Attack : StateMachineBehaviour
         animator.SetBool("IsTargetInMeleeRight", false);
         animator.SetBool("IsTargetInMeleeCentral", false);
         animator.SetBool("IsTargetInMeleeRange", true);
-        animator.SetBool(boxName, true);        
+        animator.SetBool(boxName, true);
     }
 
-    private bool IsTriggerContainPlayer(CustomTrigger trigger) => trigger.colliderList.FirstOrDefault(c => c.CompareTag("Player")) != null;
+    private bool IsTriggerContainPlayer(CustomTrigger trigger) => trigger.colliderList.FirstOrDefault(c => c != null && c.CompareTag("Player")) != null;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
