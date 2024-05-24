@@ -23,6 +23,7 @@ TagManager:
   - SpawnPoints
   - HitBox
   - LoadingScreen
+  - ModernCanvas
   layers:
   - Default
   - TransparentFX

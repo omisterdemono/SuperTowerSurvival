@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 7856400735667429812}
   m_Layer: 5
   m_Name: ModernCanvas
-  m_TagString: Untagged
+  m_TagString: ModernCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,7 +332,7 @@ RectTransform:
   - {fileID: 1119844172540393350}
   - {fileID: 6983812308032046444}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -427,9 +427,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2884541837016754468}
     m_Modifications:
+    - target: {fileID: 1141852347445324626, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+      propertyPath: _lackRequiredItemsColor.b
+      value: 0.05882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141852347445324626, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+      propertyPath: _lackRequiredItemsColor.g
+      value: 0.05882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141852347445324626, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+      propertyPath: _lackRequiredItemsColor.r
+      value: 0.7254902
+      objectReference: {fileID: 0}
     - target: {fileID: 1160592328989747088, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
       propertyPath: m_Name
       value: CraftingUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4183123732706340328, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+      propertyPath: m_text
+      value: Required items
       objectReference: {fileID: 0}
     - target: {fileID: 4868113352754541196, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
       propertyPath: m_Pivot.x
@@ -497,11 +513,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868113352754541196, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -700
+      value: -660
       objectReference: {fileID: 0}
     - target: {fileID: 4868113352754541196, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 50
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4868113352754541196, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -514,6 +530,10 @@ PrefabInstance:
     - target: {fileID: 4868113352754541196, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5694414888245836352, guid: a2426b36361bd8748aef4b383d5039cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -847,7 +867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2666008111281679743, guid: 512a8e129d1d53f4ba5c4bf82315857d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 103.42282
+      value: 218
       objectReference: {fileID: 0}
     - target: {fileID: 2666008111281679743, guid: 512a8e129d1d53f4ba5c4bf82315857d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
