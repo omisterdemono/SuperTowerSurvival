@@ -16,7 +16,7 @@ public class SpawnManager : NetworkBehaviour
 
     [SyncVar] public int _actualSpawnedNumber = 0;
 
-    private float _timeToNextSpawn = 0;
+    private float _timeToNextSpawn;
     private WorldLight _worldLight;
     private List<Character> players;
     //bool isBossExisting;
@@ -31,6 +31,7 @@ public class SpawnManager : NetworkBehaviour
         }
         _worldLight = FindObjectOfType<WorldLight>();
         players = FindObjectsOfType<Character>().ToList();
+        _timeToNextSpawn = 0;
     }
 
     public void UpdateSpawnerParams(int newMaxSpawnedNumber)
@@ -84,7 +85,7 @@ public class SpawnManager : NetworkBehaviour
     {
         if (_actualSpawnedNumber < _maxSpawnedNumber && _worldLight.isNight)
         {
-            SpawnEnemy();
+            //SpawnEnemy();
         }
         if (!isBossExisting)
         {
@@ -137,8 +138,10 @@ public class SpawnManager : NetworkBehaviour
         //GameObject newEnemy = Instantiate(type, new Vector3(posX, posY), Quaternion.identity);
         GameObject newEnemy = Instantiate(type, GetSpawnPosition(), Quaternion.identity);
         Debug.Log($"[!] newEnemy - {newEnemy}");
-        _timeToNextSpawn = _cooldownSeconds;
         NetworkServer.Spawn(newEnemy);
+        Debug.Log($"[!] newEnemy SPAWNED - {newEnemy}");
+        _timeToNextSpawn = _cooldownSeconds;
+        Debug.Log($"[!] newEnemy SETNEWTIME - {newEnemy}");
     }
 
     [Command(requiresAuthority = false)]

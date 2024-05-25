@@ -40,12 +40,19 @@ public class Enemy : NetworkBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-
+        
+        Debug.Log($"[!] Eenemy find MainHall");
         _hall = GameObject.FindGameObjectWithTag("MainHall").transform;
+        Debug.Log($"[!] Eenemy findED MainHall - {_hall}");
+
         _movementComponent = GetComponent<MovementComponent>();
+        Debug.Log($"[!] GOT _movementComponent - {_movementComponent}");
         _healthComponent = GetComponent<HealthComponent>();
+        Debug.Log($"[!] GOT _healthComponent - {_healthComponent}");
         _pathFinder = GetComponent<EnemyPathFinder>();
+        Debug.Log($"[!] GOT _pathFinder - {_pathFinder}");
         _attackManager = GetComponent<AttackManager>();
+        Debug.Log($"[!] GOT _attackManager - {_attackManager}");
 
         _target = _hall;
         _pathFinder.target = _hall;
