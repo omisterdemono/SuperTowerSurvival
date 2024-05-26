@@ -13,7 +13,6 @@ public class EffectComponent : NetworkBehaviour
     public BoxCollider2D MainCollider { get => _mainCollider; set => _mainCollider = value; }
 
     [Server]
-    [ClientRpc]
     public void ApplyEffect(StatusEffect effect)
     {
         _effects.Add(effect);
@@ -47,24 +46,23 @@ public class EffectComponent : NetworkBehaviour
     private IEnumerator RemoveTimedEffect(StatusEffect effect, float time)
     {
         float timePassed = 0;
-        //while (timePassed < time)
-        //{
-        //    yield return new WaitForSeconds(1);
-        //    timePassed++;
-        //    if (effect.EffectType == EEffect.Damage)
-        //    {
-        //        GetComponent<HealthComponent>().Damage(effect.Value);
-        //    }
-        //    if (effect.EffectType == EEffect.Heal)
-        //    {
-        //        GetComponent<HealthComponent>().Heal(effect.Value);
-        //    }
-        //}
-        yield return new WaitForSeconds(time);
+        while (timePassed < time)
+        {
+            yield return new WaitForSeconds(1);
+            timePassed++;
+            if (effect.EffectType == EEffect.Damage)
+            {
+                GetComponent<HealthComponent>().Damage(effect.Value);
+            }
+            if (effect.EffectType == EEffect.Heal)
+            {
+                GetComponent<HealthComponent>().Heal(effect.Value);
+            }
+        }
+        //yield return new WaitForSeconds(time);
         RemoveEffect(effect);
     }
     [Server]
-    [ClientRpc]
     public void RemoveEffect(StatusEffect effect)
     {
         if (_effects.Count > 0)
