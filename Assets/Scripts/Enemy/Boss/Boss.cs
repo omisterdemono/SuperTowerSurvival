@@ -162,10 +162,10 @@ public class Boss : NetworkBehaviour
         NetworkServer.Spawn(tentacle);
 
     }
-
+     
     private void MeleeHit(CustomTrigger triggerBox)
     {
-        var players = triggerBox.colliderList.Where(c => c.CompareTag("Player"));
+        var players = triggerBox.colliderList.Where(c => c!= null && c.CompareTag("Player"));
         foreach (var player in players)
         {
             player.GetComponent<HealthComponent>().Damage(meleeDamage);

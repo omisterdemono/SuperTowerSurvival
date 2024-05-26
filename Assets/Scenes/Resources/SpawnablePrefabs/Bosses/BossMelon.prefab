@@ -709,10 +709,10 @@ MonoBehaviour:
   syncInterval: 0
   meleeDamage: 200
   rangeDamage: 50
-  projectile: {fileID: 8271526954206739466, guid: 05cdab5aa293d6f43ba2c0764f112aa7, type: 3}
-  projectileRoot: {fileID: 8271526954206739466, guid: 2aa1d1fb83ee8b3418e7749083e5f822, type: 3}
+  projectile: {fileID: 7898039848042303273, guid: 05cdab5aa293d6f43ba2c0764f112aa7, type: 3}
+  projectileRoot: {fileID: 3892056341475382356, guid: 2aa1d1fb83ee8b3418e7749083e5f822, type: 3}
   rootSpawnChance: 0.1
-  projectileTentacle: {fileID: 8271526954206739466, guid: aad6534b37da2ea48bcb2f6e5a9832d9, type: 3}
+  projectileTentacle: {fileID: 3055406430477193546, guid: aad6534b37da2ea48bcb2f6e5a9832d9, type: 3}
   tenacleSpawnChance: 0.5
   tentacle: {fileID: 4526961824030589399, guid: 96109de4a6c54e6489157389723f21b8, type: 3}
   _deathEffect: {fileID: 1502019500926672546, guid: 61f37caf0636d7740955f5a419963e00, type: 3}

@@ -40,8 +40,9 @@ public class Enemy : NetworkBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-
+        
         _hall = GameObject.FindGameObjectWithTag("MainHall").transform;
+
         _movementComponent = GetComponent<MovementComponent>();
         _healthComponent = GetComponent<HealthComponent>();
         _pathFinder = GetComponent<EnemyPathFinder>();

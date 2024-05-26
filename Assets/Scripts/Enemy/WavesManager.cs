@@ -16,24 +16,31 @@ public class WavesManager : MonoBehaviour
 
     private void Awake()
     {
-        _worldCycle = GetComponent<WorldLight>();
-        _spawners = FindObjectsOfType<SpawnManager>().ToList();
     }
 
     void Start()
     {
+        _worldCycle = GetComponent<WorldLight>();
+        _spawners = FindObjectsOfType<SpawnManager>().ToList();
         _waves = new List<Wave>();
         var firstWave = new Wave();
         firstWave.SetParams(1, initEnemiesNumber);
         _waves.Add(firstWave);
         GenerateWaves();
-        UpdateSpawnersParams();
+            //Debug.Log($"[!] worldCycle before cycle {_worldCycle}");
+            //while (_worldCycle == null)
+            //{
+            //    _worldCycle = GetComponent<WorldLight>();
+            //}
+            //Debug.Log($"[!] _worldCycle after cycle {_worldCycle}");
         _worldCycle.OnIsNightChanged += UpdateSpawnersParams;
+        //UpdateSpawnersParams();
     }
 
     public void OnDestroy()
     {
-        _worldCycle.OnIsNightChanged -= UpdateSpawnersParams;
+        //Debug.Log($"[!] _worldCycle ENDstate {_worldCycle}");
+        //_worldCycle.OnIsNightChanged -= UpdateSpawnersParams;
     }
 
     void Update()
@@ -55,11 +62,21 @@ public class WavesManager : MonoBehaviour
     private void UpdateSpawnersParams()
     {
         int currentDay = _worldCycle.GetDay();
+        //if(_waves == null)
+        //{
+        //    _wa
+        //}
         Wave currentWave = _waves.FirstOrDefault(w => w.waveID == currentDay);
         if (currentDay > _waves.Last()?.waveID)
         {
             currentWave = _waves.Last();
         }
+            //Debug.Log($"[!] spawners before cycle {_spawners}");
+            //while (_spawners == null)
+            //{
+            //    _spawners = FindObjectsOfType<SpawnManager>().ToList();
+            //}
+            //Debug.Log($"[!] spawners after cycle {_spawners}");
         foreach (var spawner in _spawners)
         {
             spawner.UpdateSpawnerParams(currentWave.enemiesPerSpawner);

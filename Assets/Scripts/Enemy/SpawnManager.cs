@@ -16,11 +16,11 @@ public class SpawnManager : NetworkBehaviour
 
     [SyncVar] public int _actualSpawnedNumber = 0;
 
-    private float _timeToNextSpawn = 0;
+    private float _timeToNextSpawn;
     private WorldLight _worldLight;
     private List<Character> players;
     //bool isBossExisting;
-    public bool isBossExisting;
+    [SyncVar] public bool isBossExisting;
 
     void Start()
     {
@@ -31,6 +31,19 @@ public class SpawnManager : NetworkBehaviour
         }
         _worldLight = FindObjectOfType<WorldLight>();
         players = FindObjectsOfType<Character>().ToList();
+        _worldLight.OnIsNightChanged += OnNightChanged_BossSpawn;
+        _timeToNextSpawn = 0;
+    }
+
+    [Server]
+    private void OnNightChanged_BossSpawn()
+    {
+        if (_worldLight.isNight &&
+            !isBossExisting)
+        {
+            isBossExisting = true;
+            SpawnBoss();
+        }
     }
 
     public void UpdateSpawnerParams(int newMaxSpawnedNumber)
@@ -86,19 +99,19 @@ public class SpawnManager : NetworkBehaviour
         {
             SpawnEnemy();
         }
-        if (!isBossExisting)
-        {
-            SpawnBoss();
-        }
+        //if (!isBossExisting)
+        //{
+        //    SpawnBoss();
+        //}
     }
 
     private Vector3 GetRandomPlayerPosition() => players[Random.Range(0, players.Count)].transform.position;
 
     private Vector3 GetSpawnPosition()
     {
-        
+
         var playerPos = GetRandomPlayerPosition();
-        
+
         while (true)
         {
             float distance = Random.Range(_spawnInnerRadius, _spawnOuterRadius);
@@ -107,7 +120,7 @@ public class SpawnManager : NetworkBehaviour
 
             float posX = playerPos.x + distance * Mathf.Cos(angle);
             float posY = playerPos.y + distance * Mathf.Sin(angle);
-            
+
             var pos = new Vector3(posX, posY);
 
             return pos;
@@ -136,18 +149,19 @@ public class SpawnManager : NetworkBehaviour
         _actualSpawnedNumber++;
         //GameObject newEnemy = Instantiate(type, new Vector3(posX, posY), Quaternion.identity);
         GameObject newEnemy = Instantiate(type, GetSpawnPosition(), Quaternion.identity);
-
-        _timeToNextSpawn = _cooldownSeconds;
+        //Debug.Log($"[!] newEnemy - {newEnemy}");
         NetworkServer.Spawn(newEnemy);
+        //Debug.Log($"[!] newEnemy SPAWNED - {newEnemy}");
+        _timeToNextSpawn = _cooldownSeconds;
+        //Debug.Log($"[!] newEnemy SETNEWTIME - {newEnemy}");
     }
 
     [Command(requiresAuthority = false)]
     public void SpawnBoss()
     {
-        var pos = GetSpawnPosition();
         GameObject newBoss = Instantiate(_bossPrefab, GetSpawnPosition(), Quaternion.identity);
 
         NetworkServer.Spawn(newBoss);
-        isBossExisting = true;
+        //isBossExisting = true;
     }
 }
