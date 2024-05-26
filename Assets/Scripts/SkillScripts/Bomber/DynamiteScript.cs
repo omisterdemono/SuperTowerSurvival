@@ -28,7 +28,12 @@ public class DynamiteScript : NetworkBehaviour
         {
             if (item.TryGetComponent<HealthComponent>(out HealthComponent healthComponent))
             {
+                _colliders.Remove(item);
                 healthComponent.Damage(_damage);
+            }
+            if (_colliders.Count == 0)
+            {
+                break;
             }
         }
 
