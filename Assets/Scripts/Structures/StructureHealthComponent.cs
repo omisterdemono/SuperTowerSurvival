@@ -44,11 +44,21 @@ namespace Structures
 
         private void OnMouseOver()
         {
+            if (_healthWasChanged)
+            {
+                return;
+            }
+            
             _healthBar.gameObject.SetActive(true);
         }
         
         private void OnMouseExit()
         {
+            if (_healthWasChanged)
+            {
+                return;
+            }
+            
             _healthBar.gameObject.SetActive(false);
         }
     }
