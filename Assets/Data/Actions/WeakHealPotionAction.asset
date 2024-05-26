@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WeakHealPotionAction
   m_EditorClassIdentifier: 
   ActionName: heal
-  Amount: 15
+  Amount: 50

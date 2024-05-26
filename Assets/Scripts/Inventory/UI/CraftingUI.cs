@@ -86,7 +86,7 @@ namespace Inventory.UI
         public void AttachInventory(PlayerInventory playerInventory)
         {
             _inventory = playerInventory.Inventory;
-            _inventory.InventoryChanged += OnInventoryChanged;
+            _inventory.InventoryChanged += UpdateRecipeProperties;
 
             _craftingSystem = playerInventory.CraftingSystem;
             _recipePropertiesUI.ItemCrafted += _craftingSystem.CraftItem;
@@ -125,9 +125,9 @@ namespace Inventory.UI
             return (requiredItemsCounts, requiredItemsColors);
         }
 
-        private void OnInventoryChanged()
+        private void UpdateRecipeProperties()
         {
-            if (!_recipePropertiesUI.isActiveAndEnabled)
+            if (!_recipePropertiesUI.gameObject.activeSelf)
             {
                 return;
             }
@@ -136,6 +136,11 @@ namespace Inventory.UI
                 GetRequiredItemsCountsAndTextColors(_recipePropertiesUI.RecipeSo);
             _recipePropertiesUI.UpdateRequiredItemsCounts(requiredItemsCounts.ToArray(), requiredItemsColors.ToArray(),
                 _craftingSystem.ItemCanBeCrafted);
+        }
+
+        private void OnEnable()
+        {
+            UpdateRecipeProperties();
         }
     }
 }
