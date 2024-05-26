@@ -714,7 +714,9 @@ MonoBehaviour:
   rootSpawnChance: 0.1
   projectileTentacle: {fileID: 3055406430477193546, guid: aad6534b37da2ea48bcb2f6e5a9832d9, type: 3}
   tenacleSpawnChance: 0.5
-  tentacle: {fileID: 4526961824030589399, guid: 96109de4a6c54e6489157389723f21b8, type: 3}
+  tentacleObj: {fileID: 4526961824030589399, guid: 96109de4a6c54e6489157389723f21b8, type: 3}
+  rootObj: {fileID: 6098056163511178888, guid: 4b443106e3fea114cbd6cb0722caafa3, type: 3}
+  _rootEffect: {fileID: 11400000, guid: 9e98d8d8dd4fb85439b9eddbee34247f, type: 2}
   _deathEffect: {fileID: 1502019500926672546, guid: 61f37caf0636d7740955f5a419963e00, type: 3}
   _bossHealthBar: {fileID: 2225611815252820833}
   leftAttackTrigger: {fileID: 3945922319585289467}

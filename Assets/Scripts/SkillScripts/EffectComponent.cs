@@ -47,19 +47,20 @@ public class EffectComponent : NetworkBehaviour
     private IEnumerator RemoveTimedEffect(StatusEffect effect, float time)
     {
         float timePassed = 0;
-        while (timePassed < time || _effects.Contains(effect))
-        {
-            yield return new WaitForSeconds(1);
-            timePassed++;
-            if (effect.EffectType == EEffect.Damage)
-            {
-                GetComponent<HealthComponent>().Damage(effect.Value);
-            }
-            if (effect.EffectType == EEffect.Heal)
-            {
-                GetComponent<HealthComponent>().Heal(effect.Value);
-            }
-        }
+        //while (timePassed < time)
+        //{
+        //    yield return new WaitForSeconds(1);
+        //    timePassed++;
+        //    if (effect.EffectType == EEffect.Damage)
+        //    {
+        //        GetComponent<HealthComponent>().Damage(effect.Value);
+        //    }
+        //    if (effect.EffectType == EEffect.Heal)
+        //    {
+        //        GetComponent<HealthComponent>().Heal(effect.Value);
+        //    }
+        //}
+        yield return new WaitForSeconds(time);
         RemoveEffect(effect);
     }
     [Server]

@@ -16,7 +16,9 @@ public class Boss : NetworkBehaviour
     [SerializeField] float rootSpawnChance = 0.1f;
     [SerializeField] private GameObject projectileTentacle;
     [SerializeField] float tenacleSpawnChance = 0.5f;
-    [SerializeField] private GameObject tentacle;
+    [SerializeField] private GameObject tentacleObj;
+    [SerializeField] private GameObject rootObj;
+    [SerializeField] private StatusEffect _rootEffect;
     [SerializeField] private GameObject _deathEffect;
     [SerializeField] private GameObject _bossHealthBar;
 
@@ -122,27 +124,28 @@ public class Boss : NetworkBehaviour
             var playerPosition = player.transform.position;
             var thisPosition = gameObject.transform.position;
 
-            Vector2 directionToPlayer = playerPosition - thisPosition;
+            Vector2 directionToPlayer = (playerPosition - thisPosition).normalized;
 
-            Quaternion rotationToPlayer = Quaternion.LookRotation(directionToPlayer);
+            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
             GameObject projectile2Spawn;
             var choice = Random.Range(0.0f, 1.0f);
             if (choice < rootSpawnChance)
             {
-                projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, gameObject.transform.rotation);
+                projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, rotation);
+                projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnProjectileHit;
             }
             else if (choice >= rootSpawnChance && choice < rootSpawnChance + tenacleSpawnChance)
             {
-                projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, gameObject.transform.rotation);
+                projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, rotation);
                 projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
                 
             }
             else
             {
-                projectile2Spawn = Instantiate(this.projectile, thisPosition, gameObject.transform.rotation);
+                projectile2Spawn = Instantiate(this.projectile, thisPosition, rotation);
             }
-            //GameObject projectile2Spawn = Instantiate(this.projectile, thisPosition, rotationToPlayer);
 
             var bulletComponent = projectile2Spawn.GetComponent<Projectile>();
             bulletComponent.Direction = directionToPlayer.normalized;
@@ -155,10 +158,19 @@ public class Boss : NetworkBehaviour
     }
 
     [Server]
+    private void Boss_OnProjectileHit(Collider2D obj)
+    {
+        var pos = obj.transform.position;
+        GameObject root = Instantiate(rootObj, pos, Quaternion.Euler(Vector3.zero));
+        obj.GetComponent<EffectComponent>()?.ApplyEffect(_rootEffect);
+        NetworkServer.Spawn(root);
+    }
+
+    [Server]
     private void Boss_OnTentacleProjectileHit(Collider2D obj)
     {
         var pos = obj.transform.position;
-        GameObject tentacle = Instantiate(this.tentacle, pos, Quaternion.Euler(Vector3.zero));
+        GameObject tentacle = Instantiate(tentacleObj, pos, Quaternion.Euler(Vector3.zero));
         NetworkServer.Spawn(tentacle);
 
     }
