@@ -37,7 +37,7 @@ public class Character : NetworkBehaviour
 
     //todo tools will be more generic in the future and these two list should be removed
     [SerializeField] private List<string> _toolIds = new();
-    
+
     [SyncVar(hook = nameof(HandleEquipedSlotChanged))]
     private int _equipedSlot = 0;
 
@@ -52,7 +52,6 @@ public class Character : NetworkBehaviour
     private StructurePlacer _structurePlacer;
     private PlayerInventory _playerInventory;
     private EquipSlot _equippedItemsSlot;
-    private BuildHammer _buildHammer;
 
     private Vector2 _attackDirection;
     private Dictionary<int, KeyCode> _keyCodes;
@@ -147,10 +146,8 @@ public class Character : NetworkBehaviour
 
         _health.OnDeath += OnDeath;
 
-        //change to something more generic
         _equippedItemsSlot = GetComponentInChildren<EquipSlot>();
         _playerInventory = GetComponent<PlayerInventory>();
-        _buildHammer = GetComponentInChildren<BuildHammer>(true);
         _structurePlacer = GetComponent<StructurePlacer>();
 
         fogOfWar = FindFirstObjectByType<FogOfWar>();
@@ -457,10 +454,8 @@ public class Character : NetworkBehaviour
 
     public void PowerUpHealth(int points)
     {
-        for (int i = 0; i < points; i++)
-        {
-            _health.MaxHealth += 10;
-        }
+        _health.MaxHealth += 10 * points;
+        _health.Heal(10 * points);
     }
 
     public void PowerUpWeapon(int points)
@@ -469,6 +464,9 @@ public class Character : NetworkBehaviour
         {
             _weaponDamageModifier *= 1.02f;
         }
+
+        //considering first tool is weapon
+        _tools[0].GetComponent<IWeapon>().Damage *= _weaponDamageModifier;
     }
 
     public void PowerUpSpeed(int points)

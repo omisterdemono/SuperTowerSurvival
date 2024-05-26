@@ -30,7 +30,7 @@ namespace Components
 
         [SyncVar(hook = nameof(CurrentHealthHook))] private float _currentHealth;
 
-        [SerializeField] private HealthBarUI _healthBar;
+        [SerializeField] protected HealthBarUI _healthBar;
 
         [SyncVar] private float _hpRatio;
         private CanvasGroup _canvasGroupHB;
@@ -106,7 +106,7 @@ namespace Components
             ChangeHealth(MaxHealth);
         }
 
-        private void Start()
+        public void Start()
         {
             InitHealth();
 

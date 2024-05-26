@@ -22,4 +22,4 @@ MonoBehaviour:
   ItemAction: {fileID: 11400000, guid: 2b3d1aeff6485d34982cd51bfb68801a, type: 2}
   ActionSFX: {fileID: 0}
   RemoveAfterUsing: 0
-  StructurePrefab: {fileID: 3689379919031479192, guid: a97b37c8b38481948b582030bc68c006, type: 3}
+  StructurePrefab: {fileID: 3689379919031479192, guid: 0418924b7798242439bdd8e3a3d266da, type: 3}

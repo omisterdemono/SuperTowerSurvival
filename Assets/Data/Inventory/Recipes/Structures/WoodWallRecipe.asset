@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Items:
   - {fileID: 11400000, guid: 4a83ffbd7e170f3439cf428f83319b05, type: 2}
-  ItemCounts: 10000000
+  ItemCounts: 08000000
   ResultItem: {fileID: 11400000, guid: aa958de283865e44c9a6062110c2ff8e, type: 2}
-  ResultItemCount: 4
+  ResultItemCount: 8
   Category: Defence

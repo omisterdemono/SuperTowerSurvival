@@ -185,6 +185,7 @@ MonoBehaviour:
   _desiredTargets:
   - Enemy
   - Boss
+  - Structure
   _owner: 0
   _timeToFlyInSeconds: 5
   _speed: 15

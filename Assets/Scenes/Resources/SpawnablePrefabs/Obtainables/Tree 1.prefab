@@ -109,7 +109,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a83ffbd7e170f3439cf428f83319b05, type: 2}
   - {fileID: 11400000, guid: 3de8657f65935ac489b1433b1947a98c, type: 2}
   - {fileID: 11400000, guid: 5ed92b9fd48cf0e498d03efcd2eff0d3, type: 2}
-  _quantity: 020000000300000001000000
+  _quantity: 020000000100000001000000
   _instrument: 1
 --- !u!114 &6889792636589908369
 MonoBehaviour:

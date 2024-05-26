@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AppleHealAction
   m_EditorClassIdentifier: 
   ActionName: heal
-  Amount: 5
+  Amount: 15
