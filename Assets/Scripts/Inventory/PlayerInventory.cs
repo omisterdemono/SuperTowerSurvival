@@ -79,7 +79,9 @@ namespace Inventory
             var direction = DropDirection;
             direction.x *= _throwRadius;
             direction.y *= _throwRadius;
-            _itemNetworkSpawner.SpawnItemCmd(inventoryCell.Item.Id, count, transform.position + direction);
+            direction += transform.position;
+            
+            _itemNetworkSpawner.SpawnItemCmd(inventoryCell.Item.Id, count, direction);
 
             Inventory.TryRemoveFromCell(inventoryCell, count);
         }

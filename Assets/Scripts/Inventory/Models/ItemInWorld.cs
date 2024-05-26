@@ -17,16 +17,10 @@ namespace Inventory.Models
         }
 
         [SerializeField] private ItemDatabaseSO _itemDatabase;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         
         [SyncVar(hook = nameof(SetItem))] public string ItemId;
         [SyncVar] private int _count;
-        
-        private SpriteRenderer _spriteRenderer;
-
-        private void Awake()
-        {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-        }
 
         [Command(requiresAuthority = false)]
         public void GetPickedUp()
