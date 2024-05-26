@@ -169,4 +169,16 @@ public class NetworkRoomPlayerLobby : NetworkBehaviour
             UpdateChosenCharacter(characterIndex);
         }
     }
+
+    public void Disconnect()
+    {
+        if (isServer)
+        {
+            FindObjectOfType<NetworkManagerLobby>().StopHost();
+        }
+        else
+        {
+            NetworkClient.Disconnect();
+        }
+    }
 }
