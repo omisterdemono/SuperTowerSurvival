@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Components;
 using UnityEngine;
+using System;
 
 public class EffectComponent : NetworkBehaviour
 {
@@ -11,6 +12,8 @@ public class EffectComponent : NetworkBehaviour
     [SerializeField] BoxCollider2D _mainCollider;
     public List<StatusEffect> Effects { get => _effects; set => _effects = value; }
     public BoxCollider2D MainCollider { get => _mainCollider; set => _mainCollider = value; }
+    //public static Action<GameObject> OnEffectRemoved;
+    public Action OnEffectRemoved;
 
     [Server]
     public void ApplyEffect(StatusEffect effect)
@@ -61,6 +64,7 @@ public class EffectComponent : NetworkBehaviour
         }
         //yield return new WaitForSeconds(time);
         RemoveEffect(effect);
+        OnEffectRemoved.Invoke();
     }
     [Server]
     public void RemoveEffect(StatusEffect effect)

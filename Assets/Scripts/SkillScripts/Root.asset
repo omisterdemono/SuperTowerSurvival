@@ -16,5 +16,5 @@ MonoBehaviour:
   Icon: {fileID: 0}
   EffectType: 0
   ApplyType: 2
-  HandleTime: 1
+  HandleTime: 3
   Value: 0

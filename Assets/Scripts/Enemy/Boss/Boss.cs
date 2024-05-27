@@ -31,7 +31,6 @@ public class Boss : NetworkBehaviour
     private CooldownComponent rangeCooldownComponent;
     private HealthComponent healthComponent;
     private SpawnManager _spawnManager;
-
     private Animator animator;
 
     private void Awake()
@@ -41,11 +40,11 @@ public class Boss : NetworkBehaviour
         rangeCooldownComponent = new CooldownComponent() { CooldownSeconds = rangeCooldownSec };
         healthComponent = GetComponent<HealthComponent>();
         _spawnManager = FindObjectOfType<SpawnManager>();
-        
+
         //healthComponent.ChangeHealth(1000);
-        
+
         healthComponent.OnDeath += PlayBossDeath;
-        
+
         rangeCooldownComponent.OnCooldownFinished += RangeCooldownComponent_OnCooldownFinished;
 
         leftAttackTrigger.EnteredTrigger += SetTargetInMeleeRange;
@@ -134,13 +133,13 @@ public class Boss : NetworkBehaviour
             if (choice < rootSpawnChance)
             {
                 projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, rotation);
-                projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnProjectileHit;
+                projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnRootProjectileHit;
             }
             else if (choice >= rootSpawnChance && choice < rootSpawnChance + tenacleSpawnChance)
             {
                 projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, rotation);
                 projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
-                
+
             }
             else
             {
@@ -158,12 +157,33 @@ public class Boss : NetworkBehaviour
     }
 
     [Server]
-    private void Boss_OnProjectileHit(Collider2D obj)
+    private void Boss_OnRootProjectileHit(Collider2D obj)
     {
-        var pos = obj.transform.position;
+        var pos = obj.transform.TransformPoint(rootObj.transform.position);
         GameObject root = Instantiate(rootObj, pos, Quaternion.Euler(Vector3.zero));
-        obj.GetComponent<EffectComponent>()?.ApplyEffect(_rootEffect);
+        var effectComponent = obj.GetComponent<EffectComponent>();
+        if (effectComponent)
+        {
+            effectComponent.ApplyEffect(_rootEffect);
+            effectComponent.OnEffectRemoved += () =>
+            {
+                if (isServer && root)
+                {
+                    StartCoroutine(RemoveRoot(root));
+                }
+            };
+        }
+
         NetworkServer.Spawn(root);
+    }
+
+    [Server]
+    private IEnumerator RemoveRoot(GameObject root)
+    {
+        var animator = root.GetComponent<Animator>();
+        animator.SetTrigger("Despawn");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        NetworkServer.Destroy(root);
     }
 
     [Server]
@@ -172,12 +192,11 @@ public class Boss : NetworkBehaviour
         var pos = obj.transform.position;
         GameObject tentacle = Instantiate(tentacleObj, pos, Quaternion.Euler(Vector3.zero));
         NetworkServer.Spawn(tentacle);
-
     }
-     
+
     private void MeleeHit(CustomTrigger triggerBox)
     {
-        var players = triggerBox.colliderList.Where(c => c!= null && c.CompareTag("Player"));
+        var players = triggerBox.colliderList.Where(c => c != null && c.CompareTag("Player"));
         foreach (var player in players)
         {
             player.GetComponent<HealthComponent>().Damage(meleeDamage);
