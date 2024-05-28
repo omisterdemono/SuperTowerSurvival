@@ -31,6 +31,7 @@ public class Boss : NetworkBehaviour
     private CooldownComponent rangeCooldownComponent;
     private HealthComponent healthComponent;
     private SpawnManager _spawnManager;
+    private ProjectileLauncher _projectileLauncher;
     private Animator animator;
 
     private void Awake()
@@ -39,6 +40,7 @@ public class Boss : NetworkBehaviour
 
         rangeCooldownComponent = new CooldownComponent() { CooldownSeconds = rangeCooldownSec };
         healthComponent = GetComponent<HealthComponent>();
+        _projectileLauncher = GetComponentInChildren<ProjectileLauncher>();
         _spawnManager = FindObjectOfType<SpawnManager>();
 
         //healthComponent.ChangeHealth(1000);
@@ -120,79 +122,81 @@ public class Boss : NetworkBehaviour
         var player = sightTrigger.colliderList.FirstOrDefault(c => c.CompareTag("Player"));
         if (player != null && rangeCooldownComponent.CanPerform)
         {
-            var playerPosition = player.transform.position;
-            var thisPosition = gameObject.transform.position;
+            _projectileLauncher.PerformAttack();
 
-            Vector2 directionToPlayer = (playerPosition - thisPosition).normalized;
+            //var playerPosition = player.transform.position;
+            //var thisPosition = gameObject.transform.position;
 
-            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+            //Vector2 directionToPlayer = (playerPosition - thisPosition).normalized;
 
-            GameObject projectile2Spawn;
-            var choice = Random.Range(0.0f, 1.0f);
-            if (choice < rootSpawnChance)
-            {
-                projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, rotation);
-                projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnRootProjectileHit;
-            }
-            else if (choice >= rootSpawnChance && choice < rootSpawnChance + tenacleSpawnChance)
-            {
-                projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, rotation);
-                projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
+            //float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+            //Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-            }
-            else
-            {
-                projectile2Spawn = Instantiate(this.projectile, thisPosition, rotation);
-            }
+            //GameObject projectile2Spawn;
+            //var choice = Random.Range(0.0f, 1.0f);
+            //if (choice < rootSpawnChance)
+            //{
+            //    projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, rotation);
+            //    projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnRootProjectileHit;
+            //}
+            //else if (choice >= rootSpawnChance && choice < rootSpawnChance + tenacleSpawnChance)
+            //{
+            //    projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, rotation);
+            //    projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
 
-            var bulletComponent = projectile2Spawn.GetComponent<Projectile>();
-            bulletComponent.Direction = directionToPlayer.normalized;
-            bulletComponent.Damage = rangeDamage;
+            //}
+            //else
+            //{
+            //    projectile2Spawn = Instantiate(this.projectile, thisPosition, rotation);
+            //}
 
-            NetworkServer.Spawn(projectile2Spawn);
+            //var bulletComponent = projectile2Spawn.GetComponent<Projectile>();
+            //bulletComponent.Direction = directionToPlayer.normalized;
+            //bulletComponent.Damage = rangeDamage;
+
+            //NetworkServer.Spawn(projectile2Spawn);
             rangeCooldownComponent.ResetCooldown();
             animator.SetBool("IsReady2Shoot", false);
         }
     }
 
-    [Server]
-    private void Boss_OnRootProjectileHit(Collider2D obj)
-    {
-        var pos = obj.transform.TransformPoint(rootObj.transform.position);
-        GameObject root = Instantiate(rootObj, pos, Quaternion.Euler(Vector3.zero));
-        var effectComponent = obj.GetComponent<EffectComponent>();
-        if (effectComponent)
-        {
-            effectComponent.ApplyEffect(_rootEffect);
-            effectComponent.OnEffectRemoved += () =>
-            {
-                if (isServer && root)
-                {
-                    StartCoroutine(RemoveRoot(root));
-                }
-            };
-        }
+    //[Server]
+    //private void Boss_OnRootProjectileHit(Collider2D obj)
+    //{
+    //    var pos = obj.transform.TransformPoint(rootObj.transform.position);
+    //    GameObject root = Instantiate(rootObj, pos, Quaternion.Euler(Vector3.zero));
+    //    var effectComponent = obj.GetComponent<EffectComponent>();
+    //    if (effectComponent)
+    //    {
+    //        effectComponent.ApplyEffect(_rootEffect);
+    //        effectComponent.OnEffectRemoved += () =>
+    //        {
+    //            if (isServer && root)
+    //            {
+    //                StartCoroutine(RemoveRoot(root));
+    //            }
+    //        };
+    //    }
 
-        NetworkServer.Spawn(root);
-    }
+    //    NetworkServer.Spawn(root);
+    //}
 
-    [Server]
-    private IEnumerator RemoveRoot(GameObject root)
-    {
-        var animator = root.GetComponent<Animator>();
-        animator.SetTrigger("Despawn");
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        NetworkServer.Destroy(root);
-    }
+    //[Server]
+    //private IEnumerator RemoveRoot(GameObject root)
+    //{
+    //    var animator = root.GetComponent<Animator>();
+    //    animator.SetTrigger("Despawn");
+    //    yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    //    NetworkServer.Destroy(root);
+    //}
 
-    [Server]
-    private void Boss_OnTentacleProjectileHit(Collider2D obj)
-    {
-        var pos = obj.transform.position;
-        GameObject tentacle = Instantiate(tentacleObj, pos, Quaternion.Euler(Vector3.zero));
-        NetworkServer.Spawn(tentacle);
-    }
+    //[Server]
+    //private void Boss_OnTentacleProjectileHit(Collider2D obj)
+    //{
+    //    var pos = obj.transform.position;
+    //    GameObject tentacle = Instantiate(tentacleObj, pos, Quaternion.Euler(Vector3.zero));
+    //    NetworkServer.Spawn(tentacle);
+    //}
 
     private void MeleeHit(CustomTrigger triggerBox)
     {

@@ -18,35 +18,18 @@ public class ProjectileLauncher : NetworkBehaviour
     [SerializeField] private GameObject rootObj;
     [SerializeField] private StatusEffect _rootEffect;
 
+    [SerializeField] int spiralPatternAmount = 6;
+    [SerializeField] int spiralsAmount = 3;
+    [SerializeField] float spiralsBetweenDelaySec = 0.1f;
+    [SerializeField] int starPatternAmount = 12;
+
     [Range(0f, 1f)]
     [SerializeField] float rootSpawnChance;
 
     [Range(0f, 1f)]
     [SerializeField] float tentacleSpawnChance;
 
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void Launch()
-    {
-        var projectile2Spawn = Instantiate(this.projectile, transform.position, Quaternion.Euler(0, 0, 0));
-        var projectileComponent = projectile2Spawn.GetComponent<SpiralProjectile>();
-        projectileComponent.Direction = Vector2.up;
-        projectileComponent.Damage = 50;
-        //projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
-        NetworkServer.Spawn(projectile2Spawn);
-    }
-
-    public void Launch(int number)
+    public void LaunchRandomSpiral(int number, bool isClockWise)
     {
         float angleStep = 360f / number;
         float angle = 0f;
@@ -58,20 +41,18 @@ public class ProjectileLauncher : NetworkBehaviour
 
             Vector2 projectileDirection = new Vector2(projectileDirXPosition, projectileDirYPosition).normalized;
 
-            var projectile2Spawn = Instantiate(this.projectile, transform.position, Quaternion.identity);
+
+            var projectile2Spawn = ChooseSpiralProjectile(transform.position, Quaternion.identity);
             var projectileComponent = projectile2Spawn.GetComponent<SpiralProjectile>();
             projectileComponent.Direction = projectileDirection;
-            projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
-            projectileComponent.Damage = 50;
-            //projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
+            if(!isClockWise) projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
             NetworkServer.Spawn(projectile2Spawn);
 
             angle += angleStep;
         }
     }
 
-
-    public void Launch(int number, GameObject projectile)
+    public void LaunchRandomStar(int number)
     {
         float angleStep = 360f / number;
         float angle = 0f;
@@ -83,78 +64,53 @@ public class ProjectileLauncher : NetworkBehaviour
 
             Vector2 projectileDirection = new Vector2(projectileDirXPosition, projectileDirYPosition).normalized;
 
-            var projectile2Spawn = Instantiate(this.projectile, transform.position, Quaternion.identity);
-            var projectileComponent = projectile2Spawn.GetComponent<SpiralProjectile>();
+            var projectile2Spawn = ChooseProjectile(transform.position, Quaternion.identity);
+            var projectileComponent = projectile2Spawn.GetComponent<Projectile>();
             projectileComponent.Direction = projectileDirection;
-            projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
-            projectileComponent.Damage = 50;
-            //projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
+            projectileComponent.Damage = 20;
             NetworkServer.Spawn(projectile2Spawn);
-
-            angle += angleStep;
-        }
-    }
-
-    public void LaunchRandom(int number, bool isSpiral)
-    {
-        float angleStep = 360f / number;
-        float angle = 0f;
-
-        for (int i = 0; i < number; i++)
-        {
-            float projectileDirXPosition = Mathf.Cos(angle * Mathf.Deg2Rad);
-            float projectileDirYPosition = Mathf.Sin(angle * Mathf.Deg2Rad);
-
-            Vector2 projectileDirection = new Vector2(projectileDirXPosition, projectileDirYPosition).normalized;
-
-            //var projectile2Spawn = Instantiate(this.projectile, transform.position, Quaternion.identity);
-            if (isSpiral)
-            {
-                var projectile2Spawn = ChooseSpiralProjectile(transform.position, Quaternion.identity);
-                var projectileComponent = projectile2Spawn.GetComponent<SpiralProjectile>();
-                projectileComponent.Direction = projectileDirection;
-                projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
-                NetworkServer.Spawn(projectile2Spawn);
-            }
-            else
-            {
-                var projectile2Spawn = ChooseProjectile(transform.position, Quaternion.identity);
-                var projectileComponent = projectile2Spawn.GetComponent<Projectile>();
-                projectileComponent.Direction = projectileDirection;
-                projectileComponent.Damage = 20;
-                //projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
-                NetworkServer.Spawn(projectile2Spawn);
-            }
-            //var projectileComponent = projectile2Spawn.GetComponent<SpiralProjectile>();
-            //projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
 
             angle += angleStep;
         }
     }
 
     [Server]
-    public  void PerformAttack()
+    public void PerformAttack()
+    {
+        StartCoroutine(PerformAttackCoroutine());
+    }
+
+    private IEnumerator PerformAttackCoroutine()
     {
         int strategyIndex = Random.Range(0, 3);
 
         // Spiral Clockwise
         if (strategyIndex == 0)
         {
-            LaunchRandom(6, true);
+            for (int i = 0; i < spiralsAmount; i++)
+            {
+                LaunchRandomSpiral(spiralPatternAmount, true);
+                yield return new WaitForSeconds(spiralsBetweenDelaySec);
+            }
         }
 
         // Spiral counterclockwise
         else if (strategyIndex == 1)
         {
-            LaunchRandom(6, true);
+            for (int i = 0; i < spiralsAmount; i++)
+            {
+                LaunchRandomSpiral(spiralPatternAmount, false);
+                yield return new WaitForSeconds(spiralsBetweenDelaySec);
+            }
         }
 
         // Star-patern 
         else if (strategyIndex == 2)
         {
-            LaunchRandom(12, false);
-            
+            LaunchRandomStar(starPatternAmount);
         }
+
+        yield return null;
     }
 
     private void PerformAttackSample()
@@ -232,36 +188,46 @@ public class ProjectileLauncher : NetworkBehaviour
 
     private GameObject ChooseProjectile(Vector3 position, Quaternion rotation)
     {
+        GameObject projectile;
         var choice = Random.Range(0.0f, 1.0f);
+        // spawn root
         if (choice < rootSpawnChance)
         {
-            return Instantiate(this.projectileRoot, position, rotation);
+            projectile = Instantiate(projectileRoot, position, rotation);
+            projectile.GetComponent<Projectile>().OnProjectileHit += Launcher_OnRootProjectileHit;
         }
+        // spawn tentacle
         else if (choice >= rootSpawnChance && choice < rootSpawnChance + tentacleSpawnChance)
         {
-            return Instantiate(this.projectileTentacle, position, rotation);
+            projectile = Instantiate(projectileTentacle, position, rotation);
+            projectile.GetComponent<Projectile>().OnProjectileHit += Launcher_OnTentacleProjectileHit;
 
         }
         else
         {
-            return Instantiate(this.projectile, position, rotation);
+            projectile = Instantiate(this.projectile, position, rotation);
         }
+        return projectile;
     }
 
     private GameObject ChooseSpiralProjectile(Vector3 position, Quaternion rotation)
     {
+        GameObject projectile;
         var choice = Random.Range(0.0f, 1.0f);
         if (choice < rootSpawnChance)
         {
-            return Instantiate(SpiralProjectileRoot, position, rotation);
+            projectile = Instantiate(SpiralProjectileRoot, position, rotation);
+            projectile.GetComponent<SpiralProjectile>().OnProjectileHit += Launcher_OnRootProjectileHit;
         }
         else if (choice >= rootSpawnChance && choice < rootSpawnChance + tentacleSpawnChance)
         {
-            return Instantiate(SpiralProjectileTentacle, position, rotation);
+            projectile = Instantiate(SpiralProjectileTentacle, position, rotation);
+            projectile.GetComponent<SpiralProjectile>().OnProjectileHit += Launcher_OnTentacleProjectileHit;
         }
         else
         {
-            return Instantiate(SpiralProjectile, position, rotation);
+            projectile = Instantiate(SpiralProjectile, position, rotation);
         }
+        return projectile;
     }
 }

@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 5948328286881545030}
   - component: {fileID: 5027420613676349800}
   - component: {fileID: 3227314554252675350}
+  - component: {fileID: -1735403128161662975}
   m_Layer: 0
   m_Name: Shooter with weapon
   m_TagString: Player
@@ -679,6 +680,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.96}
   m_EdgeRadius: 0
+--- !u!114 &-1735403128161662975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332376983714181301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acbb3ad870b92843a9f8a3be74455b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _mainCollider: {fileID: 3227314554252675350}
 --- !u!1 &2937794020097546320
 GameObject:
   m_ObjectHideFlags: 0
