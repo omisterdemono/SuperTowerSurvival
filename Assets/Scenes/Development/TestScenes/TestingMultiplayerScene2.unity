@@ -105672,14 +105672,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossMelonV2
       objectReference: {fileID: 0}
-    - target: {fileID: 4739356184375316872, guid: eb9af45d38e15294396b2d6cb1a2382e, type: 3}
-      propertyPath: rootSpawnChance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4739356184375316872, guid: eb9af45d38e15294396b2d6cb1a2382e, type: 3}
-      propertyPath: tentacleSpawnChance
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -110092,14 +110084,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4758593485540438189, guid: df86b5e24fa02494a94f14df46c373a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5615488964123700870, guid: df86b5e24fa02494a94f14df46c373a6, type: 3}
-      propertyPath: rootSpawnChance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5615488964123700870, guid: df86b5e24fa02494a94f14df46c373a6, type: 3}
-      propertyPath: tentacleSpawnChance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5615488964123700870, guid: df86b5e24fa02494a94f14df46c373a6, type: 3}

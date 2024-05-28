@@ -45,7 +45,7 @@ public class ProjectileLauncher : MonoBehaviour
             var projectile2Spawn = ChooseSpiralProjectile(transform.position, Quaternion.identity);
             var projectileComponent = projectile2Spawn.GetComponent<SpiralProjectile>();
             projectileComponent.Direction = projectileDirection;
-            if(!isClockWise) projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
+            if (!isClockWise) projectileComponent.AngularSpeed = -projectileComponent.AngularSpeed;
             NetworkServer.Spawn(projectile2Spawn);
 
             angle += angleStep;
@@ -64,7 +64,8 @@ public class ProjectileLauncher : MonoBehaviour
 
             Vector2 projectileDirection = new Vector2(projectileDirXPosition, projectileDirYPosition).normalized;
 
-            var projectile2Spawn = ChooseProjectile(transform.position, Quaternion.identity);
+            //var projectile2Spawn = ChooseProjectile(transform.position, Quaternion.identity);
+            var projectile2Spawn = ChooseProjectile(transform.position, Quaternion.Euler(0, 0, Mathf.Atan2(projectileDirection.y, projectileDirection.x) * Mathf.Rad2Deg));
             var projectileComponent = projectile2Spawn.GetComponent<Projectile>();
             projectileComponent.Direction = projectileDirection;
             projectileComponent.Damage = 20;
@@ -111,41 +112,6 @@ public class ProjectileLauncher : MonoBehaviour
         }
 
         yield return null;
-    }
-
-    private void PerformAttackSample()
-    {
-        //var playerPosition = player.transform.position;
-        var thisPosition = gameObject.transform.position;
-
-        //Vector2 directionToPlayer = (playerPosition - thisPosition).normalized;
-
-        //float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-        //Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-        GameObject projectile2Spawn;
-        var choice = Random.Range(0.0f, 1.0f);
-        if (choice < rootSpawnChance)
-        {
-            //projectile2Spawn = Instantiate(this.projectileRoot, thisPosition, rotation);
-            //projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnRootProjectileHit;
-        }
-        else if (choice >= rootSpawnChance && choice < rootSpawnChance + tentacleSpawnChance)
-        {
-            //projectile2Spawn = Instantiate(this.projectileTentacle, thisPosition, rotation);
-            //projectile2Spawn.GetComponent<Projectile>().OnProjectileHit += Boss_OnTentacleProjectileHit;
-
-        }
-        else
-        {
-            //projectile2Spawn = Instantiate(this.projectile, thisPosition, rotation);
-        }
-
-        //var bulletComponent = projectile2Spawn.GetComponent<Projectile>();
-        //bulletComponent.Direction = directionToPlayer.normalized;
-        //bulletComponent.Damage = rangeDamage;
-
-        //NetworkServer.Spawn(projectile2Spawn);
     }
 
     [Server]
