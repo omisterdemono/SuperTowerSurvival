@@ -12,7 +12,7 @@ public class Tentacle : NetworkBehaviour
 
     [SerializeField] private float attackCooldownSec = 5;
     private CooldownComponent attackCooldownComponent;
-    
+
     [SerializeField] private float time2LiveSec = 10;
     private CooldownComponent time2LiveCooldownComponent;
 
@@ -24,7 +24,7 @@ public class Tentacle : NetworkBehaviour
 
         attackCooldownComponent = new CooldownComponent() { CooldownSeconds = attackCooldownSec };
         attackCooldownComponent.OnCooldownFinished += CooldownComponent_OnCooldownFinished;
-        
+
         time2LiveCooldownComponent = new CooldownComponent() { CooldownSeconds = time2LiveSec };
         time2LiveCooldownComponent.OnCooldownFinished += Time2LiveCooldownComponent_OnCooldownFinished;
         time2LiveCooldownComponent.ResetCooldown();
@@ -37,7 +37,7 @@ public class Tentacle : NetworkBehaviour
     private void DamageTrigger_EnteredTrigger(Collider2D obj)
     {
         var character = obj.GetComponent<Character>();
-        if (character != null)
+        if (character != null && character.IsAlive)
         {
             animator.SetBool("IsTargetInAttackRange", true);
         }
@@ -54,7 +54,21 @@ public class Tentacle : NetworkBehaviour
 
     private void CooldownComponent_OnCooldownFinished()
     {
+        animator.SetBool("IsTargetInAttackRange", CheckIsAlivePlayerInAttackRange());
         animator.SetBool("IsReady2Attack", true);
+    }
+
+    private bool CheckIsAlivePlayerInAttackRange()
+    {
+        foreach (var collider in damageTrigger.colliderList)
+        {
+            var character = collider.GetComponent<Character>();
+            if (character != null && character.IsAlive)
+            {
+                return true;
+            }
+        }
+        return false; 
     }
 
     private void Time2LiveCooldownComponent_OnCooldownFinished()
@@ -78,6 +92,7 @@ public class Tentacle : NetworkBehaviour
         var players = damageTrigger.colliderList.Where(c => c.CompareTag("Player"));
         foreach (var player in players)
         {
+            //if (player.GetComponent<Character>().IsAlive == false) break;
             player.GetComponent<HealthComponent>().Damage(damage);
         }
         attackCooldownComponent.ResetCooldown();

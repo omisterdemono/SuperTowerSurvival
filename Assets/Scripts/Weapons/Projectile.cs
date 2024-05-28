@@ -61,6 +61,9 @@ public class Projectile : NetworkBehaviour
         {
             var component = collision.GetComponent(target);
 
+            var characterComponent = collision.GetComponent<Character>();
+            if (characterComponent != null && characterComponent.IsAlive == false) return;
+
             if(component != null) 
             {
                 OnAnyProjectileHit?.Invoke(this, EventArgs.Empty);
