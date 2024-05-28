@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ProjectileLauncher : NetworkBehaviour
+public class ProjectileLauncher : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
     [SerializeField] GameObject projectileRoot;
@@ -159,7 +159,7 @@ public class ProjectileLauncher : NetworkBehaviour
             effectComponent.ApplyEffect(_rootEffect);
             effectComponent.OnEffectRemoved += () =>
             {
-                if (isServer && root)
+                if (root)
                 {
                     StartCoroutine(Launcher_RemoveRoot(root));
                 }
