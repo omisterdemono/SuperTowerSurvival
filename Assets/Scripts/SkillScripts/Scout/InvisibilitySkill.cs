@@ -29,17 +29,17 @@ public class InvisibilitySkill : ActiveSkill, ISkill
     private void Buff()
     {
         GetComponent<Character>().IsInvisible = true;
-        //GetComponent<EffectComponent>().CmdApplyEffect(_speedBuff);
+        GetComponent<EffectComponent>().ApplyEffect(_speedBuff);
         color = new Color(1, 1, 1, 0.3f);
     }
 
     private void Debuff()
     {
         GetComponent<Character>().IsInvisible = false;
-        //GetComponent<EffectComponent>().RemoveEffect(_speedBuff);
         color = new Color(1, 1, 1, 1);
     }
 
+    [ClientRpc]
     public void OnColorChanged(Color oldColor, Color newColor)
     {
         GetComponent<SpriteRenderer>().color = newColor;

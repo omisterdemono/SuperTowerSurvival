@@ -64,9 +64,9 @@ public class EffectComponent : NetworkBehaviour
         }
         //yield return new WaitForSeconds(time);
         RemoveEffect(effect);
-        OnEffectRemoved.Invoke();
+        //OnEffectRemoved.Invoke();
     }
-    [Server]
+    [ClientRpc]
     public void RemoveEffect(StatusEffect effect)
     {
         if (_effects.Count > 0)

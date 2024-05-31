@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9fb2d9597ea8f4ab80d3ddcedd0b51, type: 3}
   m_Name: SpeedBuff
   m_EditorClassIdentifier: 
-  Name: 
+  Name: SpeedBuff
   Icon: {fileID: 0}
   EffectType: 0
-  ApplyType: 0
-  HandleTime: 0
-  Value: 0
+  ApplyType: 1
+  HandleTime: 15
+  Value: 2
