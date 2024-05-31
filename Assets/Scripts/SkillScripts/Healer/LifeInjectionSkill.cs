@@ -42,8 +42,15 @@ public class LifeInjectionSkill : ActiveSkill, ISkill
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponentInParent<Character>() && collision.CompareTag("HitBox") && collision is BoxCollider2D)
-            _playerColliders.Add(collision.GetComponentInParent<Character>());
+        if (collision.CompareTag("HitBox") && collision is BoxCollider2D)
+        {
+            Character character = collision.GetComponentInParent<Character>();
+            if (character && character.gameObject != gameObject)
+            {
+                _playerColliders.Add(character);
+            }
+        }
+            
     }
 
     private void OnTriggerExit2D(Collider2D collision)
