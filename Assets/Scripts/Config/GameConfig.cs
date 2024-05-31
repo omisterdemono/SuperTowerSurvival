@@ -14,5 +14,6 @@ namespace Config
         public static readonly KeyCode OpenCraftingKeyCode = KeyCode.C;
         public static readonly KeyCode DropItemKeyCode = KeyCode.G;
         public static readonly KeyCode CancelPlacementKeyCode = KeyCode.Escape;
+        public static KeyCode TestInventoryKey { get; set; } = KeyCode.T;
     }
 }

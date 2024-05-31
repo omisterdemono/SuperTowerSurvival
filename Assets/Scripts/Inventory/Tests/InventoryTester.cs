@@ -2,6 +2,7 @@
 using System.Linq;
 using Inventory.Models;
 using Inventory.UI;
+using JetBrains.Annotations;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Inventory.Tests
     public class InventoryTester : MonoBehaviour
     {
         [SerializeField] private PlayerInventory _playerInventory;
+        [SerializeField] private Canvas _testingCanvas;
 
         private PlayerInventory PlayerInventory
         {
@@ -34,6 +36,15 @@ namespace Inventory.Tests
 
         private void Start()
         {
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(Config.GameConfig.TestInventoryKey))
+            {
+                var flag = !_testingCanvas.gameObject.activeSelf;
+                _testingCanvas.gameObject.SetActive(flag);
+            }
         }
 
         public void AddItem()

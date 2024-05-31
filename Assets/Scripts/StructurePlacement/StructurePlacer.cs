@@ -179,7 +179,7 @@ namespace StructurePlacement
 
             structureComponent.Init();
 
-            if (playerId == netId)
+            if (playerId == netId && isOwned)
             {
                 _playerInventory.Inventory.TryRemoveItem(TempItem, 1);
             }
