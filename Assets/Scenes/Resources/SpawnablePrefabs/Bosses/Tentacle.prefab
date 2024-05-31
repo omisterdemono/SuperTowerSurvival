@@ -124,10 +124,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  damage: 10
+  damage: 50
   damageTrigger: {fileID: 586904279384904074}
   attackCooldownSec: 5
-  time2LiveSec: 10
+  time2LiveSec: 20
 --- !u!114 &1893089801556742024
 MonoBehaviour:
   m_ObjectHideFlags: 0
