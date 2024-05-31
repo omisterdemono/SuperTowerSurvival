@@ -42,12 +42,12 @@ public class SelfMovingTurretScript : NetworkBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _healthComponent = GetComponent<HealthComponent>();
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
         _healthComponent.OnDeath += Death;
     }
 
     public void SetTarget(uint targetid)
     {
-        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
         _followingTarget = NetworkServer.spawned[targetid].GetComponent<Transform>();
     }
 
