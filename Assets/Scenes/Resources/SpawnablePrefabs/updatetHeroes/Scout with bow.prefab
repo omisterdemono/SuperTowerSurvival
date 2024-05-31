@@ -573,7 +573,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _skillAttributes: {fileID: 0}
+  _skillAttributes: {fileID: 11400000, guid: 9a1dc8f264c09b54d80494f305389567, type: 2}
   _buffDuration: 15
   _sightMod: 1.5
 --- !u!1 &6822998217511532819
