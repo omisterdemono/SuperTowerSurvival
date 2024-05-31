@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Components;
 using UnityEngine;
+using System;
 
 public class EffectComponent : NetworkBehaviour
 {
@@ -11,9 +12,10 @@ public class EffectComponent : NetworkBehaviour
     [SerializeField] BoxCollider2D _mainCollider;
     public List<StatusEffect> Effects { get => _effects; set => _effects = value; }
     public BoxCollider2D MainCollider { get => _mainCollider; set => _mainCollider = value; }
+    //public static Action<GameObject> OnEffectRemoved;
+    public Action OnEffectRemoved;
 
     [Server]
-    [ClientRpc]
     public void ApplyEffect(StatusEffect effect)
     {
         _effects.Add(effect);
@@ -47,7 +49,7 @@ public class EffectComponent : NetworkBehaviour
     private IEnumerator RemoveTimedEffect(StatusEffect effect, float time)
     {
         float timePassed = 0;
-        while (timePassed < time || _effects.Contains(effect))
+        while (timePassed < time)
         {
             yield return new WaitForSeconds(1);
             timePassed++;
@@ -60,10 +62,11 @@ public class EffectComponent : NetworkBehaviour
                 GetComponent<HealthComponent>().Heal(effect.Value);
             }
         }
+        //yield return new WaitForSeconds(time);
         RemoveEffect(effect);
+        OnEffectRemoved.Invoke();
     }
     [Server]
-    [ClientRpc]
     public void RemoveEffect(StatusEffect effect)
     {
         if (_effects.Count > 0)

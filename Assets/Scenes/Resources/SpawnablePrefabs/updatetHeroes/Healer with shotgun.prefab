@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 4218986764370916205}
   - component: {fileID: 3473707551630871927}
   - component: {fileID: 1318003067226405540}
+  - component: {fileID: 4972136900878314886}
   m_Layer: 0
   m_Name: Healer with shotgun
   m_TagString: Player
@@ -468,6 +469,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5326303, y: 0.9063151}
   m_EdgeRadius: 0
+--- !u!114 &4972136900878314886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45124646799115585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acbb3ad870b92843a9f8a3be74455b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _mainCollider: {fileID: 1318003067226405540}
 --- !u!1 &726078559144157508
 GameObject:
   m_ObjectHideFlags: 0

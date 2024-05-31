@@ -5025,6 +5025,7 @@ GameObject:
   - component: {fileID: 3806185160902290498}
   - component: {fileID: 8296696247048605384}
   - component: {fileID: 804357796271697404}
+  - component: {fileID: -4237450892673116198}
   m_Layer: 0
   m_Name: Builder with hammer
   m_TagString: Player
@@ -5450,6 +5451,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.96}
   m_EdgeRadius: 0
+--- !u!114 &-4237450892673116198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008485775042280947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acbb3ad870b92843a9f8a3be74455b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _mainCollider: {fileID: 804357796271697404}
 --- !u!1 &5579761783236283674
 GameObject:
   m_ObjectHideFlags: 0
