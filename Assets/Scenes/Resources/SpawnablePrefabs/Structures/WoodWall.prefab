@@ -241,7 +241,7 @@ MonoBehaviour:
   syncInterval: 0
   _placementChecker: {fileID: 9206498848104429679}
   _isShadowStructure: 0
-  _isInstantlyPlaced: 1
+  _isInstantlyPlaced: 0
 --- !u!114 &-7453438839352449239
 MonoBehaviour:
   m_ObjectHideFlags: 0
