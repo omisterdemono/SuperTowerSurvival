@@ -24,14 +24,14 @@ public class DynamiteScript : NetworkBehaviour
     [Command(requiresAuthority = false)]
     private void DestroyMine()
     {
-        foreach (var item in _colliders)
+        for (int i = 0; i <= _colliders.Count-1; i++)
         {
-            if (item.TryGetComponent<HealthComponent>(out HealthComponent healthComponent))
+            if (_colliders[i].TryGetComponent<HealthComponent>(out HealthComponent healthComponent))
             {
-                _colliders.Remove(item);
+                _colliders.Remove(_colliders[i]);
                 healthComponent.Damage(_damage);
             }
-            if (_colliders.Count == 0)
+            if (_colliders.Count==0)
             {
                 break;
             }
@@ -44,13 +44,13 @@ public class DynamiteScript : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") && collision is BoxCollider2D)
+        if (!collision.CompareTag("HitBox") && !collision.CompareTag("Player") && collision is BoxCollider2D)
             _colliders.Add(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player") && collision is BoxCollider2D)
+        if (!collision.CompareTag("HitBox") && !collision.CompareTag("Player") && collision is BoxCollider2D)
             _colliders.Remove(collision);
     }
 }
