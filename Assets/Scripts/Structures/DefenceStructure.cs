@@ -29,7 +29,6 @@ namespace Structures
             base.Awake();
 
             _cooldownComponent= new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
-            IsBeingBuilt = true;
         }
 
         public new void Start()

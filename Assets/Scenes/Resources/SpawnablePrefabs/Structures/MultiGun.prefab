@@ -379,7 +379,7 @@ MonoBehaviour:
   - {fileID: 115393237643166302}
   - {fileID: 3048045753843913875}
   - {fileID: 4596989404687886183}
-  _damage: 5
+  _damage: 25
   _cooldownSeconds: 3
   _attackRange: {fileID: 8965623186787830709}
 --- !u!61 &6111285943476618676

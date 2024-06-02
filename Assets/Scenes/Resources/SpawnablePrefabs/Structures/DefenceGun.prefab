@@ -166,7 +166,7 @@ MonoBehaviour:
   _firePositionsHolder: {fileID: 1454760039978024169}
   _firePositions:
   - {fileID: 4275034772919770821}
-  _damage: 50
+  _damage: 12
   _cooldownSeconds: 0.6
   _attackRange: {fileID: 2224052657176104748}
 --- !u!61 &2163809647013595077
