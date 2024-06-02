@@ -42,8 +42,12 @@ public class SelfMovingTurretScript : NetworkBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _healthComponent = GetComponent<HealthComponent>();
-        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
         _healthComponent.OnDeath += Death;
+    }
+
+    private void Start()
+    {
+        _cooldownComponent = new CooldownComponent() { CooldownSeconds = _cooldownSeconds };
     }
 
     public void SetTarget(uint targetid)
