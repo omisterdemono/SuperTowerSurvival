@@ -229,6 +229,8 @@ public class Character : NetworkBehaviour
 
     private void HandleMove()
     {
+        if (ChatUI.Instance.InputField.isFocused)
+            return;
         Vector3 moveVector = Vector3.zero;
 
         //float inputX = Input.GetAxisRaw("Horizontal");
@@ -259,6 +261,8 @@ public class Character : NetworkBehaviour
 
     private void HandleInventoryState()
     {
+        if (ChatUI.Instance.InputField.isFocused)
+            return;
         if (Input.GetKeyDown(Config.GameConfig.OpenInventoryKeyCode))
         {
             _playerInventory.ChangeInventoryUIState();
@@ -267,6 +271,8 @@ public class Character : NetworkBehaviour
 
     private void HandleActiveSkills()
     {
+        if (ChatUI.Instance.InputField.isFocused)
+            return;
         foreach (var code in _keyCodes)
         {
             if (Input.GetKeyDown(code.Value))
@@ -284,6 +290,8 @@ public class Character : NetworkBehaviour
 
     private void HandleToolChanging()
     {
+        if (ChatUI.Instance.InputField.isFocused)
+            return;
         if (!_canScrollTools)
         {
             return;
@@ -329,6 +337,8 @@ public class Character : NetworkBehaviour
 
     private void HandleEquippedTool()
     {
+        if (ChatUI.Instance.InputField.isFocused)
+            return;
         if (_equipedTools.Count == 0 || _equipedSlot < 0 || _equipedSlot >= _tools.Count)
         {
             return;

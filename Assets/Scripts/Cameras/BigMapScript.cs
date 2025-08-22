@@ -10,6 +10,8 @@ public class BigMapScript : MonoBehaviour
     Vector3 mouseClickPos;
     void Update()
     {
+        if (ChatUI.Instance.InputField.isFocused)
+            return;
         if (Input.GetKeyDown(KeyCode.M))
         {
             _camera.gameObject.SetActive(!_camera.gameObject.activeSelf);
